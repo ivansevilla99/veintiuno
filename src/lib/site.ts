@@ -2,6 +2,11 @@ export type Lang = 'es' | 'en';
 
 export const APP_ID = '6813226836';
 export const APP_STORE_URL = `https://apps.apple.com/app/id${APP_ID}`;
+/** App Store Connect provider token, from App Analytics → Campañas → generate link. */
+export const PROVIDER_TOKEN = '128446422';
+/** App Store link that App Analytics attributes to `campaign` (max 30 chars). */
+export const campaignURL = (campaign: string) =>
+  `https://apps.apple.com/app/apple-store/id${APP_ID}?pt=${PROVIDER_TOKEN}&ct=${encodeURIComponent(campaign.slice(0, 30))}&mt=8`;
 export const MAIL = 'ivan.sevilla.ruano@gmail.com';
 
 /**

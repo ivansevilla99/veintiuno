@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { routes, ui, APP_ID, type Lang, type RouteKey } from '../lib/site';
+import { routes, ui, APP_ID, campaignURL, type Lang, type RouteKey } from '../lib/site';
 
 interface Props {
   lang: Lang;
@@ -79,7 +79,7 @@ const orgSchema = {
       </nav>
       <div class="header-actions">
         <a class="lang" href={otherHref} hreflang={otherLang} lang={otherLang}>{t.otherLang}</a>
-        <a class="btn btn-gold btn-small" href={`https://apps.apple.com/app/id${APP_ID}`} rel="noopener">{t.downloadShort}<span class="long">{t.downloadLong}</span></a>
+        <a class="btn btn-gold btn-small" href={campaignURL(`${lang}-header`)} rel="noopener">{t.downloadShort}<span class="long">{t.downloadLong}</span></a>
       </div>
     </div>
   </header>
