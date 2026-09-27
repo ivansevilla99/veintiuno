@@ -1,0 +1,27 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { routes, MAIL } from '../../../lib/site';
+---
+<Base lang="en" route="about" title="About Veintiuno and How Our Charts Are Built" description="Veintiuno is an educational blackjack app made by independent developer Iván Sevilla. How our strategy charts are computed, which sources we use, and why we never promote casinos.">
+  <div class="container legal">
+    <div class="read prose">
+      <h1>About Veintiuno</h1>
+      <p class="lead">Veintiuno (Spanish for “twenty-one”) is an app for learning to play blackjack properly, made in Spain by independent developer Iván Sevilla.</p>
+      <h2>Why it exists</h2>
+      <p>Much of what’s written about blackjack online comes from sites paid to send you to a casino. That’s why “tricks to win” are everywhere and honest explanations are rare. Veintiuno does the opposite: it teaches the correct decision and explains why, with no real money and nothing to sell except the app itself.</p>
+      <h2>Where the charts come from</h2>
+      <p>Basic strategy isn’t an opinion: it’s the play with the best expected value for each combination of hand, dealer card and rules. Our charts start from the standard six-deck chart and apply the changes each rule introduces (decks, soft 17, hole card, double after split, doubling restrictions and surrender).</p>
+      <p>They’re checked against the standard references: the original 1956 work by Baldwin, Cantey, Maisel and McDermott, Edward Thorp’s <em>Beat the Dealer</em>, Peter Griffin’s analysis, and the charts and calculators published by Wizard of Odds and BlackjackInfo. House-edge figures are approximations based on Wizard of Odds’ rule-effect tables.</p>
+      <p>The chart on this site runs on exactly the same engine as the app, so they always agree.</p>
+      <h2>What we don’t do</h2>
+      <ul>
+        <li>No affiliate links to casinos or sportsbooks, no bonuses, no operator reviews.</li>
+        <li>No promises that you’ll win money. Blackjack has a house edge, and we say so.</li>
+        <li>The app has no real-money play.</li>
+      </ul>
+      <h2>Contact</h2>
+      <p>Spotted a mistake in a chart or explanation? Email <a href={`mailto:${MAIL}`}>{MAIL}</a>. We’ll check it and, if you’re right, fix it on the site and in the app.</p>
+      <p><a href={routes.responsible.en}>Responsible gambling</a> · <a href={routes.privacy.en}>Privacy</a> · <a href={routes.terms.en}>Terms</a></p>
+    </div>
+  </div>
+</Base>

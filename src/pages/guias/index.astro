@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import AppCTA from '../../components/AppCTA.astro';
+import { routes } from '../../lib/site';
+
+const groups = [
+  {
+    title: 'Empezar desde cero',
+    items: [
+      ['howToPlay', 'Cómo jugar al blackjack', 'Objetivo, valor de las cartas, cómo se desarrolla una mano y cuánto se paga.'],
+      ['spain', 'Blackjack en los casinos de España', 'Sin carta oculta, doblar solo con 9–11 y sin rendición: qué cambia.'],
+    ],
+  },
+  {
+    title: 'Jugar bien',
+    items: [
+      ['strategy', 'Tabla de estrategia básica', 'Interactiva, ajustada a las reglas de tu mesa, con la explicación de cada casilla.'],
+      ['howToWin', '¿Cómo ganar al blackjack?', 'Qué reduce de verdad la ventaja de la casa y qué es humo.'],
+    ],
+  },
+  {
+    title: 'Avanzado',
+    items: [['counting', 'Cómo contar cartas', 'El sistema Hi-Lo, la cuenta verdadera y la realidad del conteo, con ejercicio.']],
+  },
+] as const;
+---
+<Base lang="es" route="guides" title="Guías de blackjack: reglas, estrategia y conteo · Veintiuno" description="Todas las guías de Veintiuno para aprender blackjack: reglas, estrategia básica, reglas de los casinos de España y conteo de cartas explicado con honestidad.">
+  <div class="container">
+    <header class="article-head read" style="margin-left:0">
+      <h1>Guías de blackjack</h1>
+      <p class="lead">Todo lo que necesitas para jugar bien, en orden: de las reglas a la estrategia y, si te apetece, al conteo.</p>
+    </header>
+    {groups.map((g) => (
+      <section>
+        <h2>{g.title}</h2>
+        <div class="grid-2">
+          {g.items.map(([key, title, text]) => (
+            <a class="card" href={routes[key].es}><h3>{title}</h3><p>{text}</p></a>
+          ))}
+        </div>
+      </section>
+    ))}
+    <AppCTA lang="es" campaign="guides" />
+  </div>
+</Base>

@@ -1,0 +1,97 @@
+---
+import Base from '../../layouts/Base.astro';
+import AppStoreButton from '../../components/AppStoreButton.astro';
+import AppCTA from '../../components/AppCTA.astro';
+import { routes, APP_STORE_URL } from '../../lib/site';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: 'Blackjack Trainer: Veintiuno',
+    alternateName: 'Veintiuno',
+    operatingSystem: 'iOS',
+    applicationCategory: 'EducationalApplication',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    url: APP_STORE_URL,
+    description: 'An app to learn and drill blackjack basic strategy, with instant correction and the reason behind every play. No real money.',
+  },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Veintiuno', url: 'https://veintiunoapp.com/en/', inLanguage: 'en' },
+];
+---
+<Base
+  lang="en"
+  route="home"
+  title="Veintiuno: Blackjack Trainer & Basic Strategy"
+  description="Learn to play blackjack properly: an interactive basic strategy chart for any rules, clear guides, and an app that corrects every decision. No real money, no betting."
+  schema={schema}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Blackjack, no myths</span>
+        <h1>Learn to play blackjack the right way</h1>
+        <p class="lead">Basic strategy, explained play by play and adjusted to your table’s rules. No miracle systems, no promises of easy money — just the right decisions, until they’re automatic.</p>
+        <div class="hero-actions">
+          <AppStoreButton lang="en" campaign="home-hero" />
+          <a class="btn btn-ghost" href={routes.strategy.en}>Open the strategy chart</a>
+        </div>
+        <p class="hero-note">For iPhone and Mac · Free to start · No real money</p>
+      </div>
+      <div class="fan" aria-hidden="true">
+        <div class="pcard"><span class="corner">10<i>♠</i></span><span class="pip">♠</span></div>
+        <div class="pcard"><span class="corner">6<i>♣</i></span><span class="pip">♣</span></div>
+        <div class="pcard red"><span class="corner">Q<i>♥</i></span><span class="pip">♥</span></div>
+        <div class="chip-badge"><b>The right play was hit</b>With 16 against a 10 you lose if you stand: the dealer will almost always make 17 or more.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Start here</h2>
+      <p class="lead">Three guides cover what you actually need. Everything else is detail.</p>
+      <div class="grid-3">
+        <a class="card" href={routes.howToPlay.en}><div class="icon">♠</div><h3>How to play blackjack</h3><p>The rules, card values and how a hand plays out, start to finish, without jargon.</p><span class="more">Learn the rules →</span></a>
+        <a class="card" href={routes.strategy.en}><div class="icon">▦</div><h3>Basic strategy chart</h3><p>Interactive and matched to your table: Vegas S17 or H17, double deck, European. Tap a cell to see why.</p><span class="more">Open the chart →</span></a>
+        <a class="card" href={routes.counting.en}><div class="icon">±</div><h3>Card counting</h3><p>How Hi-Lo works, what edge it really gives and why so few people make it pay. Honestly explained.</p><span class="more">Understand counting →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container grid-2" style="align-items:center">
+      <div>
+        <span class="eyebrow">The app</span>
+        <h2 style="margin-top:0">Knowing the chart isn’t the same as playing it</h2>
+        <p>At the table you have two seconds to decide. Veintiuno trains exactly that: it deals real hands, corrects you on the spot and explains the reason behind every play, under your table’s rules.</p>
+        <ul>
+          <li><strong>Instant correction</strong> with the reason for every mistake.</li>
+          <li><strong>A 14-day path:</strong> one concept, one drill and one exam a day.</li>
+          <li><strong>A heat map</strong> of the chart cells you miss most.</li>
+          <li><strong>Vegas, European and Spanish rules</strong>, with or without a hole card.</li>
+          <li><strong>Hi-Lo counting</strong> as an advanced module, without the hype.</li>
+        </ul>
+        <AppStoreButton lang="en" campaign="home-app" />
+      </div>
+      <div class="card">
+        <h3>What Veintiuno isn’t</h3>
+        <p>It isn’t a casino or a gambling game: no real money, no chips, no ties to any operator. And we won’t sell you a system to “always win”, because none exists.</p>
+        <p>Basic strategy cuts the house edge to about 0.5%, but doesn’t erase it. We explain it plainly in <a href={routes.howToWin.en}>how to win at blackjack</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Most asked questions</h2>
+      <div class="grid-2">
+        <a class="card" href={routes.howToPlay.en}><h3>How do you win a hand of blackjack?</h3><p>Finish closer to 21 than the dealer without going over. Step by step here.</p></a>
+        <a class="card" href={routes.strategy.en}><h3>When should you double or split?</h3><p>Always split aces and eights, never tens or fives. The rest is in the chart.</p></a>
+        <a class="card" href={routes.counting.en}><h3>Is card counting illegal?</h3><p>Counting in your head isn’t illegal, but casinos can ask you to stop.</p></a>
+        <a class="card" href={routes.howToWin.en}><h3>Can you beat blackjack long term?</h3><p>With basic strategy alone, no — you lose the least possible. Here’s what is possible.</p></a>
+      </div>
+      <AppCTA lang="en" campaign="home-bottom" />
+    </div>
+  </section>
+</Base>

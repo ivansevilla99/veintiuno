@@ -1,0 +1,91 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import CountDrill from '../../../components/CountDrill.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Is card counting illegal?', a: 'Counting cards in your head is not illegal — you’re just paying attention. What is illegal is using devices, notes or signals with partners. Casinos, however, are private businesses: in many places (including Nevada) they can ask you to stop playing blackjack or leave.' },
+  { q: 'Does card counting work online?', a: 'Not in standard online blackjack: the software reshuffles after every hand, so there is nothing to count. Live-dealer tables use a real shoe, but it’s usually reshuffled with half or more still undealt, which leaves almost no edge.' },
+  { q: 'How much can you make counting cards?', a: 'Less than people think. A disciplined counter with good rules might have an edge of roughly 0.5–1% on money wagered, with huge swings — you can lose for weeks before the edge shows. That’s why very few people make it pay.' },
+  { q: 'What is the true count?', a: 'The running count divided by the number of decks left to be dealt. A running count of +6 with three decks left is a true count of +2. The true count is what tells you whether the remaining cards favour you.' },
+  { q: 'Do I need to know basic strategy first?', a: 'Yes. Counting without solid basic strategy is pointless: strategy mistakes cost more than the count gains. Chart first, counting second.' },
+];
+---
+<Guide
+  lang="en"
+  route="counting"
+  title="How to Count Cards in Blackjack: Hi-Lo Explained"
+  h1="How to count cards in blackjack"
+  description="Learn to count cards with the Hi-Lo system: running count, true count, what edge it really gives, whether it’s legal and why it doesn’t work online. With an interactive drill."
+  updated="2026-09-27"
+  readMinutes={9}
+  faq={faq}
+  related={['strategy', 'howToWin', 'howToPlay', 'guides']}
+  cta={{ title: 'Strategy first, then counting', text: 'Veintiuno drills basic strategy until you stop making mistakes, then teaches Hi-Lo as an advanced module with running and true count practice.' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> card counting means keeping a running tally of the cards dealt so you know when the remaining deck is rich in high cards, which favour the player. In Hi-Lo, 2–6 count +1 and tens and aces count −1. It’s legal, but the edge is small, it demands real discipline, and it doesn’t work online.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In this guide">
+    <b>In this guide</b>
+    <ol>
+      <li><a href="#why">Why counting works</a></li>
+      <li><a href="#hi-lo">The Hi-Lo system step by step</a></li>
+      <li><a href="#true">The true count</a></li>
+      <li><a href="#use">What to do with the count</a></li>
+      <li><a href="#reality">Reality check: what it’s worth</a></li>
+      <li><a href="#legal">Is it legal?</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="why">Why counting works</h2>
+  <p>Unlike roulette, blackjack has memory: dealt cards don’t go back into the shoe until the next shuffle, so what’s left changes from hand to hand.</p>
+  <p>When the remaining cards are <strong>rich in tens and aces</strong>, the player gains: more blackjacks (paid 3 to 2), better doubles, and a dealer forced to hit 16 busts more often. When they’re <strong>rich in small cards</strong>, the opposite happens. Counting simply tracks that balance.</p>
+
+  <h2 id="hi-lo">The Hi-Lo system step by step</h2>
+  <p>Hi-Lo is the most popular system because it’s simple and almost as effective as complex ones. Every card you see gets a value:</p>
+  <table>
+    <thead><tr><th>Cards</th><th>Hi-Lo value</th></tr></thead>
+    <tbody>
+      <tr><td>2, 3, 4, 5, 6</td><td>+1</td></tr>
+      <tr><td>7, 8, 9</td><td>0</td></tr>
+      <tr><td>10, J, Q, K, A</td><td>−1</td></tr>
+    </tbody>
+  </table>
+  <p>Start at 0 after the shuffle and add the value of <strong>every</strong> card you see — yours, other players’ and the dealer’s. That number is the <strong>running count</strong>. A positive count means more low cards have gone, so more high cards remain.</p>
+  <p>Example: 5, K, 3, 9, 2, A → +1 −1 +1 0 +1 −1 = <strong>+1</strong>.</p>
+  <p>Pro tip: cancel pairs. A 5 and a king together are 0, so you can skip them and count faster.</p>
+
+  <CountDrill lang="en" />
+
+  <h2 id="true">The true count</h2>
+  <p>A running count of +6 means something very different with one deck left than with five. So you convert it into the <strong>true count</strong>: running count divided by decks remaining.</p>
+  <ul>
+    <li>Running count +6, three decks left → true count <strong>+2</strong>.</li>
+    <li>Running count +6, one deck left → true count <strong>+6</strong>.</li>
+  </ul>
+  <p>You estimate decks remaining by eyeballing the discard tray. Rounding to the nearest half deck is plenty.</p>
+
+  <h2 id="use">What to do with the count</h2>
+  <ol>
+    <li><strong>Size your bets.</strong> This is where almost all the edge comes from. At a true count of +1 or less, bet the minimum; from +2 up, raise your bet progressively. As a rule of thumb, each point of true count moves the edge about half a percent in your favour.</li>
+    <li><strong>Deviate from basic strategy.</strong> At very high or low counts a few plays change. The best-known one is insurance, which becomes correct at a true count of +3 or higher. These deviations are called index plays; the 18 most valuable are the “Illustrious 18”.</li>
+  </ol>
+
+  <h2 id="reality">Reality check: what it’s worth</h2>
+  <p>This is where most guides oversell. The honest version:</p>
+  <ul>
+    <li><strong>The edge is small.</strong> With good rules and deep penetration, a skilled counter might get roughly 0.5–1% on money wagered.</li>
+    <li><strong>The swings are huge.</strong> With that edge you can lose for weeks. You need a large bankroll to survive it.</li>
+    <li><strong>Casinos fight back.</strong> They shuffle early, cap your bet spread or ask you to leave.</li>
+    <li><strong>It doesn’t work online.</strong> RNG blackjack reshuffles every hand, and live-dealer shoes are cut too early to matter.</li>
+    <li><strong>Continuous shuffling machines</strong> put cards back after each hand — counting is useless against them.</li>
+  </ul>
+  <p>Counting is a fascinating mental skill and the best way to truly understand the game. It is not an easy way to make money, and anyone saying otherwise is selling something.</p>
+
+  <h2 id="legal">Is it legal?</h2>
+  <p>Counting <strong>in your head</strong> is legal — nobody can ban you from thinking. Using help is not: phones, notes, devices or signals with accomplices.</p>
+  <p>Casinos don’t have to like it, though. In most jurisdictions they can refuse service: ask you to stop playing blackjack or to leave. (New Jersey is a notable exception, where casinos can’t bar counters but can still shuffle early or limit bets.) In practice, shuffling up or limiting your bets is what usually happens first.</p>
+  <p>Before counting, master <a href={routes.strategy.en}>basic strategy</a> — every strategy error costs more than the count gives back.</p>
+</Guide>

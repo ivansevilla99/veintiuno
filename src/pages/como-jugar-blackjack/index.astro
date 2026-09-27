@@ -1,0 +1,99 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Cuánto vale el as en el blackjack?', a: 'El as vale 1 u 11, lo que más te convenga. Una mano con un as que cuenta como 11 se llama «blanda»: A-6 es un 17 blando. Si pides y te pasarías, el as pasa a valer 1 automáticamente.' },
+  { q: '¿Qué pasa si empatas con el crupier?', a: 'Es un empate («push»): recuperas tu apuesta, ni ganas ni pierdes. Si los dos tenéis blackjack, también es empate.' },
+  { q: '¿Cuánto paga un blackjack?', a: 'En una mesa normal, 3 a 2: por cada 10 € apostados cobras 15 €. Algunas mesas pagan solo 6 a 5 (12 € por cada 10 €). Esa diferencia multiplica la ventaja de la casa, así que evita las mesas 6 a 5.' },
+  { q: '¿Cuándo tiene que pedir el crupier?', a: 'El crupier no decide: pide carta siempre con 16 o menos y se planta con 17 o más. En algunas mesas pide también con 17 blando (A-6); lo indica el tapete con «H17».' },
+  { q: '¿Es lo mismo el blackjack que el 21?', a: 'El blackjack es la versión de casino del 21, el juego de cartas tradicional. Las reglas del objetivo son las mismas, pero en el blackjack de casino el crupier sigue reglas fijas y hay opciones como doblar, dividir o el seguro.' },
+];
+---
+<Guide
+  lang="es"
+  route="howToPlay"
+  title="Cómo jugar al blackjack: reglas y valor de las cartas"
+  h1="Cómo jugar al blackjack"
+  description="Aprende a jugar al blackjack paso a paso: objetivo, valor de las cartas, cómo se reparte, cuándo pedir o plantarse, doblar, dividir y cuánto se paga. Guía clara para principiantes."
+  updated="2026-09-27"
+  readMinutes={8}
+  faq={faq}
+  related={['strategy', 'spain', 'howToWin', 'counting']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> ganas si terminas más cerca de 21 que el crupier sin pasarte. Las figuras valen 10, el as 1 u 11 y el resto su número. Tú decides si pides carta o te plantas; el crupier no decide, sigue una regla fija: pide hasta 16 y se planta con 17.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="En esta guía">
+    <b>En esta guía</b>
+    <ol>
+      <li><a href="#objetivo">El objetivo del juego</a></li>
+      <li><a href="#valores">Cuánto vale cada carta</a></li>
+      <li><a href="#mano">Cómo se juega una mano, paso a paso</a></li>
+      <li><a href="#opciones">Tus opciones: pedir, plantarte, doblar, dividir, rendirte</a></li>
+      <li><a href="#pagos">Cuánto se paga</a></li>
+      <li><a href="#seguro">El seguro (y por qué no conviene)</a></li>
+      <li><a href="#siguiente">El siguiente paso: la estrategia básica</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="objetivo">El objetivo del juego</h2>
+  <p>En el blackjack no juegas contra los demás jugadores de la mesa: juegas <strong>contra el crupier</strong>. Ganas la mano si tu total está más cerca de 21 que el suyo sin pasarte, o si él se pasa y tú no.</p>
+  <p>Si superas 21, te pasas y pierdes en el acto, aunque después el crupier también se pase. Esa regla, que tú juegas antes que él, es de donde sale la ventaja de la casa.</p>
+
+  <h2 id="valores">Cuánto vale cada carta</h2>
+  <table>
+    <thead><tr><th>Carta</th><th>Valor</th></tr></thead>
+    <tbody>
+      <tr><td>2 a 9</td><td>Su número</td></tr>
+      <tr><td>10, J, Q, K</td><td>10</td></tr>
+      <tr><td>As</td><td>1 u 11, lo que más te convenga</td></tr>
+    </tbody>
+  </table>
+  <p>Los palos no importan. Como hay cuatro cartas que valen 10 (10, J, Q y K), casi un tercio de la baraja vale 10, y eso explica muchas de las decisiones de la estrategia.</p>
+  <p>Una mano con un as que cuenta como 11 es una <strong>mano blanda</strong>: A-6 es un «17 blando». Puedes pedir sin miedo, porque si la carta te pasaría, el as vuelve a valer 1. Cualquier otra mano es <strong>dura</strong>.</p>
+  <p>El <strong>blackjack</strong> es un as con una carta de valor 10 en las dos primeras cartas. Es la mejor mano posible y gana a cualquier otro 21.</p>
+
+  <h2 id="mano">Cómo se juega una mano, paso a paso</h2>
+  <ol>
+    <li><strong>Apuestas.</strong> Cada jugador pone su apuesta antes de repartir.</li>
+    <li><strong>Reparto.</strong> Recibes dos cartas boca arriba. El crupier recibe una visible y, según el casino, una segunda boca abajo (la «carta oculta») o ninguna hasta el final.</li>
+    <li><strong>Blackjacks.</strong> Si tienes blackjack, cobras (salvo que el crupier también lo tenga). En las mesas con carta oculta, si el crupier enseña un as o un 10, mira su carta y, si tiene blackjack, la mano acaba ahí.</li>
+    <li><strong>Tu turno.</strong> Decides: pedir, plantarte, doblar, dividir o rendirte. Puedes pedir tantas veces como quieras hasta plantarte o pasarte.</li>
+    <li><strong>Turno del crupier.</strong> Descubre su carta y pide mientras tenga 16 o menos. Con 17 o más se planta.</li>
+    <li><strong>Resultado.</strong> Se comparan los totales y se paga.</li>
+  </ol>
+
+  <h2 id="opciones">Tus opciones en cada mano</h2>
+  <h3>Pedir</h3>
+  <p>Recibes otra carta. Puedes repetir hasta que decidas plantarte o te pases.</p>
+  <h3>Plantarte</h3>
+  <p>Te quedas con lo que tienes y pasa el turno.</p>
+  <h3>Doblar</h3>
+  <p>Duplicas tu apuesta a cambio de recibir <strong>una sola carta más</strong>. Conviene cuando tienes un total bueno (9, 10 u 11) y el crupier está débil. En la mayoría de los casinos de España solo se puede doblar con 9, 10 u 11.</p>
+  <h3>Dividir</h3>
+  <p>Si tus dos primeras cartas son iguales, puedes separarlas en dos manos, poniendo una apuesta igual en la segunda. Divide siempre ases y ochos; nunca dieces ni cincos.</p>
+  <h3>Rendirte</h3>
+  <p>En las mesas que lo permiten, puedes abandonar la mano justo después del reparto y recuperar la mitad de la apuesta. Solo compensa en unas pocas manos muy malas, como 16 contra un 10.</p>
+
+  <h2 id="pagos">Cuánto se paga</h2>
+  <table>
+    <thead><tr><th>Resultado</th><th>Pago</th></tr></thead>
+    <tbody>
+      <tr><td>Ganas la mano</td><td>1 a 1 (apuestas 10 €, cobras 10 € más)</td></tr>
+      <tr><td>Blackjack</td><td>3 a 2 (apuestas 10 €, cobras 15 € más)</td></tr>
+      <tr><td>Empate</td><td>Recuperas tu apuesta</td></tr>
+      <tr><td>Seguro ganado</td><td>2 a 1 sobre lo apostado al seguro</td></tr>
+    </tbody>
+  </table>
+  <div class="callout warn"><p><strong>Cuidado con las mesas 6 a 5.</strong> Si el blackjack paga 6 a 5 en lugar de 3 a 2, la ventaja de la casa sube en torno a 1,4 puntos. Es la regla que más te perjudica de todas.</p></div>
+
+  <h2 id="seguro">El seguro (y por qué no conviene)</h2>
+  <p>Cuando el crupier enseña un as, te ofrecen el <strong>seguro</strong>: una apuesta aparte, de hasta la mitad de tu apuesta, a que el crupier tiene blackjack. Paga 2 a 1.</p>
+  <p>Parece una protección, pero es otra apuesta, y mala: la probabilidad de que el crupier tenga un 10 debajo es de alrededor del 31 %, y para que el seguro no pierda dinero haría falta más de un 33 %. Con varias barajas, la casa tiene una ventaja de alrededor del 7 % en esta apuesta. La estrategia básica dice: <strong>no lo tomes nunca</strong>, tampoco el «even money» cuando tienes blackjack.</p>
+
+  <h2 id="siguiente">El siguiente paso: la estrategia básica</h2>
+  <p>Saber las reglas es la mitad. La otra mitad es saber qué hacer en cada situación: ¿pido con 12 contra un 3? ¿Doblo 11 contra un 10? ¿Divido nueves contra un 7? Para cada combinación hay una respuesta matemáticamente correcta, y juntas forman la <a href={routes.strategy.es}>estrategia básica</a>.</p>
+  <p>Jugando a intuición es habitual regalar a la casa un 2 % o más. Con la estrategia básica bien aplicada, la ventaja de la casa baja a alrededor del 0,5 %. No te hace ganar siempre, pero es la diferencia entre jugar bien y jugar a ciegas.</p>
+</Guide>

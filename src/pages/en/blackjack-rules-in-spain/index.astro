@@ -1,0 +1,54 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import StrategyChart from '../../../components/StrategyChart.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'What does “no hole card” mean?', a: 'The dealer gets only one card, face up, during the deal. The second card is drawn after all players have acted. If it makes blackjack, the dealer also wins any extra money you put out to double or split. In American games the dealer checks for blackjack first and the hand ends there.' },
+  { q: 'Can you surrender in Spanish casinos?', a: 'Usually not. A few tables and some Spanish-licensed online casinos offer it; check the rules sign at the table.' },
+  { q: 'Why don’t you double 11 against a 10 in Spain?', a: 'Without a hole card the dealer may still have blackjack. If you double and they do, you lose twice as much. That risk makes doubling 11 against a 10 or ace a losing play, so you just hit.' },
+  { q: 'What is the house edge in a Spanish casino?', a: 'With typical rules (six decks, dealer stands on soft 17, no hole card, double on 9–11 only, no surrender, blackjack pays 3:2) and perfect basic strategy, about 0.6%.' },
+];
+---
+<Guide lang="en" route="spain" title="Blackjack Rules in Spain (No Hole Card) · Veintiuno" h1="Blackjack rules in Spain" description="Blackjack in Spanish casinos: no hole card, doubling on 9, 10 or 11 only, usually no surrender. Which plays change versus Las Vegas, with the adjusted strategy chart." updated="2026-09-27" readMinutes={6} faq={faq} related={['strategy', 'howToPlay', 'howToWin', 'counting']} wide>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>Quick answer:</strong> Spanish casinos deal <strong>no hole card</strong>, allow doubling on <strong>9, 10 or 11 only</strong> and usually offer <strong>no surrender</strong>. That changes several key plays — for example, you don’t double 11 against a 10 or split eights against an ace. Note: this is regular blackjack, not the different game called “Spanish 21”.</p></div>
+  </div>
+  <div slot="wide" class="read">
+    <h2 id="rules">Typical rules in Spain</h2>
+    <table>
+      <thead><tr><th>Rule</th><th>Spanish casinos (typical)</th><th>Las Vegas (typical)</th></tr></thead>
+      <tbody>
+        <tr><td>Decks</td><td>6 (sometimes 8)</td><td>6 or 8</td></tr>
+        <tr><td>Dealer hole card</td><td><strong>No</strong> (second card dealt last)</td><td>Yes, dealer peeks for blackjack</td></tr>
+        <tr><td>Dealer on soft 17</td><td>Stands</td><td>Stands or hits, by table</td></tr>
+        <tr><td>Doubling</td><td><strong>9, 10 or 11 only</strong></td><td>Any two cards</td></tr>
+        <tr><td>Double after split</td><td>Usually yes</td><td>Usually yes</td></tr>
+        <tr><td>Surrender</td><td><strong>Usually no</strong></td><td>Sometimes (late)</td></tr>
+        <tr><td>Blackjack pays</td><td>3 to 2</td><td>3 to 2, or 6 to 5 at cheap tables</td></tr>
+      </tbody>
+    </table>
+    <h2 id="chart">Strategy chart for Spanish casinos</h2>
+  </div>
+  <div slot="wide"><StrategyChart lang="en" preset="spainCasino" /></div>
+
+  <h2 id="changes">Plays that change versus Las Vegas</h2>
+  <p>Two rules explain everything. First, with <strong>no hole card</strong> a dealer blackjack takes everything on the table, including doubles and splits — so you don’t want extra money out against a 10 or ace:</p>
+  <ul>
+    <li><strong>11 vs 10 or ace:</strong> hit, don’t double.</li>
+    <li><strong>A-A vs ace:</strong> hit, don’t split.</li>
+    <li><strong>8-8 vs 10 or ace:</strong> hit (or surrender if offered). In Las Vegas you always split them.</li>
+  </ul>
+  <p>Second, <strong>doubling only on 9–11</strong> removes every soft double:</p>
+  <ul>
+    <li><strong>A-2 to A-6:</strong> hit where Vegas strategy would double.</li>
+    <li><strong>A-7 vs 3–6:</strong> stand where Vegas strategy would double.</li>
+  </ul>
+  <p>And without surrender, the usual surrender hands (16 vs 9, 10, ace; 15 vs 10) are played by hitting.</p>
+
+  <h2 id="obo">What about OBO tables?</h2>
+  <p>Some European tables, mostly online, use <strong>OBO</strong> (“original bets only”): if the dealer makes blackjack you only lose your original bet and get doubles and splits back. There, strategy is the same as with a hole card — tick “dealer checks for blackjack” in the chart.</p>
+
+  <h2 id="edge">What it costs</h2>
+  <p>With typical rules and perfect play the house edge is about <strong>0.6%</strong> — a bit worse than a good Las Vegas six-deck game (about 0.4%), mainly because of the missing hole card and the doubling restriction, but far better than any 6:5 table. New to the game? Start with <a href={routes.howToPlay.en}>how to play blackjack</a>.</p>
+</Guide>

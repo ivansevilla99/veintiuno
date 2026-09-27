@@ -1,0 +1,88 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import StrategyChart from '../../../components/StrategyChart.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Does basic strategy guarantee you win at blackjack?', a: 'No. Basic strategy is the way of playing that loses the least over time: it cuts the house edge to roughly 0.3–0.7% depending on the rules, but the house still has the edge. It makes every decision correct; it does not make winning certain.' },
+  { q: 'Why are there different strategy charts?', a: 'Because the best play depends on the table rules: number of decks, whether the dealer hits or stands on soft 17, whether you can double after splitting, whether surrender is offered and whether the dealer checks for blackjack. Pick your table above and the chart updates.' },
+  { q: 'Can I use a strategy card in a casino?', a: 'Some casinos tolerate a printed card at low-stakes tables and others don’t — ask first. Using a phone or any electronic device at the table is not allowed anywhere. The better plan is to memorise the chart before you go.' },
+  { q: 'What does “soft” mean in blackjack?', a: 'A soft hand contains an ace counted as 11. Ace-6 is soft 17: if you hit and draw a ten, the ace drops to 1 and you have hard 17 — you can’t bust on one card. That’s why soft hands are doubled and hit more often.' },
+  { q: 'When should you surrender?', a: 'Only if the table offers late surrender. With standard Las Vegas rules: 16 against a 9, 10 or ace, and 15 against a 10. Surrendering returns half your bet, which beats playing hands that lose more than half the time.' },
+];
+---
+<Guide
+  lang="en"
+  route="strategy"
+  title="Blackjack Basic Strategy Chart (Interactive) · Veintiuno"
+  h1="Blackjack basic strategy chart"
+  description="An interactive blackjack basic strategy chart: pick your table rules (H17, S17, double deck, European no hole card) and tap any cell to see why that play is right."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['howToPlay', 'counting', 'howToWin', 'guides']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>Quick answer:</strong> find your hand in the left column and the dealer’s upcard along the top. The colour tells you what to do: <b style="color:var(--c-hit)">hit</b>, <b style="color:var(--c-stand)">stand</b>, <b style="color:var(--c-double)">double</b>, <b style="color:var(--c-split)">split</b> or <b style="color:var(--c-surrender)">surrender</b>. Choose your table type first — the rules change the chart.</p></div>
+  </div>
+
+  <div slot="wide">
+    <StrategyChart lang="en" preset="vegasS17" />
+  </div>
+
+  <nav class="toc" aria-label="In this guide">
+    <b>In this guide</b>
+    <ol>
+      <li><a href="#reading">How to read the chart</a></li>
+      <li><a href="#rules">The 10 rules that matter most</a></li>
+      <li><a href="#table-rules">How table rules change the chart</a></li>
+      <li><a href="#memorise">How to memorise it</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="reading">How to read the chart</h2>
+  <p>Basic strategy is the mathematically best decision for every combination of <strong>your hand</strong> and the <strong>dealer’s upcard</strong>, worked out by simulating millions of hands. It doesn’t care about hunches or streaks: for every situation there is one play that loses less than the others.</p>
+  <p>Check the three sections in this order:</p>
+  <ol>
+    <li><strong>Pairs.</strong> If your first two cards match, see whether you should split.</li>
+    <li><strong>Soft totals.</strong> If you hold an ace counted as 11 (A-2 to A-9), use this section.</li>
+    <li><strong>Hard totals.</strong> Everything else. “17+” means 17 or more.</li>
+  </ol>
+  <p>Some cells have two letters. <strong>Ds</strong> means “double if allowed, otherwise stand”; a plain <strong>D</strong> means “double if allowed, otherwise hit”. Surrender cells work the same way: if surrender isn’t offered, take the second option.</p>
+
+  <h2 id="rules">The 10 rules that matter most</h2>
+  <p>You don’t need to learn every cell at once. These ten rules cover most hands you’ll ever see:</p>
+  <ol>
+    <li><strong>Always split aces and eights.</strong> Two aces can become two 21s; 8-8 is 16, the worst hand in the game.</li>
+    <li><strong>Never split tens or fives.</strong> 20 almost always wins, and 5-5 is a 10 you should double.</li>
+    <li><strong>Always stand on hard 17 or more.</strong></li>
+    <li><strong>Hit 12–16 against a 7 or higher.</strong> It feels wrong, but standing loses more: the dealer will usually make 17+.</li>
+    <li><strong>Stand on 12–16 against a 2–6</strong> (except 12 against a 2 or 3, which you hit). Let the dealer bust.</li>
+    <li><strong>Double 11</strong> against everything except an ace (with S17; with H17, double against the ace too).</li>
+    <li><strong>Double 10</strong> against a 2 through 9.</li>
+    <li><strong>Double 9</strong> against a 3 through 6.</li>
+    <li><strong>Hit soft 18 (A-7) against a 9, 10 or ace.</strong> It’s the classic mistake of experienced players.</li>
+    <li><strong>Never take insurance.</strong> It’s a side bet with a house edge of about 7% in multi-deck games.</li>
+  </ol>
+
+  <h2 id="table-rules">How table rules change the chart</h2>
+  <ul>
+    <li><strong>Dealer hits soft 17 (H17):</strong> double 11 against an ace, double A-7 against a 2 and A-8 against a 6, and surrender more hands (15 and 17 against an ace, 8-8 against an ace). It also adds about 0.2% to the house edge.</li>
+    <li><strong>Double deck:</strong> double 9 against a 2 and 11 against an ace, split 6-6 against a 7 and 7-7 against an 8.</li>
+    <li><strong>No hole card (European):</strong> the dealer doesn’t check for blackjack, so you lose doubles and splits to a dealer blackjack. Don’t double 11 against a 10 or ace, and don’t split aces or eights against an ace. See <a href={routes.spain.en}>blackjack rules in Spain</a>.</li>
+    <li><strong>No double after split:</strong> split small pairs (2-2, 3-3, 4-4, 6-6) less often.</li>
+    <li><strong>6:5 blackjack payout:</strong> doesn’t change the chart, but adds about 1.4% to the house edge. Avoid those tables.</li>
+  </ul>
+
+  <h2 id="memorise">How to memorise it</h2>
+  <p>Reading the chart isn’t the same as knowing it. At the table you have two seconds and no cheat sheet. What works is spaced practice: a few hands a day, instant correction, and extra repetition on the cells you get wrong.</p>
+  <ol>
+    <li>Start with hard totals — they’re most of your hands.</li>
+    <li>Add pairs: few rules, easy to picture.</li>
+    <li>Leave soft totals for last — that’s where most people slip.</li>
+    <li>Practise ten minutes a day and track which cells you miss, not how many you get right.</li>
+  </ol>
+  <p>That’s exactly what the Veintiuno app does: it deals hands under your table’s rules, corrects you instantly with the reason, and a heat map shows which cells of this chart you keep missing.</p>
+</Guide>

@@ -1,0 +1,91 @@
+---
+import type { Lang } from '../lib/site';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const es = lang === 'es';
+const L = es
+  ? { title: 'Pruébalo: cuenta estas cartas', deal: 'Repartir 12 cartas', ask: '¿Cuál es la cuenta corriente?', check: 'Comprobar', ok: '¡Correcto!', ko: 'No. La cuenta era', again: 'Otra ronda', hint: 'Del 2 al 6 suman 1, del 7 al 9 no cuentan, dieces, figuras y ases restan 1.' }
+  : { title: 'Try it: count these cards', deal: 'Deal 12 cards', ask: 'What is the running count?', check: 'Check', ok: 'Correct!', ko: 'Not quite. The count was', again: 'Another round', hint: '2–6 count +1, 7–9 count 0, tens, faces and aces count −1.' };
+---
+<div class="count-drill card" data-lang={lang}>
+  <h3>{L.title}</h3>
+  <p class="muted small">{L.hint}</p>
+  <div class="cd-cards" data-cards aria-live="polite"></div>
+  <div class="cd-row">
+    <button type="button" class="btn btn-gold" data-deal>{L.deal}</button>
+  </div>
+  <form class="cd-row" data-form hidden>
+    <label>{L.ask} <input type="number" inputmode="numeric" step="1" data-answer required /></label>
+    <button type="submit" class="btn btn-ghost">{L.check}</button>
+  </form>
+  <p class="cd-result" data-result hidden></p>
+</div>
+
+<style>
+  .count-drill { margin: 24px 0; }
+  .cd-cards { display: flex; flex-wrap: wrap; gap: 6px; min-height: 8px; margin: 12px 0; }
+  .cd-cards span { width: 44px; height: 62px; border-radius: 8px; background: var(--card); color: var(--card-ink); display: grid; place-items: center; font: 700 17px/1 var(--font-display); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); animation: cdin 0.25s ease both; }
+  .cd-cards span.red { color: var(--red); }
+  @keyframes cdin { from { opacity: 0; transform: translateY(-8px); } }
+  .cd-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 8px; }
+  .cd-row label { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; color: var(--text-2); }
+  .cd-row input { width: 90px; font: inherit; font-size: 18px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--panel-2); color: var(--text); }
+  .cd-result { font-weight: 700; margin: 12px 0 0; }
+  .cd-result.ok { color: var(--correct); }
+  .cd-result.ko { color: var(--wrong); }
+</style>
+
+<script>
+  const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+  const suits = ['♠', '♥', '♦', '♣'];
+  const value = (r: string) => (['2', '3', '4', '5', '6'].includes(r) ? 1 : ['7', '8', '9'].includes(r) ? 0 : -1);
+
+  document.querySelectorAll<HTMLElement>('.count-drill').forEach((root) => {
+    const es = root.dataset.lang === 'es';
+    const cards = root.querySelector<HTMLElement>('[data-cards]')!;
+    const deal = root.querySelector<HTMLButtonElement>('[data-deal]')!;
+    const form = root.querySelector<HTMLFormElement>('[data-form]')!;
+    const answer = root.querySelector<HTMLInputElement>('[data-answer]')!;
+    const result = root.querySelector<HTMLElement>('[data-result]')!;
+    let count = 0;
+    let timers: number[] = [];
+
+    deal.addEventListener('click', () => {
+      timers.forEach(clearTimeout);
+      timers = [];
+      cards.replaceChildren();
+      result.hidden = true;
+      form.hidden = true;
+      count = 0;
+      deal.disabled = true;
+      for (let i = 0; i < 12; i++) {
+        const r = ranks[Math.floor(Math.random() * ranks.length)];
+        const s = suits[Math.floor(Math.random() * suits.length)];
+        count += value(r);
+        timers.push(
+          window.setTimeout(() => {
+            const el = document.createElement('span');
+            el.textContent = `${r}${s}`;
+            if (s === '♥' || s === '♦') el.classList.add('red');
+            cards.append(el);
+            if (i === 11) {
+              form.hidden = false;
+              deal.disabled = false;
+              deal.textContent = es ? 'Otra ronda' : 'Another round';
+              answer.value = '';
+              answer.focus();
+            }
+          }, 450 * i),
+        );
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const ok = Number(answer.value) === count;
+      result.hidden = false;
+      result.className = `cd-result ${ok ? 'ok' : 'ko'}`;
+      result.textContent = ok ? (es ? '¡Correcto!' : 'Correct!') : `${es ? 'No. La cuenta era' : 'Not quite. The count was'} ${count > 0 ? '+' : ''}${count}.`;
+    });
+  });
+</script>

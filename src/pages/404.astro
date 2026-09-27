@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import { routes } from '../lib/site';
+---
+<Base lang="es" path="/404/" title="Página no encontrada · Veintiuno" description="Esta página no existe." noindex>
+  <div class="container legal center">
+    <h1>Te has pasado de 21</h1>
+    <p class="lead" style="margin:0 auto 24px">Esta página no existe. / This page doesn’t exist.</p>
+    <p><a class="btn btn-gold" href={routes.home.es}>Ir al inicio</a> <a class="btn btn-ghost" href={routes.home.en}>Go home</a></p>
+  </div>
+</Base>

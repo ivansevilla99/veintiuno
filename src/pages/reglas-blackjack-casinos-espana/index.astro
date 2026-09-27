@@ -1,0 +1,72 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import StrategyChart from '../../components/StrategyChart.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Qué significa que el crupier no tiene carta oculta?', a: 'Que en el reparto el crupier solo recibe una carta, boca arriba. La segunda la saca después de que todos los jugadores hayan jugado. Si con ella hace blackjack, te gana también lo que hayas añadido al doblar o dividir. En la versión americana, el crupier mira antes si tiene blackjack y la mano termina ahí.' },
+  { q: '¿Se puede rendir en los casinos españoles?', a: 'Lo habitual es que no. Algunas mesas o casinos online con licencia española la ofrecen; mira siempre el cartel de reglas de la mesa. Si no hay rendición, en esas manos se pide.' },
+  { q: '¿Por qué no se dobla 11 contra un 10 en España?', a: 'Porque sin carta oculta el crupier todavía puede tener blackjack. Si doblas y lo tiene, pierdes el doble. Esa posibilidad hace que doblar 11 contra un 10 o un as pierda más de lo que gana, y lo correcto es simplemente pedir.' },
+  { q: '¿Qué ventaja tiene la casa en el blackjack de un casino español?', a: 'Con las reglas típicas (6 barajas, el crupier se planta con 17, sin carta oculta, doblar solo con 9 a 11, sin rendición y blackjack pagado 3 a 2), jugando la estrategia básica perfecta, alrededor del 0,6 %.' },
+];
+---
+<Guide
+  lang="es"
+  route="spain"
+  title="Reglas del blackjack en los casinos de España · Veintiuno"
+  h1="Blackjack en los casinos de España: reglas y estrategia"
+  description="Las reglas del blackjack en los casinos españoles: sin carta oculta, doblar solo con 9, 10 u 11 y sin rendición. Qué jugadas cambian respecto a Las Vegas, con la tabla de estrategia adaptada."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['strategy', 'howToPlay', 'howToWin', 'counting']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>En resumen:</strong> casi todas las tablas de estrategia de internet son de Las Vegas. En los casinos españoles el crupier <strong>no tiene carta oculta</strong>, solo se dobla con <strong>9, 10 u 11</strong> y normalmente <strong>no hay rendición</strong>. Eso cambia varias jugadas clave: por ejemplo, no se dobla 11 contra un 10 ni se dividen ochos contra un as.</p></div>
+  </div>
+
+  <div slot="wide" class="read">
+    <h2 id="reglas">Las reglas habituales en España</h2>
+    <p>Cada casino fija sus reglas y deben aparecer en la mesa, pero la gran mayoría de los casinos presenciales españoles juegan así:</p>
+    <table>
+      <thead><tr><th>Regla</th><th>Casinos de España (habitual)</th><th>Las Vegas (típica)</th></tr></thead>
+      <tbody>
+        <tr><td>Barajas</td><td>6 (a veces 8)</td><td>6 u 8</td></tr>
+        <tr><td>Carta oculta del crupier</td><td><strong>No</strong> (se reparte al final)</td><td>Sí, y mira si tiene blackjack</td></tr>
+        <tr><td>El crupier con 17 blando</td><td>Se planta</td><td>Se planta o pide, según la mesa</td></tr>
+        <tr><td>Doblar</td><td><strong>Solo con 9, 10 u 11</strong></td><td>Con cualquier par de cartas</td></tr>
+        <tr><td>Doblar tras dividir</td><td>Normalmente sí</td><td>Normalmente sí</td></tr>
+        <tr><td>Rendición</td><td><strong>Normalmente no</strong></td><td>A veces (tardía)</td></tr>
+        <tr><td>Pago del blackjack</td><td>3 a 2</td><td>3 a 2, o 6 a 5 en mesas baratas</td></tr>
+      </tbody>
+    </table>
+    <p>Si tu mesa es distinta, ajusta las reglas en la tabla de abajo y verás la estrategia exacta.</p>
+    <h2 id="tabla">La tabla de estrategia para casinos españoles</h2>
+  </div>
+
+  <div slot="wide">
+    <StrategyChart lang="es" preset="spainCasino" />
+  </div>
+
+  <h2 id="cambios">Las jugadas que cambian respecto a Las Vegas</h2>
+  <p>Todo se explica por dos reglas. La primera: <strong>sin carta oculta</strong>, si el crupier hace blackjack te gana todo lo que tengas en la mesa, incluido lo que añadiste al doblar o dividir. Así que no te interesa meter más dinero contra un as o un 10:</p>
+  <ul>
+    <li><strong>11 contra 10 o as:</strong> se pide, no se dobla.</li>
+    <li><strong>A-A contra as:</strong> se pide, no se divide.</li>
+    <li><strong>8-8 contra 10 o as:</strong> se pide (si hay rendición, te rindes). En Las Vegas se dividen siempre.</li>
+  </ul>
+  <p>La segunda: <strong>solo puedes doblar con 9, 10 u 11</strong>, así que desaparecen todas las dobladas con manos blandas:</p>
+  <ul>
+    <li><strong>A-2 a A-6:</strong> se pide donde en Las Vegas se doblaría.</li>
+    <li><strong>A-7 contra 3 a 6:</strong> se planta donde en Las Vegas se doblaría.</li>
+  </ul>
+  <p>Y sin rendición, las manos donde te rendirías (16 contra 9, 10 o as; 15 contra 10) se juegan pidiendo.</p>
+
+  <h2 id="obo">¿Y si la mesa devuelve lo doblado?</h2>
+  <p>Algunos casinos europeos, sobre todo online, aplican la regla <strong>OBO</strong> («solo la apuesta original»): si el crupier hace blackjack, solo pierdes la apuesta inicial y te devuelven lo que añadiste al doblar o dividir. En esas mesas, la estrategia es la misma que con carta oculta: marca «el crupier mira si tiene blackjack» en la tabla.</p>
+
+  <h2 id="ventaja">¿Cuánto cuesta jugar en España?</h2>
+  <p>Con las reglas típicas y estrategia perfecta, la ventaja de la casa es de alrededor del <strong>0,6 %</strong>. Es algo peor que una buena mesa de Las Vegas (alrededor del 0,4 %) sobre todo por la ausencia de carta oculta y la limitación al doblar, pero mucho mejor que cualquier mesa que pague el blackjack 6 a 5.</p>
+  <p>Si juegas en casinos españoles, practica con estas reglas desde el principio: en Veintiuno la mesa «Casino en España» es la predeterminada, y cada corrección te explica la diferencia. ¿Nuevo en el juego? Empieza por <a href={routes.howToPlay.es}>cómo jugar al blackjack</a>.</p>
+</Guide>

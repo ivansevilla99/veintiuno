@@ -1,23 +1,9 @@
-# veintiuno
+# veintiunoapp.com
 
-Páginas públicas de **Veintiuno**, la app de iPhone para aprender la estrategia básica del blackjack.
+Web de Veintiuno (Astro 5, estática). Se publica sola en GitHub Pages al hacer push a `main`.
 
-Existen porque la App Store exige una URL de privacidad y una de soporte, y porque los enlaces del paywall tienen que apuntar a algo real.
-
-- Español: `/`, `/privacidad/`, `/terminos/`, `/soporte/`
-- English: `/en/`, `/en/privacy/`, `/en/terms/`, `/en/support/`
-
-## Editar
-
-Todo el texto vive en `_build.py`. Se edita ahí y se regenera:
-
-```bash
-python3 _build.py
-```
-
-No edites los `index.html` a mano: el siguiente build los pisa.
-
-## Dominio propio
-
-Si algún día se compra un dominio, se añade un fichero `CNAME` en la raíz con el
-dominio y se apunta el DNS a GitHub Pages. Las rutas no cambian.
+- `npm run dev` — servidor local en http://localhost:4321
+- `npm run build` — genera `dist/`
+- Rutas y textos comunes: `src/lib/site.ts` (las dos URLs de cada página viven ahí)
+- Tabla de estrategia: `src/lib/strategy.ts`, portada del motor de la app (`StrategyTable.swift`). Si cambia una, cambia la otra.
+- Páginas legales: `src/legal/*.json` (las enlaza la app y la ficha de App Store: no cambiar sus rutas).

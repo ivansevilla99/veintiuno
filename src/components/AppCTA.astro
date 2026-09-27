@@ -1,0 +1,14 @@
+---
+import AppStoreButton from './AppStoreButton.astro';
+import { ui, type Lang } from '../lib/site';
+interface Props { lang: Lang; title?: string; text?: string; campaign?: string }
+const { lang, title, text, campaign } = Astro.props;
+const t = ui[lang];
+---
+<aside class="cta">
+  <div>
+    <h2>{title ?? t.ctaTitle}</h2>
+    <p>{text ?? t.ctaText}</p>
+  </div>
+  <AppStoreButton lang={lang} campaign={campaign} />
+</aside>

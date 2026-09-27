@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import { routes, MAIL } from '../../lib/site';
+---
+<Base lang="es" route="about" title="Sobre Veintiuno y cómo calculamos las tablas" description="Veintiuno es una app educativa de blackjack creada por Iván Sevilla. Cómo se calculan las tablas de estrategia, qué fuentes usamos y por qué no promocionamos casinos.">
+  <div class="container legal">
+    <div class="read prose">
+      <h1>Sobre Veintiuno</h1>
+      <p class="lead">Veintiuno es una app para aprender a jugar bien al blackjack, hecha en España por Iván Sevilla, desarrollador independiente.</p>
+
+      <h2>Por qué existe</h2>
+      <p>Casi todo lo que hay en internet sobre blackjack en español lo escriben webs que cobran por mandarte a un casino. Por eso abundan los «trucos para ganar» y escasean las explicaciones honestas. Veintiuno nace para lo contrario: enseñar a tomar la decisión correcta y explicar por qué, sin dinero real y sin vender nada más que la propia app.</p>
+
+      <h2>De dónde salen las tablas</h2>
+      <p>La estrategia básica no es una opinión: es el resultado de calcular la jugada con mejor valor esperado para cada combinación de mano, carta del crupier y reglas. Nuestras tablas parten de la tabla estándar para 6 barajas y aplican los cambios que introduce cada regla (número de barajas, 17 blando, carta oculta, doblar tras dividir, restricciones al doblar y rendición).</p>
+      <p>Las hemos contrastado con las referencias de la literatura del blackjack: el trabajo original de Baldwin, Cantey, Maisel y McDermott (1956), <em>Beat the Dealer</em> de Edward Thorp, los análisis de Peter Griffin y las tablas y calculadoras publicadas por Wizard of Odds y BlackjackInfo. Las cifras de ventaja de la casa son aproximaciones a partir de las tablas de efecto de cada regla de Wizard of Odds.</p>
+      <p>La tabla de esta web usa exactamente el mismo motor que la app, así que las dos dicen siempre lo mismo.</p>
+
+      <h2>Lo que no hacemos</h2>
+      <ul>
+        <li>No hay enlaces de afiliado a casinos ni casas de apuestas, ni bonos, ni reseñas de operadores.</li>
+        <li>No prometemos que vayas a ganar dinero. El blackjack tiene ventaja para la casa, y lo decimos.</li>
+        <li>La app no permite jugar con dinero real.</li>
+      </ul>
+
+      <h2>Contacto</h2>
+      <p>¿Has visto un error en una tabla o en una explicación? Escríbenos a <a href={`mailto:${MAIL}`}>{MAIL}</a>. Lo revisamos y, si tienes razón, lo corregimos en la web y en la app.</p>
+      <p><a href={routes.responsible.es}>Juego responsable</a> · <a href={routes.privacy.es}>Privacidad</a> · <a href={routes.terms.es}>Términos</a></p>
+    </div>
+  </div>
+</Base>

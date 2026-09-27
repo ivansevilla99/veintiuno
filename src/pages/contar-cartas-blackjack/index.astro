@@ -1,0 +1,92 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import CountDrill from '../../components/CountDrill.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Es ilegal contar cartas?', a: 'Contar cartas de memoria no es ilegal: solo estás usando la cabeza. Lo que sí está prohibido es usar dispositivos, apuntes o compinches con señales. Aun así, el casino puede pedirte que dejes de jugar al blackjack o no dejarte entrar, porque tiene derecho de admisión.' },
+  { q: '¿Funciona contar cartas en el blackjack online?', a: 'En el blackjack online normal, no: la baraja se mezcla por software después de cada mano, así que no hay nada que contar. En las mesas en vivo con crupier real se usa un sabot, pero suele barajarse cuando queda mucho por repartir, lo que deja la ventaja en casi nada.' },
+  { q: '¿Cuánto se gana contando cartas?', a: 'Poco y a muy largo plazo. Un contador disciplinado con buenas reglas puede tener una ventaja del orden del 0,5–1 % sobre lo que apuesta, con una variación enorme: puede perder durante semanas antes de que se note. Por eso casi nadie lo hace rentable.' },
+  { q: '¿Qué es la cuenta verdadera?', a: 'Es la cuenta corriente dividida entre las barajas que quedan por repartir. Una cuenta corriente de +6 con 3 barajas por jugar es una cuenta verdadera de +2. Es la que indica de verdad si la baraja te favorece.' },
+  { q: '¿Tengo que saber la estrategia básica antes de contar?', a: 'Sí. Contar sin dominar la estrategia básica no sirve de nada: los errores de estrategia cuestan más que la ventaja que da el conteo. Primero la tabla, después el conteo.' },
+];
+---
+<Guide
+  lang="es"
+  route="counting"
+  title="Cómo contar cartas en blackjack: sistema Hi-Lo · Veintiuno"
+  h1="Cómo contar cartas en el blackjack"
+  description="Aprende a contar cartas con el sistema Hi-Lo: cuenta corriente, cuenta verdadera, qué ventaja da de verdad, si es legal y por qué no funciona online. Con ejercicio interactivo."
+  updated="2026-09-27"
+  readMinutes={9}
+  faq={faq}
+  related={['strategy', 'howToWin', 'spain', 'howToPlay']}
+  cta={{ title: 'Primero la estrategia, después el conteo', text: 'Veintiuno te enseña la estrategia básica hasta que no falles, y después el Hi-Lo como módulo avanzado, con práctica de cuenta corriente y verdadera.' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> contar cartas consiste en llevar una cuenta mental de qué cartas han salido para saber cuándo quedan muchas cartas altas en la baraja, que favorecen al jugador. Con el sistema Hi-Lo, del 2 al 6 suman 1 y los 10 y ases restan 1. Es legal, pero da una ventaja pequeña, exige mucha disciplina y no sirve en el blackjack online.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="En esta guía">
+    <b>En esta guía</b>
+    <ol>
+      <li><a href="#por-que">Por qué funciona contar cartas</a></li>
+      <li><a href="#hi-lo">El sistema Hi-Lo paso a paso</a></li>
+      <li><a href="#verdadera">La cuenta verdadera</a></li>
+      <li><a href="#que-hacer">Qué hacer con la cuenta</a></li>
+      <li><a href="#realidad">La realidad: cuánto da y por qué casi nadie gana</a></li>
+      <li><a href="#legal">¿Es legal?</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="por-que">Por qué funciona contar cartas</h2>
+  <p>A diferencia de la ruleta, en el blackjack las cartas que salen no vuelven a la baraja hasta que se baraja de nuevo. Así que lo que queda por repartir cambia mano a mano.</p>
+  <p>Cuando quedan <strong>muchas cartas altas</strong> (dieces y ases), el jugador sale ganando: hay más blackjacks, que pagan 3 a 2, las dobladas salen mejor y el crupier, que tiene que pedir con 16, se pasa más. Cuando quedan <strong>muchas bajas</strong>, pasa lo contrario. Contar cartas es simplemente llevar la cuenta de ese equilibrio.</p>
+
+  <h2 id="hi-lo">El sistema Hi-Lo paso a paso</h2>
+  <p>El Hi-Lo es el sistema más usado porque es sencillo y funciona casi tan bien como los complejos. A cada carta que ves le das un valor:</p>
+  <table>
+    <thead><tr><th>Cartas</th><th>Valor Hi-Lo</th></tr></thead>
+    <tbody>
+      <tr><td>2, 3, 4, 5, 6</td><td>+1</td></tr>
+      <tr><td>7, 8, 9</td><td>0</td></tr>
+      <tr><td>10, J, Q, K, As</td><td>−1</td></tr>
+    </tbody>
+  </table>
+  <p>Empiezas en 0 cuando se baraja y vas sumando el valor de <strong>todas</strong> las cartas que ves en la mesa, las tuyas, las de los demás y las del crupier. Ese número es la <strong>cuenta corriente</strong>. Si es positiva, han salido más cartas bajas que altas, así que quedan más altas por salir.</p>
+  <p>Ejemplo: salen 5, K, 3, 9, 2, A. Cuenta: +1 −1 +1 0 +1 −1 = <strong>+1</strong>.</p>
+  <p>Un truco que usan todos: agrupa cartas que se anulan. Un 5 y un rey juntos suman 0, así que puedes ignorarlos y contar más rápido.</p>
+
+  <CountDrill lang="es" />
+
+  <h2 id="verdadera">La cuenta verdadera</h2>
+  <p>Una cuenta de +6 no significa lo mismo si queda una baraja que si quedan cinco. Por eso se convierte en <strong>cuenta verdadera</strong>: la cuenta corriente dividida entre las barajas que quedan por repartir.</p>
+  <ul>
+    <li>Cuenta corriente +6, quedan 3 barajas → cuenta verdadera <strong>+2</strong>.</li>
+    <li>Cuenta corriente +6, queda 1 baraja → cuenta verdadera <strong>+6</strong>.</li>
+  </ul>
+  <p>Las barajas que quedan se calculan a ojo mirando la bandeja de descartes. No hace falta precisión: basta con redondear a media baraja.</p>
+
+  <h2 id="que-hacer">Qué hacer con la cuenta</h2>
+  <p>La cuenta sirve para dos cosas:</p>
+  <ol>
+    <li><strong>Ajustar la apuesta.</strong> Es lo que da casi toda la ventaja. Con la cuenta verdadera en +1 o menos, apuestas el mínimo; a partir de +2 subes la apuesta de forma progresiva. Como regla aproximada, cada punto de cuenta verdadera mueve la ventaja alrededor de medio punto a tu favor.</li>
+    <li><strong>Desviarte de la estrategia básica.</strong> Con cuentas muy altas o muy bajas, algunas jugadas cambian. El caso más famoso es el seguro: con la cuenta verdadera en +3 o más, conviene tomarlo. Estas desviaciones se llaman «índices», y las 18 más importantes son las «Illustrious 18».</li>
+  </ol>
+
+  <h2 id="realidad">La realidad: cuánto da y por qué casi nadie gana</h2>
+  <p>Aquí es donde casi todas las guías te venden humo. La verdad:</p>
+  <ul>
+    <li><strong>La ventaja es pequeña.</strong> Con buenas reglas y buena penetración de la baraja, un contador experto consigue del orden de un 0,5 % a un 1 % sobre lo que apuesta.</li>
+    <li><strong>La variación es enorme.</strong> Con esa ventaja puedes perder durante semanas seguidas. Hace falta un bankroll grande para aguantarlo.</li>
+    <li><strong>Los casinos se defienden.</strong> Barajan antes, limitan la subida de apuestas o te piden que dejes de jugar si te detectan.</li>
+    <li><strong>Online no funciona.</strong> El blackjack por software baraja en cada mano. En las mesas con crupier en vivo se baraja con más de media sabot por repartir, y la ventaja se diluye.</li>
+    <li><strong>Las máquinas de barajado continuo</strong> devuelven las cartas a la baraja tras cada mano: con ellas contar no sirve de nada.</li>
+  </ul>
+  <p>Contar cartas es un ejercicio mental fascinante y la mejor forma de entender de verdad el blackjack. Pero no es una forma fácil de ganar dinero, y quien te diga lo contrario te está vendiendo algo.</p>
+
+  <h2 id="legal">¿Es legal contar cartas?</h2>
+  <p>Contar cartas <strong>de memoria</strong> no es ilegal: nadie puede prohibirte pensar. Lo que sí está prohibido es usar ayudas: el móvil, apuntes, dispositivos o compinches con señales.</p>
+  <p>Otra cosa es que al casino le guste. Como cualquier negocio privado, puede reservarse el derecho de admisión: pedirte que no juegues más al blackjack o que te vayas. En la práctica, lo que suelen hacer es barajar más a menudo o limitar tus apuestas.</p>
+  <p>Antes de contar, domina la <a href={routes.strategy.es}>estrategia básica</a>: si fallas jugadas, pierdes más de lo que te da la cuenta.</p>
+</Guide>

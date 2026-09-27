@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import type { Lang, RouteKey } from '../lib/site';
+interface Props { lang: Lang; route: RouteKey; data: { title: string; desc: string; body: string } }
+const { lang, route, data } = Astro.props;
+---
+<Base lang={lang} route={route} title={data.title} description={data.desc}>
+  <div class="container legal">
+    <div class="read" set:html={data.body} />
+  </div>
+</Base>

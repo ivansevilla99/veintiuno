@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://veintiunoapp.com/sitemap-index.xml

@@ -1,0 +1,25 @@
+---
+import Base from '../../../layouts/Base.astro';
+import AppCTA from '../../../components/AppCTA.astro';
+import { routes } from '../../../lib/site';
+const groups = [
+  { title: 'Start here', items: [['howToPlay', 'How to play blackjack', 'The goal, card values, how a hand plays out and what it pays.'], ['spain', 'Blackjack rules in Spain', 'No hole card, doubling on 9–11 only, no surrender: what changes.']] },
+  { title: 'Play well', items: [['strategy', 'Basic strategy chart', 'Interactive, adjusted to your table’s rules, with the reason behind every cell.'], ['howToWin', 'How to win at blackjack', 'What really reduces the house edge and what’s just hype.']] },
+  { title: 'Advanced', items: [['counting', 'How to count cards', 'Hi-Lo, the true count and the reality of counting, with a drill.']] },
+] as const;
+---
+<Base lang="en" route="guides" title="Blackjack Guides: Rules, Strategy and Card Counting · Veintiuno" description="All Veintiuno blackjack guides: rules, basic strategy, Spanish casino rules and an honest guide to card counting.">
+  <div class="container">
+    <header class="article-head read" style="margin-left:0">
+      <h1>Blackjack guides</h1>
+      <p class="lead">Everything you need to play well, in order: from the rules to strategy and, if you like, card counting.</p>
+    </header>
+    {groups.map((g) => (
+      <section>
+        <h2>{g.title}</h2>
+        <div class="grid-2">{g.items.map(([key, title, text]) => <a class="card" href={routes[key].en}><h3>{title}</h3><p>{text}</p></a>)}</div>
+      </section>
+    ))}
+    <AppCTA lang="en" campaign="guides" />
+  </div>
+</Base>

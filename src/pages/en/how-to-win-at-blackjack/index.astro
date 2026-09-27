@@ -1,0 +1,67 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Can you always win at blackjack?', a: 'No. No system wins every time. With perfect basic strategy the house keeps an edge of around 0.5%, so you lose slightly over time. Over a short session you can win or lose on pure luck.' },
+  { q: 'Does the Martingale work in blackjack?', a: 'No. Doubling your bet after every loss doesn’t change the house edge — it only changes how you lose. You win small amounts often, then a bad streak wipes you out or runs into the table limit.' },
+  { q: 'What is the best blackjack strategy?', a: 'Basic strategy: the mathematically optimal play for each hand against each dealer card under your table’s rules. It’s what reduces the house edge the most. Betting systems, streaks and hunches don’t improve it.' },
+  { q: 'What are the odds of winning a hand of blackjack?', a: 'With basic strategy you win about 42–43% of hands, push about 8–9% and lose about 48–49%. You claw most of the gap back because blackjacks pay 3 to 2 and you double and split in favourable spots.' },
+];
+---
+<Guide
+  lang="en"
+  route="howToWin"
+  title="How to Win at Blackjack: What Works and What Doesn’t"
+  h1="How to win at blackjack: the honest answer"
+  description="Can you win at blackjack? What the house edge is, how much basic strategy reduces it, what card counting really offers, and why betting systems like the Martingale don’t work."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['strategy', 'counting', 'howToPlay', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> there is no way to always win. What you can do is <strong>lose as little as possible</strong>: perfect basic strategy cuts the house edge to about 0.5%, versus 2% or more for someone playing on instinct. Card counting can give a small edge, but it’s hard, slow and casinos fight it.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In this guide">
+    <b>In this guide</b>
+    <ol>
+      <li><a href="#edge">Where the house edge comes from</a></li>
+      <li><a href="#works">What works: 5 things that cut your losses</a></li>
+      <li><a href="#doesnt">What doesn’t work</a></li>
+      <li><a href="#counting">What about counting cards?</a></li>
+      <li><a href="#mindset">A healthy way to look at it</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="edge">Where the house edge comes from</h2>
+  <p>Blackjack looks fair — you and the dealer draw from the same cards. The catch is the order. <strong>You act first</strong>, and if you bust you lose even if the dealer busts later. That rule alone is worth about 8% to the house.</p>
+  <p>You win most of it back through things the dealer can’t do: get paid 3 to 2 on blackjack, double, split, and stand when it suits you. Do all of that correctly and the house edge shrinks to <strong>0.3–0.7%</strong> depending on the rules. Mimic the dealer (hit to 17) and it’s around 5.5%.</p>
+
+  <h2 id="works">What works: 5 things that cut your losses</h2>
+  <ol>
+    <li><strong>Learn basic strategy.</strong> By far the biggest factor. Use the <a href={routes.strategy.en}>interactive chart</a> for your table’s rules and practise until you don’t hesitate.</li>
+    <li><strong>Play only 3:2 tables.</strong> A 6:5 payout costs about 1.4 percentage points — more than all your mistakes combined.</li>
+    <li><strong>Skip insurance.</strong> It’s a side bet with roughly a 7% house edge.</li>
+    <li><strong>Read the rules.</strong> Dealer stands on soft 17, double after split and surrender all help you. Fewer decks beat more.</li>
+    <li><strong>Set a limit before you sit down</strong> and keep it. Blackjack swings are big: you’ll have losing streaks even playing perfectly.</li>
+  </ol>
+
+  <h2 id="doesnt">What doesn’t work</h2>
+  <ul>
+    <li><strong>Betting systems</strong> (Martingale, Paroli, 1-3-2-6…): they change bet sizes, not the odds of any hand. The house edge applies to every dollar you wager.</li>
+    <li><strong>Hot and cold tables:</strong> the cards don’t remember whether you won the last hand.</li>
+    <li><strong>“Never bust” (stand on 12+):</strong> sounds safe, costs money against strong dealer cards.</li>
+    <li><strong>Playing like the dealer:</strong> one of the worst strategies there is.</li>
+    <li><strong>“Winning systems” sold online:</strong> if they worked, nobody would sell them.</li>
+  </ul>
+
+  <h2 id="counting">What about counting cards?</h2>
+  <p>It’s the only legal technique that can give the player an edge, and it’s real: dealt cards don’t go back into the shoe. But the edge is small (about 0.5–1%), it requires big bet swings at the right moments, iron discipline and a large bankroll — and casinos shuffle early or show you the door once they notice. It doesn’t work online. The full story is in <a href={routes.counting.en}>how to count cards</a>.</p>
+
+  <h2 id="mindset">A healthy way to look at it</h2>
+  <p>Treat blackjack like any paid entertainment: a concert ticket costs money and you don’t expect it back. The difference is that in blackjack you choose how much it costs — and playing perfectly keeps the price minimal.</p>
+  <p>Learning to play well is also a genuinely satisfying mental challenge: knowing exactly why you hit 12 against a 2 or split eights against a 10. That’s what Veintiuno teaches, with no real money and no betting.</p>
+  <div class="callout warn"><p>If gambling is costing you more than you want, stop. Free help is listed on our <a href={routes.responsible.en}>responsible gambling</a> page.</p></div>
+</Guide>

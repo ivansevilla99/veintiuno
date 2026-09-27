@@ -1,0 +1,67 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Se puede ganar siempre al blackjack?', a: 'No. Ningún sistema hace que ganes siempre. Con la estrategia básica perfecta la casa sigue teniendo una ventaja de alrededor del 0,5 %, así que a largo plazo pierdes, aunque muy poco. En sesiones cortas puedes ganar o perder por pura suerte.' },
+  { q: '¿Funciona la martingala en el blackjack?', a: 'No. Doblar la apuesta después de cada derrota no cambia la ventaja de la casa: solo cambia cómo pierdes. Ganas poco muchas veces y, cuando llega una mala racha, pierdes mucho de golpe o chocas con el límite de la mesa.' },
+  { q: '¿Cuál es la mejor estrategia para el blackjack?', a: 'La estrategia básica: la jugada matemáticamente óptima para cada mano según la carta del crupier y las reglas de la mesa. Es lo que más reduce la ventaja de la casa. Todo lo demás (sistemas de apuestas, rachas, corazonadas) no la mejora.' },
+  { q: '¿Qué probabilidad hay de ganar una mano de blackjack?', a: 'Jugando con estrategia básica ganas alrededor del 42–43 % de las manos, empatas cerca del 8–9 % y pierdes alrededor del 48–49 %. Recuperas parte de la diferencia porque el blackjack paga 3 a 2 y porque doblas y divides en situaciones favorables.' },
+];
+---
+<Guide
+  lang="es"
+  route="howToWin"
+  title="Cómo ganar al blackjack: lo que funciona y lo que no"
+  h1="¿Cómo ganar al blackjack? La respuesta honesta"
+  description="¿Se puede ganar al blackjack? Qué ventaja tiene la casa, cuánto la reduce la estrategia básica, qué pasa con el conteo de cartas y por qué los sistemas como la martingala no funcionan."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['strategy', 'counting', 'howToPlay', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> no hay forma de ganar siempre. Lo que sí puedes hacer es <strong>perder lo mínimo</strong>: con la estrategia básica perfecta, la ventaja de la casa baja a alrededor del 0,5 %, frente al 2 % o más de quien juega a intuición. Contar cartas puede dar una pequeña ventaja, pero es difícil, lento y los casinos lo combaten.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="En esta guía">
+    <b>En esta guía</b>
+    <ol>
+      <li><a href="#ventaja">De dónde sale la ventaja de la casa</a></li>
+      <li><a href="#funciona">Lo que funciona: 5 cosas que sí reducen tus pérdidas</a></li>
+      <li><a href="#no-funciona">Lo que no funciona</a></li>
+      <li><a href="#conteo">¿Y contar cartas?</a></li>
+      <li><a href="#enfoque">El enfoque sano</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="ventaja">De dónde sale la ventaja de la casa</h2>
+  <p>El blackjack parece un juego equilibrado: tú y el crupier jugáis con las mismas cartas. La trampa está en el orden. <strong>Tú juegas primero</strong>, y si te pasas, pierdes aunque el crupier se pase después. Esa sola regla le da a la casa alrededor de un 8 % de ventaja.</p>
+  <p>Tú recuperas casi todo con lo que el crupier no puede hacer: cobrar el blackjack 3 a 2, doblar, dividir y plantarte cuando te conviene. Si lo haces todo bien, la ventaja de la casa se queda en <strong>0,3–0,7 %</strong> según las reglas. Si juegas imitando al crupier (pedir hasta 17), la ventaja es de alrededor del 5,5 %.</p>
+
+  <h2 id="funciona">Lo que funciona: 5 cosas que sí reducen tus pérdidas</h2>
+  <ol>
+    <li><strong>Aprende la estrategia básica.</strong> Es con diferencia lo más importante. Consulta la <a href={routes.strategy.es}>tabla interactiva</a> con las reglas de tu mesa y practica hasta que no dudes.</li>
+    <li><strong>Elige mesas que paguen 3 a 2.</strong> Una mesa que paga el blackjack 6 a 5 te cuesta alrededor de 1,4 puntos de ventaja: más que todos tus errores juntos.</li>
+    <li><strong>No tomes el seguro.</strong> Es una apuesta aparte con alrededor del 7 % de ventaja para la casa.</li>
+    <li><strong>Mira las reglas.</strong> Que el crupier se plante con 17 blando, poder doblar tras dividir o poder rendirte te ayudan. Pocas barajas, mejor que muchas.</li>
+    <li><strong>Pon un límite antes de sentarte</strong> y respétalo. La varianza del blackjack es grande: vas a tener malas rachas aunque juegues perfecto.</li>
+  </ol>
+
+  <h2 id="no-funciona">Lo que no funciona</h2>
+  <ul>
+    <li><strong>Sistemas de apuestas</strong> (martingala, Paroli, 1-3-2-6…): cambian el tamaño de tus apuestas, no la probabilidad de cada mano. La ventaja de la casa se aplica igual a cada euro apostado.</li>
+    <li><strong>Rachas y «la mesa está caliente»:</strong> las cartas no tienen memoria de si has ganado o perdido.</li>
+    <li><strong>«Nunca me paso con 12»:</strong> plantarse siempre con 12 o más suena prudente, pero cuesta dinero contra las cartas altas del crupier.</li>
+    <li><strong>Imitar al crupier:</strong> es una de las peores estrategias posibles.</li>
+    <li><strong>Trucos y «software para ganar»</strong> que venden en internet: si funcionaran, no te los venderían.</li>
+  </ul>
+
+  <h2 id="conteo">¿Y contar cartas?</h2>
+  <p>Es la única técnica legal que puede dar ventaja al jugador, y es real: se basa en que las cartas que salen no vuelven a la baraja. Pero la ventaja es pequeña (del orden del 0,5–1 %), exige apostar mucho más en los momentos buenos, una disciplina de hierro y un bankroll grande, y los casinos barajan antes o te invitan a irte cuando lo detectan. Online no funciona. Te lo explicamos a fondo en <a href={routes.counting.es}>cómo contar cartas</a>.</p>
+
+  <h2 id="enfoque">El enfoque sano</h2>
+  <p>Piensa en el blackjack como en cualquier ocio que cuesta dinero: una entrada de cine también cuesta, y no esperas recuperarla. La diferencia es que en el blackjack puedes decidir cuánto cuesta. Jugando perfecto, el precio es mínimo.</p>
+  <p>Aprender a jugar bien es además un reto mental muy satisfactorio: saber exactamente por qué pides con 12 contra un 2 o por qué divides ochos contra un 10. Eso es lo que enseña Veintiuno, sin dinero real y sin apuestas.</p>
+  <div class="callout warn"><p>Si sientes que el juego te está costando más de lo que quieres, para. Tienes recursos de ayuda gratuitos en <a href={routes.responsible.es}>juego responsable</a>.</p></div>
+</Guide>

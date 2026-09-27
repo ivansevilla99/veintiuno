@@ -1,0 +1,202 @@
+---
+import { presets, houseEdge } from '../lib/strategy';
+import { renderChart, chartText } from '../lib/chartRender';
+import type { Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  preset?: keyof typeof presets;
+}
+const { lang, preset = lang === 'es' ? 'spainCasino' : 'vegasS17' } = Astro.props;
+const rules = presets[preset];
+const es = lang === 'es';
+const t = chartText[lang];
+
+const presetNames: Record<string, string> = es
+  ? { spainCasino: 'Casino en España', europeanOnline: 'Europea / online (sin carta oculta)', vegasS17: 'Las Vegas (S17)', vegasH17: 'Las Vegas (H17)', doubleDeck: 'Dos barajas', custom: 'Personalizada' }
+  : { vegasS17: 'Las Vegas (dealer stands on soft 17)', vegasH17: 'Las Vegas (dealer hits soft 17)', europeanOnline: 'European / online (no hole card)', spainCasino: 'Spanish casino', doubleDeck: 'Double deck', custom: 'Custom' };
+const presetOrder = es
+  ? ['spainCasino', 'europeanOnline', 'vegasS17', 'vegasH17', 'doubleDeck']
+  : ['vegasS17', 'vegasH17', 'europeanOnline', 'doubleDeck', 'spainCasino'];
+
+const L = es
+  ? {
+      table: 'Tipo de mesa', decks: 'Barajas', h17: 'El crupier pide con 17 blando (H17)', hole: 'El crupier mira si tiene blackjack (carta oculta)',
+      das: 'Doblar tras dividir', dbl: 'Doblar con', any: 'Cualquier mano', nine: 'Solo 9, 10 u 11', ten: 'Solo 10 u 11',
+      surr: 'Rendición', none: 'No', late: 'Sí (tardía)', edge: 'Ventaja de la casa con estrategia perfecta', tap: 'Toca cualquier casilla para ver por qué.',
+      legendTitle: 'Leyenda',
+    }
+  : {
+      table: 'Table type', decks: 'Decks', h17: 'Dealer hits soft 17 (H17)', hole: 'Dealer checks for blackjack (hole card)',
+      das: 'Double after split', dbl: 'Double on', any: 'Any two cards', nine: '9, 10 or 11 only', ten: '10 or 11 only',
+      surr: 'Surrender', none: 'No', late: 'Yes (late)', edge: 'House edge with perfect strategy', tap: 'Tap any cell to see why.',
+      legendTitle: 'Legend',
+    };
+const legendOrder = ['H', 'S', 'D', 'Ds', 'P', 'Rh', 'Rs', 'Rp'] as const;
+---
+<section class="chart-tool" data-lang={lang} data-preset={preset} aria-label={es ? 'Tabla de estrategia básica interactiva' : 'Interactive basic strategy chart'}>
+  <div class="chart-controls">
+    <label class="ctl ctl-wide">
+      <span>{L.table}</span>
+      <select name="preset">
+        {presetOrder.map((p) => <option value={p} selected={p === preset}>{presetNames[p]}</option>)}
+        <option value="custom">{presetNames.custom}</option>
+      </select>
+    </label>
+    <details class="rules-more">
+      <summary>{es ? 'Ajustar reglas' : 'Adjust rules'}</summary>
+      <div class="rules-grid">
+        <label class="ctl"><span>{L.decks}</span>
+          <select name="decks">{[1, 2, 4, 6, 8].map((d) => <option value={d} selected={d === rules.decks}>{d}</option>)}</select>
+        </label>
+        <label class="ctl"><span>{L.dbl}</span>
+          <select name="doubleRule">
+            <option value="anyTwo" selected={rules.doubleRule === 'anyTwo'}>{L.any}</option>
+            <option value="nineToEleven" selected={rules.doubleRule === 'nineToEleven'}>{L.nine}</option>
+            <option value="tenEleven" selected={rules.doubleRule === 'tenEleven'}>{L.ten}</option>
+          </select>
+        </label>
+        <label class="ctl"><span>{L.surr}</span>
+          <select name="surrender">
+            <option value="none" selected={rules.surrender === 'none'}>{L.none}</option>
+            <option value="late" selected={rules.surrender === 'late'}>{L.late}</option>
+          </select>
+        </label>
+        <label class="chk"><input type="checkbox" name="dealerHitsSoft17" checked={rules.dealerHitsSoft17} /> {L.h17}</label>
+        <label class="chk"><input type="checkbox" name="holeCard" checked={rules.holeCard} /> {L.hole}</label>
+        <label class="chk"><input type="checkbox" name="doubleAfterSplit" checked={rules.doubleAfterSplit} /> {L.das}</label>
+      </div>
+    </details>
+    <p class="edge">{L.edge}: <b data-edge>{houseEdge(rules).toLocaleString(es ? 'es-ES' : 'en-US', { minimumFractionDigits: 2 })}{es ? ' %' : '%'}</b></p>
+  </div>
+
+  <p class="tap-hint muted small">{L.tap}</p>
+  <div class="why" data-why aria-live="polite" hidden></div>
+
+  <div class="chart-tables" data-tables set:html={renderChart(rules, lang)} />
+
+  <div class="legend" aria-label={L.legendTitle}>
+    {legendOrder.map((p) => <span><i class={`sw c-${p}`}>{p}</i>{t.legend[p]}</span>)}
+  </div>
+</section>
+
+<style is:global>
+  .chart-tool { margin: 24px 0; }
+  .chart-controls { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; display: grid; gap: 12px; }
+  .ctl { display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
+  .ctl select { font: inherit; font-size: 16px; color: var(--text); background: var(--panel-2); border: 1px solid var(--line-strong); border-radius: 12px; padding: 10px 12px; }
+  .rules-more summary { cursor: pointer; color: var(--gold); font-weight: 600; font-size: 15px; }
+  .rules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 16px; margin-top: 14px; }
+  .chk { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: var(--text-2); grid-column: span 3; }
+  .chk input { width: 18px; height: 18px; accent-color: var(--gold); margin-top: 3px; }
+  @media (max-width: 640px) { .rules-grid { grid-template-columns: 1fr; } .chk { grid-column: span 1; } }
+  .edge { margin: 0; font-size: 15px; color: var(--muted); }
+  .edge b { color: var(--gold); font-size: 17px; }
+  .tap-hint { margin: 14px 2px 8px; }
+  .why { position: sticky; top: 72px; z-index: 5; background: #143a31; border: 1px solid rgba(237, 194, 92, 0.5); border-radius: 14px; padding: 14px 18px; margin: 0 0 12px; font-size: 16px; color: var(--text); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35); }
+  .why b { color: var(--gold); }
+  .chart-tables { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+  @media (max-width: 1100px) { .chart-tables { grid-template-columns: 1fr; } }
+  .chart-table { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 12px 12px; min-width: 0; }
+  .chart-table figcaption { font-weight: 700; font-family: var(--font-display); margin: 0 4px 10px; color: var(--text); }
+  .chart-scroll { overflow-x: auto; }
+  .chart-table table { border-collapse: separate; border-spacing: 3px; width: 100%; font-variant-numeric: tabular-nums; table-layout: fixed; }
+  .chart-table col.rowhead { width: 42px; }
+  .chart-table th { font-size: 12px; color: var(--muted); font-weight: 700; padding: 2px; text-align: center; }
+  .chart-table th[scope='row'] { text-align: right; padding-right: 6px; white-space: nowrap; color: var(--text-2); }
+  .chart-table .corner { font-size: 11px; }
+  .chart-table td { padding: 0; }
+  .cell { width: 100%; min-width: 0; height: 28px; border: 0; border-radius: 6px; font: 700 12px/1 var(--font-display); color: #1b1b1b; cursor: pointer; padding: 0; }
+  .cell:hover { filter: brightness(1.12); }
+  .cell.sel { outline: 2px solid #fff; outline-offset: 1px; }
+  .c-H { background: var(--c-hit); }
+  .c-S { background: var(--c-stand); }
+  .c-D, .c-Ds { background: var(--c-double); }
+  .c-P { background: var(--c-split); }
+  .c-Rh, .c-Rs, .c-Rp { background: var(--c-surrender); }
+  @media (max-width: 480px) {
+    .chart-table { padding: 12px 6px 8px; border-radius: 14px; }
+    .chart-table table { border-spacing: 2px; }
+    .chart-table col.rowhead { width: 34px; }
+    .chart-table th { font-size: 11px; padding: 1px; }
+    .chart-table th[scope='row'] { padding-right: 3px; }
+    .cell { height: 26px; font-size: 10px; border-radius: 4px; }
+  }
+  .legend { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 16px; font-size: 14px; color: var(--text-2); }
+  .legend span { display: inline-flex; align-items: center; gap: 8px; }
+  .legend .sw { font-style: normal; display: inline-grid; place-items: center; min-width: 28px; height: 22px; border-radius: 5px; font: 700 11px/1 var(--font-display); color: #1b1b1b; padding: 0 4px; }
+</style>
+
+<script>
+  import { presets, houseEdge, type Rules, type HandKey, type Upcard, primary } from '../lib/strategy';
+  import { renderChart, chartText, keyLabel } from '../lib/chartRender';
+  import { strategyTable } from '../lib/strategy';
+  import { explain } from '../lib/explain';
+  import type { Lang } from '../lib/site';
+
+  function parseKey(s: string): HandKey {
+    if (s.startsWith('pair')) return { kind: 'pair', value: Number(s.slice(4)) };
+    if (s.startsWith('soft')) return { kind: 'soft', total: Number(s.slice(4)) };
+    return { kind: 'hard', total: Number(s.slice(4)) };
+  }
+
+  document.querySelectorAll<HTMLElement>('.chart-tool').forEach((root) => {
+    const lang = root.dataset.lang as Lang;
+    let rules: Rules = { ...presets[root.dataset.preset!] };
+    const tables = root.querySelector<HTMLElement>('[data-tables]')!;
+    const why = root.querySelector<HTMLElement>('[data-why]')!;
+    const edge = root.querySelector<HTMLElement>('[data-edge]')!;
+    const presetSel = root.querySelector<HTMLSelectElement>('select[name=preset]')!;
+    const field = <T extends HTMLElement>(n: string) => root.querySelector<T>(`[name=${n}]`)!;
+
+    const syncInputs = () => {
+      field<HTMLSelectElement>('decks').value = String(rules.decks);
+      field<HTMLSelectElement>('doubleRule').value = rules.doubleRule;
+      field<HTMLSelectElement>('surrender').value = rules.surrender;
+      field<HTMLInputElement>('dealerHitsSoft17').checked = rules.dealerHitsSoft17;
+      field<HTMLInputElement>('holeCard').checked = rules.holeCard;
+      field<HTMLInputElement>('doubleAfterSplit').checked = rules.doubleAfterSplit;
+    };
+    const render = () => {
+      tables.innerHTML = renderChart(rules, lang);
+      edge.textContent = `${houseEdge(rules).toLocaleString(lang === 'es' ? 'es-ES' : 'en-US', { minimumFractionDigits: 2 })}${lang === 'es' ? ' %' : '%'}`;
+      why.hidden = true;
+    };
+
+    presetSel.addEventListener('change', () => {
+      if (presetSel.value === 'custom') return;
+      rules = { ...presets[presetSel.value] };
+      syncInputs();
+      render();
+    });
+    root.querySelectorAll<HTMLInputElement | HTMLSelectElement>('.rules-grid [name]').forEach((el) =>
+      el.addEventListener('change', () => {
+        rules = {
+          ...rules,
+          decks: Number(field<HTMLSelectElement>('decks').value),
+          doubleRule: field<HTMLSelectElement>('doubleRule').value as Rules['doubleRule'],
+          surrender: field<HTMLSelectElement>('surrender').value as Rules['surrender'],
+          dealerHitsSoft17: field<HTMLInputElement>('dealerHitsSoft17').checked,
+          holeCard: field<HTMLInputElement>('holeCard').checked,
+          doubleAfterSplit: field<HTMLInputElement>('doubleAfterSplit').checked,
+        };
+        presetSel.value = 'custom';
+        render();
+      }),
+    );
+
+    tables.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('button.cell');
+      if (!btn) return;
+      tables.querySelectorAll('.cell.sel').forEach((c) => c.classList.remove('sel'));
+      btn.classList.add('sel');
+      const key = parseKey(btn.dataset.key!);
+      const up = Number(btn.dataset.up) as Upcard;
+      const play = strategyTable(rules)(key, up);
+      const act = primary(play);
+      const upL = up === 11 ? 'A' : String(up);
+      why.innerHTML = `<b>${keyLabel(key)} vs ${upL} → ${chartText[lang].legend[play]}.</b> ${explain(key, up, act, rules, lang)}`;
+      why.hidden = false;
+    });
+  });
+</script>

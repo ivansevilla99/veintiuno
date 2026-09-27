@@ -1,0 +1,99 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Is an ace 1 or 11 in blackjack?', a: 'Either — whichever helps you more. A hand with an ace counted as 11 is called “soft”: ace-6 is soft 17. If a new card would bust you, the ace simply switches to 1.' },
+  { q: 'What happens if you tie with the dealer?', a: 'It’s a push: you get your bet back and nobody wins. If you both have blackjack, that’s a push too.' },
+  { q: 'How much does blackjack pay?', a: 'At a standard table a blackjack pays 3 to 2 — $15 on a $10 bet. Some tables pay only 6 to 5 ($12 on $10). That small change roughly quadruples the house edge, so avoid 6:5 tables.' },
+  { q: 'When does the dealer have to hit?', a: 'The dealer has no choice: they hit on 16 or less and stand on 17 or more. At some tables the dealer also hits soft 17 (ace-6); the felt will say “Dealer hits soft 17” or “H17”.' },
+  { q: 'Is blackjack the same as 21?', a: 'Blackjack is the casino version of the card game 21. The goal is the same, but in casino blackjack the dealer follows fixed rules and you get extra options like doubling, splitting and insurance.' },
+];
+---
+<Guide
+  lang="en"
+  route="howToPlay"
+  title="How to Play Blackjack: Rules, Card Values, Payouts"
+  h1="How to play blackjack"
+  description="Learn how to play blackjack step by step: the goal, card values, how a hand is dealt, when to hit or stand, doubling, splitting, surrender and payouts. A clear beginner’s guide."
+  updated="2026-09-27"
+  readMinutes={8}
+  faq={faq}
+  related={['strategy', 'howToWin', 'counting', 'spain']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> you win by finishing closer to 21 than the dealer without going over. Face cards are worth 10, aces 1 or 11, everything else its number. You choose whether to hit or stand; the dealer doesn’t choose — they hit until 17.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In this guide">
+    <b>In this guide</b>
+    <ol>
+      <li><a href="#goal">The goal</a></li>
+      <li><a href="#values">Card values</a></li>
+      <li><a href="#hand">How a hand plays out</a></li>
+      <li><a href="#options">Your options: hit, stand, double, split, surrender</a></li>
+      <li><a href="#payouts">Payouts</a></li>
+      <li><a href="#insurance">Insurance (and why to skip it)</a></li>
+      <li><a href="#next">Next step: basic strategy</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="goal">The goal</h2>
+  <p>In blackjack you don’t play against the other players — you play <strong>against the dealer</strong>. You win a hand if your total is closer to 21 than theirs without going over, or if they bust and you don’t.</p>
+  <p>Go over 21 and you bust: you lose immediately, even if the dealer busts afterwards. Because you act first, that one rule is where the house gets its edge.</p>
+
+  <h2 id="values">Card values</h2>
+  <table>
+    <thead><tr><th>Card</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>2 to 9</td><td>Face value</td></tr>
+      <tr><td>10, J, Q, K</td><td>10</td></tr>
+      <tr><td>Ace</td><td>1 or 11, whichever helps you</td></tr>
+    </tbody>
+  </table>
+  <p>Suits don’t matter. With four ten-value ranks, almost a third of the deck is worth 10 — which explains a lot of basic strategy.</p>
+  <p>A hand with an ace counted as 11 is <strong>soft</strong>: ace-6 is “soft 17”. You can hit it safely, because if the next card would bust you the ace becomes 1. Every other hand is <strong>hard</strong>.</p>
+  <p>A <strong>blackjack</strong> (or “natural”) is an ace plus a ten-value card as your first two cards. It’s the best hand and beats any other 21.</p>
+
+  <h2 id="hand">How a hand plays out</h2>
+  <ol>
+    <li><strong>Bets.</strong> Everyone places a bet before the deal.</li>
+    <li><strong>Deal.</strong> You get two cards face up. The dealer gets one face up and, in American games, one face down (the “hole card”).</li>
+    <li><strong>Blackjacks.</strong> If the dealer shows an ace or ten, they peek at the hole card; with a blackjack, the hand ends there. If you have blackjack and the dealer doesn’t, you’re paid at once.</li>
+    <li><strong>Your turn.</strong> Hit, stand, double, split or surrender. You can hit as many times as you like until you stand or bust.</li>
+    <li><strong>Dealer’s turn.</strong> The dealer reveals the hole card and hits on 16 or less, stands on 17 or more.</li>
+    <li><strong>Settle.</strong> Totals are compared and bets paid.</li>
+  </ol>
+
+  <h2 id="options">Your options</h2>
+  <h3>Hit</h3>
+  <p>Take another card. Repeat until you stand or bust.</p>
+  <h3>Stand</h3>
+  <p>Keep your total and end your turn.</p>
+  <h3>Double down</h3>
+  <p>Double your bet in exchange for <strong>exactly one more card</strong>. It pays off with a strong starting total (9, 10 or 11) against a weak dealer card.</p>
+  <h3>Split</h3>
+  <p>If your first two cards match, separate them into two hands with an equal bet on the second. Always split aces and eights; never split tens or fives.</p>
+  <h3>Surrender</h3>
+  <p>Where it’s offered, give up the hand right after the deal and get half your bet back. Worth it only in a few very bad spots, like 16 against a dealer 10.</p>
+
+  <h2 id="payouts">Payouts</h2>
+  <table>
+    <thead><tr><th>Result</th><th>Pays</th></tr></thead>
+    <tbody>
+      <tr><td>Win</td><td>1 to 1 ($10 bet wins $10)</td></tr>
+      <tr><td>Blackjack</td><td>3 to 2 ($10 bet wins $15)</td></tr>
+      <tr><td>Push</td><td>Bet returned</td></tr>
+      <tr><td>Insurance</td><td>2 to 1 on the insurance bet</td></tr>
+    </tbody>
+  </table>
+  <div class="callout warn"><p><strong>Watch out for 6:5 tables.</strong> When blackjack pays 6 to 5 instead of 3 to 2, the house edge goes up by about 1.4 percentage points — worse than any other single rule.</p></div>
+
+  <h2 id="insurance">Insurance (and why to skip it)</h2>
+  <p>When the dealer shows an ace you’ll be offered <strong>insurance</strong>: a side bet of up to half your wager that the dealer has blackjack. It pays 2 to 1.</p>
+  <p>It sounds like protection, but it’s just another bet — and a bad one. In a six-deck game the chance of a ten under the ace is about 31%, while insurance needs more than 33% just to break even. The house edge on it is around 7%. Basic strategy says <strong>never take it</strong> — including “even money” when you hold blackjack.</p>
+
+  <h2 id="next">Next step: basic strategy</h2>
+  <p>Knowing the rules is half the job. The other half is knowing what to do in each spot: hit 12 against a 3? Double 11 against a 10? Split nines against a 7? Every combination has a mathematically correct answer, and together they form <a href={routes.strategy.en}>basic strategy</a>.</p>
+  <p>Playing on instinct, most people give the house 2% or more. With basic strategy, the house edge drops to around 0.5%. It won’t make you a winner, but it’s the difference between playing well and playing blind.</p>
+</Guide>

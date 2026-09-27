@@ -1,0 +1,112 @@
+---
+import Base from './Base.astro';
+import AppCTA from '../components/AppCTA.astro';
+import { routes, ui, type Lang, type RouteKey } from '../lib/site';
+
+export interface Faq { q: string; a: string }
+interface Props {
+  lang: Lang;
+  route: RouteKey;
+  title: string;          // <title>
+  h1: string;
+  description: string;
+  updated: string;        // ISO date
+  readMinutes?: number;
+  faq?: Faq[];
+  related?: RouteKey[];
+  cta?: { title?: string; text?: string };
+  wide?: boolean;         // tool pages use the full container width
+}
+const { lang, route, title, h1, description, updated, readMinutes, faq = [], related = [], cta, wide = false } = Astro.props;
+const t = ui[lang];
+const site = Astro.site!;
+const url = new URL(routes[route][lang], site).href;
+const date = new Date(updated);
+const dateLabel = date.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const schema: object[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: h1,
+    description,
+    inLanguage: lang,
+    datePublished: updated,
+    dateModified: updated,
+    mainEntityOfPage: url,
+    author: { '@type': 'Person', name: 'Iván Sevilla', url: new URL(routes.home[lang], site).href },
+    publisher: { '@type': 'Organization', name: 'Veintiuno', logo: { '@type': 'ImageObject', url: new URL('/icon-512.png', site).href } },
+    image: new URL('/og.png', site).href,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t.breadcrumbHome, item: new URL(routes.home[lang], site).href },
+      { '@type': 'ListItem', position: 2, name: h1, item: url },
+    ],
+  },
+];
+if (faq.length) {
+  schema.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  });
+}
+
+const relatedLabels: Record<string, Record<Lang, [string, string]>> = {
+  strategy: { es: ['Tabla de estrategia básica', 'La tabla interactiva, ajustada a las reglas de tu mesa.'], en: ['Basic strategy chart', 'The interactive chart, adjusted to your table’s rules.'] },
+  howToPlay: { es: ['Cómo jugar al blackjack', 'Reglas, valores de las cartas y desarrollo de una mano.'], en: ['How to play blackjack', 'Rules, card values and how a hand unfolds.'] },
+  counting: { es: ['Contar cartas', 'El sistema Hi-Lo explicado con honestidad.'], en: ['Card counting', 'The Hi-Lo system, explained honestly.'] },
+  howToWin: { es: ['¿Se puede ganar al blackjack?', 'Qué se puede y qué no se puede conseguir de verdad.'], en: ['Can you win at blackjack?', 'What is and isn’t actually possible.'] },
+  guides: { es: ['Todas las guías', 'Todo el contenido de Veintiuno.'], en: ['All guides', 'Everything on Veintiuno.'] },
+  spain: { es: ['Blackjack en los casinos de España', 'Sin carta oculta y doblando solo con 9, 10 u 11: qué cambia.'], en: ['Blackjack rules in Spain', 'No hole card, doubling on 9–11 only: what changes.'] },
+  about: { es: ['Sobre Veintiuno', 'Quién hay detrás y de dónde salen las tablas.'], en: ['About Veintiuno', 'Who’s behind it and where the charts come from.'] },
+  responsible: { es: ['Juego responsable', 'Señales de alerta y dónde pedir ayuda.'], en: ['Responsible gambling', 'Warning signs and where to get help.'] },
+};
+---
+<Base lang={lang} route={route} title={title} description={description} type="article" schema={schema}>
+  <div class="container">
+    <div class={wide ? '' : 'read'}>
+      <header class="article-head">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href={routes.home[lang]}>{t.breadcrumbHome}</a> / <span>{h1}</span></nav>
+        <h1>{h1}</h1>
+        <p class="meta">{t.updated}: <time datetime={updated}>{dateLabel}</time>{readMinutes && <> · {readMinutes} {t.readTime}</>} · Iván Sevilla</p>
+      </header>
+      <slot name="top" />
+    </div>
+    <slot name="wide" />
+    <div class="read prose">
+      <slot />
+
+      {faq.length > 0 && (
+        <section class="faq">
+          <h2 id="faq">{t.faq}</h2>
+          {faq.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p set:html={f.a} />
+            </details>
+          ))}
+        </section>
+      )}
+
+      <AppCTA lang={lang} title={cta?.title} text={cta?.text} campaign={route} />
+
+      {related.length > 0 && (
+        <section>
+          <h2>{t.related}</h2>
+          <div class="grid-2">
+            {related.map((r) => (
+              <a class="card" href={routes[r][lang]}>
+                <h3>{relatedLabels[r][lang][0]}</h3>
+                <p>{relatedLabels[r][lang][1]}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  </div>
+</Base>

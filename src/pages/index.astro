@@ -1,0 +1,118 @@
+---
+import Base from '../layouts/Base.astro';
+import AppStoreButton from '../components/AppStoreButton.astro';
+import AppCTA from '../components/AppCTA.astro';
+import { routes, APP_STORE_URL } from '../lib/site';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: 'Veintiuno',
+    operatingSystem: 'iOS',
+    applicationCategory: 'EducationalApplication',
+    inLanguage: ['es', 'en', 'de', 'fr', 'it', 'pt', 'nl', 'ja', 'zh-Hant'],
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+    url: APP_STORE_URL,
+    description: 'App para aprender y practicar la estrategia básica del blackjack, con corrección al momento y explicación de cada jugada. Sin dinero real.',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Veintiuno',
+    url: 'https://veintiunoapp.com/',
+    inLanguage: 'es',
+  },
+];
+---
+<Base
+  lang="es"
+  route="home"
+  title="Veintiuno: aprende a jugar al blackjack como se debe"
+  description="Aprende a jugar al blackjack como se debe: tabla de estrategia básica interactiva, guías claras y una app que te corrige cada jugada. Sin dinero real, sin apuestas."
+  schema={schema}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Blackjack sin mitos</span>
+        <h1>Aprende a jugar al blackjack como se debe</h1>
+        <p class="lead">La estrategia básica, explicada jugada a jugada y adaptada a las reglas de tu mesa. Sin trucos milagrosos ni promesas de ganar dinero: solo las decisiones correctas, hasta que te salgan solas.</p>
+        <div class="hero-actions">
+          <AppStoreButton lang="es" campaign="home-hero" />
+          <a class="btn btn-ghost" href={routes.strategy.es}>Ver la tabla de estrategia</a>
+        </div>
+        <p class="hero-note">App para iPhone y Mac · Gratis para empezar · Sin dinero real</p>
+      </div>
+      <div class="fan" aria-hidden="true">
+        <div class="pcard"><span class="corner">10<i>♠</i></span><span class="pip">♠</span></div>
+        <div class="pcard"><span class="corner">6<i>♣</i></span><span class="pip">♣</span></div>
+        <div class="pcard red"><span class="corner">Q<i>♥</i></span><span class="pip">♥</span></div>
+        <div class="chip-badge"><b>La jugada era pedir</b>Con 16 contra un 10 pierdes si te plantas: el crupier hará 17 o más casi siempre.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Empieza por aquí</h2>
+      <p class="lead">Tres guías cubren lo que de verdad necesitas saber. Todo lo demás son detalles.</p>
+      <div class="grid-3">
+        <a class="card" href={routes.howToPlay.es}>
+          <div class="icon">♠</div>
+          <h3>Cómo jugar al blackjack</h3>
+          <p>Las reglas, lo que vale cada carta y cómo se desarrolla una mano, de principio a fin y sin tecnicismos.</p>
+          <span class="more">Aprender las reglas →</span>
+        </a>
+        <a class="card" href={routes.strategy.es}>
+          <div class="icon">▦</div>
+          <h3>Tabla de estrategia básica</h3>
+          <p>Interactiva y ajustada a tu mesa: casino en España, Las Vegas u online. Toca una casilla y te dice por qué.</p>
+          <span class="more">Abrir la tabla →</span>
+        </a>
+        <a class="card" href={routes.counting.es}>
+          <div class="icon">±</div>
+          <h3>Contar cartas</h3>
+          <p>Cómo funciona el Hi-Lo, qué ventaja da de verdad y por qué casi nadie la consigue. Explicado con honestidad.</p>
+          <span class="more">Entender el conteo →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container grid-2" style="align-items:center">
+      <div>
+        <span class="eyebrow">La app</span>
+        <h2 style="margin-top:0">Saber la tabla no es lo mismo que aplicarla</h2>
+        <p>En la mesa tienes dos segundos para decidir. Veintiuno te entrena para eso: te reparte manos reales, te corrige en el momento y te explica el porqué de cada jugada, con las reglas de tu mesa.</p>
+        <ul>
+          <li><strong>Corrección al instante</strong> con la explicación de cada error.</li>
+          <li><strong>Ruta de 14 días:</strong> un concepto, un ejercicio y un examen por día.</li>
+          <li><strong>Mapa de calor</strong> de las casillas que más fallas.</li>
+          <li><strong>Reglas de España, Las Vegas y online</strong>, con o sin carta oculta.</li>
+          <li><strong>Conteo Hi-Lo</strong> como módulo avanzado, sin promesas.</li>
+        </ul>
+        <AppStoreButton lang="es" campaign="home-app" />
+      </div>
+      <div class="card">
+        <h3>Lo que Veintiuno no es</h3>
+        <p>No es un casino ni un juego de apuestas: no hay dinero real, ni fichas, ni relación con ninguna casa de apuestas. Tampoco te vamos a vender un sistema para «ganar siempre», porque no existe.</p>
+        <p>La estrategia básica reduce la ventaja de la casa al mínimo posible, alrededor del 0,5 %, pero no la elimina. Te lo contamos claro en <a href={routes.howToWin.es}>¿se puede ganar al blackjack?</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Lo que más se pregunta</h2>
+      <div class="grid-2">
+        <a class="card" href={routes.howToPlay.es}><h3>¿Qué es el blackjack y cómo se gana una mano?</h3><p>Ganas si terminas más cerca de 21 que el crupier sin pasarte. Te lo explicamos paso a paso.</p></a>
+        <a class="card" href={routes.strategy.es}><h3>¿Cuándo hay que doblar o dividir?</h3><p>Divide siempre ases y ochos, nunca dieces ni cincos. El resto, en la tabla.</p></a>
+        <a class="card" href={routes.counting.es}><h3>¿Es legal contar cartas?</h3><p>Contar mentalmente no es ilegal, pero el casino puede pedirte que dejes de jugar.</p></a>
+        <a class="card" href={routes.howToWin.es}><h3>¿Se puede ganar al blackjack a largo plazo?</h3><p>Con estrategia básica, no: pierdes lo mínimo. Te explicamos qué sí es posible.</p></a>
+      </div>
+      <AppCTA lang="es" campaign="home-bottom" />
+    </div>
+  </section>
+</Base>

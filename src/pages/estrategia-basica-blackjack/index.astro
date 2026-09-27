@@ -1,0 +1,104 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import StrategyChart from '../../components/StrategyChart.astro';
+
+const faq = [
+  {
+    q: '¿La estrategia básica garantiza ganar al blackjack?',
+    a: 'No. La estrategia básica es la forma de jugar que menos pierde a largo plazo: reduce la ventaja de la casa a alrededor del 0,4–0,7 % según las reglas, pero la casa sigue teniendo ventaja. Sirve para perder lo mínimo y tomar siempre la decisión correcta, no para ganar dinero de forma segura.',
+  },
+  {
+    q: '¿Por qué hay tablas de estrategia distintas?',
+    a: 'Porque la jugada óptima depende de las reglas de la mesa: número de barajas, si el crupier pide o se planta con 17 blando, si puedes doblar tras dividir, si existe la rendición y, sobre todo, si el crupier mira su carta oculta. En los casinos de España el crupier no tiene carta oculta y solo se dobla con 9, 10 u 11, y eso cambia varias casillas.',
+  },
+  {
+    q: '¿Se puede usar la tabla de estrategia en un casino?',
+    a: 'Algunos casinos toleran una tarjeta impresa y otros no; pregunta antes. Lo que está prohibido en todos es usar el móvil u otros dispositivos electrónicos en la mesa. Lo razonable es memorizarla antes: con práctica diaria se aprende en unas dos semanas.',
+  },
+  {
+    q: '¿Qué significa «total blando»?',
+    a: 'Es una mano con un as que puede contar como 11 sin pasarte. A-6 es un 17 blando: si pides y te sale un 10, el as pasa a valer 1 y tienes 17 duro, no te pasas. Por eso con totales blandos se dobla y se pide más a menudo.',
+  },
+  {
+    q: '¿Cuándo hay que rendirse?',
+    a: 'Solo si la mesa lo permite (rendición tardía). Con reglas de Las Vegas: 16 contra 9, 10 o as, y 15 contra 10. Rendirte te devuelve media apuesta, y en esas manos pierdes más de la mitad de las veces jugando.',
+  },
+];
+---
+<Guide
+  lang="es"
+  route="strategy"
+  title="Tabla de estrategia básica de blackjack (interactiva)"
+  h1="Tabla de estrategia básica del blackjack"
+  description="La tabla de estrategia básica del blackjack, interactiva: elige las reglas de tu mesa (casino en España, Las Vegas, online) y toca cada casilla para saber por qué."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['howToPlay', 'counting', 'howToWin', 'guides']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr">
+      <p><strong>En resumen:</strong> busca tu mano en la columna de la izquierda y la carta visible del crupier en la fila de arriba. El color te dice qué hacer: <b style="color:var(--c-hit)">pedir</b>, <b style="color:var(--c-stand)">plantarte</b>, <b style="color:var(--c-double)">doblar</b>, <b style="color:var(--c-split)">dividir</b> o <b style="color:var(--c-surrender)">rendirte</b>. Elige primero el tipo de mesa, porque las reglas cambian la tabla.</p>
+    </div>
+  </div>
+
+  <div slot="wide">
+    <StrategyChart lang="es" preset="spainCasino" />
+  </div>
+
+  <nav class="toc" aria-label="En esta guía">
+    <b>En esta guía</b>
+    <ol>
+      <li><a href="#como-leer">Cómo leer la tabla</a></li>
+      <li><a href="#reglas-clave">Las 10 reglas que más importan</a></li>
+      <li><a href="#espana">Qué cambia en los casinos de España</a></li>
+      <li><a href="#memorizar">Cómo memorizarla sin sufrir</a></li>
+      <li><a href="#faq">Preguntas frecuentes</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="como-leer">Cómo leer la tabla</h2>
+  <p>La estrategia básica es la decisión matemáticamente óptima para cada combinación de <strong>tu mano</strong> y la <strong>carta visible del crupier</strong>, calculada simulando millones de manos. No depende de corazonadas ni de rachas: para cada situación hay una jugada que pierde menos que las demás.</p>
+  <p>La tabla tiene tres partes, y conviene mirarlas en este orden:</p>
+  <ol>
+    <li><strong>Parejas.</strong> Si tus dos primeras cartas son iguales, mira primero si toca dividir.</li>
+    <li><strong>Totales blandos.</strong> Si tienes un as que cuenta como 11 (A-2 a A-9), usa esta parte.</li>
+    <li><strong>Totales duros.</strong> Para todo lo demás. Un «17+» significa 17 o más.</li>
+  </ol>
+  <p>Algunas casillas tienen dos letras. <strong>Ds</strong> significa «dobla, y si no te dejan doblar, plántate»; <strong>D</strong> a secas es «dobla, y si no puedes, pide». Las de rendición funcionan igual: si la mesa no permite rendirse, haz la segunda opción.</p>
+
+  <h2 id="reglas-clave">Las 10 reglas que más importan</h2>
+  <p>No hace falta memorizar las casi 300 casillas de golpe. Estas diez reglas cubren la gran mayoría de las manos que vas a ver:</p>
+  <ol>
+    <li><strong>Divide siempre ases y ochos.</strong> Dos ases por separado pueden ser dos 21; un 16 (8-8) es la peor mano del juego.</li>
+    <li><strong>Nunca dividas dieces ni cincos.</strong> 20 es casi imbatible y 5-5 es un 10 para doblar.</li>
+    <li><strong>Con 17 duro o más, plántate siempre.</strong></li>
+    <li><strong>Con 12 a 16 contra un 7 o más, pide.</strong> Da miedo, pero plantarte pierde más: el crupier hará 17 o más casi siempre.</li>
+    <li><strong>Con 12 a 16 contra un 2 a 6, plántate</strong> (salvo 12 contra 2 o 3, que se pide). Deja que el crupier se pase.</li>
+    <li><strong>Dobla con 11</strong> contra cualquier carta menos el as (y en mesa europea, tampoco contra el 10).</li>
+    <li><strong>Dobla con 10</strong> contra un 2 a 9.</li>
+    <li><strong>Dobla con 9</strong> contra un 3 a 6 (si la mesa te deja doblar con 9).</li>
+    <li><strong>Con 18 blando (A-7), pide contra 9, 10 y as.</strong> Es el error más común entre jugadores con experiencia.</li>
+    <li><strong>No tomes nunca el seguro.</strong> Es una apuesta aparte con ventaja para la casa de alrededor del 7 % con varias barajas.</li>
+  </ol>
+
+  <h2 id="espana">Qué cambia en los casinos de España</h2>
+  <p>La mayoría de las tablas que encontrarás en internet son de Las Vegas. En los casinos españoles las reglas habituales son distintas, y la tabla también:</p>
+  <ul>
+    <li><strong>Sin carta oculta (ENHC).</strong> El crupier no mira si tiene blackjack hasta el final. Si lo tiene, pierdes también lo que añadiste al doblar o dividir. Por eso <strong>no se dobla 11 contra 10 o as, no se dividen los ases contra un as y no se dividen los ochos contra 10 o as</strong>.</li>
+    <li><strong>Solo se dobla con 9, 10 u 11.</strong> Desaparecen las dobladas con totales blandos: A-7 contra 3–6 se planta y A-2 a A-6 se piden.</li>
+    <li><strong>Normalmente no hay rendición.</strong></li>
+  </ul>
+  <p>Con estas reglas, la ventaja de la casa jugando perfecto ronda el <strong>0,6 %</strong>, frente al 0,4 % de una mesa típica de Las Vegas con 6 barajas. Selecciona «Casino en España» arriba para ver la tabla exacta.</p>
+
+  <h2 id="memorizar">Cómo memorizarla sin sufrir</h2>
+  <p>Leer la tabla no es lo mismo que saberla. En la mesa tienes dos segundos y ninguna chuleta. Lo que funciona es la práctica espaciada: pocas manos al día, corrección inmediata y repasar más las jugadas que fallas.</p>
+  <ol>
+    <li>Empieza por los totales duros, que son la mayoría de las manos.</li>
+    <li>Añade las parejas: son pocas reglas y muy visuales.</li>
+    <li>Deja los totales blandos para el final: es donde más se equivoca la gente.</li>
+    <li>Practica 10 minutos al día y fíjate en qué casillas fallas, no en cuántas aciertas.</li>
+  </ol>
+  <p>Eso es exactamente lo que hace la app de Veintiuno: te reparte manos con las reglas de tu mesa, te corrige al momento con la explicación, y un mapa de calor te enseña qué casillas de esta tabla se te resisten.</p>
+</Guide>
