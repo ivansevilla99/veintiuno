@@ -6,7 +6,7 @@ import { routes } from '../../../lib/site';
 const faq = [
   { q: 'Does basic strategy guarantee you win at blackjack?', a: 'No. Basic strategy is the way of playing that loses the least over time: it cuts the house edge to roughly 0.3–0.7% depending on the rules, but the house still has the edge. It makes every decision correct; it does not make winning certain.' },
   { q: 'Why are there different strategy charts?', a: 'Because the best play depends on the table rules: number of decks, whether the dealer hits or stands on soft 17, whether you can double after splitting, whether surrender is offered and whether the dealer checks for blackjack. Pick your table above and the chart updates.' },
-  { q: 'Can I use a strategy card in a casino?', a: 'Some casinos tolerate a printed card at low-stakes tables and others don’t — ask first. Using a phone or any electronic device at the table is not allowed anywhere. The better plan is to memorise the chart before you go.' },
+  { q: 'Can I use a strategy card in a casino?', a: 'Some casinos tolerate a printed card at low-stakes tables and others don’t — ask first. Using a phone or any electronic device at the table is not allowed anywhere. The better plan is to memorize the chart before you go.' },
   { q: 'What does “soft” mean in blackjack?', a: 'A soft hand contains an ace counted as 11. Ace-6 is soft 17: if you hit and draw a ten, the ace drops to 1 and you have hard 17 — you can’t bust on one card. That’s why soft hands are doubled and hit more often.' },
   { q: 'When should you surrender?', a: 'Only if the table offers late surrender. With standard Las Vegas rules: 16 against a 9, 10 or ace, and 15 against a 10. Surrendering returns half your bet, which beats playing hands that lose more than half the time.' },
 ];
@@ -24,7 +24,7 @@ const faq = [
   wide
 >
   <div slot="top" class="read">
-    <div class="tldr"><p><strong>Quick answer:</strong> find your hand in the left column and the dealer’s upcard along the top. The colour tells you what to do: <b style="color:var(--c-hit)">hit</b>, <b style="color:var(--c-stand)">stand</b>, <b style="color:var(--c-double)">double</b>, <b style="color:var(--c-split)">split</b> or <b style="color:var(--c-surrender)">surrender</b>. Choose your table type first — the rules change the chart.</p></div>
+    <div class="tldr"><p><strong>Quick answer:</strong> find your hand in the left column and the dealer’s upcard along the top. The color tells you what to do: <b style="color:var(--c-hit)">hit</b>, <b style="color:var(--c-stand)">stand</b>, <b style="color:var(--c-double)">double</b>, <b style="color:var(--c-split)">split</b> or <b style="color:var(--c-surrender)">surrender</b>. Choose your table type first — the rules change the chart.</p></div>
   </div>
 
   <div slot="wide">
@@ -37,12 +37,12 @@ const faq = [
       <li><a href="#reading">How to read the chart</a></li>
       <li><a href="#rules">The 10 rules that matter most</a></li>
       <li><a href="#table-rules">How table rules change the chart</a></li>
-      <li><a href="#memorise">How to memorise it</a></li>
+      <li><a href="#memorize">How to memorize it</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ol>
   </nav>
 
-  <p class="callout">Want it on paper? <a href="/en/blackjack-strategy-chart-pdf/">Download the chart as a PDF</a> for Las Vegas, European or Spanish tables. Or practise it now at our <a href="/en/play-blackjack-free/">free practice table</a>.</p>
+  <p class="callout">Want it on paper? <a href="/en/blackjack-strategy-chart-pdf/">Download the chart as a PDF</a> for Las Vegas, European or Spanish tables. Or practice it now at our <a href="/en/play-blackjack-free/">free practice table</a>.</p>
 
   <h2 id="reading">How to read the chart</h2>
   <p>Basic strategy is the mathematically best decision for every combination of <strong>your hand</strong> and the <strong>dealer’s upcard</strong>, worked out by simulating millions of hands. It doesn’t care about hunches or streaks: for every situation there is one play that loses less than the others.</p>
@@ -78,13 +78,13 @@ const faq = [
     <li><strong>6:5 blackjack payout:</strong> doesn’t change the chart, but adds about 1.4% to the house edge. Avoid those tables.</li>
   </ul>
 
-  <h2 id="memorise">How to memorise it</h2>
+  <h2 id="memorize">How to memorize it</h2>
   <p>Reading the chart isn’t the same as knowing it. At the table you have two seconds and no cheat sheet. What works is spaced practice: a few hands a day, instant correction, and extra repetition on the cells you get wrong.</p>
   <ol>
     <li>Start with hard totals — they’re most of your hands.</li>
     <li>Add pairs: few rules, easy to picture.</li>
     <li>Leave soft totals for last — that’s where most people slip.</li>
-    <li>Practise ten minutes a day and track which cells you miss, not how many you get right.</li>
+    <li>Practice ten minutes a day and track which cells you miss, not how many you get right.</li>
   </ol>
   <p>That’s exactly what the Veintiuno app does: it deals hands under your table’s rules, corrects you instantly with the reason, and a heat map shows which cells of this chart you keep missing.</p>
 </Guide>

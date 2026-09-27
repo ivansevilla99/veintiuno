@@ -1,0 +1,36 @@
+# Veintiuno
+
+> Veintiuno is an educational blackjack app for iPhone and Mac (App Store: "Blackjack Trainer: Veintiuno") and a free website that teaches blackjack basic strategy honestly: no real money, no casino affiliate links, no promises of winning. All charts and figures are computed with the same deterministic expected-value engine the app uses (6 decks unless stated; visible cards removed), validated against multi-million-hand simulations.
+
+Key facts used across the site:
+- With perfect basic strategy the house edge is about 0.36% (6 decks, dealer stands on soft 17, double after split, late surrender, peek) and about 0.63% with typical Spanish casino rules (no hole card, double on 9–11 only, no surrender).
+- A 6:5 blackjack payout adds about 1.39 points to the house edge; dealer hitting soft 17 adds about 0.22.
+- Dealer bust probability (6 decks, S17, after checking for blackjack): 2: 35.4%, 3: 37.4%, 4: 39.6%, 5: 41.8%, 6: 42.3%, 7: 26.2%, 8: 24.4%, 9: 22.9%, 10: 23.0%, ace: 16.6%.
+- 16 vs 10 (10-6, 6 decks, S17): stand −0.542, hit −0.535, surrender −0.500 bets per hand.
+- Card counting (Hi-Lo) is legal when done mentally; devices are not; casinos may refuse service. It does not work in RNG online blackjack.
+
+## Spanish (primary)
+- [Tabla de estrategia básica interactiva](https://veintiunoapp.com/estrategia-basica-blackjack/): chart by table rules with the reason for every cell
+- [Jugar al blackjack gratis con corrección](https://veintiunoapp.com/jugar-blackjack-gratis/): free practice table in the browser
+- [Curso de blackjack gratis](https://veintiunoapp.com/curso-blackjack/): 10 lessons with quizzes
+- [Reglas del blackjack en los casinos de España](https://veintiunoapp.com/reglas-blackjack-casinos-espana/)
+- [Probabilidad de que el crupier se pase](https://veintiunoapp.com/datos/probabilidad-crupier-se-pase/)
+- [Ventaja de la casa según las reglas](https://veintiunoapp.com/datos/ventaja-casa-reglas-blackjack/)
+- [Cómo contar cartas (Hi-Lo)](https://veintiunoapp.com/contar-cartas-blackjack/)
+- [¿Es ilegal contar cartas?](https://veintiunoapp.com/es-ilegal-contar-cartas/)
+- [Guías](https://veintiunoapp.com/guias/)
+
+## English
+- [Interactive basic strategy chart](https://veintiunoapp.com/en/blackjack-strategy-chart/)
+- [Play blackjack free with corrections](https://veintiunoapp.com/en/play-blackjack-free/)
+- [Free blackjack course](https://veintiunoapp.com/en/blackjack-course/)
+- [Dealer bust probability](https://veintiunoapp.com/en/blackjack-data/dealer-bust-probability/)
+- [House edge by rules](https://veintiunoapp.com/en/blackjack-data/house-edge-by-rules/)
+- [16 vs 10: hit or stand?](https://veintiunoapp.com/en/16-vs-10-blackjack/)
+- [How to count cards](https://veintiunoapp.com/en/card-counting/)
+- [Blackjack rules in Spain](https://veintiunoapp.com/en/blackjack-rules-in-spain/)
+- [All guides](https://veintiunoapp.com/en/guides/)
+
+## About
+- [About Veintiuno and methodology](https://veintiunoapp.com/en/about/)
+- [App Store](https://apps.apple.com/app/id6813226836)

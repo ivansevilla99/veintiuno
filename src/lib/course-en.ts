@@ -249,7 +249,7 @@ export const lessonsEn: Lesson[] = [
     minutes: 5,
     summary: 'Hi-Lo: 2–6 count +1, 7–9 zero, tens and aces −1. It’s legal, but the edge is small and it doesn’t work online.',
     body: `
-<p>Card counting means keeping track of the cards that have been dealt, so you know when the remaining cards are rich in high cards — which favour the player: more blackjacks, better doubles and a dealer who busts more.</p>
+<p>Card counting means keeping track of the cards that have been dealt, so you know when the remaining cards are rich in high cards — which favor the player: more blackjacks, better doubles and a dealer who busts more.</p>
 <h2>The Hi-Lo system</h2>
 <table><thead><tr><th>Cards</th><th>Value</th></tr></thead><tbody>
 <tr><td>2 to 6</td><td>+1</td></tr><tr><td>7 to 9</td><td>0</td></tr><tr><td>10, faces and ace</td><td>−1</td></tr></tbody></table>
@@ -261,7 +261,7 @@ export const lessonsEn: Lesson[] = [
 <li><strong>Online RNG blackjack:</strong> the deck is reshuffled every hand.</li>
 <li><strong>Continuous shuffling machines:</strong> cards go back in after every hand.</li>
 </ul>
-<p>Counting in your head is legal; using any device at the table isn’t. To practise, try the drills in <a href="/en/how-to-practice-card-counting/">how to practice card counting</a>.</p>
+<p>Counting in your head is legal; using any device at the table isn’t. To practice, try the drills in <a href="/en/how-to-practice-card-counting/">how to practice card counting</a>.</p>
 <h2>Congratulations</h2>
 <p>You’ve finished the course. You now know more than most people who sit down at a table. What’s left is turning it into reflex: deciding correctly in two seconds, hand after hand. The only way there is practice.</p>`,
     quiz: [
