@@ -25,6 +25,9 @@ export function explain(key: HandKey, up: Upcard, action: Action, rules: Rules, 
       return es ? `12 contra ${upL} es la excepción: solo te pasas con un 10 y el crupier se pasa menos con esa carta.` : `12 against ${upL} is the exception: only a 10 busts you, and the dealer busts less with that card.`;
     if (action === 'stand' && stiff)
       return es ? `Con ${t} contra ${upL} es mejor no arriesgar: te pasas con demasiadas cartas.` : `With ${t} against ${upL}, don’t risk it: too many cards bust you.`;
+    // With 11 or less no card can bust you, so "you'd lose standing" isn't the real reason.
+    if (action === 'hit' && t <= 11)
+      return es ? `Con ${t} no puedes pasarte con una carta: pide.` : `With ${t} no single card can bust you: hit.`;
     if (action === 'hit' && strong && t <= 16)
       return es ? `Con ${t} contra ${upL} pierdes si te plantas: el crupier hará 17 o más casi siempre.` : `With ${t} against ${upL} you lose if you stand: the dealer will almost always make 17 or more.`;
     if (action === 'hit' && t <= 8)

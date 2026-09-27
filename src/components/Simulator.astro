@@ -151,7 +151,7 @@ const T = en
   };
 
   function stats() {
-    $('[data-acc]').textContent = total_ ? `${Math.round((100 * right) / total_)} %` : '—';
+    $('[data-acc]').textContent = total_ ? `${Math.round((100 * right) / total_)}${EN ? '%' : ' %'}` : '—';
     $('[data-streak]').textContent = String(streak);
   }
 
