@@ -1,0 +1,91 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import CountDrill from '../../../components/CountDrill.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Compter les cartes est-il illégal ?', a: 'Compter les cartes de tête n’est pas illégal : vous faites simplement attention. Ce qui est interdit, c’est d’utiliser des appareils, des notes ou des signes avec des complices. Les casinos sont toutefois des entreprises privées : dans beaucoup d’endroits (dont le Nevada), ils peuvent vous demander d’arrêter de jouer au blackjack ou de partir.' },
+  { q: 'Le comptage des cartes fonctionne-t-il en ligne ?', a: 'Pas au blackjack en ligne classique : le logiciel remélange après chaque main, il n’y a donc rien à compter. Les tables avec croupier en direct utilisent un vrai sabot, mais il est en général remélangé alors que la moitié ou plus reste à distribuer, ce qui ne laisse presque aucun avantage.' },
+  { q: 'Combien peut-on gagner en comptant les cartes ?', a: 'Moins qu’on ne le croit. Un compteur discipliné avec de bonnes règles peut obtenir un avantage d’environ 0,5 à 1 % sur les sommes misées, avec d’énormes variations : vous pouvez perdre pendant des semaines avant que l’avantage ne se manifeste. C’est pour cela que très peu de gens en tirent un profit.' },
+  { q: 'Qu’est-ce que le compte réel (true count) ?', a: 'Le compte courant divisé par le nombre de jeux qui restent à distribuer. Un compte courant de +6 avec trois jeux restants donne un compte réel de +2. C’est le compte réel qui vous dit si les cartes restantes vous sont favorables.' },
+  { q: 'Faut-il d’abord connaître la stratégie de base ?', a: 'Oui. Compter sans une stratégie de base solide ne sert à rien : les erreurs de stratégie coûtent plus que ce que le comptage rapporte. D’abord le tableau, ensuite le comptage.' },
+];
+---
+<Guide
+  lang="fr"
+  route="counting"
+  title="Compter les cartes au blackjack : le Hi-Lo expliqué"
+  h1="Comment compter les cartes au blackjack"
+  description="Apprenez à compter les cartes avec le Hi-Lo : compte courant, compte réel, avantage réel, légalité, pourquoi ça échoue en ligne. Avec un exercice interactif."
+  updated="2026-09-27"
+  readMinutes={9}
+  faq={faq}
+  related={['strategy', 'howToWin', 'howToPlay', 'guides']}
+  cta={{ title: 'D’abord la stratégie, ensuite le comptage', text: 'Veintiuno vous fait travailler la stratégie de base jusqu’à ce que vous ne fassiez plus d’erreurs, puis enseigne le Hi-Lo dans un module avancé, avec un exercice de compte courant à la vitesse de votre choix.' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> compter les cartes consiste à tenir un décompte des cartes distribuées pour savoir quand le reste du sabot est riche en cartes hautes, qui favorisent le joueur. En Hi-Lo, les cartes de 2 à 6 valent +1, les 10 et les as valent −1. C’est légal, mais l’avantage est faible, cela exige une vraie discipline et ça ne fonctionne pas en ligne.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="Dans ce guide">
+    <b>Dans ce guide</b>
+    <ol>
+      <li><a href="#why">Pourquoi le comptage fonctionne</a></li>
+      <li><a href="#hi-lo">Le système Hi-Lo pas à pas</a></li>
+      <li><a href="#true">Le compte réel</a></li>
+      <li><a href="#use">Que faire avec le compte</a></li>
+      <li><a href="#reality">Retour à la réalité : ce que ça vaut</a></li>
+      <li><a href="#legal">Est-ce légal ?</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="why">Pourquoi le comptage fonctionne</h2>
+  <p>Contrairement à la roulette, le blackjack a de la mémoire : les cartes distribuées ne retournent pas dans le sabot avant le prochain mélange, donc ce qui reste change d’une main à l’autre.</p>
+  <p>Quand les cartes restantes sont <strong>riches en 10 et en as</strong>, le joueur y gagne : plus de blackjacks (payés 3 pour 2), de meilleurs doublements, et un croupier obligé de tirer sur 16 qui saute plus souvent. Quand elles sont <strong>riches en petites cartes</strong>, c’est l’inverse. Compter, c’est simplement suivre cet équilibre.</p>
+
+  <h2 id="hi-lo">Le système Hi-Lo pas à pas</h2>
+  <p>Le Hi-Lo est le système le plus populaire parce qu’il est simple et presque aussi efficace que les systèmes complexes. Chaque carte que vous voyez reçoit une valeur :</p>
+  <table>
+    <thead><tr><th>Cartes</th><th>Valeur Hi-Lo</th></tr></thead>
+    <tbody>
+      <tr><td>2, 3, 4, 5, 6</td><td>+1</td></tr>
+      <tr><td>7, 8, 9</td><td>0</td></tr>
+      <tr><td>10, V, D, R, A</td><td>−1</td></tr>
+    </tbody>
+  </table>
+  <p>Partez de 0 après le mélange et ajoutez la valeur de <strong>chaque</strong> carte que vous voyez : les vôtres, celles des autres joueurs et celles du croupier. Ce nombre est le <strong>compte courant</strong>. Un compte positif signifie que davantage de petites cartes sont sorties, donc qu’il reste plus de cartes hautes.</p>
+  <p>Exemple : 5, R, 3, 9, 2, A → +1 −1 +1 0 +1 −1 = <strong>+1</strong>.</p>
+  <p>Astuce de pro : annulez les paires. Un 5 et un roi ensemble font 0 : vous pouvez les ignorer et compter plus vite.</p>
+
+  <CountDrill lang="fr" />
+
+  <h2 id="true">Le compte réel</h2>
+  <p>Un compte courant de +6 ne veut pas du tout dire la même chose avec un seul jeu restant qu’avec cinq. On le convertit donc en <strong>compte réel</strong> (true count) : le compte courant divisé par le nombre de jeux restants.</p>
+  <ul>
+    <li>Compte courant +6, trois jeux restants → compte réel <strong>+2</strong>.</li>
+    <li>Compte courant +6, un jeu restant → compte réel <strong>+6</strong>.</li>
+  </ul>
+  <p>On estime les jeux restants à l’œil, en regardant le bac à défausse. Arrondir au demi-jeu le plus proche suffit largement.</p>
+
+  <h2 id="use">Que faire avec le compte</h2>
+  <ol>
+    <li><strong>Ajuster vos mises.</strong> C’est de là que vient presque tout l’avantage. À un compte réel de +1 ou moins, misez le minimum ; à partir de +2, augmentez progressivement. En règle générale, chaque point de compte réel déplace l’avantage d’environ un demi-pour cent en votre faveur.</li>
+    <li><strong>Vous écarter de la stratégie de base.</strong> Avec des comptes très élevés ou très bas, quelques coups changent. Le plus connu est l’assurance, qui devient correcte à partir d’un compte réel de +3. Ces écarts s’appellent des indices ; les 18 plus rentables forment les « Illustrious 18 ».</li>
+  </ol>
+
+  <h2 id="reality">Retour à la réalité : ce que ça vaut</h2>
+  <p>C’est ici que la plupart des guides en font trop. La version honnête :</p>
+  <ul>
+    <li><strong>L’avantage est faible.</strong> Avec de bonnes règles et une pénétration profonde, un bon compteur peut obtenir environ 0,5 à 1 % sur les sommes misées.</li>
+    <li><strong>Les variations sont énormes.</strong> Avec un tel avantage, vous pouvez perdre pendant des semaines. Il faut une bankroll importante pour tenir.</li>
+    <li><strong>Les casinos réagissent.</strong> Ils mélangent plus tôt, plafonnent l’écart entre vos mises ou vous demandent de partir.</li>
+    <li><strong>Ça ne fonctionne pas en ligne.</strong> Le blackjack par générateur aléatoire remélange à chaque main, et les sabots des tables en direct sont coupés trop tôt pour que ça compte.</li>
+    <li><strong>Les mélangeurs en continu</strong> remettent les cartes après chaque main : le comptage ne sert à rien contre eux.</li>
+  </ul>
+  <p>Le comptage est une compétence mentale fascinante et la meilleure façon de vraiment comprendre le jeu. Ce n’est pas un moyen facile de gagner de l’argent, et quiconque prétend le contraire cherche à vous vendre quelque chose.</p>
+
+  <h2 id="legal">Est-ce légal ?</h2>
+  <p>Compter <strong>de tête</strong> est légal : personne ne peut vous interdire de réfléchir. Se faire aider ne l’est pas : téléphones, notes, appareils ou signes avec des complices.</p>
+  <p>Les casinos ne sont pas obligés d’apprécier pour autant. Dans la plupart des juridictions, ils peuvent refuser de vous servir : vous demander d’arrêter de jouer au blackjack ou de partir. (Le New Jersey est une exception notable : les casinos ne peuvent pas exclure les compteurs, mais peuvent toujours mélanger plus tôt ou limiter les mises.) En pratique, un mélange anticipé ou une limite de mise arrivent généralement en premier. Voir aussi <a href={routes.countingLegal.fr}>compter les cartes est-il illégal ?</a></p>
+  <p>Avant de compter, maîtrisez la <a href={routes.strategy.fr}>stratégie de base</a> : chaque erreur de stratégie coûte plus que ce que le compte vous rapporte.</p>
+</Guide>

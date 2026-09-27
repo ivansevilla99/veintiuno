@@ -1,0 +1,59 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import Simulator from '../../../components/Simulator.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Peut-on jouer au blackjack gratuitement sans inscription ?', a: 'Oui. Cette table fonctionne dans votre navigateur : sans inscription, sans téléchargement et sans argent réel. Votre taux de réussite est enregistré uniquement dans votre propre navigateur.' },
+  { q: 'Quelle différence avec le mode gratuit d’un casino en ligne ?', a: 'Les modes gratuits des casinos sont conçus pour vous amener à jouer avec de l’argent réel, et ils ne vous disent jamais si vous avez bien joué une main. Cette table n’a ni argent ni mises, et elle vérifie chaque décision par rapport au bon coup pour les règles que vous choisissez.' },
+  { q: 'Quelles règles utilise la table ?', a: 'Celles que vous choisissez : Las Vegas avec un croupier qui reste ou tire sur 17 souple, européen/en ligne, ou casino espagnol (sans carte cachée, doublement sur 9–11 seulement, sans abandon). Toujours 6 jeux, avec un nouveau mélange une fois les trois quarts du sabot distribués.' },
+  { q: 'Pourquoi me corrige-t-elle même quand j’ai gagné la main ?', a: 'Parce que le résultat d’une main dépend de la chance, et pas la décision. Vous pouvez rester sur 16 contre un 10 et gagner parce que le croupier saute, mais sur la durée ce coup perd davantage que tirer. La correction vous apprend la bonne décision, pas le résultat.' },
+];
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Table de blackjack gratuite avec correction immédiate',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web',
+  inLanguage: 'fr',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: 0, priceCurrency: 'EUR' },
+  url: 'https://veintiunoapp.com/fr/jouer-blackjack-gratuit/',
+}];
+---
+<Guide
+  lang="fr"
+  route="simulator"
+  title="Jouer au blackjack gratuit, sans inscription"
+  h1="Jouer au blackjack gratuitement"
+  description="Jouez au blackjack gratuitement dans votre navigateur, sans inscription ni argent réel. Chaque décision est vérifiée selon la stratégie de base de votre table."
+  updated="2026-09-27"
+  faq={faq}
+  related={['strategy', 'course', 'hand16v10', 'app']}
+  extraSchema={schema}
+  wide
+>
+  <div slot="top">
+    <p class="lead" style="margin-top:0">Une table d’entraînement <strong>gratuite, sans inscription et sans argent réel</strong>. Après chaque décision, elle vous dit si c’était le bon coup et pourquoi, d’après la stratégie de base pour les règles de table que vous choisissez.</p>
+  </div>
+
+  <div slot="wide" style="max-width:820px">
+    <Simulator lang="fr" />
+  </div>
+
+  <h2 id="fonctionnement">Comment ça marche</h2>
+  <ul>
+    <li><strong>Choisissez votre table&nbsp;:</strong> Las Vegas (S17 ou H17), européenne/en ligne ou casino espagnol. La bonne stratégie change avec les règles.</li>
+    <li><strong>Distribuez et décidez&nbsp;:</strong> tirer, rester, doubler, séparer ou abandonner. Seules les options que la table permet à ce moment-là sont actives.</li>
+    <li><strong>Regardez la correction&nbsp;:</strong> en vert si vous avez bien joué&nbsp;; en rouge, avec le bon coup et l’explication, sinon.</li>
+    <li>Sur ordinateur, vous pouvez jouer au clavier&nbsp;: <kbd>T</kbd> tirer, <kbd>R</kbd> rester, <kbd>D</kbd> doubler, <kbd>S</kbd> séparer, <kbd>A</kbd> abandonner et <kbd>Espace</kbd> pour distribuer.</li>
+  </ul>
+
+  <h2 id="pourquoi">Pourquoi s’entraîner avec correction</h2>
+  <p>Jouer sans correction vous apprend l’inverse de ce qu’il faudrait&nbsp;: un mauvais coup qui gagne par hasard est retenu comme «&nbsp;le bon&nbsp;». Ici, chaque décision est comparée à la <a href={routes.strategy.fr}>stratégie de base</a>, le coup qui perd le moins sur le long terme, et on vous explique pourquoi.</p>
+  <p>Quand vous réussissez plus de 95&nbsp;% de vos décisions, vous jouez mieux que la grande majorité des gens qui s’assoient à une table de blackjack. Si vous ratez toujours les mêmes mains, suivez le <a href={routes.course.fr}>cours gratuit</a> ou le guide du <a href={routes.hand16v10.fr}>16 contre 10</a>.</p>
+
+  <h2 id="sans-argent">Sans argent, sans casino</h2>
+  <p>Cette table n’a ni mises ni jetons, ne renvoie vers aucun casino et n’enregistre rien en dehors de votre navigateur. Elle sert à apprendre. Si le jeu vous coûte plus que vous ne le souhaitez, vous trouverez de l’aide sur notre page <a href={routes.responsible.fr}>jeu responsable</a>.</p>
+</Guide>

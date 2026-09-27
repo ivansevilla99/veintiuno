@@ -1,0 +1,54 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import StrategyChart from '../../../components/StrategyChart.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Was bedeutet „ohne Hole Card“?', a: 'Der Dealer bekommt beim Austeilen nur eine Karte, offen. Die zweite Karte zieht er erst, wenn alle Spieler fertig sind. Ergibt sie einen Blackjack, gewinnt der Dealer auch das zusätzliche Geld, das du zum Verdoppeln oder Splitten gesetzt hast. Bei amerikanischen Regeln prüft der Dealer zuerst auf Blackjack, und die Hand endet dort.' },
+  { q: 'Kann man in spanischen Casinos aufgeben (Surrender)?', a: 'Meistens nicht. Einige wenige Tische und manche in Spanien lizenzierte Online-Casinos bieten es an; schau auf das Regelschild am Tisch.' },
+  { q: 'Warum verdoppelt man 11 gegen eine 10 in Spanien nicht?', a: 'Ohne Hole Card kann der Dealer noch Blackjack haben. Verdoppelst du und er hat ihn, verlierst du das Doppelte. Dieses Risiko macht das Verdoppeln von 11 gegen 10 oder Ass zu einem Verlustspielzug, also ziehst du einfach.' },
+  { q: 'Wie hoch ist der Hausvorteil in einem spanischen Casino?', a: 'Mit den typischen Regeln (sechs Decks, Dealer bleibt bei Soft 17 stehen, ohne Hole Card, Verdoppeln nur auf 9–11, kein Surrender, Blackjack zahlt 3:2) und perfekter Grundstrategie etwa 0,6 %.' },
+];
+---
+<Guide lang="de" route="spain" title="Blackjack-Regeln in Spanien (ohne Hole Card)" h1="Blackjack-Regeln in Spanien" description="Blackjack in spanischen Casinos: ohne Hole Card, Verdoppeln nur auf 9, 10 oder 11, meist kein Surrender. Was sich gegenüber Las Vegas ändert, mit Tabelle." updated="2026-09-27" readMinutes={6} faq={faq} related={['strategy', 'howToPlay', 'howToWin', 'counting']} wide>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>Kurz gesagt:</strong> Spanische Casinos spielen <strong>ohne Hole Card</strong>, erlauben das Verdoppeln <strong>nur auf 9, 10 oder 11</strong> und bieten meist <strong>kein Surrender</strong> an. Das ändert mehrere wichtige Spielzüge – zum Beispiel verdoppelst du 11 nicht gegen eine 10 und splittest Achten nicht gegen ein Ass. Hinweis: Es geht um normales Blackjack, nicht um das andere Spiel namens „Spanish 21“.</p></div>
+  </div>
+  <div slot="wide" class="read">
+    <h2 id="regeln">Typische Regeln in Spanien</h2>
+    <table>
+      <thead><tr><th>Regel</th><th>Spanische Casinos (typisch)</th><th>Las Vegas (typisch)</th></tr></thead>
+      <tbody>
+        <tr><td>Decks</td><td>6 (manchmal 8)</td><td>6 oder 8</td></tr>
+        <tr><td>Hole Card des Dealers</td><td><strong>Nein</strong> (zweite Karte kommt zuletzt)</td><td>Ja, Dealer prüft auf Blackjack</td></tr>
+        <tr><td>Dealer bei Soft 17</td><td>Bleibt stehen</td><td>Bleibt stehen oder zieht, je nach Tisch</td></tr>
+        <tr><td>Verdoppeln</td><td><strong>Nur auf 9, 10 oder 11</strong></td><td>Auf beliebige zwei Karten</td></tr>
+        <tr><td>Verdoppeln nach dem Splitten</td><td>Meist ja</td><td>Meist ja</td></tr>
+        <tr><td>Surrender</td><td><strong>Meist nein</strong></td><td>Manchmal (Late Surrender)</td></tr>
+        <tr><td>Blackjack zahlt</td><td>3 zu 2</td><td>3 zu 2, an günstigen Tischen 6 zu 5</td></tr>
+      </tbody>
+    </table>
+    <h2 id="tabelle">Strategietabelle für spanische Casinos</h2>
+  </div>
+  <div slot="wide"><StrategyChart lang="de" preset="spainCasino" /></div>
+
+  <h2 id="unterschiede">Spielzüge, die sich gegenüber Las Vegas ändern</h2>
+  <p>Zwei Regeln erklären alles. Erstens: <strong>Ohne Hole Card</strong> nimmt ein Dealer-Blackjack alles vom Tisch, auch Verdopplungen und Splits – du willst also kein zusätzliches Geld gegen eine 10 oder ein Ass im Spiel haben:</p>
+  <ul>
+    <li><strong>11 gegen 10 oder Ass:</strong> ziehen, nicht verdoppeln.</li>
+    <li><strong>A-A gegen Ass:</strong> ziehen, nicht splitten.</li>
+    <li><strong>8-8 gegen 10 oder Ass:</strong> ziehen (oder aufgeben, falls angeboten). In Las Vegas splittest du sie immer.</li>
+  </ul>
+  <p>Zweitens: <strong>Verdoppeln nur auf 9–11</strong> streicht jedes Verdoppeln mit Soft Hands:</p>
+  <ul>
+    <li><strong>A-2 bis A-6:</strong> ziehen, wo die Vegas-Strategie verdoppeln würde.</li>
+    <li><strong>A-7 gegen 3–6:</strong> stehen bleiben, wo die Vegas-Strategie verdoppeln würde.</li>
+  </ul>
+  <p>Und ohne Surrender werden die üblichen Surrender-Hände (16 gegen 9, 10, Ass; 15 gegen 10) mit Ziehen gespielt.</p>
+
+  <h2 id="obo">Und OBO-Tische?</h2>
+  <p>Manche europäische Tische, vor allem online, spielen mit <strong>OBO</strong> („original bets only“): Hat der Dealer Blackjack, verlierst du nur deinen ursprünglichen Einsatz und bekommst Verdopplungen und Splits zurück. Dort ist die Strategie dieselbe wie mit Hole Card – aktiviere in der Tabelle „Dealer prüft auf Blackjack“.</p>
+
+  <h2 id="kosten">Was es kostet</h2>
+  <p>Mit den typischen Regeln und perfektem Spiel liegt der Hausvorteil bei etwa <strong>0,6 %</strong> – etwas schlechter als ein gutes Sechs-Deck-Spiel in Las Vegas (etwa 0,4 %), vor allem wegen der fehlenden Hole Card und der Einschränkung beim Verdoppeln, aber weit besser als jeder 6:5-Tisch. Neu im Spiel? Fang mit den <a href={routes.howToPlay.de}>Blackjack-Regeln</a> an.</p>
+</Guide>

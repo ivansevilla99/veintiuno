@@ -1,0 +1,27 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { routes, MAIL, linkOf } from '../../../lib/site';
+---
+<Base lang="de" route="about" title="Über Veintiuno: wie unsere Strategietabellen entstehen" description="Veintiuno ist eine Blackjack-Lern-App vom unabhängigen Entwickler Iván Sevilla. Wie wir die Tabellen berechnen, welche Quellen wir nutzen und warum ohne Casino.">
+  <div class="container legal">
+    <div class="read prose">
+      <h1>Über Veintiuno</h1>
+      <p class="lead">Veintiuno (spanisch für „einundzwanzig“) ist eine App, mit der du Blackjack richtig spielen lernst – entwickelt in Spanien vom unabhängigen Entwickler Iván Sevilla.</p>
+      <h2>Warum es sie gibt</h2>
+      <p>Vieles, was online über Blackjack geschrieben wird, stammt von Seiten, die Geld dafür bekommen, dich in ein Casino zu schicken. Deshalb findest du überall „Tricks zum Gewinnen“ und kaum ehrliche Erklärungen. Veintiuno macht es umgekehrt: Die App zeigt dir die richtige Entscheidung und erklärt, warum – ohne Echtgeld und ohne etwas anderes zu verkaufen als die App selbst.</p>
+      <h2>Woher die Tabellen kommen</h2>
+      <p>Die Grundstrategie ist keine Meinungssache: Sie ist der Spielzug mit dem besten Erwartungswert für jede Kombination aus Hand, Dealerkarte und Regeln. Unsere Tabellen gehen von der Standardtabelle für sechs Decks aus und übernehmen die Änderungen, die jede Regel mit sich bringt (Anzahl der Decks, Soft 17, Hole Card, Verdoppeln nach dem Splitten, Einschränkungen beim Verdoppeln und Surrender).</p>
+      <p>Geprüft werden sie an den Standardquellen: der Originalarbeit von Baldwin, Cantey, Maisel und McDermott aus dem Jahr 1956, Edward Thorps <em>Beat the Dealer</em>, der Analyse von Peter Griffin sowie den Tabellen und Rechnern von Wizard of Odds und BlackjackInfo. Die Werte zum Hausvorteil sind Näherungen auf Basis der Regeltabellen von Wizard of Odds.</p>
+      <p>Die Tabelle auf dieser Website läuft mit genau derselben Engine wie die App, deshalb stimmen beide immer überein.</p>
+      <h2>Was wir nicht machen</h2>
+      <ul>
+        <li>Keine Affiliate-Links zu Casinos oder Wettanbietern, keine Boni, keine Anbieter-Tests.</li>
+        <li>Kein Versprechen, dass du Geld gewinnst. Blackjack hat einen Hausvorteil, und das sagen wir auch.</li>
+        <li>In der App wird nicht um Echtgeld gespielt.</li>
+      </ul>
+      <h2>Kontakt</h2>
+      <p>Du hast einen Fehler in einer Tabelle oder Erklärung entdeckt? Schreib an <a href={`mailto:${MAIL}`}>{MAIL}</a>. Wir prüfen es und korrigieren es, wenn du recht hast, auf der Website und in der App.</p>
+      <p><a href={routes.responsible.de}>Verantwortungsvolles Spielen</a> · <a href={linkOf('privacy', 'de')}>Datenschutz</a> · <a href={linkOf('terms', 'de')}>Nutzungsbedingungen</a></p>
+    </div>
+  </div>
+</Base>

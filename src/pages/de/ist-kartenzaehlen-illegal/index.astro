@@ -1,0 +1,57 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes, linkOf } from '../../../lib/site';
+
+const faq = [
+  { q: 'Ist Kartenzählen beim Blackjack illegal?', a: 'Nein. Karten im Kopf zu zählen ist weder in Deutschland, Österreich und der Schweiz noch in den USA illegal: Du nutzt nur deinen Kopf für Informationen, die offen auf dem Tisch liegen. Verboten ist der Einsatz von Geräten oder fremder Hilfe, und die Spielbank kann dich bitten, nicht mehr zu spielen.' },
+  { q: 'Kann dich eine Spielbank wegen Kartenzählens rauswerfen?', a: 'Vielerorts ja. Spielbanken können dir den Zutritt verweigern oder dich sperren: Sie können dich vom Blackjack ausschließen oder bitten, zu gehen. Eine bekannte Ausnahme ist New Jersey (Atlantic City), wo man dich wegen Zählens nicht ausschließen darf – das Casino kann aber trotzdem früher mischen oder deine Einsätze begrenzen.' },
+  { q: 'Ist es verboten, im Casino eine App zum Kartenzählen zu benutzen?', a: 'Ja, fast überall. Wer an einem echten Tisch das Handy oder irgendein Gerät nutzt, um Karten zu zählen oder Spielzüge zu berechnen, verstößt gegen die Casinoregeln, und an Orten wie Nevada ist das sogar eine Straftat. Apps wie Veintiuno sind zum Üben zu Hause gedacht.' },
+  { q: 'Was unternehmen Casinos gegen Kartenzähler?', a: 'Sie mischen früher (weniger Penetration), setzen Dauermischmaschinen ein, begrenzen, wie stark du deinen Einsatz erhöhen darfst, beobachten per Kamera und bitten dich – wo sie das dürfen –, nicht mehr Blackjack zu spielen.' },
+];
+---
+<Guide
+  lang="de"
+  route="countingLegal"
+  title="Ist Kartenzählen illegal? Deutschland, AT, CH & USA"
+  h1="Ist Kartenzählen illegal?"
+  description="Ist Kartenzählen beim Blackjack illegal? Was in Deutschland, Österreich, der Schweiz und den USA gilt, was Spielbanken dürfen und was wirklich verboten ist."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['counting', 'practiceCounting', 'howToWin', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurze Antwort:</strong> <strong>Nein, Karten im Kopf zu zählen ist nicht illegal.</strong> Verboten sind Geräte, Notizen oder Partner, die Zeichen geben. Aber eine Spielbank hat Hausrecht: Fällst du auf, kann sie früher mischen, deine Einsätze begrenzen oder dich bitten, nicht mehr zu spielen.</p></div>
+  </div>
+
+  <h2 id="why">Warum es nicht illegal ist</h2>
+  <p>Kartenzählen heißt nur, sich zu merken, welche Karten schon gefallen sind, und daraus Schlüsse zu ziehen. Du manipulierst nichts, du siehst keine verdeckten Karten und du nutzt keine fremde Hilfe: Du verwendest nur die Informationen, die das Casino selbst offen auf den Tisch legt. Denken kann man nicht sinnvoll verbieten.</p>
+  <p>Die Grenze liegt bei <strong>fremder Hilfe</strong>: ein Taschenrechner, ein Handy, eine App, ein verstecktes Gerät oder ein Team, das sich den Count per Zeichen weitergibt. Das ist in Casinos verboten und an manchen Orten eine Straftat.</p>
+
+  <h2 id="countries">Land für Land</h2>
+  <table>
+    <thead><tr><th>Land</th><th>Im Kopf zählen?</th><th>Darf man dich rauswerfen?</th></tr></thead>
+    <tbody>
+      <tr><td>Deutschland</td><td>Nicht illegal</td><td>Ja: Die Spielbank kann dir im Rahmen ihres Hausrechts den Zutritt verweigern oder dich sperren; Geräte und Hilfsmittel sind verboten</td></tr>
+      <tr><td>Österreich</td><td>Nicht illegal</td><td>Ja: Die Spielbank kann dir im Rahmen ihres Hausrechts den Zutritt verweigern oder dich sperren; Geräte und Hilfsmittel sind verboten</td></tr>
+      <tr><td>Schweiz</td><td>Nicht illegal</td><td>Ja: Die Spielbank kann dir im Rahmen ihres Hausrechts den Zutritt verweigern oder dich sperren; Geräte und Hilfsmittel sind verboten</td></tr>
+      <tr><td>USA (Nevada)</td><td>Nicht illegal</td><td>Ja; ein Gerät zum Zählen zu benutzen ist eine Straftat</td></tr>
+      <tr><td>USA (New Jersey)</td><td>Nicht illegal</td><td>Man darf dich wegen Zählens nicht ausschließen, aber das Casino kann Gegenmaßnahmen ergreifen</td></tr>
+    </tbody>
+  </table>
+  <p class="muted small">Eine allgemeine Übersicht, keine Rechtsberatung. Die Hausordnung jeder Spielbank und die Vorschriften des jeweiligen Landes, Bundeslandes oder Kantons können weitere Bedingungen festlegen.</p>
+
+  <h2 id="casinos">Was Casinos tun</h2>
+  <ul>
+    <li><strong>Früher mischen.</strong> Je weniger Karten vor dem Mischen ausgeteilt werden, desto weniger nützt der Count.</li>
+    <li><strong>Dauermischmaschinen.</strong> Die Karten kommen nach jeder Hand zurück in den Schlitten, also bringt Zählen nichts.</li>
+    <li><strong>Einsätze begrenzen.</strong> Kartenzählen verschafft dir nur einen Vorteil, wenn du bei hohem Count deutlich mehr setzt; darfst du nicht erhöhen, gibt es keinen Vorteil.</li>
+    <li><strong>Dich bitten, nicht mehr Blackjack zu spielen</strong> oder zu gehen, wo das Recht es erlaubt.</li>
+  </ul>
+
+  <h2 id="online">Und online?</h2>
+  <p>Beim softwarebasierten Online-Blackjack gibt es nichts zu verbieten: Das Deck wird jede Hand neu gemischt, also funktioniert Zählen nicht. Beim <a href={linkOf('live', 'de')}>Live-Blackjack</a> ist der Schlitten echt, aber es wird früh gemischt und der Vorteil ist winzig.</p>
+
+  <h2 id="learn">Wenn du zählen lernen willst</h2>
+  <p>Es ist legal und ein großartiges Gedächtnistraining. Beherrsche zuerst die <a href={routes.strategy.de}>Grundstrategie</a>, dann geht es weiter mit <a href={routes.counting.de}>Karten zählen</a> und den <a href={routes.practiceCounting.de}>Übungen zum Kartenzählen</a>. Und behalte die Realität im Blick: Der Vorteil ist klein, und die meisten, die es versuchen, verdienen damit kein Geld. Mehr dazu unter <a href={routes.responsible.de}>verantwortungsvolles Spielen</a>.</p>
+</Guide>

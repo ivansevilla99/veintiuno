@@ -1,0 +1,57 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes, linkOf } from '../../../lib/site';
+
+const faq = [
+  { q: 'Compter les cartes au blackjack est-il illégal ?', a: 'Non. Compter les cartes de tête n’est pas illégal en France, en Belgique, en Suisse ni aux États-Unis : vous utilisez simplement votre cerveau sur des informations visibles sur la table. Ce qui est interdit, c’est d’utiliser des appareils ou une aide extérieure, et le casino peut vous demander d’arrêter de jouer.' },
+  { q: 'Un casino peut-il vous exclure parce que vous comptez les cartes ?', a: 'Dans beaucoup d’endroits, oui. Les casinos sont des entreprises privées et peuvent refuser l’accès : ils peuvent vous interdire le blackjack ou vous demander de partir. Une exception connue est le New Jersey (Atlantic City), où l’on ne peut pas vous exclure pour avoir compté, même si le casino peut toujours mélanger plus tôt ou limiter vos mises.' },
+  { q: 'Est-il illégal d’utiliser une application de comptage au casino ?', a: 'Oui, presque partout. Utiliser votre téléphone ou tout autre appareil pour compter les cartes ou calculer les coups à une vraie table enfreint le règlement des casinos et, dans des endroits comme le Nevada, constitue un délit. Les applications comme Veintiuno servent à s’entraîner chez soi.' },
+  { q: 'Que font les casinos face aux compteurs de cartes ?', a: 'Ils mélangent plus tôt (moins de pénétration), utilisent des mélangeurs en continu, plafonnent l’augmentation de vos mises, surveillent par caméra et, là où ils en ont le droit, vous demandent d’arrêter de jouer au blackjack.' },
+];
+---
+<Guide
+  lang="fr"
+  route="countingLegal"
+  title="Compter les cartes est-il illégal ? France, Belgique…"
+  h1="Compter les cartes est-il illégal ?"
+  description="Compter les cartes au blackjack est-il illégal ? La situation en France, Belgique, Suisse et aux États-Unis, ce que peuvent faire les casinos, les interdits."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['counting', 'practiceCounting', 'strategy', 'howToWin']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse courte :</strong> <strong>non, compter les cartes de tête n’est pas illégal.</strong> Ce qui est interdit, c’est d’utiliser des appareils, des notes ou des complices qui se font des signes. Mais un casino est une entreprise privée : s’il vous repère, il peut mélanger plus tôt, limiter vos mises ou vous demander d’arrêter de jouer.</p></div>
+  </div>
+
+  <h2 id="why">Pourquoi ce n’est pas illégal</h2>
+  <p>Compter les cartes, c’est simplement se souvenir des cartes déjà sorties et en tirer des conclusions. Vous ne trafiquez rien, vous ne voyez aucune carte cachée et vous n’utilisez aucune aide extérieure : vous vous servez uniquement des informations que le casino lui-même expose sur la table. Il n’existe aucun moyen raisonnable d’interdire de réfléchir.</p>
+  <p>La limite se situe au niveau de l’<strong>aide extérieure</strong> : une calculatrice, un téléphone, une application, un appareil dissimulé, ou une équipe qui se transmet le compte par signes. C’est interdit dans les casinos et, dans certains endroits, c’est un délit.</p>
+
+  <h2 id="countries">Pays par pays</h2>
+  <table>
+    <thead><tr><th>Pays</th><th>Compter de tête ?</th><th>Peut-on vous exclure ?</th></tr></thead>
+    <tbody>
+      <tr><td>France</td><td>Pas illégal</td><td>Oui : les casinos peuvent refuser l’accès ou exclure un joueur ; les appareils et aides sont interdits</td></tr>
+      <tr><td>Belgique</td><td>Pas illégal</td><td>Oui : les casinos peuvent refuser l’accès ou exclure un joueur ; les appareils et aides sont interdits</td></tr>
+      <tr><td>Suisse</td><td>Pas illégal</td><td>Oui : les casinos peuvent refuser l’accès ou exclure un joueur ; les appareils et aides sont interdits</td></tr>
+      <tr><td>États-Unis (Nevada)</td><td>Pas illégal</td><td>Oui ; utiliser un appareil pour compter est un délit</td></tr>
+      <tr><td>États-Unis (New Jersey)</td><td>Pas illégal</td><td>On ne peut pas vous exclure pour avoir compté, mais le casino peut prendre des contre-mesures</td></tr>
+    </tbody>
+  </table>
+  <p class="muted small">Résumé général, ce n’est pas un conseil juridique. Le règlement de chaque casino et la réglementation de chaque pays, canton ou État peuvent ajouter des conditions.</p>
+
+  <h2 id="casinos">Ce que font les casinos</h2>
+  <ul>
+    <li><strong>Mélanger plus tôt.</strong> Moins on distribue de cartes avant le mélange, moins le compte est utile.</li>
+    <li><strong>Mélangeurs en continu.</strong> Les cartes retournent dans le sabot après chaque main, ce qui rend le comptage inutile.</li>
+    <li><strong>Limiter vos mises.</strong> Compter ne donne un avantage que si vous misez beaucoup plus quand le compte est élevé ; si on ne vous laisse pas augmenter, il n’y a pas d’avantage.</li>
+    <li><strong>Vous demander d’arrêter</strong> de jouer au blackjack, ou de partir, là où la loi le permet.</li>
+  </ul>
+
+  <h2 id="online">Et en ligne ?</h2>
+  <p>Au blackjack en ligne géré par logiciel, il n’y a rien à interdire : le paquet est remélangé à chaque main, donc compter ne sert à rien. Au <a href={linkOf('live', 'fr')}>blackjack en direct</a>, le sabot est réel, mais il est mélangé tôt et l’avantage est minime.</p>
+
+  <h2 id="learn">Si vous voulez apprendre à compter</h2>
+  <p>C’est légal et c’est un excellent exercice mental. Commencez par maîtriser la <a href={routes.strategy.fr}>stratégie de base</a>, puis passez à <a href={routes.counting.fr}>comment compter les cartes</a> et aux <a href={routes.practiceCounting.fr}>exercices d’entraînement</a>. Et gardez la réalité en tête : l’avantage est faible et la plupart des gens qui essaient ne gagnent pas d’argent.</p>
+</Guide>

@@ -31,6 +31,20 @@ Key facts used across the site:
 - [Blackjack rules in Spain](https://veintiunoapp.com/en/blackjack-rules-in-spain/)
 - [All guides](https://veintiunoapp.com/en/guides/)
 
+## Deutsch
+- [Blackjack-Strategietabelle (interaktiv)](https://veintiunoapp.com/de/blackjack-strategie-tabelle/)
+- [Blackjack kostenlos spielen, mit Korrektur](https://veintiunoapp.com/de/blackjack-kostenlos-spielen/)
+- [Kostenloser Blackjack-Kurs](https://veintiunoapp.com/de/blackjack-kurs/)
+- [Blackjack-Regeln](https://veintiunoapp.com/de/blackjack-regeln/)
+- [Hausvorteil nach Regeln](https://veintiunoapp.com/de/blackjack-daten/hausvorteil-regeln/)
+
+## Français
+- [Tableau de stratégie du blackjack (interactif)](https://veintiunoapp.com/fr/tableau-strategie-blackjack/)
+- [Jouer au blackjack gratuitement, avec correction](https://veintiunoapp.com/fr/jouer-blackjack-gratuit/)
+- [Cours de blackjack gratuit](https://veintiunoapp.com/fr/cours-blackjack/)
+- [Règles du blackjack](https://veintiunoapp.com/fr/regles-blackjack/)
+- [Probabilité que le croupier saute](https://veintiunoapp.com/fr/donnees-blackjack/probabilite-croupier-saute/)
+
 ## About
 - [About Veintiuno and methodology](https://veintiunoapp.com/en/about/)
 - [App Store](https://apps.apple.com/app/id6813226836)

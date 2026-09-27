@@ -1,0 +1,26 @@
+---
+import Base from '../../../layouts/Base.astro';
+import AppCTA from '../../../components/AppCTA.astro';
+import { routes } from '../../../lib/site';
+const items = [
+  [routes.dataBust.fr, 'Probabilité que le croupier saute', 'Selon sa carte visible et selon le total final (17–21), en S17 et en H17.'],
+  [routes.dataRules.fr, 'Ce que coûte chaque règle du blackjack', 'Comment le 6:5, le H17, le nombre de jeux, l’abandon et le reste modifient l’avantage de la maison.'],
+  [routes.hand16v10.fr, '16 contre 10, en chiffres', 'L’espérance de tirer, de rester et d’abandonner.'],
+  [routes.whenDouble.fr, 'Quand doubler, avec les espérances', '11 contre un as, A-7 contre 6 et tous les autres doublements.'],
+  [routes.whenSplit.fr, 'Quand séparer, avec les espérances', 'Les 8 contre un 10, les 10 contre un 6, les 9 contre un 7.'],
+];
+---
+<Base lang="fr" route="data" title="Probabilités et données du blackjack · Veintiuno" description="Tables exactes calculées par le moteur de Veintiuno : probabilité que le croupier saute, avantage de la maison selon les règles et espérance des coups clés.">
+  <div class="container read">
+    <header class="article-head">
+      <span class="eyebrow">Données</span>
+      <h1>Probabilités et données du blackjack</h1>
+      <p class="lead">Des tables calculées avec le même moteur que l’application Veintiuno : un calcul exact, pas une simulation, avec les règles et les hypothèses précisées sur chaque page.</p>
+    </header>
+    <div class="grid-2">
+      {items.map(([href, title, text]) => <a class="card" href={href}><h3>{title}</h3><p>{text}</p></a>)}
+    </div>
+    <p class="muted small" style="margin-top:24px">Méthode : 6 jeux sauf mention contraire ; on retire les cartes visibles et on joue toutes les cartes possibles (expectimax). Résultats validés par une simulation indépendante de plusieurs millions de mains. Plus de détails sur la page <a href={routes.about.fr}>À propos</a>.</p>
+    <AppCTA lang="fr" campaign="data" />
+  </div>
+</Base>

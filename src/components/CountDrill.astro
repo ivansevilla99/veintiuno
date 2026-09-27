@@ -2,12 +2,14 @@
 import type { Lang } from '../lib/site';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const es = lang === 'es';
-const L = es
-  ? { title: 'Pruébalo: cuenta estas cartas', deal: 'Repartir 12 cartas', ask: '¿Cuál es la cuenta corriente?', check: 'Comprobar', ok: '¡Correcto!', ko: 'No. La cuenta era', again: 'Otra ronda', hint: 'Del 2 al 6 suman 1, del 7 al 9 no cuentan, dieces, figuras y ases restan 1.' }
-  : { title: 'Try it: count these cards', deal: 'Deal 12 cards', ask: 'What is the running count?', check: 'Check', ok: 'Correct!', ko: 'Not quite. The count was', again: 'Another round', hint: '2–6 count +1, 7–9 count 0, tens, faces and aces count −1.' };
+const L = ({
+  es: { title: 'Pruébalo: cuenta estas cartas', deal: 'Repartir 12 cartas', ask: '¿Cuál es la cuenta corriente?', check: 'Comprobar', ok: '¡Correcto!', ko: 'No. La cuenta era', again: 'Otra ronda', hint: 'Del 2 al 6 suman 1, del 7 al 9 no cuentan, dieces, figuras y ases restan 1.' },
+  en: { title: 'Try it: count these cards', deal: 'Deal 12 cards', ask: 'What is the running count?', check: 'Check', ok: 'Correct!', ko: 'Not quite. The count was', again: 'Another round', hint: '2–6 count +1, 7–9 count 0, tens, faces and aces count −1.' },
+  de: { title: 'Probier’s aus: Zähl diese Karten', deal: '12 Karten austeilen', ask: 'Wie lautet der Running Count?', check: 'Prüfen', ok: 'Richtig!', ko: 'Nicht ganz. Der Count war', again: 'Nächste Runde', hint: '2 bis 6 zählen +1, 7 bis 9 zählen 0, Zehner, Bilder und Asse zählen −1.' },
+  fr: { title: 'Essayez : comptez ces cartes', deal: 'Distribuer 12 cartes', ask: 'Quel est le compte courant ?', check: 'Vérifier', ok: 'Correct !', ko: 'Pas tout à fait. Le compte était', again: 'Encore une', hint: 'Du 2 au 6 : +1, du 7 au 9 : 0, dix, figures et as : −1.' },
+} as const)[lang];
 ---
-<div class="count-drill card" data-lang={lang}>
+<div class="count-drill card" data-lang={lang} data-ok={L.ok} data-ko={L.ko} data-again={L.again}>
   <h3>{L.title}</h3>
   <p class="muted small">{L.hint}</p>
   <div class="cd-cards" data-cards aria-live="polite"></div>
@@ -41,7 +43,7 @@ const L = es
   const value = (r: string) => (['2', '3', '4', '5', '6'].includes(r) ? 1 : ['7', '8', '9'].includes(r) ? 0 : -1);
 
   document.querySelectorAll<HTMLElement>('.count-drill').forEach((root) => {
-    const es = root.dataset.lang === 'es';
+    const T = root.dataset;
     const cards = root.querySelector<HTMLElement>('[data-cards]')!;
     const deal = root.querySelector<HTMLButtonElement>('[data-deal]')!;
     const form = root.querySelector<HTMLFormElement>('[data-form]')!;
@@ -71,7 +73,7 @@ const L = es
             if (i === 11) {
               form.hidden = false;
               deal.disabled = false;
-              deal.textContent = es ? 'Otra ronda' : 'Another round';
+              deal.textContent = T.again!;
               answer.value = '';
               answer.focus();
             }
@@ -85,7 +87,7 @@ const L = es
       const ok = Number(answer.value) === count;
       result.hidden = false;
       result.className = `cd-result ${ok ? 'ok' : 'ko'}`;
-      result.textContent = ok ? (es ? '¡Correcto!' : 'Correct!') : `${es ? 'No. La cuenta era' : 'Not quite. The count was'} ${count > 0 ? '+' : ''}${count}.`;
+      result.textContent = ok ? T.ok! : `${T.ko} ${count > 0 ? '+' : ''}${count}.`;
     });
   });
 </script>

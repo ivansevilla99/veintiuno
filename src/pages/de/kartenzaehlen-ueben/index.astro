@@ -1,0 +1,74 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import DeckCountdown from '../../../components/DeckCountdown.astro';
+import CountDrill from '../../../components/CountDrill.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Wie lange dauert es, Kartenzählen zu lernen?', a: 'Die Hi-Lo-Werte lernst du an einem Nachmittag. Ein ganzes Deck in unter 30 Sekunden fehlerfrei herunterzuzählen, braucht meist mehrere Wochen tägliches Üben. Es an einem echten Tisch zu schaffen, mit Lärm, Gesprächen und Einsätzen, dauert noch einiges länger.' },
+  { q: 'Was ist die beste Übung zum Kartenzählen?', a: 'Der Deck-Countdown: Du gehst alle 52 Karten durch, und am Ende muss der Count bei 0 stehen. Das ist die Standardübung aller Zähler, weil sie Genauigkeit und Tempo gleichzeitig prüft.' },
+  { q: 'Gibt es eine App, um Kartenzählen zu üben?', a: 'Ja. Veintiuno enthält das Hi-Lo-Zählen als Fortgeschrittenen-Modul am Ende des Kurses: eine Running-Count-Übung mit einstellbarem Tempo plus eine Erklärung des True Count. Auf dieser Seite findest du außerdem zwei kostenlose Übungen, die direkt im Browser laufen.' },
+  { q: 'Kann ich Kartenzählen in einem Online-Casino üben?', a: 'Die Technik kannst du üben, Geld verdienen kannst du nicht. Softwarebasiertes Online-Blackjack mischt nach jeder Hand neu, der Count ist also nutzlos. Höchstens, um dich an das Tempo zu gewöhnen.' },
+];
+---
+<Guide
+  lang="de"
+  route="practiceCounting"
+  title="Kartenzählen üben: Übungen Schritt für Schritt"
+  h1="Kartenzählen üben"
+  description="Schritt-für-Schritt-Plan zum Kartenzählen üben mit Hi-Lo: Kartenwerte, Deck-Countdown, Paare streichen, True Count, Tischtempo. Kostenlose Übungen im Browser."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['counting', 'countingLegal', 'strategy', 'course']}
+  cta={{ title: 'Erst die Strategie, dann das Zählen', text: 'In Veintiuno kommt Hi-Lo am Ende des Kurses, wenn du die Grundstrategie beherrschst – denn Zählen ohne sie ist sinnlos.' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurze Antwort:</strong> Lerne die Hi-Lo-Werte (2–6 zählen +1, 7–9 zählen 0, Zehnen und Asse zählen −1), übe den <strong>Deck-Countdown</strong>, bis du ihn fehlerfrei in unter 30 Sekunden schaffst, lerne in <strong>Paaren, die sich aufheben</strong>, zu zählen und in den <strong>True Count</strong> umzurechnen – und übe erst danach mit Lärm und Ablenkung. Vor allem anderen: Beherrsche die Grundstrategie.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In diesem Ratgeber">
+    <b>In diesem Ratgeber</b>
+    <ol>
+      <li><a href="#before">Bevor du anfängst</a></li>
+      <li><a href="#step1">Schritt 1: die Werte, ohne nachzudenken</a></li>
+      <li><a href="#step2">Schritt 2: der Deck-Countdown</a></li>
+      <li><a href="#step3">Schritt 3: in Paaren zählen</a></li>
+      <li><a href="#step4">Schritt 4: der True Count</a></li>
+      <li><a href="#step5">Schritt 5: Tischtempo</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="before">Bevor du anfängst</h2>
+  <p>Kartenzählen ergibt nur Sinn, wenn du die <a href={routes.strategy.de}>Grundstrategie</a> bereits fehlerfrei spielst. Ein einziger Strategiefehler alle paar Hände kostet mehr als der gesamte Vorteil, den dir das Zählen bringt. Wenn du bei 12 gegen eine 3 oder A-7 gegen eine 9 noch zögerst, fang dort an.</p>
+  <p>Und sei dir im Klaren, warum du es machst: Zählen ist ein großartiges Gedächtnistraining und der beste Weg, das Spiel zu verstehen – aber kein leichter Weg zu Geld. Warum, erklären wir in <a href={routes.counting.de}>Karten zählen beim Blackjack</a>.</p>
+
+  <h2 id="step1">Schritt 1: die Werte, ohne nachzudenken</h2>
+  <p>Du musst eine Karte sehen und ihren Wert kennen, ohne ihn im Kopf zu übersetzen. 2 bis 6: <strong>+1</strong>. 7 bis 9: <strong>0</strong>. Zehnen, Bildkarten und Asse: <strong>−1</strong>. Übe mit kurzen Serien, bis du nicht mehr zögerst:</p>
+  <CountDrill lang="de" />
+
+  <h2 id="step2">Schritt 2: der Deck-Countdown</h2>
+  <p>Die klassische Übung, die jeder Zähler macht. Ein volles Deck hat genauso viele hohe wie niedrige Karten; wenn du alle 52 zählst, muss das Ergebnis also 0 sein. Fang langsam an und steigere das Tempo:</p>
+  <ul>
+    <li><strong>Ziel 1:</strong> fehlerfrei bei 0 ankommen, egal wie schnell.</li>
+    <li><strong>Ziel 2:</strong> in unter 30 Sekunden bei 0 ankommen (etwa 0,5 s pro Karte).</li>
+    <li><strong>Ziel 3:</strong> in der Mitte des Decks anhalten und den Count richtig haben.</li>
+  </ul>
+  <DeckCountdown lang="de" />
+
+  <h2 id="step3">Schritt 3: in Paaren zählen</h2>
+  <p>Am Tisch kommen die Karten zu zweit oder zu dritt. Zähler addieren sie nicht einzeln, sondern erkennen <strong>Paare, die sich aufheben</strong>. Eine 5 und ein König ergeben zusammen 0, also ignorierst du sie. Eine 4 und eine 6 sind auf einen Schlag +2. Übe, zwei Karten gleichzeitig anzusehen und nur das Ergebnis für das Paar zu nennen.</p>
+
+  <h2 id="step4">Schritt 4: der True Count</h2>
+  <p>Der Running Count sagt dir, wie viele hohe Karten zusätzlich übrig sind, aber nicht, wie viele Karten noch kommen. Dafür teilst du durch die verbleibenden Decks: <strong>True Count = Running Count ÷ verbleibende Decks</strong>. Übe, das im Kopf auszurechnen:</p>
+  <ul>
+    <li>+8 bei 4 verbleibenden Decks → <strong>+2</strong></li>
+    <li>+6 bei 1,5 verbleibenden Decks → <strong>+4</strong></li>
+    <li>−3 bei 3 verbleibenden Decks → <strong>−1</strong></li>
+  </ul>
+  <p>Um die verbleibenden Decks zu schätzen, schau auf den Ablageschlitten: Auf ein halbes Deck genau zu runden reicht.</p>
+
+  <h2 id="step5">Schritt 5: Tischtempo</h2>
+  <p>Zu Hause in Ruhe zu zählen ist leicht. Am Tisch gibt es Lärm, Gespräche, Jetons und Karten von mehreren Spielern. Wenn du die vorherigen Schritte beherrschst, übe mit laufendem Fernseher, während du redest, oder mit einem Video von einem echten Tisch. Verlierst du den Count, kein Problem: Nach dem nächsten Mischen fängst du wieder bei null an.</p>
+  <div class="callout warn"><p><strong>Denk daran:</strong> Im Kopf zu zählen ist legal, ein Handy oder irgendein Gerät am Tisch zu benutzen dagegen nicht. Und die Spielbank kann dich bitten, nicht mehr zu spielen, wenn sie dich bemerkt. Mehr dazu unter <a href={routes.countingLegal.de}>Ist Kartenzählen illegal?</a></p></div>
+</Guide>

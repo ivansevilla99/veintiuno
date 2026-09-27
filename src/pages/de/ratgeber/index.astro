@@ -1,0 +1,46 @@
+---
+import Base from '../../../layouts/Base.astro';
+import AppCTA from '../../../components/AppCTA.astro';
+import { routes } from '../../../lib/site';
+const groups = [
+  { title: 'Hier anfangen', items: [
+    ['course', 'Kostenloser Blackjack-Kurs', '10 kurze Lektionen mit Quiz, von den Regeln bis zum Kartenzählen.'],
+    ['simulator', 'Blackjack kostenlos spielen', 'Ein Übungstisch, der jede Entscheidung korrigiert – ohne Geld, ohne Anmeldung.'],
+    ['howToPlay', 'Blackjack-Regeln', 'Das Ziel, die Kartenwerte, der Ablauf einer Hand und die Auszahlungen.'],
+  ] },
+  { title: 'Gut spielen', items: [
+    ['strategy', 'Blackjack-Strategietabelle', 'Interaktiv, an die Regeln deines Tisches angepasst, mit dem Grund hinter jedem Feld.'],
+    ['printable', 'Strategietabelle als PDF', 'Tabellen zum Ausdrucken für europäische, Las-Vegas- und spanische Tische.'],
+    ['whenDouble', 'Wann verdoppeln?', 'Jedes Verdoppeln, mit dem Erwartungswert jeder Situation.'],
+    ['whenSplit', 'Wann splitten?', 'Welche Paare du splittest und gegen welche Dealerkarte.'],
+    ['hand16v10', '16 gegen 10', 'Die gefürchtetste Hand, in Zahlen.'],
+    ['howToWin', 'Blackjack gewinnen', 'Was den Hausvorteil wirklich senkt und was nur Hype ist.'],
+    ['spain', 'Blackjack-Regeln in Spanien', 'Ohne Hole Card, Verdoppeln nur auf 9–11, kein Surrender: was sich ändert.'],
+    ['app', 'Die beste App zum Blackjack-Lernen', 'Warum dich ein Trainer etwas lehrt und ein Casino-Spiel nicht.'],
+  ] },
+  { title: 'Für Fortgeschrittene', items: [
+    ['counting', 'Karten zählen', 'Hi-Lo, der True Count und die Realität des Zählens, mit Übung.'],
+    ['practiceCounting', 'Kartenzählen üben', 'Ein Plan Schritt für Schritt und die Deck-Countdown-Übung.'],
+    ['countingLegal', 'Ist Kartenzählen illegal?', 'Was das Gesetz in Spanien, Mexiko, Argentinien und den USA sagt.'],
+  ] },
+  { title: 'Daten', items: [
+    ['dataBust', 'Wahrscheinlichkeit, dass sich der Dealer überkauft', 'Genaue Tabelle nach offener Karte, S17 und H17.'],
+    ['dataRules', 'Hausvorteil nach Regeln', 'Was dich jede Tischregel kostet.'],
+  ] },
+] as const;
+---
+<Base lang="de" route="guides" title="Blackjack-Ratgeber: Regeln, Strategie, Kartenzählen" description="Alle Blackjack-Ratgeber von Veintiuno: Regeln, Grundstrategie und Strategietabelle, die Regeln in Spanien und Kartenzählen, ehrlich erklärt.">
+  <div class="container">
+    <header class="article-head read" style="margin-left:0">
+      <h1>Blackjack-Ratgeber</h1>
+      <p class="lead">Alles, was du brauchst, um gut zu spielen, in der richtigen Reihenfolge: von den Regeln über die Strategie bis, wenn du willst, zum Kartenzählen.</p>
+    </header>
+    {groups.map((g) => (
+      <section>
+        <h2>{g.title}</h2>
+        <div class="grid-2">{g.items.map(([key, title, text]) => <a class="card" href={routes[key].de}><h3>{title}</h3><p>{text}</p></a>)}</div>
+      </section>
+    ))}
+    <AppCTA lang="de" campaign="guides" />
+  </div>
+</Base>

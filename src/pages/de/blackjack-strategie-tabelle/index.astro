@@ -1,0 +1,90 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import StrategyChart from '../../../components/StrategyChart.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Garantiert die Grundstrategie, dass ich beim Blackjack gewinne?', a: 'Nein. Die Grundstrategie ist die Spielweise, mit der du auf Dauer am wenigsten verlierst: Sie senkt den Hausvorteil je nach Regeln auf etwa 0,3–0,7 %, aber das Haus behält den Vorteil. Sie macht jede Entscheidung richtig, nicht den Gewinn sicher.' },
+  { q: 'Warum gibt es verschiedene Strategietabellen?', a: 'Weil der beste Spielzug von den Tischregeln abhängt: Anzahl der Decks, ob der Dealer bei Soft 17 zieht oder stehen bleibt, ob du nach dem Splitten verdoppeln darfst, ob Surrender angeboten wird und ob der Dealer auf Blackjack prüft (Hole Card). Wähl oben deinen Tisch, dann passt sich die Tabelle an.' },
+  { q: 'Darf ich im Casino eine Strategiekarte benutzen?', a: 'Manche Casinos dulden an Tischen mit niedrigen Einsätzen eine ausgedruckte Karte, andere nicht – frag vorher nach. Handy oder andere elektronische Geräte am Tisch sind nirgends erlaubt. Besser ist es, die Tabelle vorher auswendig zu lernen.' },
+  { q: 'Was bedeutet „soft“ beim Blackjack?', a: 'Eine Soft Hand enthält ein Ass, das als 11 zählt. Ass-6 ist Soft 17: Ziehst du eine Zehn, zählt das Ass als 1 und du hast harte 17 – mit einer Karte kannst du dich nicht überkaufen. Deshalb wird mit Soft Hands öfter verdoppelt und gezogen.' },
+  { q: 'Wann sollte ich aufgeben (Surrender)?', a: 'Nur wenn der Tisch Late Surrender anbietet. Mit Standardregeln aus Las Vegas: 16 gegen 9, 10 oder Ass und 15 gegen 10. Beim Aufgeben bekommst du die Hälfte deines Einsatzes zurück – besser, als Hände zu spielen, die öfter als in der Hälfte der Fälle verlieren.' },
+];
+---
+<Guide
+  lang="de"
+  route="strategy"
+  title="Blackjack Strategie Tabelle (interaktiv) · Veintiuno"
+  h1="Blackjack-Strategietabelle: die Grundstrategie für deinen Tisch"
+  description="Interaktive Blackjack Strategie Tabelle: Wähl deine Tischregeln (europäisch ohne Hole Card, Vegas S17/H17, Double Deck) und tipp auf ein Feld für den Grund."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['howToPlay', 'counting', 'howToWin', 'guides']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>Kurz gesagt:</strong> Such deine Hand in der linken Spalte und die offene Karte des Dealers in der oberen Zeile. Die Farbe sagt dir, was zu tun ist: <b style="color:var(--c-hit)">ziehen</b>, <b style="color:var(--c-stand)">stehen bleiben</b>, <b style="color:var(--c-double)">verdoppeln</b>, <b style="color:var(--c-split)">splitten</b> oder <b style="color:var(--c-surrender)">aufgeben</b>. Wähl zuerst deinen Tischtyp – die Regeln verändern die Tabelle. Voreingestellt sind europäische Regeln ohne Hole Card, wie sie in deutschsprachigen Spielbanken in der Regel gespielt werden.</p></div>
+  </div>
+
+  <div slot="wide">
+    <StrategyChart lang="de" preset="europeanOnline" />
+  </div>
+
+  <nav class="toc" aria-label="In diesem Ratgeber">
+    <b>In diesem Ratgeber</b>
+    <ol>
+      <li><a href="#lesen">So liest du die Tabelle</a></li>
+      <li><a href="#regeln">Die 10 wichtigsten Regeln</a></li>
+      <li><a href="#tischregeln">Wie die Tischregeln die Tabelle verändern</a></li>
+      <li><a href="#auswendig">So lernst du sie auswendig</a></li>
+      <li><a href="#faq">Häufige Fragen</a></li>
+    </ol>
+  </nav>
+
+  <p class="callout">Lieber auf Papier? <a href={routes.printable.de}>Lade die Tabelle als PDF herunter</a> – für europäische, Las-Vegas- oder spanische Tische. Oder übe sie gleich an unserem <a href={routes.simulator.de}>kostenlosen Übungstisch</a>.</p>
+
+  <h2 id="lesen">So liest du die Tabelle</h2>
+  <p>Die Grundstrategie ist die mathematisch beste Entscheidung für jede Kombination aus <strong>deiner Hand</strong> und der <strong>offenen Karte des Dealers</strong>, ermittelt durch die Simulation von Millionen Händen. Bauchgefühl oder Glückssträhnen spielen keine Rolle: Für jede Situation gibt es einen Spielzug, der weniger verliert als alle anderen.</p>
+  <p>Prüf die drei Abschnitte in dieser Reihenfolge:</p>
+  <ol>
+    <li><strong>Paare.</strong> Sind deine ersten beiden Karten gleich, schau nach, ob du splitten solltest.</li>
+    <li><strong>Soft Hands.</strong> Hast du ein Ass, das als 11 zählt (A-2 bis A-9), nutz diesen Abschnitt.</li>
+    <li><strong>Harte Hände.</strong> Alles andere. „17+“ bedeutet 17 oder mehr.</li>
+  </ol>
+  <p>Manche Felder haben zwei Buchstaben. <strong>Ds</strong> heißt „verdoppeln, wenn erlaubt, sonst stehen bleiben“; ein einfaches <strong>D</strong> heißt „verdoppeln, wenn erlaubt, sonst ziehen“. Surrender-Felder funktionieren genauso: Wird Surrender nicht angeboten, nimm die zweite Option.</p>
+
+  <h2 id="regeln">Die 10 wichtigsten Regeln</h2>
+  <p>Du musst nicht alle Felder auf einmal lernen. Diese zehn Regeln decken die meisten Hände ab, die dir je begegnen:</p>
+  <ol>
+    <li><strong>Asse und Achten immer splitten.</strong> Aus zwei Assen können zwei 21 werden; 8-8 ist 16, die schlechteste Hand im Spiel. (Ohne Hole Card nicht gegen ein Ass – siehe unten.)</li>
+    <li><strong>Zehner und Fünfer nie splitten.</strong> 20 gewinnt fast immer, und 5-5 ist eine 10, die du verdoppeln solltest.</li>
+    <li><strong>Bei harten 17 oder mehr immer stehen bleiben.</strong></li>
+    <li><strong>Mit 12–16 gegen eine 7 oder höher ziehen.</strong> Es fühlt sich falsch an, aber Stehenbleiben verliert mehr: Der Dealer kommt meistens auf 17+.</li>
+    <li><strong>Mit 12–16 gegen eine 2–6 stehen bleiben</strong> (außer 12 gegen 2 oder 3, da ziehst du). Lass den Dealer sich überkaufen.</li>
+    <li><strong>11 verdoppeln</strong> gegen alles außer ein Ass (bei S17; bei H17 auch gegen das Ass). Ohne Hole Card nicht gegen 10 oder Ass.</li>
+    <li><strong>10 verdoppeln</strong> gegen 2 bis 9.</li>
+    <li><strong>9 verdoppeln</strong> gegen 3 bis 6.</li>
+    <li><strong>Mit Soft 18 (A-7) gegen 9, 10 oder Ass ziehen.</strong> Der klassische Fehler erfahrener Spieler.</li>
+    <li><strong>Nie die Versicherung nehmen.</strong> Sie ist eine Nebenwette mit einem Hausvorteil von etwa 7 % bei mehreren Decks.</li>
+  </ol>
+
+  <h2 id="tischregeln">Wie die Tischregeln die Tabelle verändern</h2>
+  <ul>
+    <li><strong>Ohne Hole Card (europäisch):</strong> Der Dealer prüft nicht auf Blackjack, also verlierst du Verdopplungen und Splits an einen Dealer-Blackjack. Verdopple 11 nicht gegen 10 oder Ass und splitte Asse oder Achten nicht gegen ein Ass. So wird in deutschen, österreichischen und Schweizer Spielbanken meist gespielt – prüf aber immer die Regeln deines Tisches. Mehr dazu unter <a href={routes.spain.de}>Blackjack-Regeln in Spanien</a>.</li>
+    <li><strong>Dealer zieht bei Soft 17 (H17):</strong> 11 gegen Ass verdoppeln, A-7 gegen 2 und A-8 gegen 6 verdoppeln und mehr Hände aufgeben (15 und 17 gegen Ass, 8-8 gegen Ass). Außerdem erhöht es den Hausvorteil um etwa 0,2 %.</li>
+    <li><strong>Double Deck:</strong> 9 gegen 2 und 11 gegen Ass verdoppeln, 6-6 gegen 7 und 7-7 gegen 8 splitten.</li>
+    <li><strong>Kein Verdoppeln nach dem Splitten:</strong> Kleine Paare (2-2, 3-3, 4-4, 6-6) seltener splitten.</li>
+    <li><strong>Blackjack zahlt 6:5:</strong> Ändert die Tabelle nicht, erhöht aber den Hausvorteil um etwa 1,4 %. Meide solche Tische.</li>
+  </ul>
+
+  <h2 id="auswendig">So lernst du sie auswendig</h2>
+  <p>Die Tabelle lesen ist nicht dasselbe wie sie können. Am Tisch hast du zwei Sekunden und keinen Spickzettel. Was funktioniert, ist verteiltes Üben: jeden Tag ein paar Hände, sofortige Korrektur und zusätzliche Wiederholungen bei den Feldern, bei denen du danebenliegst.</p>
+  <ol>
+    <li>Fang mit den harten Händen an – sie machen die meisten deiner Hände aus.</li>
+    <li>Nimm die Paare dazu: wenige Regeln, leicht vorzustellen.</li>
+    <li>Heb dir die Soft Hands für den Schluss auf – dort patzen die meisten.</li>
+    <li>Übe zehn Minuten am Tag und notier dir, welche Felder du verfehlst, nicht wie viele du richtig hast.</li>
+  </ol>
+  <p>Genau das macht die App Veintiuno: Sie teilt Hände nach den Regeln deines Tisches aus, korrigiert dich sofort mit Begründung, und eine Heatmap zeigt dir, bei welchen Feldern dieser Tabelle du immer wieder danebenliegst.</p>
+</Guide>

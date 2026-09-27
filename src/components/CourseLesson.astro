@@ -5,18 +5,23 @@ import AppCTA from './AppCTA.astro';
 import type { Lesson } from '../lib/course';
 import { routes, type Lang } from '../lib/site';
 
-interface Props { lang: Lang; lessons: Lesson[]; i: number; alternate?: string }
-const { lang, lessons, i, alternate } = Astro.props;
-const en = lang === 'en';
+import { lessonAlternates } from '../lib/courses';
+interface Props { lang: Lang; lessons: Lesson[]; i: number }
+const { lang, lessons, i } = Astro.props;
 const lesson = lessons[i], prev = lessons[i - 1], next = lessons[i + 1];
 const base = routes.course[lang];
 const site = Astro.site!;
 const path = `${base}${lesson.slug}/`;
-const T = en
-  ? { home: 'Home', course: 'Blackjack course', lesson: 'Lesson', of: 'of', key: 'Key takeaway:', prev: '← Previous', index: '← Index', next: 'Next →', after: 'Now →', chart: 'The full strategy chart',
-      ctaT: 'Practice it with corrections', ctaX: 'In the Veintiuno app every lesson has its drill and its exam, with real hands and an explanation for every mistake.', courseName: 'Free blackjack course' }
-  : { home: 'Inicio', course: 'Curso de blackjack', lesson: 'Lección', of: 'de', key: 'Lo esencial:', prev: '← Anterior', index: '← Índice', next: 'Siguiente →', after: 'Y ahora →', chart: 'La tabla de estrategia completa',
-      ctaT: 'Practícalo con corrección', ctaX: 'En la app de Veintiuno cada lección tiene su ejercicio y su examen, con manos reales y la explicación de cada error.', courseName: 'Curso de blackjack gratis' };
+const T = ({
+  en: { home: 'Home', course: 'Blackjack course', lesson: 'Lesson', of: 'of', key: 'Key takeaway:', prev: '← Previous', index: '← Index', next: 'Next →', after: 'Now →', chart: 'The full strategy chart',
+      ctaT: 'Practice it with corrections', ctaX: 'In the Veintiuno app every lesson has its drill and its exam, with real hands and an explanation for every mistake.', courseName: 'Free blackjack course' },
+  es: { home: 'Inicio', course: 'Curso de blackjack', lesson: 'Lección', of: 'de', key: 'Lo esencial:', prev: '← Anterior', index: '← Índice', next: 'Siguiente →', after: 'Y ahora →', chart: 'La tabla de estrategia completa',
+      ctaT: 'Practícalo con corrección', ctaX: 'En la app de Veintiuno cada lección tiene su ejercicio y su examen, con manos reales y la explicación de cada error.', courseName: 'Curso de blackjack gratis' },
+  de: { home: 'Start', course: 'Blackjack-Kurs', lesson: 'Lektion', of: 'von', key: 'Das Wichtigste:', prev: '← Zurück', index: '← Übersicht', next: 'Weiter →', after: 'Jetzt →', chart: 'Die komplette Strategietabelle',
+      ctaT: 'Mit Korrektur üben', ctaX: 'In der Veintiuno-App hat jede Lektion ihre Übung und ihren Test – mit echten Händen und einer Erklärung zu jedem Fehler.', courseName: 'Kostenloser Blackjack-Kurs' },
+  fr: { home: 'Accueil', course: 'Cours de blackjack', lesson: 'Leçon', of: 'sur', key: 'L’essentiel :', prev: '← Précédente', index: '← Sommaire', next: 'Suivante →', after: 'Et maintenant →', chart: 'Le tableau de stratégie complet',
+      ctaT: 'Pratiquez avec correction', ctaX: 'Dans l’app Veintiuno, chaque leçon a son exercice et son examen, avec de vraies mains et l’explication de chaque erreur.', courseName: 'Cours de blackjack gratuit' },
+})[lang];
 const schema = [
   {
     '@context': 'https://schema.org', '@type': 'Article', headline: lesson.h1, description: lesson.description, inLanguage: lang,
@@ -35,7 +40,7 @@ const schema = [
   },
 ];
 ---
-<Base lang={lang} path={path} alternate={alternate} title={lesson.metaTitle} description={lesson.description} type="article" schema={schema}>
+<Base lang={lang} path={path} alternates={lessonAlternates(i)} title={lesson.metaTitle} description={lesson.description} type="article" schema={schema}>
   <div class="container">
     <div class="read">
       <header class="article-head">

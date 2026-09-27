@@ -6,21 +6,31 @@ import { routes, type Lang } from '../lib/site';
 
 interface Props { lang: Lang; lessons: Lesson[] }
 const { lang, lessons } = Astro.props;
-const en = lang === 'en';
 const base = routes.course[lang];
 const site = Astro.site!;
 const total = lessons.reduce((a, l) => a + l.minutes, 0);
-const T = en
-  ? { name: 'Free blackjack course', desc: 'A free course to learn blackjack: rules, payouts, basic strategy (hit, stand, double, split, surrender), choosing a table and card counting.',
+const T = ({
+  en: { name: 'Free blackjack course', desc: 'A free course to learn blackjack: rules, payouts, basic strategy (hit, stand, double, split, surrender), choosing a table and card counting.',
       title: 'Free Blackjack Course: From Zero to Basic Strategy', meta: `Free online blackjack course: 10 short lessons (${total} minutes in total) with quizzes, from the rules and payouts to basic strategy and card counting.`,
       eyebrow: 'Free course', h1: 'Blackjack course', lead: `Ten short lessons to go from not knowing the rules to playing perfect basic strategy. About ${total} minutes in total, with a quiz at the end of each lesson. No sign-up, no real money.`,
       start: 'Start lesson 1', min: 'min', direct: 'Want to jump straight to a question? Try the', chart: 'strategy chart', dbl: 'when to double', spl: 'when to split', h16: '16 vs 10', and: 'and',
-      ctaT: 'From the course to the table', ctaX: 'The course teaches you what to do. The Veintiuno app makes you practice it: it deals hands, corrects every decision and reviews your mistakes until it’s automatic.', cur: 'USD' }
-  : { name: 'Curso de blackjack gratis', desc: 'Curso gratuito para aprender a jugar al blackjack: reglas, pagos, estrategia básica (pedir, plantarse, doblar, dividir, rendirse), elegir mesa y conteo de cartas.',
+      ctaT: 'From the course to the table', ctaX: 'The course teaches you what to do. The Veintiuno app makes you practice it: it deals hands, corrects every decision and reviews your mistakes until it’s automatic.', cur: 'USD' },
+  es: { name: 'Curso de blackjack gratis', desc: 'Curso gratuito para aprender a jugar al blackjack: reglas, pagos, estrategia básica (pedir, plantarse, doblar, dividir, rendirse), elegir mesa y conteo de cartas.',
       title: 'Curso de blackjack gratis: de cero a la estrategia básica', meta: `Curso de blackjack gratis y online: 10 lecciones cortas (${total} minutos en total) con ejercicios, de las reglas y los pagos a la estrategia básica y el conteo de cartas.`,
       eyebrow: 'Curso gratis', h1: 'Curso de blackjack', lead: `Diez lecciones cortas para pasar de no saber las reglas a jugar con la estrategia básica. Unos ${total} minutos en total, con un ejercicio al final de cada lección. Sin registro y sin dinero real.`,
       start: 'Empezar la lección 1', min: 'min', direct: '¿Prefieres ir directo a una duda? Tienes la', chart: 'tabla de estrategia', dbl: 'cuándo doblar', spl: 'cuándo dividir', h16: '16 contra 10', and: 'y',
-      ctaT: 'Del curso a la mesa', ctaX: 'El curso te enseña qué hacer. La app de Veintiuno te lo hace practicar: te reparte manos, te corrige cada decisión y repasa tus errores hasta que te sale solo.', cur: 'EUR' };
+      ctaT: 'Del curso a la mesa', ctaX: 'El curso te enseña qué hacer. La app de Veintiuno te lo hace practicar: te reparte manos, te corrige cada decisión y repasa tus errores hasta que te sale solo.', cur: 'EUR' },
+  de: { name: 'Kostenloser Blackjack-Kurs', desc: 'Kostenloser Kurs, um Blackjack zu lernen: Regeln, Auszahlungen, Grundstrategie (ziehen, stehen bleiben, verdoppeln, splitten, aufgeben), Tischwahl und Kartenzählen.',
+      title: 'Blackjack-Kurs kostenlos: von null zur Grundstrategie', meta: `Kostenloser Online-Blackjack-Kurs: 10 kurze Lektionen (insgesamt ${total} Minuten) mit Quiz – von Regeln und Auszahlungen bis zu Grundstrategie und Kartenzählen.`,
+      eyebrow: 'Kostenloser Kurs', h1: 'Blackjack-Kurs', lead: `Zehn kurze Lektionen – von „Ich kenne die Regeln nicht“ bis zur fehlerfreien Grundstrategie. Etwa ${total} Minuten insgesamt, mit einem Quiz am Ende jeder Lektion. Ohne Anmeldung und ohne Echtgeld.`,
+      start: 'Lektion 1 starten', min: 'Min.', direct: 'Direkt zu einer bestimmten Frage? Hier sind die', chart: 'Strategietabelle', dbl: 'wann verdoppeln', spl: 'wann splitten', h16: '16 gegen 10', and: 'und',
+      ctaT: 'Vom Kurs an den Tisch', ctaX: 'Der Kurs zeigt dir, was zu tun ist. Die Veintiuno-App lässt es dich üben: Sie teilt Hände aus, korrigiert jede Entscheidung und wiederholt deine Fehler, bis alles sitzt.', cur: 'EUR' },
+  fr: { name: 'Cours de blackjack gratuit', desc: 'Un cours gratuit pour apprendre le blackjack : règles, paiements, stratégie de base (tirer, rester, doubler, séparer, abandonner), choix de la table et comptage des cartes.',
+      title: 'Cours de blackjack gratuit : de zéro à la stratégie de base', meta: `Cours de blackjack gratuit : 10 leçons courtes (${total} minutes) avec quiz, des règles et des paiements à la stratégie de base et au comptage des cartes.`,
+      eyebrow: 'Cours gratuit', h1: 'Cours de blackjack', lead: `Dix leçons courtes pour passer de « je ne connais pas les règles » à une stratégie de base sans faute. Environ ${total} minutes au total, avec un quiz à la fin de chaque leçon. Sans inscription et sans argent réel.`,
+      start: 'Commencer la leçon 1', min: 'min', direct: 'Une question précise ? Voici le', chart: 'tableau de stratégie', dbl: 'quand doubler', spl: 'quand séparer', h16: '16 contre 10', and: 'et',
+      ctaT: 'Du cours à la table', ctaX: 'Le cours vous dit quoi faire. L’app Veintiuno vous le fait pratiquer : elle distribue des mains, corrige chaque décision et revient sur vos erreurs jusqu’à ce que ce soit automatique.', cur: 'EUR' },
+})[lang];
 const schema = [
   {
     '@context': 'https://schema.org', '@type': 'Course', name: T.name, description: T.desc, inLanguage: lang, isAccessibleForFree: true,

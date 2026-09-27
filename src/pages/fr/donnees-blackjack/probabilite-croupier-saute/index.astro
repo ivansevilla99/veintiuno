@@ -1,0 +1,79 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { dealerTable } from '../../../../lib/ev';
+import { presets } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const ups = [2, 3, 4, 5, 6, 7, 8, 9, 10, 1];
+const upL = (u: number) => (u === 1 ? 'As' : String(u));
+const pct = (x: number) => (x * 100).toFixed(1).replace('.', ',') + ' %';
+const s17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasS17) }));
+const h17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasH17) }));
+const avgBust = s17.reduce((a, r) => a + r.bust * (r.u === 10 ? 4 : 1), 0) / 13;
+
+const faq = [
+  { q: 'Avec quelle carte visible le croupier saute-t-il le plus ?', a: 'Un 6 ou un 5 : environ 42 % du temps quand le croupier reste sur 17 souple. Avec un 4, près de 40 %. C’est pour cela qu’on reste de 12 à 16 face à un 4, un 5 ou un 6.' },
+  { q: 'Avec quelle carte visible le croupier saute-t-il le moins ?', a: 'Un as : une fois le blackjack écarté, le croupier saute environ 17 % du temps. Avec un 7, un 8, un 9 ou un 10, entre 23 % et 26 %.' },
+  { q: 'Qu’est-ce que ça change si le croupier tire sur 17 souple (H17) ?', a: 'Le croupier saute un peu plus souvent avec les petites cartes et avec un as, parce qu’il continue de tirer là où il restait avant ; mais il termine aussi plus souvent sur 18–21. Au total, le H17 est défavorable au joueur : il augmente l’avantage de la maison d’environ 0,2 point de pourcentage.' },
+];
+---
+<Guide
+  lang="fr"
+  route="dataBust"
+  title="Probabilité que le croupier saute au blackjack"
+  h1="Probabilité que le croupier saute selon sa carte visible"
+  description="Table exacte de la probabilité que le croupier saute au blackjack selon sa carte visible, et chances de chaque total final de 17 à 21, en S17 et H17, à 6 jeux."
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['hand16v10', 'strategy', 'dataRules', 'data']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>En bref :</strong> avec 6 jeux et un croupier qui reste sur 17 souple, le croupier saute environ <strong>42 % du temps avec un 5 ou un 6</strong>, <strong>40 % avec un 4</strong>, <strong>35–37 % avec un 2 ou un 3</strong>, <strong>23–26 % avec un 7 à 10</strong> et <strong>17 % avec un as</strong> (blackjacks du croupier exclus). En moyenne, le croupier saute sur {pct(avgBust)} des mains où il n’a pas blackjack.</p></div>
+  </div>
+
+  <div slot="wide" class="read">
+    <h2 id="s17">Le croupier reste sur 17 souple (S17)</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>Carte visible</th><th>Saute</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>A blackjack</th></tr></thead>
+        <tbody>
+          {s17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="h17">Le croupier tire sur 17 souple (H17)</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>Carte visible</th><th>Saute</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>A blackjack</th></tr></thead>
+        <tbody>
+          {h17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2 id="method">Comment la lire et comment elle a été calculée</h2>
+  <ul>
+    <li>La colonne « Saute » et les colonnes 17–21 totalisent 100 % : ce sont les probabilités <strong>une fois le blackjack du croupier écarté</strong>, c’est-à-dire la situation dans laquelle vous décidez à une table avec carte cachée. La dernière colonne donne la probabilité d’un blackjack du croupier avant la vérification.</li>
+    <li>Calcul exact (pas une simulation) avec le moteur de Veintiuno : 6 jeux, on retire la carte visible du croupier et on joue toutes les cartes possibles. Nous l’avons vérifié par une simulation indépendante de 1,5 million de mains par carte visible, avec des écarts de quelques dixièmes de point.</li>
+    <li>Avec moins de jeux, ou en tenant compte des cartes des joueurs, les chiffres bougent légèrement, mais l’ordre ne change jamais.</li>
+  </ul>
+
+  <h2 id="use">À quoi sert cette table</h2>
+  <p>C’est toute la raison d’être de la stratégie de base. De 12 à 16 face à un 4, un 5 ou un 6, vous restez, parce que le croupier saute près d’une fois sur deux quand il n’a pas déjà 17–21 ; face à un 7 ou plus, vous tirez, parce qu’il finira presque toujours sur 17 ou plus. Le cas le plus discuté est expliqué dans <a href={routes.hand16v10.fr}>16 contre 10</a>.</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 8px; background: var(--panel); border-radius: 14px; overflow: hidden; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

@@ -1,7 +1,8 @@
 ---
 export interface QuizQuestion { q: string; options: string[]; answer: number; why: string }
-interface Props { questions: QuizQuestion[]; title?: string; lang?: 'es' | 'en' }
-const { questions, lang = 'es', title = lang === 'en' ? 'Check what you’ve learned' : 'Comprueba lo que has aprendido' } = Astro.props;
+interface Props { questions: QuizQuestion[]; title?: string; lang?: 'es' | 'en' | 'de' | 'fr' }
+const TITLES = { es: 'Comprueba lo que has aprendido', en: 'Check what you’ve learned', de: 'Teste dein Wissen', fr: 'Vérifiez ce que vous avez appris' };
+const { questions, lang = 'es', title = TITLES[lang] } = Astro.props;
 ---
 <section class="quiz card" data-quiz data-lang={lang}>
   <h3>{title}</h3>
@@ -47,7 +48,8 @@ const { questions, lang = 'es', title = lang === 'en' ? 'Check what you’ve lea
           answered++;
           q.querySelector<HTMLElement>('.quiz-why')!.hidden = false;
           if (answered === qs.length) {
-            quiz.querySelector<HTMLElement>('[data-score]')!.textContent = quiz.dataset.lang === 'en' ? `${right} of ${qs.length} correct.` : `${right} de ${qs.length} correctas.`;
+            const SCORE: Record<string, string> = { es: 'de {n} correctas.', en: 'of {n} correct.', de: 'von {n} richtig.', fr: 'sur {n} correctes.' };
+            quiz.querySelector<HTMLElement>('[data-score]')!.textContent = `${right} ${(SCORE[quiz.dataset.lang ?? 'es'] ?? SCORE.en).replace('{n}', String(qs.length))}`;
           }
         }),
       );

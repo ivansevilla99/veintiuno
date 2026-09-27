@@ -1,0 +1,90 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import StrategyChart from '../../../components/StrategyChart.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'La stratégie de base garantit-elle de gagner au blackjack ?', a: 'Non. La stratégie de base est la manière de jouer qui perd le moins sur la durée : elle réduit l’avantage de la maison à environ 0,3–0,7 % selon les règles, mais la maison garde l’avantage. Elle rend chaque décision correcte ; elle ne rend pas le gain certain.' },
+  { q: 'Pourquoi existe-t-il plusieurs tableaux de stratégie ?', a: 'Parce que le meilleur coup dépend des règles de la table : nombre de jeux, croupier qui tire ou reste sur 17 souple, doublement autorisé ou non après une séparation, abandon proposé ou non, et croupier qui vérifie ou non le blackjack (carte cachée). Choisissez votre table ci-dessus et le tableau se met à jour.' },
+  { q: 'Peut-on utiliser un tableau de stratégie au casino ?', a: 'Certains casinos tolèrent une carte imprimée aux tables à petites mises, d’autres non : demandez d’abord. Utiliser un téléphone ou tout appareil électronique à la table n’est permis nulle part. Le mieux est d’apprendre le tableau par cœur avant d’y aller.' },
+  { q: 'Que veut dire « main souple » au blackjack ?', a: 'Une main souple contient un as compté pour 11. As-6 est un 17 souple : si vous tirez un 10, l’as repasse à 1 et vous avez un 17 dur ; impossible de sauter avec une seule carte. C’est pour cela qu’on double et qu’on tire plus souvent avec les mains souples.' },
+  { q: 'Quand faut-il abandonner ?', a: 'Seulement si la table propose l’abandon tardif. Avec les règles standard de Las Vegas : 16 contre un 9, un 10 ou un as, et 15 contre un 10. Abandonner vous rend la moitié de la mise, ce qui vaut mieux que jouer des mains qui perdent plus d’une fois sur deux.' },
+];
+---
+<Guide
+  lang="fr"
+  route="strategy"
+  title="Tableau blackjack : stratégie de base interactive"
+  h1="Tableau de stratégie de base du blackjack"
+  description="Tableau de stratégie blackjack interactif : choisissez vos règles (européen sans carte cachée, Las Vegas S17 ou H17) et touchez une case pour savoir pourquoi."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['howToPlay', 'counting', 'howToWin', 'guides']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>Réponse rapide&nbsp;:</strong> cherchez votre main dans la colonne de gauche et la carte visible du croupier en haut. La couleur vous dit quoi faire&nbsp;: <b style="color:var(--c-hit)">tirer</b>, <b style="color:var(--c-stand)">rester</b>, <b style="color:var(--c-double)">doubler</b>, <b style="color:var(--c-split)">séparer</b> ou <b style="color:var(--c-surrender)">abandonner</b>. Choisissez d’abord votre type de table (le tableau s’ouvre sur les règles européennes, sans carte cachée)&nbsp;: les règles changent le tableau.</p></div>
+  </div>
+
+  <div slot="wide">
+    <StrategyChart lang="fr" preset="europeanOnline" />
+  </div>
+
+  <nav class="toc" aria-label="Dans ce guide">
+    <b>Dans ce guide</b>
+    <ol>
+      <li><a href="#lire">Comment lire le tableau</a></li>
+      <li><a href="#regles">Les 10 règles les plus importantes</a></li>
+      <li><a href="#regles-table">Comment les règles de la table changent le tableau</a></li>
+      <li><a href="#memoriser">Comment l’apprendre par cœur</a></li>
+      <li><a href="#faq">Questions fréquentes</a></li>
+    </ol>
+  </nav>
+
+  <p class="callout">Vous le voulez sur papier&nbsp;? <a href={routes.printable.fr}>Téléchargez le tableau en PDF</a> pour les tables européennes, de Las Vegas ou d’Espagne. Ou entraînez-vous dès maintenant à notre <a href={routes.simulator.fr}>table d’entraînement gratuite</a>.</p>
+
+  <h2 id="lire">Comment lire le tableau</h2>
+  <p>La stratégie de base, c’est la décision mathématiquement la meilleure pour chaque combinaison de <strong>votre main</strong> et de la <strong>carte visible du croupier</strong>, calculée en simulant des millions de mains. Elle ne tient compte ni des intuitions ni des séries&nbsp;: pour chaque situation, il existe un coup qui perd moins que les autres.</p>
+  <p>Consultez les trois sections dans cet ordre&nbsp;:</p>
+  <ol>
+    <li><strong>Les paires.</strong> Si vos deux premières cartes sont identiques, regardez s’il faut les séparer.</li>
+    <li><strong>Les mains souples.</strong> Si vous avez un as compté pour 11 (A-2 à A-9), utilisez cette section.</li>
+    <li><strong>Les mains dures.</strong> Tout le reste. «&nbsp;17+&nbsp;» signifie 17 ou plus.</li>
+  </ol>
+  <p>Certaines cases ont deux lettres. <strong>Ds</strong> signifie «&nbsp;doubler si c’est permis, sinon rester&nbsp;»&nbsp;; un simple <strong>D</strong> signifie «&nbsp;doubler si c’est permis, sinon tirer&nbsp;». Les cases d’abandon fonctionnent de la même façon&nbsp;: si l’abandon n’est pas proposé, prenez la seconde option.</p>
+
+  <h2 id="regles">Les 10 règles les plus importantes</h2>
+  <p>Inutile d’apprendre toutes les cases d’un coup. Ces dix règles couvrent la plupart des mains que vous verrez&nbsp;:</p>
+  <ol>
+    <li><strong>Séparez toujours les as et les huit.</strong> Deux as peuvent devenir deux 21&nbsp;; 8-8 fait 16, la pire main du jeu.</li>
+    <li><strong>Ne séparez jamais les dix ni les cinq.</strong> 20 gagne presque toujours, et 5-5 est un 10 qu’il faut doubler.</li>
+    <li><strong>Restez toujours sur un 17 dur ou plus.</strong></li>
+    <li><strong>Tirez de 12 à 16 contre un 7 ou plus.</strong> Cela semble contre-intuitif, mais rester perd davantage&nbsp;: le croupier fera en général 17 ou plus.</li>
+    <li><strong>Restez de 12 à 16 contre un 2 à 6</strong> (sauf 12 contre un 2 ou un 3, où l’on tire). Laissez le croupier sauter.</li>
+    <li><strong>Doublez 11</strong> contre tout sauf un as (en S17&nbsp;; en H17, doublez aussi contre l’as).</li>
+    <li><strong>Doublez 10</strong> contre un 2 à 9.</li>
+    <li><strong>Doublez 9</strong> contre un 3 à 6.</li>
+    <li><strong>Tirez sur 18 souple (A-7) contre un 9, un 10 ou un as.</strong> C’est l’erreur classique des joueurs expérimentés.</li>
+    <li><strong>Ne prenez jamais l’assurance.</strong> C’est un pari annexe avec un avantage de la maison d’environ 7&nbsp;% dans les jeux à plusieurs paquets.</li>
+  </ol>
+
+  <h2 id="regles-table">Comment les règles de la table changent le tableau</h2>
+  <ul>
+    <li><strong>Le croupier tire sur 17 souple (H17)&nbsp;:</strong> doublez 11 contre un as, doublez A-7 contre un 2 et A-8 contre un 6, et abandonnez plus de mains (15 et 17 contre un as, 8-8 contre un as). Cela ajoute aussi environ 0,2&nbsp;% à l’avantage de la maison.</li>
+    <li><strong>Double jeu (deux paquets)&nbsp;:</strong> doublez 9 contre un 2 et 11 contre un as, séparez 6-6 contre un 7 et 7-7 contre un 8.</li>
+    <li><strong>Sans carte cachée (européen)&nbsp;:</strong> le croupier ne vérifie pas s’il a blackjack, donc vous perdez vos doublements et vos séparations face à un blackjack du croupier. Ne doublez pas 11 contre un 10 ou un as, et ne séparez ni les as ni les huit contre un as. C’est la règle qu’on trouve en général dans les casinos de France, de Belgique ou de Suisse. Voir aussi les <a href={routes.spain.fr}>règles du blackjack en Espagne</a>.</li>
+    <li><strong>Pas de doublement après séparation&nbsp;:</strong> séparez moins souvent les petites paires (2-2, 3-3, 4-4, 6-6).</li>
+    <li><strong>Blackjack payé 6:5&nbsp;:</strong> ne change pas le tableau, mais ajoute environ 1,4&nbsp;% à l’avantage de la maison. Évitez ces tables.</li>
+  </ul>
+
+  <h2 id="memoriser">Comment l’apprendre par cœur</h2>
+  <p>Lire le tableau n’est pas le connaître. À la table, vous avez deux secondes et pas d’antisèche. Ce qui marche, c’est la pratique espacée&nbsp;: quelques mains par jour, une correction immédiate, et plus de répétitions sur les cases où vous vous trompez.</p>
+  <ol>
+    <li>Commencez par les mains dures&nbsp;: ce sont la plupart de vos mains.</li>
+    <li>Ajoutez les paires&nbsp;: peu de règles, faciles à visualiser.</li>
+    <li>Gardez les mains souples pour la fin&nbsp;: c’est là que la plupart des gens trébuchent.</li>
+    <li>Entraînez-vous dix minutes par jour et suivez les cases que vous ratez, pas combien vous en réussissez.</li>
+  </ol>
+  <p>C’est exactement ce que fait l’application Veintiuno&nbsp;: elle distribue des mains selon les règles de votre table, vous corrige immédiatement en donnant la raison, et une carte de chaleur montre les cases de ce tableau que vous continuez à rater.</p>
+</Guide>

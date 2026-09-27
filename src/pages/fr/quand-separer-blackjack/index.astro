@@ -1,0 +1,58 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quelles paires faut-il toujours séparer au blackjack ?', a: 'Les as et les 8, contre n’importe quelle carte du croupier, aux tables avec carte cachée. Aux tables européennes sans carte cachée, il y a deux exceptions : ne séparez pas les as contre un as, ni les 8 contre un 10 ou un as.' },
+  { q: 'Faut-il séparer les 10 ?', a: 'Jamais. Même contre un 6, la pire carte du croupier, un 20 vaut +0,70 mise si vous restez et +0,57 si vous séparez. Les séparer, c’est échanger une main presque gagnée contre deux mains incertaines.' },
+  { q: 'Faut-il séparer les 5 ?', a: 'Non. 5-5, c’est un 10, l’une des meilleures mains pour doubler. En séparant, vous vous retrouvez avec deux mains qui partent de 5, ce qui est mauvais.' },
+  { q: 'Et les 9 contre un 7 ?', a: 'Restez. 9-9 fait 18, et contre un 7 le croupier termine souvent sur 17 : votre 18 gagne. Rester vaut +0,40 ; séparer, +0,37.' },
+];
+---
+<Guide
+  lang="fr"
+  route="whenSplit"
+  title="Quand séparer au blackjack : quelles paires (tableau)"
+  h1="Quand séparer au blackjack"
+  description="Quelles paires séparer au blackjack et contre quelle carte du croupier : as, 8, 9, 7, 6, 2 et 3, et pourquoi jamais les 10 ni les 5. Avec les calculs à l’appui."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenDouble', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> séparez toujours <strong>les as et les 8</strong> ; ne séparez jamais <strong>les 10 ni les 5</strong>. Les 9 contre 2–9 sauf le 7. Les 7, les 2 et les 3 contre 2–7. Les 6 contre 2–6. Les 4 seulement contre 5 et 6, si vous pouvez doubler après séparation.</p></div>
+  </div>
+
+  <h2 id="chart">Le tableau des séparations</h2>
+  <table>
+    <thead><tr><th>Paire</th><th>Séparez contre</th><th>Sinon…</th></tr></thead>
+    <tbody>
+      <tr><td>A-A</td><td>toutes</td><td>—</td></tr>
+      <tr><td>8-8</td><td>toutes</td><td>—</td></tr>
+      <tr><td>10-10</td><td>jamais</td><td>restez</td></tr>
+      <tr><td>9-9</td><td>2 à 6, 8 et 9</td><td>restez (contre 7, 10 et as)</td></tr>
+      <tr><td>7-7</td><td>2 à 7</td><td>tirez</td></tr>
+      <tr><td>6-6</td><td>2 à 6</td><td>tirez</td></tr>
+      <tr><td>5-5</td><td>jamais</td><td>doublez contre 2–9</td></tr>
+      <tr><td>4-4</td><td>5 et 6 (avec doublement après séparation)</td><td>tirez</td></tr>
+      <tr><td>2-2, 3-3</td><td>2 à 7</td><td>tirez</td></tr>
+    </tbody>
+  </table>
+  <p>C’est le tableau pour 6 jeux avec doublement après séparation autorisé. Si votre table ne permet pas de doubler après séparation, tirez avec 2-2 et 3-3 contre 2 et 3, et avec 4-4 et 6-6 contre 2. Vous pouvez le vérifier dans le <a href={routes.strategy.fr}>tableau interactif</a> en changeant cette règle.</p>
+
+  <h2 id="aces-eights">Pourquoi toujours les as et les 8</h2>
+  <p><strong>Deux as</strong> ensemble valent 2 ou 12, une main médiocre. Séparés, chacun part de 11 et n’importe quelle carte de valeur 10 le transforme en 21. <strong>Deux 8</strong> font 16, la pire main du jeu. Séparés, chacun part de 8. Même contre un 10, séparer perd nettement moins que jouer le 16 :</p>
+  <EVTable lang="fr" cards={[8, 8]} up={10} tables={['vegasS17', 'vegasH17', 'spainCasino']} />
+  <p>À une table sans carte cachée, comme dans les casinos espagnols, les choses changent : séparer contre un 10 expose deux mises à un blackjack du croupier, et cela devient pire que tirer.</p>
+
+  <h2 id="never">Pourquoi jamais les 10 ni les 5</h2>
+  <p>Un 20 est presque imbattable. Même quand le croupier montre un 6, sa carte la plus faible, rester sur 20 vaut bien plus que séparer :</p>
+  <EVTable lang="fr" cards={[10, 10]} up={6} tables={['vegasS17']} caption="10-10 contre 6 : rester ou séparer" />
+  <p>Il se passe quelque chose de semblable avec <strong>5-5</strong> : c’est un 10, une main idéale pour doubler. La séparer vous laisse deux mains qui partent de 5.</p>
+
+  <h2 id="depends">Les paires qui dépendent de la carte du croupier</h2>
+  <p>Les autres paires (2-2, 3-3, 6-6, 7-7, 9-9) se séparent quand le croupier est faible, parce que deux mises face à un croupier qui saute souvent valent plus qu’une main médiocre. Le cas particulier est <strong>9-9 contre un 7</strong> : vous restez, parce qu’un croupier avec un 7 visible termine souvent sur 17, et votre 18 le bat.</p>
+  <EVTable lang="fr" cards={[9, 9]} up={7} tables={['vegasS17']} caption="9-9 contre 7 : rester ou séparer" />
+</Guide>

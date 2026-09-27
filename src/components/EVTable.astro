@@ -1,32 +1,42 @@
 ---
 import { evaluate, type ActionName } from '../lib/ev';
 import { presets } from '../lib/strategy';
+import type { Lang } from '../lib/site';
 
 interface Props {
   cards: [number, number];
   up: number;
   tables?: (keyof typeof presets)[];
   caption?: string;
-  lang?: 'es' | 'en';
+  lang?: Lang;
 }
 const { cards, up, tables = ['vegasS17', 'spainCasino'], caption, lang = 'es' } = Astro.props;
-const en = lang === 'en';
-const names: Record<string, string> = en
-  ? { vegasS17: 'Las Vegas (S17, surrender)', vegasH17: 'Las Vegas (H17, surrender)', spainCasino: 'Spanish casino (no hole card)', europeanOnline: 'European / online', doubleDeck: 'Double deck' }
-  : { vegasS17: 'Las Vegas (S17, rendición)', vegasH17: 'Las Vegas (H17, rendición)', spainCasino: 'Casino en España (sin carta oculta)', europeanOnline: 'Europea / online', doubleDeck: 'Dos barajas' };
-const label: Record<ActionName, string> = en
-  ? { hit: 'Hit', stand: 'Stand', double: 'Double', split: 'Split', surrender: 'Surrender' }
-  : { hit: 'Pedir', stand: 'Plantarse', double: 'Doblar', split: 'Dividir', surrender: 'Rendirse' };
+const L = ({
+  es: { names: { vegasS17: 'Las Vegas (S17, rendición)', vegasH17: 'Las Vegas (H17, rendición)', spainCasino: 'Casino en España (sin carta oculta)', europeanOnline: 'Europea / online', doubleDeck: 'Dos barajas' },
+        act: { hit: 'Pedir', stand: 'Plantarse', double: 'Doblar', split: 'Dividir', surrender: 'Rendirse' }, table: 'Mesa', vs: 'contra', cap: 'Valor esperado de cada opción', dec: ',',
+        note: 'Unidades de apuesta por mano (−0,500 = pierdes media apuesta de media). En verde, la mejor opción. «—»: no se puede en esa mesa. Calculado con el motor de Veintiuno (6 barajas, salvo en «Dos barajas»), retirando las cartas visibles.' },
+  en: { names: { vegasS17: 'Las Vegas (S17, surrender)', vegasH17: 'Las Vegas (H17, surrender)', spainCasino: 'Spanish casino (no hole card)', europeanOnline: 'European / online', doubleDeck: 'Double deck' },
+        act: { hit: 'Hit', stand: 'Stand', double: 'Double', split: 'Split', surrender: 'Surrender' }, table: 'Table', vs: 'vs', cap: 'Expected value of each option', dec: '.',
+        note: 'Bet units per hand (−0.500 = you lose half a bet on average). Best option in green. “—”: not allowed at that table. Computed with the Veintiuno engine (6 decks unless “Double deck”), with the visible cards removed.' },
+  de: { names: { vegasS17: 'Las Vegas (S17, Surrender)', vegasH17: 'Las Vegas (H17, Surrender)', spainCasino: 'Spanisches Casino (ohne Hole Card)', europeanOnline: 'Europäisch / online', doubleDeck: 'Zwei Decks' },
+        act: { hit: 'Ziehen', stand: 'Stehen', double: 'Verdoppeln', split: 'Splitten', surrender: 'Aufgeben' }, table: 'Tisch', vs: 'gegen', cap: 'Erwartungswert jeder Option', dec: ',',
+        note: 'Einsatzeinheiten pro Hand (−0,500 = du verlierst im Schnitt einen halben Einsatz). Grün: die beste Option. „—“: an diesem Tisch nicht erlaubt. Berechnet mit der Veintiuno-Engine (6 Decks, außer „Zwei Decks“), sichtbare Karten entfernt.' },
+  fr: { names: { vegasS17: 'Las Vegas (S17, abandon)', vegasH17: 'Las Vegas (H17, abandon)', spainCasino: 'Casino espagnol (sans carte cachée)', europeanOnline: 'Européenne / en ligne', doubleDeck: 'Deux jeux' },
+        act: { hit: 'Tirer', stand: 'Rester', double: 'Doubler', split: 'Séparer', surrender: 'Abandonner' }, table: 'Table', vs: 'contre', cap: 'Espérance de chaque option', dec: ',',
+        note: 'Unités de mise par main (−0,500 = vous perdez une demi-mise en moyenne). En vert, la meilleure option. « — » : non autorisé à cette table. Calculé avec le moteur de Veintiuno (6 jeux, sauf « Deux jeux »), cartes visibles retirées.' },
+} as const)[lang];
+const names = L.names as Record<string, string>;
+const label = L.act as Record<ActionName, string>;
 const order: ActionName[] = ['stand', 'hit', 'double', 'split', 'surrender'];
 const rows = tables.map((k) => ({ name: names[k], ...evaluate(cards, up, presets[k]) }));
-const fmt = (x: number) => (x >= 0 ? '+' : '−') + (en ? Math.abs(x).toFixed(3) : Math.abs(x).toFixed(3).replace('.', ','));
+const fmt = (x: number) => (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(3).replace('.', L.dec);
 const cardName = (c: number) => (c === 1 ? 'A' : String(c));
 ---
 <figure class="ev-table">
-  <figcaption>{caption ?? (en ? `Expected value of each option: ${cardName(cards[0])}-${cardName(cards[1])} vs ${cardName(up)}` : `Valor esperado de cada opción: ${cardName(cards[0])}-${cardName(cards[1])} contra ${cardName(up)}`)}</figcaption>
+  <figcaption>{caption ?? `${L.cap}: ${cardName(cards[0])}-${cardName(cards[1])} ${L.vs} ${cardName(up)}`}</figcaption>
   <div class="chart-scroll">
     <table>
-      <thead><tr><th>{en ? 'Table' : 'Mesa'}</th>{order.map((a) => <th>{label[a]}</th>)}</tr></thead>
+      <thead><tr><th>{L.table}</th>{order.map((a) => <th>{label[a]}</th>)}</tr></thead>
       <tbody>
         {rows.map((r) => {
           const vals = order.map((a) => r.ev[a]).filter((v): v is number => v !== undefined);
@@ -44,9 +54,7 @@ const cardName = (c: number) => (c === 1 ? 'A' : String(c));
       </tbody>
     </table>
   </div>
-  <p class="ev-note">{en
-    ? 'Bet units per hand (−0.500 = you lose half a bet on average). Best option in green. “—”: not allowed at that table. Computed with the Veintiuno engine (6 decks unless “Double deck”), with the visible cards removed.'
-    : 'Unidades de apuesta por mano (−0,500 = pierdes media apuesta de media). En verde, la mejor opción. «—»: no se puede en esa mesa. Calculado con el motor de Veintiuno (6 barajas, salvo en «Dos barajas»), retirando las cartas visibles.'}</p>
+  <p class="ev-note">{L.note}</p>
 </figure>
 
 <style>

@@ -1,0 +1,99 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Au blackjack, l’as vaut 1 ou 11 ?', a: 'Les deux : la valeur qui vous arrange le plus. Une main où l’as compte pour 11 est dite « souple » : as-6 est un 17 souple. Si une nouvelle carte vous faisait sauter, l’as repasse simplement à 1.' },
+  { q: 'Que se passe-t-il en cas d’égalité avec le croupier ?', a: 'C’est une égalité (« push ») : vous récupérez votre mise et personne ne gagne. Si vous avez tous les deux un blackjack, c’est aussi une égalité.' },
+  { q: 'Combien paie le blackjack ?', a: 'À une table standard, un blackjack paie 3 pour 2 : 15 € pour une mise de 10 €. Certaines tables ne paient que 6 pour 5 (12 € pour 10 €). Ce petit changement multiplie à peu près par quatre l’avantage de la maison : évitez les tables 6:5.' },
+  { q: 'Quand le croupier doit-il tirer ?', a: 'Le croupier n’a pas le choix : il tire à 16 ou moins et reste à 17 ou plus. À certaines tables, il tire aussi sur 17 souple (as-6) ; le tapis l’indique, par exemple « H17 ».' },
+  { q: 'Le blackjack, c’est la même chose que le 21 ?', a: 'Le blackjack est la version casino du jeu de cartes du 21. Le but est le même, mais au blackjack de casino le croupier suit des règles fixes et vous avez des options en plus, comme doubler, séparer ou l’assurance.' },
+];
+---
+<Guide
+  lang="fr"
+  route="howToPlay"
+  title="Règles du blackjack : comment jouer, pas à pas"
+  h1="Règles du blackjack"
+  description="Règles du blackjack pas à pas : but du jeu, valeur des cartes, tirer ou rester, doubler, séparer, abandonner et paiements. Guide clair pour débuter."
+  updated="2026-09-27"
+  readMinutes={8}
+  faq={faq}
+  related={['strategy', 'howToWin', 'counting', 'spain']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide&nbsp;:</strong> vous gagnez en finissant plus près de 21 que le croupier sans le dépasser. Les figures valent 10, l’as 1 ou 11, les autres cartes leur chiffre. Vous choisissez de tirer ou de rester&nbsp;; le croupier, lui, ne choisit pas&nbsp;: il tire jusqu’à 17.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="Dans ce guide">
+    <b>Dans ce guide</b>
+    <ol>
+      <li><a href="#but">Le but du jeu</a></li>
+      <li><a href="#valeurs">La valeur des cartes</a></li>
+      <li><a href="#main">Le déroulement d’une main</a></li>
+      <li><a href="#options">Vos options&nbsp;: tirer, rester, doubler, séparer, abandonner</a></li>
+      <li><a href="#paiements">Les paiements</a></li>
+      <li><a href="#assurance">L’assurance (et pourquoi la refuser)</a></li>
+      <li><a href="#suite">Étape suivante&nbsp;: la stratégie de base</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="but">Le but du jeu</h2>
+  <p>Au blackjack, vous ne jouez pas contre les autres joueurs&nbsp;: vous jouez <strong>contre le croupier</strong>. Vous gagnez une main si votre total est plus proche de 21 que le sien sans le dépasser, ou s’il saute et pas vous.</p>
+  <p>Si vous dépassez 21, vous sautez&nbsp;: vous perdez immédiatement, même si le croupier saute ensuite. Comme vous jouez en premier, c’est de cette seule règle que la maison tire son avantage.</p>
+
+  <h2 id="valeurs">La valeur des cartes</h2>
+  <table>
+    <thead><tr><th>Carte</th><th>Valeur</th></tr></thead>
+    <tbody>
+      <tr><td>2 à 9</td><td>Leur chiffre</td></tr>
+      <tr><td>10, valet, dame, roi</td><td>10</td></tr>
+      <tr><td>As</td><td>1 ou 11, selon ce qui vous arrange</td></tr>
+    </tbody>
+  </table>
+  <p>Les couleurs ne comptent pas. Avec quatre rangs qui valent 10, près d’un tiers du paquet vaut 10&nbsp;: cela explique une bonne partie de la stratégie de base.</p>
+  <p>Une main où l’as compte pour 11 est <strong>souple</strong>&nbsp;: as-6 est un «&nbsp;17 souple&nbsp;». Vous pouvez tirer sans risque, car si la carte suivante vous faisait sauter, l’as passe à 1. Toutes les autres mains sont <strong>dures</strong>.</p>
+  <p>Un <strong>blackjack</strong> (ou «&nbsp;naturel&nbsp;») est un as plus une carte valant 10 comme deux premières cartes. C’est la meilleure main et elle bat n’importe quel autre 21.</p>
+
+  <h2 id="main">Le déroulement d’une main</h2>
+  <ol>
+    <li><strong>Les mises.</strong> Chacun mise avant la distribution.</li>
+    <li><strong>La distribution.</strong> Vous recevez deux cartes face visible. Le croupier en reçoit une face visible et, dans les jeux américains, une face cachée (la «&nbsp;carte cachée&nbsp;»). Dans les casinos européens, en général en France, en Belgique ou en Suisse, il ne reçoit sa deuxième carte qu’après le tour des joueurs.</li>
+    <li><strong>Les blackjacks.</strong> Si le croupier montre un as ou un 10 et a une carte cachée, il la vérifie&nbsp;; s’il a blackjack, la main s’arrête là. Si vous avez blackjack et pas le croupier, vous êtes payé tout de suite.</li>
+    <li><strong>Votre tour.</strong> Tirer, rester, doubler, séparer ou abandonner. Vous pouvez tirer autant de fois que vous voulez, jusqu’à rester ou sauter.</li>
+    <li><strong>Le tour du croupier.</strong> Le croupier dévoile ou tire sa deuxième carte, puis tire à 16 ou moins et reste à 17 ou plus.</li>
+    <li><strong>Le règlement.</strong> On compare les totaux et on paie les mises.</li>
+  </ol>
+
+  <h2 id="options">Vos options</h2>
+  <h3>Tirer</h3>
+  <p>Prendre une carte de plus. Recommencez jusqu’à rester ou sauter.</p>
+  <h3>Rester</h3>
+  <p>Garder votre total et terminer votre tour.</p>
+  <h3>Doubler</h3>
+  <p>Doubler votre mise en échange d’<strong>une seule carte de plus</strong>. C’est rentable avec un bon total de départ (9, 10 ou 11) contre une carte faible du croupier.</p>
+  <h3>Séparer (split)</h3>
+  <p>Si vos deux premières cartes sont de même valeur, séparez-les en deux mains, avec une mise égale sur la seconde. Séparez toujours les as et les huit&nbsp;; ne séparez jamais les dix ni les cinq.</p>
+  <h3>Abandonner</h3>
+  <p>Là où c’est proposé, renoncez à la main juste après la distribution et récupérez la moitié de votre mise. Cela ne vaut la peine que dans quelques situations très mauvaises, comme 16 contre un 10 du croupier.</p>
+
+  <h2 id="paiements">Les paiements</h2>
+  <table>
+    <thead><tr><th>Résultat</th><th>Paiement</th></tr></thead>
+    <tbody>
+      <tr><td>Gain</td><td>1 pour 1 (une mise de 10 € gagne 10 €)</td></tr>
+      <tr><td>Blackjack</td><td>3 pour 2 (une mise de 10 € gagne 15 €)</td></tr>
+      <tr><td>Égalité</td><td>Mise rendue</td></tr>
+      <tr><td>Assurance</td><td>2 pour 1 sur la mise d’assurance</td></tr>
+    </tbody>
+  </table>
+  <div class="callout warn"><p><strong>Attention aux tables 6:5.</strong> Quand le blackjack paie 6 pour 5 au lieu de 3 pour 2, l’avantage de la maison augmente d’environ 1,4 point de pourcentage&nbsp;: pire que n’importe quelle autre règle prise isolément.</p></div>
+
+  <h2 id="assurance">L’assurance (et pourquoi la refuser)</h2>
+  <p>Quand le croupier montre un as, on vous propose l’<strong>assurance</strong>&nbsp;: un pari annexe, jusqu’à la moitié de votre mise, sur le fait que le croupier ait blackjack. Elle paie 2 pour 1.</p>
+  <p>Elle a l’air d’une protection, mais ce n’est qu’un pari de plus, et un mauvais. Avec six jeux, la probabilité d’un 10 sous l’as est d’environ 31&nbsp;%, alors que l’assurance a besoin de plus de 33&nbsp;% rien que pour être à l’équilibre. L’avantage de la maison y est d’environ 7&nbsp;%. La stratégie de base dit de <strong>ne jamais la prendre</strong>, y compris le «&nbsp;paiement égal&nbsp;» (even money) quand vous avez blackjack.</p>
+
+  <h2 id="suite">Étape suivante&nbsp;: la stratégie de base</h2>
+  <p>Connaître les règles, c’est la moitié du travail. L’autre moitié, c’est savoir quoi faire dans chaque situation&nbsp;: tirer sur 12 contre un 3&nbsp;? Doubler 11 contre un 10&nbsp;? Séparer des 9 contre un 7&nbsp;? Chaque combinaison a une réponse mathématiquement correcte, et toutes ensemble forment la <a href={routes.strategy.fr}>stratégie de base</a>.</p>
+  <p>En jouant à l’instinct, la plupart des gens laissent à la maison 2&nbsp;% ou plus. Avec la stratégie de base, l’avantage de la maison tombe à environ 0,5&nbsp;%. Cela ne fera pas de vous un gagnant, mais c’est la différence entre bien jouer et jouer à l’aveugle.</p>
+</Guide>

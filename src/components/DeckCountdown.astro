@@ -1,11 +1,18 @@
 ---
-interface Props { lang?: 'es' | 'en' }
+interface Props { lang?: 'es' | 'en' | 'de' | 'fr' }
 const { lang = 'es' } = Astro.props;
-const T = lang === 'en'
-  ? { h: 'Drill: count down a full deck', p: 'All 52 cards come out one by one. Keep the Hi-Lo count. Stop whenever you like to check your count; if you reach the end, it must be 0.', speed: 'Speed', slow: 'Slow (1.2 s)', med: 'Medium (0.8 s)', fast: 'Fast (0.5 s)', casino: 'Casino (0.3 s)', start: 'Start', stop: 'Stop and check', yours: 'Your count', check: 'Check' }
-  : { h: 'Ejercicio: cuenta una baraja entera', p: 'Salen las 52 cartas una a una. Lleva la cuenta Hi-Lo. Puedes parar cuando quieras y comprobar tu cuenta; si llegas al final, debe dar 0.', speed: 'Velocidad', slow: 'Lenta (1,2 s)', med: 'Media (0,8 s)', fast: 'Rápida (0,5 s)', casino: 'Casino (0,3 s)', start: 'Empezar', stop: 'Parar y comprobar', yours: 'Tu cuenta', check: 'Comprobar' };
+const T = ({
+  es: { h: 'Ejercicio: cuenta una baraja entera', p: 'Salen las 52 cartas una a una. Lleva la cuenta Hi-Lo. Puedes parar cuando quieras y comprobar tu cuenta; si llegas al final, debe dar 0.', speed: 'Velocidad', slow: 'Lenta (1,2 s)', med: 'Media (0,8 s)', fast: 'Rápida (0,5 s)', casino: 'Casino (0,3 s)', start: 'Empezar', stop: 'Parar y comprobar', yours: 'Tu cuenta', check: 'Comprobar',
+        again: 'Otra baraja', left: '{n} cartas por salir', ok: '¡Correcto! Cuenta {c} tras {n} cartas.', ko: 'La cuenta era {c} tras {n} cartas.' },
+  en: { h: 'Drill: count down a full deck', p: 'All 52 cards come out one by one. Keep the Hi-Lo count. Stop whenever you like to check your count; if you reach the end, it must be 0.', speed: 'Speed', slow: 'Slow (1.2 s)', med: 'Medium (0.8 s)', fast: 'Fast (0.5 s)', casino: 'Casino (0.3 s)', start: 'Start', stop: 'Stop and check', yours: 'Your count', check: 'Check',
+        again: 'Another deck', left: '{n} cards to go', ok: 'Correct! Count {c} after {n} cards.', ko: 'The count was {c} after {n} cards.' },
+  de: { h: 'Übung: ein ganzes Deck herunterzählen', p: 'Alle 52 Karten erscheinen nacheinander. Führe den Hi-Lo-Count. Du kannst jederzeit stoppen und prüfen; am Ende muss der Count 0 sein.', speed: 'Tempo', slow: 'Langsam (1,2 s)', med: 'Mittel (0,8 s)', fast: 'Schnell (0,5 s)', casino: 'Casino (0,3 s)', start: 'Start', stop: 'Stoppen und prüfen', yours: 'Dein Count', check: 'Prüfen',
+        again: 'Neues Deck', left: 'noch {n} Karten', ok: 'Richtig! Count {c} nach {n} Karten.', ko: 'Der Count war {c} nach {n} Karten.' },
+  fr: { h: 'Exercice : compter un jeu complet', p: 'Les 52 cartes sortent une par une. Tenez le compte Hi-Lo. Arrêtez quand vous voulez pour vérifier ; à la fin, le compte doit être 0.', speed: 'Vitesse', slow: 'Lente (1,2 s)', med: 'Moyenne (0,8 s)', fast: 'Rapide (0,5 s)', casino: 'Casino (0,3 s)', start: 'Commencer', stop: 'Arrêter et vérifier', yours: 'Votre compte', check: 'Vérifier',
+        again: 'Un autre jeu', left: 'encore {n} cartes', ok: 'Correct ! Compte {c} après {n} cartes.', ko: 'Le compte était {c} après {n} cartes.' },
+} as const)[lang];
 ---
-<div class="deck-cd card" data-deck data-lang={lang}>
+<div class="deck-cd card" data-deck data-lang={lang} data-again={T.again} data-left={T.left} data-ok={T.ok} data-ko={T.ko}>
   <h3>{T.h}</h3>
   <p class="muted small">{T.p}</p>
   <div class="dc-row">
@@ -47,7 +54,7 @@ const T = lang === 'en'
   const suits = ['♠', '♥', '♦', '♣'];
   const hilo = (r: string) => (['2', '3', '4', '5', '6'].includes(r) ? 1 : ['7', '8', '9'].includes(r) ? 0 : -1);
   document.querySelectorAll<HTMLElement>('[data-deck]').forEach((root) => {
-    const en = root.dataset.lang === 'en';
+    const D = root.dataset;
     const q = <T extends HTMLElement>(s: string) => root.querySelector<T>(s)!;
     const card = q<HTMLElement>('[data-card]'), left = q<HTMLElement>('[data-left]');
     const start = q<HTMLButtonElement>('[data-start]'), stop = q<HTMLButtonElement>('[data-stop]');
@@ -55,7 +62,7 @@ const T = lang === 'en'
     let timer = 0, count = 0, shown = 0;
     const finish = () => {
       clearInterval(timer);
-      stop.disabled = true; start.disabled = false; start.textContent = en ? 'Another deck' : 'Otra baraja';
+      stop.disabled = true; start.disabled = false; start.textContent = D.again!;
       form.hidden = false; answer.value = ''; answer.focus();
     };
     start.addEventListener('click', () => {
@@ -70,7 +77,7 @@ const T = lang === 'en'
         count += hilo(r);
         card.textContent = r + s;
         card.classList.toggle('red', s === '♥' || s === '♦');
-        left.textContent = en ? `${deck.length - shown} cards to go` : `${deck.length - shown} cartas por salir`;
+        left.textContent = D.left!.replace('{n}', String(deck.length - shown));
       }, speed);
     });
     stop.addEventListener('click', finish);
@@ -80,9 +87,7 @@ const T = lang === 'en'
       result.hidden = false;
       result.className = `dc-result ${ok ? 'ok' : 'ko'}`;
       const c = `${count > 0 ? '+' : ''}${count}`;
-      result.textContent = en
-        ? (ok ? `Correct! Count ${c} after ${shown} cards.` : `The count was ${c} after ${shown} cards.`)
-        : (ok ? `¡Correcto! Cuenta ${c} tras ${shown} cartas.` : `La cuenta era ${c} tras ${shown} cartas.`);
+      result.textContent = (ok ? D.ok! : D.ko!).replace('{c}', c).replace('{n}', String(shown));
     });
   });
 </script>

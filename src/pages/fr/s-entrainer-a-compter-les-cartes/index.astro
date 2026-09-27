@@ -1,0 +1,74 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import DeckCountdown from '../../../components/DeckCountdown.astro';
+import CountDrill from '../../../components/CountDrill.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Combien de temps faut-il pour apprendre à compter les cartes ?', a: 'Apprendre les valeurs du Hi-Lo prend un après-midi. Décompter un jeu complet sans erreur en moins de 30 secondes demande en général plusieurs semaines d’entraînement quotidien. Le faire à une vraie table, avec le bruit, les conversations et les mises, prend nettement plus longtemps.' },
+  { q: 'Quel est le meilleur exercice pour s’entraîner à compter les cartes ?', a: 'Le décompte d’un jeu : vous passez les 52 cartes et le compte doit finir à 0. C’est l’exercice de référence de tous les compteurs, car il teste à la fois la précision et la vitesse.' },
+  { q: 'Existe-t-il une application pour s’entraîner à compter les cartes ?', a: 'Oui. Veintiuno propose le comptage Hi-Lo dans un module avancé à la fin de son cours : un exercice de compte courant à vitesse réglable et une explication du compte réel. Cette page vous propose aussi deux exercices gratuits qui fonctionnent dans votre navigateur.' },
+  { q: 'Peut-on s’entraîner à compter dans un casino en ligne ?', a: 'Vous pouvez vous entraîner à la mécanique, pas gagner de l’argent. Le blackjack en ligne géré par logiciel remélange après chaque main, donc le compte ne sert à rien. Tout au plus, servez-vous-en pour vous habituer au rythme.' },
+];
+---
+<Guide
+  lang="fr"
+  route="practiceCounting"
+  title="S’entraîner à compter les cartes : exercices pas à pas"
+  h1="Comment s’entraîner à compter les cartes"
+  description="Plan pas à pas pour s’entraîner au comptage Hi-Lo : valeurs, décompte d’un jeu, paires qui s’annulent, compte réel, vitesse de table. Exercices gratuits."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['counting', 'countingLegal', 'strategy', 'course']}
+  cta={{ title: 'D’abord la stratégie, ensuite le comptage', text: 'Dans Veintiuno, le Hi-Lo arrive à la fin du cours, une fois la stratégie de base maîtrisée, car compter sans elle ne sert à rien.' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> apprenez les valeurs du Hi-Lo (2–6 valent +1, 7–9 valent 0, les 10 et les as valent −1), entraînez-vous au <strong>décompte d’un jeu</strong> jusqu’à le réussir sans erreur en moins de 30 secondes, apprenez à compter par <strong>paires qui s’annulent</strong> et à convertir en <strong>compte réel</strong>, et seulement ensuite entraînez-vous avec du bruit et des distractions. Avant tout cela, maîtrisez la stratégie de base.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="Dans ce guide">
+    <b>Dans ce guide</b>
+    <ol>
+      <li><a href="#before">Avant de commencer</a></li>
+      <li><a href="#step1">Étape 1 : les valeurs, sans réfléchir</a></li>
+      <li><a href="#step2">Étape 2 : le décompte d’un jeu</a></li>
+      <li><a href="#step3">Étape 3 : compter par paires</a></li>
+      <li><a href="#step4">Étape 4 : le compte réel</a></li>
+      <li><a href="#step5">Étape 5 : la vitesse de table</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="before">Avant de commencer</h2>
+  <p>Compter les cartes n’a de sens que si vous jouez déjà la <a href={routes.strategy.fr}>stratégie de base</a> sans erreur. Une seule erreur de stratégie toutes les quelques mains coûte plus que tout l’avantage que le comptage vous apporte. Si vous hésitez encore sur 12 contre un 3 ou sur A-7 contre un 9, commencez par là.</p>
+  <p>Et soyez clair sur la raison pour laquelle vous le faites : compter est un excellent exercice mental et la meilleure façon de comprendre le jeu, mais ce n’est pas un moyen facile de gagner de l’argent. Nous expliquons pourquoi dans <a href={routes.counting.fr}>comment compter les cartes</a>.</p>
+
+  <h2 id="step1">Étape 1 : les valeurs, sans réfléchir</h2>
+  <p>Vous devez voir une carte et connaître sa valeur sans la traduire dans votre tête. De 2 à 6 : <strong>+1</strong>. De 7 à 9 : <strong>0</strong>. Les 10, les figures et les as : <strong>−1</strong>. Entraînez-vous sur de courtes séries jusqu’à ne plus hésiter :</p>
+  <CountDrill lang="fr" />
+
+  <h2 id="step2">Étape 2 : le décompte d’un jeu</h2>
+  <p>L’exercice classique de tous les compteurs. Un jeu complet contient autant de cartes hautes que de cartes basses : si vous comptez les 52, le résultat doit être 0. Commencez lentement et accélérez peu à peu :</p>
+  <ul>
+    <li><strong>Objectif 1 :</strong> finir à 0 sans erreur, à n’importe quelle vitesse.</li>
+    <li><strong>Objectif 2 :</strong> finir à 0 en moins de 30 secondes (environ 0,5 s par carte).</li>
+    <li><strong>Objectif 3 :</strong> vous arrêter au milieu du jeu et donner le bon compte.</li>
+  </ul>
+  <DeckCountdown lang="fr" />
+
+  <h2 id="step3">Étape 3 : compter par paires</h2>
+  <p>À la table, les cartes sortent par deux ou par trois. Les compteurs ne les additionnent pas une à une : ils reconnaissent les <strong>paires qui s’annulent</strong>. Un 5 et un roi font 0, vous les ignorez. Un 4 et un 6 font +2 d’un coup. Entraînez-vous à regarder deux cartes à la fois et à ne dire que le résultat de la paire.</p>
+
+  <h2 id="step4">Étape 4 : le compte réel</h2>
+  <p>Le compte courant vous dit combien de cartes hautes il reste en trop, mais pas combien de cartes restent à venir. Pour cela, divisez par le nombre de jeux restants : <strong>compte réel = compte courant ÷ jeux restants</strong>. Entraînez-vous à le calculer de tête :</p>
+  <ul>
+    <li>+8 avec 4 jeux restants → <strong>+2</strong></li>
+    <li>+6 avec 1,5 jeu restant → <strong>+4</strong></li>
+    <li>−3 avec 3 jeux restants → <strong>−1</strong></li>
+  </ul>
+  <p>Pour estimer les jeux restants, regardez le bac à défausse : arrondir au demi-jeu le plus proche suffit.</p>
+
+  <h2 id="step5">Étape 5 : la vitesse de table</h2>
+  <p>Compter chez soi dans le silence, c’est facile. À une table, il y a du bruit, des conversations, des jetons et les cartes de plusieurs joueurs. Une fois les étapes précédentes maîtrisées, entraînez-vous avec la télévision allumée, en parlant, ou devant la vidéo d’une vraie table. Si vous perdez le compte, pas d’inquiétude : vous repartez de zéro après le mélange suivant.</p>
+  <div class="callout warn"><p><strong>À retenir :</strong> compter de tête est légal, mais utiliser un téléphone ou n’importe quel appareil à la table ne l’est pas. Et le casino peut vous demander d’arrêter de jouer s’il vous repère.</p></div>
+</Guide>

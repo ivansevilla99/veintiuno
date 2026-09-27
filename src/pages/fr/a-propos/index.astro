@@ -1,0 +1,27 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { routes, linkOf, MAIL } from '../../../lib/site';
+---
+<Base lang="fr" route="about" title="À propos de Veintiuno et de nos tableaux" description="Veintiuno, appli pédagogique de blackjack créée par Iván Sevilla, développeur indépendant : comment sont calculés nos tableaux, nos sources, et zéro casino.">
+  <div class="container legal">
+    <div class="read prose">
+      <h1>À propos de Veintiuno</h1>
+      <p class="lead">Veintiuno («&nbsp;vingt et un&nbsp;» en espagnol) est une application pour apprendre à bien jouer au blackjack, créée en Espagne par Iván Sevilla, développeur indépendant.</p>
+      <h2>Pourquoi elle existe</h2>
+      <p>Une bonne partie de ce qui s’écrit sur le blackjack en ligne vient de sites payés pour vous envoyer vers un casino. D’où l’abondance d’«&nbsp;astuces pour gagner&nbsp;» et la rareté des explications honnêtes. Veintiuno fait l’inverse&nbsp;: elle enseigne la bonne décision et explique pourquoi, sans argent réel et sans rien à vendre à part l’application elle-même.</p>
+      <h2>D’où viennent les tableaux</h2>
+      <p>La stratégie de base n’est pas une opinion&nbsp;: c’est le jeu qui offre la meilleure espérance pour chaque combinaison de main, de carte du croupier et de règles. Nos tableaux partent du tableau standard à six jeux et appliquent les changements qu’introduit chaque règle (nombre de jeux, 17 souple, carte cachée, doublement après séparation, restrictions au doublement et abandon).</p>
+      <p>Ils sont vérifiés par rapport aux références habituelles&nbsp;: le travail original de 1956 de Baldwin, Cantey, Maisel et McDermott, <em>Beat the Dealer</em> d’Edward Thorp, l’analyse de Peter Griffin, ainsi que les tableaux et calculateurs publiés par Wizard of Odds et BlackjackInfo. Les chiffres d’avantage de la maison sont des approximations fondées sur les tableaux d’effet des règles de Wizard of Odds.</p>
+      <p>Le tableau de ce site tourne exactement sur le même moteur que l’application&nbsp;: ils sont donc toujours d’accord.</p>
+      <h2>Ce que nous ne faisons pas</h2>
+      <ul>
+        <li>Aucun lien d’affiliation vers des casinos ou des sites de paris, aucun bonus, aucun avis sur des opérateurs.</li>
+        <li>Aucune promesse de gain. Le blackjack comporte un avantage de la maison, et nous le disons.</li>
+        <li>L’application ne propose aucun jeu en argent réel.</li>
+      </ul>
+      <h2>Contact</h2>
+      <p>Vous avez repéré une erreur dans un tableau ou une explication&nbsp;? Écrivez à <a href={`mailto:${MAIL}`}>{MAIL}</a>. Nous vérifierons et, si vous avez raison, nous corrigerons le site et l’application.</p>
+      <p><a href={routes.responsible.fr}>Jeu responsable</a> · <a href={linkOf('privacy', 'fr')}>Confidentialité</a> · <a href={linkOf('terms', 'fr')}>Conditions</a></p>
+    </div>
+  </div>
+</Base>

@@ -2,24 +2,32 @@
 // Black-on-white strategy chart for printing / PDF. Same data as the interactive chart.
 import { strategyTable, presets, houseEdge, upcards, hardKeys, softKeys, pairKeys, type HandKey, type Play } from '../lib/strategy';
 import { keyLabel } from '../lib/chartRender';
-interface Props { preset: keyof typeof presets; title: string; rulesText: string; lang?: 'es' | 'en' }
+interface Props { preset: keyof typeof presets; title: string; rulesText: string; lang?: 'es' | 'en' | 'de' | 'fr' }
 const { preset, title, rulesText, lang = 'es' } = Astro.props;
-const en = lang === 'en';
+const P = ({
+  es: { groups: ['Totales duros', 'Totales blandos', 'Parejas'], edge: (x: number) => `Ventaja de la casa con estrategia perfecta: ${x.toFixed(2).replace('.', ',')} %`, foot: 'Filas: tu mano · Columnas: carta visible del crupier · Nunca tomes el seguro · veintiunoapp.com — tabla interactiva, curso y mesa de práctica gratis',
+        legend: ['Pedir', 'Plantarse', 'Doblar (si no, pedir)', 'Doblar (si no, plantarse)', 'Dividir', 'Rendirse (si no, pedir)', 'Rendirse (si no, plantarse)', 'Rendirse (si no, dividir)'] },
+  en: { groups: ['Hard totals', 'Soft totals', 'Pairs'], edge: (x: number) => `House edge with perfect strategy: ${x.toFixed(2)}%`, foot: 'Rows: your hand · Columns: dealer upcard · Never take insurance · veintiunoapp.com/en — interactive chart, free course and practice table',
+        legend: ['Hit', 'Stand', 'Double (else hit)', 'Double (else stand)', 'Split', 'Surrender (else hit)', 'Surrender (else stand)', 'Surrender (else split)'] },
+  de: { groups: ['Harte Hände', 'Soft Hands', 'Paare'], edge: (x: number) => `Hausvorteil mit perfekter Strategie: ${x.toFixed(2).replace('.', ',')} %`, foot: 'Zeilen: deine Hand · Spalten: offene Karte des Dealers · Nie Versicherung nehmen · veintiunoapp.com/de — interaktive Tabelle, Kurs und Übungstisch gratis',
+        legend: ['Ziehen', 'Stehen', 'Verdoppeln (sonst ziehen)', 'Verdoppeln (sonst stehen)', 'Splitten', 'Aufgeben (sonst ziehen)', 'Aufgeben (sonst stehen)', 'Aufgeben (sonst splitten)'] },
+  fr: { groups: ['Mains dures', 'Mains souples', 'Paires'], edge: (x: number) => `Avantage de la maison avec une stratégie parfaite : ${x.toFixed(2).replace('.', ',')} %`, foot: 'Lignes : votre main · Colonnes : carte visible du croupier · Ne prenez jamais l’assurance · veintiunoapp.com/fr — tableau interactif, cours et table d’entraînement gratuits',
+        legend: ['Tirer', 'Rester', 'Doubler (sinon tirer)', 'Doubler (sinon rester)', 'Séparer', 'Abandonner (sinon tirer)', 'Abandonner (sinon rester)', 'Abandonner (sinon séparer)'] },
+} as const)[lang];
 const rules = presets[preset];
 const play = strategyTable(rules);
 const hard = hardKeys.filter((k) => k.kind === 'hard' && (k.total === 5 || k.total >= 9));
 const soft = softKeys.filter((k) => k.kind === 'soft' && k.total <= 20);
-const groups: [string, HandKey[]][] = en ? [['Hard totals', hard], ['Soft totals', soft], ['Pairs', pairKeys]] : [['Totales duros', hard], ['Totales blandos', soft], ['Parejas', pairKeys]];
+const groups: [string, HandKey[]][] = [[P.groups[0], hard], [P.groups[1], soft], [P.groups[2], pairKeys]];
 const up = (u: number) => (u === 11 ? 'A' : String(u));
-const legend: [Play, string][] = en
-  ? [['H', 'Hit'], ['S', 'Stand'], ['D', 'Double (else hit)'], ['Ds', 'Double (else stand)'], ['P', 'Split'], ['Rh', 'Surrender (else hit)'], ['Rs', 'Surrender (else stand)'], ['Rp', 'Surrender (else split)']]
-  : [['H', 'Pedir'], ['S', 'Plantarse'], ['D', 'Doblar (si no, pedir)'], ['Ds', 'Doblar (si no, plantarse)'], ['P', 'Dividir'], ['Rh', 'Rendirse (si no, pedir)'], ['Rs', 'Rendirse (si no, plantarse)'], ['Rp', 'Rendirse (si no, dividir)']];
+const codes: Play[] = ['H', 'S', 'D', 'Ds', 'P', 'Rh', 'Rs', 'Rp'];
+const legend: [Play, string][] = codes.map((c, i) => [c, P.legend[i]]);
 const usedPlays = new Set(groups.flatMap(([, ks]) => ks.flatMap((k) => upcards.map((u) => play(k, u)))));
 ---
 <div class="pc">
   <header>
     <h1>{title}</h1>
-    <p>{rulesText} · {en ? `House edge with perfect strategy: ${houseEdge(rules).toFixed(2)}%` : `Ventaja de la casa con estrategia perfecta: ${houseEdge(rules).toFixed(2).replace('.', ',')} %`}</p>
+    <p>{rulesText} · {P.edge(houseEdge(rules))}</p>
   </header>
   <div class="pc-grid">
     {groups.map(([name, keys]) => (
@@ -37,5 +45,5 @@ const usedPlays = new Set(groups.flatMap(([, ks]) => ks.flatMap((k) => upcards.m
   <ul class="pc-legend">
     {legend.filter(([p]) => usedPlays.has(p)).map(([p, t]) => <li><span class={`p-${p}`}>{p}</span>{t}</li>)}
   </ul>
-  <p class="pc-foot">{en ? 'Rows: your hand · Columns: dealer upcard · Never take insurance · veintiunoapp.com/en — interactive chart, free course and practice table' : 'Filas: tu mano · Columnas: carta visible del crupier · Nunca tomes el seguro · veintiunoapp.com — tabla interactiva, curso y mesa de práctica gratis'}</p>
+  <p class="pc-foot">{P.foot}</p>
 </div>

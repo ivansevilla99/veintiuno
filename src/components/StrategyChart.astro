@@ -7,34 +7,29 @@ interface Props {
   lang: Lang;
   preset?: keyof typeof presets;
 }
-const { lang, preset = lang === 'es' ? 'spainCasino' : 'vegasS17' } = Astro.props;
+const { lang, preset = ({ es: 'spainCasino', en: 'vegasS17', de: 'europeanOnline', fr: 'europeanOnline' } as const)[lang] } = Astro.props;
 const rules = presets[preset];
-const es = lang === 'es';
 const t = chartText[lang];
-
-const presetNames: Record<string, string> = es
-  ? { spainCasino: 'Casino en España', europeanOnline: 'Europea / online (sin carta oculta)', vegasS17: 'Las Vegas (S17)', vegasH17: 'Las Vegas (H17)', doubleDeck: 'Dos barajas', custom: 'Personalizada' }
-  : { vegasS17: 'Las Vegas (dealer stands on soft 17)', vegasH17: 'Las Vegas (dealer hits soft 17)', europeanOnline: 'European / online (no hole card)', spainCasino: 'Spanish casino', doubleDeck: 'Double deck', custom: 'Custom' };
-const presetOrder = es
-  ? ['spainCasino', 'europeanOnline', 'vegasS17', 'vegasH17', 'doubleDeck']
-  : ['vegasS17', 'vegasH17', 'europeanOnline', 'doubleDeck', 'spainCasino'];
-
-const L = es
-  ? {
-      table: 'Tipo de mesa', decks: 'Barajas', h17: 'El crupier pide con 17 blando (H17)', hole: 'El crupier mira si tiene blackjack (carta oculta)',
-      das: 'Doblar tras dividir', dbl: 'Doblar con', any: 'Cualquier mano', nine: 'Solo 9, 10 u 11', ten: 'Solo 10 u 11',
-      surr: 'Rendición', none: 'No', late: 'Sí (tardía)', edge: 'Ventaja de la casa con estrategia perfecta', tap: 'Toca cualquier casilla para ver por qué.',
-      legendTitle: 'Leyenda',
-    }
-  : {
-      table: 'Table type', decks: 'Decks', h17: 'Dealer hits soft 17 (H17)', hole: 'Dealer checks for blackjack (hole card)',
-      das: 'Double after split', dbl: 'Double on', any: 'Any two cards', nine: '9, 10 or 11 only', ten: '10 or 11 only',
-      surr: 'Surrender', none: 'No', late: 'Yes (late)', edge: 'House edge with perfect strategy', tap: 'Tap any cell to see why.',
-      legendTitle: 'Legend',
-    };
+const C = ({
+  es: { names: { spainCasino: 'Casino en España', europeanOnline: 'Europea / online (sin carta oculta)', vegasS17: 'Las Vegas (S17)', vegasH17: 'Las Vegas (H17)', doubleDeck: 'Dos barajas', custom: 'Personalizada' },
+        order: ['spainCasino', 'europeanOnline', 'vegasS17', 'vegasH17', 'doubleDeck'], aria: 'Tabla de estrategia básica interactiva', adjust: 'Ajustar reglas', locale: 'es-ES', pct: ' %',
+        L: { table: 'Tipo de mesa', decks: 'Barajas', h17: 'El crupier pide con 17 blando (H17)', hole: 'El crupier mira si tiene blackjack (carta oculta)', das: 'Doblar tras dividir', dbl: 'Doblar con', any: 'Cualquier mano', nine: 'Solo 9, 10 u 11', ten: 'Solo 10 u 11', surr: 'Rendición', none: 'No', late: 'Sí (tardía)', edge: 'Ventaja de la casa con estrategia perfecta', tap: 'Toca cualquier casilla para ver por qué.', legendTitle: 'Leyenda' } },
+  en: { names: { vegasS17: 'Las Vegas (dealer stands on soft 17)', vegasH17: 'Las Vegas (dealer hits soft 17)', europeanOnline: 'European / online (no hole card)', spainCasino: 'Spanish casino', doubleDeck: 'Double deck', custom: 'Custom' },
+        order: ['vegasS17', 'vegasH17', 'europeanOnline', 'doubleDeck', 'spainCasino'], aria: 'Interactive basic strategy chart', adjust: 'Adjust rules', locale: 'en-US', pct: '%',
+        L: { table: 'Table type', decks: 'Decks', h17: 'Dealer hits soft 17 (H17)', hole: 'Dealer checks for blackjack (hole card)', das: 'Double after split', dbl: 'Double on', any: 'Any two cards', nine: '9, 10 or 11 only', ten: '10 or 11 only', surr: 'Surrender', none: 'No', late: 'Yes (late)', edge: 'House edge with perfect strategy', tap: 'Tap any cell to see why.', legendTitle: 'Legend' } },
+  de: { names: { europeanOnline: 'Europäisch / online (ohne Hole Card)', vegasS17: 'Las Vegas (Dealer steht auf Soft 17)', vegasH17: 'Las Vegas (Dealer zieht auf Soft 17)', doubleDeck: 'Zwei Decks', spainCasino: 'Spanisches Casino', custom: 'Eigene Regeln' },
+        order: ['europeanOnline', 'vegasS17', 'vegasH17', 'doubleDeck', 'spainCasino'], aria: 'Interaktive Blackjack-Strategietabelle', adjust: 'Regeln anpassen', locale: 'de-DE', pct: ' %',
+        L: { table: 'Tischart', decks: 'Decks', h17: 'Dealer zieht auf Soft 17 (H17)', hole: 'Dealer prüft auf Blackjack (Hole Card)', das: 'Verdoppeln nach Split', dbl: 'Verdoppeln mit', any: 'Beliebigen zwei Karten', nine: 'Nur 9, 10 oder 11', ten: 'Nur 10 oder 11', surr: 'Aufgeben (Surrender)', none: 'Nein', late: 'Ja (Late Surrender)', edge: 'Hausvorteil mit perfekter Strategie', tap: 'Tippe auf ein Feld, um die Begründung zu sehen.', legendTitle: 'Legende' } },
+  fr: { names: { europeanOnline: 'Européenne / en ligne (sans carte cachée)', vegasS17: 'Las Vegas (le croupier reste sur 17 souple)', vegasH17: 'Las Vegas (le croupier tire sur 17 souple)', doubleDeck: 'Deux jeux', spainCasino: 'Casino espagnol', custom: 'Personnalisée' },
+        order: ['europeanOnline', 'vegasS17', 'vegasH17', 'doubleDeck', 'spainCasino'], aria: 'Tableau de stratégie de base interactif', adjust: 'Ajuster les règles', locale: 'fr-FR', pct: ' %',
+        L: { table: 'Type de table', decks: 'Jeux de cartes', h17: 'Le croupier tire sur 17 souple (H17)', hole: 'Le croupier vérifie le blackjack (carte cachée)', das: 'Doubler après séparation', dbl: 'Doubler avec', any: 'N’importe quelle main', nine: '9, 10 ou 11 seulement', ten: '10 ou 11 seulement', surr: 'Abandon', none: 'Non', late: 'Oui (tardif)', edge: 'Avantage de la maison avec une stratégie parfaite', tap: 'Touchez une case pour voir pourquoi.', legendTitle: 'Légende' } },
+} as const)[lang];
+const presetNames = C.names as Record<string, string>;
+const presetOrder = C.order as readonly string[];
+const L = C.L;
 const legendOrder = ['H', 'S', 'D', 'Ds', 'P', 'Rh', 'Rs', 'Rp'] as const;
 ---
-<section class="chart-tool" data-lang={lang} data-preset={preset} aria-label={es ? 'Tabla de estrategia básica interactiva' : 'Interactive basic strategy chart'}>
+<section class="chart-tool" data-lang={lang} data-preset={preset} data-locale={C.locale} data-pct={C.pct} aria-label={C.aria}>
   <div class="chart-controls">
     <label class="ctl ctl-wide">
       <span>{L.table}</span>
@@ -44,7 +39,7 @@ const legendOrder = ['H', 'S', 'D', 'Ds', 'P', 'Rh', 'Rs', 'Rp'] as const;
       </select>
     </label>
     <details class="rules-more">
-      <summary>{es ? 'Ajustar reglas' : 'Adjust rules'}</summary>
+      <summary>{C.adjust}</summary>
       <div class="rules-grid">
         <label class="ctl"><span>{L.decks}</span>
           <select name="decks">{[1, 2, 4, 6, 8].map((d) => <option value={d} selected={d === rules.decks}>{d}</option>)}</select>
@@ -67,7 +62,7 @@ const legendOrder = ['H', 'S', 'D', 'Ds', 'P', 'Rh', 'Rs', 'Rp'] as const;
         <label class="chk"><input type="checkbox" name="doubleAfterSplit" checked={rules.doubleAfterSplit} /> {L.das}</label>
       </div>
     </details>
-    <p class="edge">{L.edge}: <b data-edge>{houseEdge(rules).toLocaleString(es ? 'es-ES' : 'en-US', { minimumFractionDigits: 2 })}{es ? ' %' : '%'}</b></p>
+    <p class="edge">{L.edge}: <b data-edge>{houseEdge(rules).toLocaleString(C.locale, { minimumFractionDigits: 2 })}{C.pct}</b></p>
   </div>
 
   <p class="tap-hint muted small">{L.tap}</p>
@@ -159,7 +154,7 @@ const legendOrder = ['H', 'S', 'D', 'Ds', 'P', 'Rh', 'Rs', 'Rp'] as const;
     };
     const render = () => {
       tables.innerHTML = renderChart(rules, lang);
-      edge.textContent = `${houseEdge(rules).toLocaleString(lang === 'es' ? 'es-ES' : 'en-US', { minimumFractionDigits: 2 })}${lang === 'es' ? ' %' : '%'}`;
+      edge.textContent = `${houseEdge(rules).toLocaleString(root.dataset.locale, { minimumFractionDigits: 2 })}${root.dataset.pct}`;
       why.hidden = true;
     };
 

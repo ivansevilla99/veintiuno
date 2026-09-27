@@ -1,0 +1,70 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import AppStoreButton from '../../../components/AppStoreButton.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Existe-t-il une application pour apprendre à jouer au blackjack ?', a: 'Oui. Veintiuno est une application pour iPhone et Mac conçue pour enseigner la stratégie de base : elle vous distribue des mains, corrige chaque décision instantanément et vous explique pourquoi. Aucun argent réel n’est en jeu.' },
+  { q: 'Quelle différence entre une application de blackjack et un entraîneur de blackjack ?', a: 'Une application de blackjack classique est un jeu : elle vous laisse jouer avec des jetons fictifs, mais ne vous dit jamais si vous avez bien joué. Un entraîneur vérifie chaque décision par rapport au bon coup selon les règles de votre table et fait le point sur vos erreurs. Seul le second vous apprend quelque chose.' },
+  { q: 'Veintiuno est-il gratuit ?', a: 'Vous pouvez commencer gratuitement : les trois premiers jours du cours sont gratuits. Veintiuno Pro débloque le reste du cours, le consultant de mains et la carte thermique de vos erreurs, avec un abonnement hebdomadaire ou annuel.' },
+  { q: 'Peut-on jouer de l’argent réel dans Veintiuno ?', a: 'Non. C’est un outil pédagogique : pas d’argent réel, pas de jetons ayant une quelconque valeur et aucun lien avec un casino ou un site de paris.' },
+];
+---
+<Guide
+  lang="fr"
+  route="app"
+  title="Application pour apprendre le blackjack (sans argent)"
+  h1="La meilleure application pour apprendre le blackjack"
+  description="La meilleure appli pour apprendre le blackjack n’est pas un jeu à jetons fictifs, mais un entraîneur qui corrige chaque décision : Veintiuno, sur iPhone et Mac."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['course', 'strategy', 'practiceCounting', 'howToPlay']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> n’importe quelle application de blackjack ne vous apprendra pas le blackjack. Celles qui simulent un casino avec des jetons fictifs vous laissent jouer, mais ne vous disent pas si vous jouez bien. Ce qui vous fait progresser, c’est un <strong>entraîneur</strong> : une application qui corrige chaque décision, explique pourquoi et fait le point sur vos erreurs. C’est exactement ce qu’est Veintiuno.</p></div>
+  </div>
+
+  <h2 id="types">Deux types d’applications de blackjack</h2>
+  <table>
+    <thead><tr><th></th><th>Jeu de casino</th><th>Entraîneur</th></tr></thead>
+    <tbody>
+      <tr><td>Ce que vous faites</td><td>Jouer des mains avec des jetons fictifs</td><td>Prendre des décisions et être corrigé</td></tr>
+      <tr><td>Vous dit-il si vous avez bien joué ?</td><td>Non : seulement si vous avez gagné la main</td><td>Oui, à chaque décision</td></tr>
+      <tr><td>Vous explique-t-il pourquoi ?</td><td>Non</td><td>Oui</td></tr>
+      <tr><td>Les règles de votre table</td><td>Celles du jeu</td><td>Vous les choisissez (Las Vegas, européenne/en ligne, Espagne)</td></tr>
+      <tr><td>Révision des erreurs</td><td>Non</td><td>Oui</td></tr>
+      <tr><td>À quoi ça sert</td><td>Se divertir</td><td>Apprendre</td></tr>
+    </tbody>
+  </table>
+  <p>Le problème quand on apprend avec un jeu, c’est que <strong>le résultat d’une main ne vous dit pas si vous l’avez bien jouée</strong>. Vous pouvez rester sur 16 contre un 10, ce qui est une erreur, et gagner parce que le croupier saute. Votre cerveau retient alors exactement la mauvaise leçon. Un entraîneur sépare la décision du résultat : il vous dit si le coup était correct, quelle que soit l’issue de la main.</p>
+
+  <h2 id="veintiuno">Ce que fait Veintiuno</h2>
+  <div class="shots">
+    <figure><img src="/img/app-correccion-fr.webp" alt="Veintiuno corrige une décision : avec 16 contre un 10, le bon coup était de tirer" width="480" height="1042" loading="lazy" /><figcaption>Correction instantanée, avec l’explication.</figcaption></figure>
+    <figure><img src="/img/app-tabla-fr.webp" alt="Le tableau de stratégie de base de Veintiuno pour les règles des casinos espagnols" width="480" height="1042" loading="lazy" /><figcaption>Le tableau de votre table.</figcaption></figure>
+    <figure><img src="/img/app-progreso-fr.webp" alt="Écran de progression de Veintiuno avec la précision et les erreurs" width="480" height="1042" loading="lazy" /><figcaption>Vos progrès et vos erreurs.</figcaption></figure>
+  </div>
+  <ul>
+    <li><strong>Une table d’entraînement avec correction instantanée.</strong> Chaque décision est comparée à la stratégie de base de votre table, et si vous vous trompez, l’application vous montre le bon coup et vous explique pourquoi.</li>
+    <li><strong>Un cours de 14 jours.</strong> Une notion, un exercice et un quiz par jour, des règles jusqu’au comptage des cartes.</li>
+    <li><strong>Les règles de votre table :</strong> Las Vegas S17 et H17, européenne ou en ligne, ou casino espagnol (sans carte cachée).</li>
+    <li><strong>Une carte thermique de vos erreurs</strong> sur le tableau de stratégie, pour ne réviser que ce que vous ratez.</li>
+    <li><strong>Un consultant de mains</strong> avec l’espérance de chaque option.</li>
+    <li><strong>Le comptage Hi-Lo</strong> dans un module avancé, expliqué sans promesses.</li>
+    <li>Dix langues, dont le français. Pour iPhone et Mac.</li>
+  </ul>
+  <p>Pas d’argent réel ni de paris : c’est un outil pour apprendre, et il n’est lié à aucun casino.</p>
+  <p><AppStoreButton lang="fr" campaign="app-page" /></p>
+
+  <h2 id="no-app">Et sans application ?</h2>
+  <p>Vous pouvez apprendre les règles et la stratégie gratuitement sur ce site : il y a le <a href={routes.course.fr}>cours de blackjack</a>, le <a href={routes.strategy.fr}>tableau interactif</a> et les <a href={routes.practiceCounting.fr}>exercices de comptage des cartes</a>. Ce qu’un site web ne peut pas faire, c’est vous distribuer des centaines de mains et corriger chacune d’elles : c’est à cela que sert l’application.</p>
+</Guide>
+
+<style>
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+  .shots figure { margin: 0; }
+  .shots img { border-radius: 22px; border: 1px solid var(--line-strong); display: block; }
+  .shots figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; text-align: center; }
+  @media (max-width: 560px) { .shots { grid-template-columns: repeat(3, 1fr); gap: 8px; } .shots img { border-radius: 12px; } }
+</style>

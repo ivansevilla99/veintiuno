@@ -1,0 +1,59 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import Simulator from '../../../components/Simulator.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Kann ich Blackjack kostenlos und ohne Anmeldung spielen?', a: 'Ja. Dieser Tisch läuft in deinem Browser: ohne Anmeldung, ohne Download und ohne Echtgeld. Deine Trefferquote wird nur in deinem eigenen Browser gespeichert.' },
+  { q: 'Was ist anders als beim Gratis-Modus eines Online-Casinos?', a: 'Die Gratis-Modi von Casinos sollen dich dazu bringen, um Echtgeld zu spielen, und sie sagen dir nie, ob du eine Hand gut gespielt hast. Dieser Tisch hat weder Geld noch Einsätze und prüft jede Entscheidung am richtigen Spielzug für die Regeln, die du wählst.' },
+  { q: 'Mit welchen Regeln spielt der Tisch?', a: 'Mit denen, die du auswählst: Las Vegas mit Dealer, der bei Soft 17 stehen bleibt oder zieht, europäisch/online oder spanisches Casino (ohne Hole Card, Verdoppeln nur auf 9–11, kein Surrender). Immer 6 Decks; neu gemischt wird, sobald drei Viertel des Shoes ausgeteilt sind.' },
+  { q: 'Warum werde ich korrigiert, obwohl ich die Hand gewonnen habe?', a: 'Weil der Ausgang einer Hand vom Glück abhängt, die Entscheidung aber nicht. Du kannst mit 16 gegen eine 10 stehen bleiben und gewinnen, weil sich der Dealer überkauft – auf Dauer verliert dieser Spielzug aber mehr als Ziehen. Die Korrektur lehrt dich die richtige Entscheidung, nicht das Ergebnis.' },
+];
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Kostenloser Blackjack-Übungstisch mit sofortiger Korrektur',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web',
+  inLanguage: 'de',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: 0, priceCurrency: 'EUR' },
+  url: 'https://veintiunoapp.com/de/blackjack-kostenlos-spielen/',
+}];
+---
+<Guide
+  lang="de"
+  route="simulator"
+  title="Blackjack kostenlos spielen – ohne Anmeldung"
+  h1="Blackjack kostenlos spielen"
+  description="Spiel Blackjack kostenlos im Browser, ohne Anmeldung und ohne Echtgeld. Jede Entscheidung wird mit der Grundstrategie für europäische oder Vegas-Regeln geprüft."
+  updated="2026-09-27"
+  faq={faq}
+  related={['strategy', 'course', 'hand16v10', 'app']}
+  extraSchema={schema}
+  wide
+>
+  <div slot="top">
+    <p class="lead" style="margin-top:0">Ein Übungstisch, <strong>kostenlos, ohne Anmeldung und ohne Echtgeld</strong>. Nach jeder Entscheidung sagt er dir, ob das der richtige Spielzug war und warum – nach der Grundstrategie für die Tischregeln, die du wählst.</p>
+  </div>
+
+  <div slot="wide" style="max-width:820px">
+    <Simulator lang="de" />
+  </div>
+
+  <h2 id="so-gehts">So funktioniert’s</h2>
+  <ul>
+    <li><strong>Wähl deinen Tisch:</strong> Las Vegas (S17 oder H17), europäisch/online oder spanisches Casino. Die richtige Strategie ändert sich mit den Regeln.</li>
+    <li><strong>Austeilen und entscheiden:</strong> ziehen, stehen bleiben, verdoppeln, splitten oder aufgeben. Aktiv sind nur die Optionen, die der Tisch in diesem Moment erlaubt.</li>
+    <li><strong>Feedback ansehen:</strong> Grün, wenn du richtig lagst; rot mit dem richtigen Spielzug und der Erklärung, wenn nicht.</li>
+    <li>Am Computer kannst du mit der Tastatur spielen: <kbd>H</kbd> ziehen, <kbd>S</kbd> stehen, <kbd>D</kbd> verdoppeln, <kbd>P</kbd> splitten, <kbd>R</kbd> aufgeben und <kbd>Leertaste</kbd> zum Austeilen.</li>
+  </ul>
+
+  <h2 id="warum">Warum mit Feedback üben</h2>
+  <p>Ohne Feedback lernst du das Gegenteil von dem, was du lernen solltest: Ein schlechter Spielzug, der zufällig gewinnt, bleibt als „der richtige“ hängen. Hier wird jede Entscheidung mit der <a href={routes.strategy.de}>Grundstrategie</a> verglichen – dem Spielzug, der auf lange Sicht am wenigsten verliert – und du erfährst, warum.</p>
+  <p>Sobald du mehr als 95 % deiner Entscheidungen richtig triffst, spielst du besser als die allermeisten Leute, die sich an einen Blackjack-Tisch setzen. Wenn du immer wieder dieselben Hände verfehlst, mach den <a href={routes.course.de}>kostenlosen Kurs</a> oder lies den Ratgeber zu <a href={routes.hand16v10.de}>16 gegen 10</a>.</p>
+
+  <h2 id="ohne-geld">Ohne Geld, ohne Casinos</h2>
+  <p>Dieser Tisch hat keine Einsätze und keine Chips, verlinkt auf kein Casino und speichert nichts außerhalb deines Browsers. Er ist zum Lernen da. Wenn dich das Glücksspiel mehr kostet, als du willst, findest du Hilfe auf unserer Seite zum <a href={routes.responsible.de}>verantwortungsvollen Spielen</a>.</p>
+</Guide>

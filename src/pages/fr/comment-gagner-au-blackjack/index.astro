@@ -1,0 +1,67 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Peut-on toujours gagner au blackjack ?', a: 'Non. Aucun système ne gagne à tous les coups. Avec une stratégie de base parfaite, la maison garde un avantage d’environ 0,5 %, donc vous perdez légèrement sur la durée. Sur une courte séance, vous pouvez gagner ou perdre par pure chance.' },
+  { q: 'La martingale fonctionne-t-elle au blackjack ?', a: 'Non. Doubler votre mise après chaque perte ne change pas l’avantage de la maison : cela change seulement la façon dont vous perdez. Vous gagnez souvent de petites sommes, puis une mauvaise série vous ruine ou se heurte au plafond de la table.' },
+  { q: 'Quelle est la meilleure stratégie au blackjack ?', a: 'La stratégie de base : le coup mathématiquement optimal pour chaque main face à chaque carte du croupier, selon les règles de votre table. C’est ce qui réduit le plus l’avantage de la maison. Les systèmes de mise, les séries et les intuitions ne l’améliorent pas.' },
+  { q: 'Quelles sont les chances de gagner une main de blackjack ?', a: 'Avec la stratégie de base, vous gagnez environ 42 à 43 % des mains, vous faites égalité dans 8 à 9 % des cas et vous perdez environ 48 à 49 %. Vous rattrapez l’essentiel de l’écart parce que le blackjack est payé 3 pour 2 et que vous doublez et séparez dans les situations favorables.' },
+];
+---
+<Guide
+  lang="fr"
+  route="howToWin"
+  title="Comment gagner au blackjack : ce qui marche ou pas"
+  h1="Comment gagner au blackjack : la réponse honnête"
+  description="Peut-on gagner au blackjack ? L’avantage de la maison, ce que la stratégie de base change, ce que vaut le comptage et pourquoi la martingale ne fonctionne pas."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['strategy', 'counting', 'howToPlay', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> il n’existe aucun moyen de gagner à tous les coups. Ce que vous pouvez faire, c’est <strong>perdre le moins possible</strong> : une stratégie de base parfaite ramène l’avantage de la maison à environ 0,5 %, contre 2 % ou plus pour quelqu’un qui joue à l’instinct. Le comptage des cartes peut donner un petit avantage, mais il est difficile, lent, et les casinos le combattent.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="Dans ce guide">
+    <b>Dans ce guide</b>
+    <ol>
+      <li><a href="#edge">D’où vient l’avantage de la maison</a></li>
+      <li><a href="#works">Ce qui marche : 5 façons de réduire vos pertes</a></li>
+      <li><a href="#doesnt">Ce qui ne marche pas</a></li>
+      <li><a href="#counting">Et le comptage des cartes ?</a></li>
+      <li><a href="#mindset">Une façon saine de voir les choses</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="edge">D’où vient l’avantage de la maison</h2>
+  <p>Le blackjack a l’air équitable : le croupier et vous tirez dans les mêmes cartes. Le piège, c’est l’ordre. <strong>Vous jouez en premier</strong>, et si vous sautez, vous perdez même si le croupier saute ensuite. Cette seule règle vaut environ 8 % à la maison.</p>
+  <p>Vous en récupérez l’essentiel grâce à ce que le croupier ne peut pas faire : être payé 3 pour 2 sur un blackjack, doubler, séparer et rester quand cela vous arrange. Faites tout cela correctement et l’avantage de la maison tombe à <strong>0,3–0,7 %</strong> selon les règles. Imitez le croupier (tirer jusqu’à 17) et il tourne autour de 5,5 %.</p>
+
+  <h2 id="works">Ce qui marche : 5 façons de réduire vos pertes</h2>
+  <ol>
+    <li><strong>Apprenez la stratégie de base.</strong> C’est de loin le facteur le plus important. Utilisez le <a href={routes.strategy.fr}>tableau interactif</a> adapté aux règles de votre table et entraînez-vous jusqu’à ne plus hésiter.</li>
+    <li><strong>Ne jouez qu’aux tables qui paient 3:2.</strong> Un paiement 6:5 coûte environ 1,4 point de pourcentage : plus que toutes vos erreurs réunies.</li>
+    <li><strong>Refusez l’assurance.</strong> C’est un pari annexe avec un avantage de la maison d’environ 7 %.</li>
+    <li><strong>Lisez les règles.</strong> Un croupier qui reste sur 17 souple, le doublement après séparation et l’abandon jouent en votre faveur. Moins de jeux vaut mieux que plus.</li>
+    <li><strong>Fixez-vous une limite avant de vous asseoir</strong> et respectez-la. Les variations au blackjack sont fortes : vous aurez des séries perdantes même en jouant parfaitement.</li>
+  </ol>
+
+  <h2 id="doesnt">Ce qui ne marche pas</h2>
+  <ul>
+    <li><strong>Les systèmes de mise</strong> (martingale, Paroli, 1-3-2-6…) : ils changent la taille des mises, pas les probabilités d’une main. L’avantage de la maison s’applique à chaque euro misé.</li>
+    <li><strong>Les tables « chaudes » et « froides » :</strong> les cartes ne se souviennent pas si vous avez gagné la main précédente.</li>
+    <li><strong>« Ne jamais sauter » (rester dès 12) :</strong> cela paraît prudent, mais coûte de l’argent face aux cartes fortes du croupier.</li>
+    <li><strong>Jouer comme le croupier :</strong> l’une des pires stratégies qui soient.</li>
+    <li><strong>Les « systèmes gagnants » vendus en ligne :</strong> s’ils fonctionnaient, personne ne les vendrait.</li>
+  </ul>
+
+  <h2 id="counting">Et le comptage des cartes ?</h2>
+  <p>C’est la seule technique légale qui puisse donner un avantage au joueur, et il est réel : les cartes distribuées ne retournent pas dans le sabot. Mais l’avantage est faible (environ 0,5–1 %), il exige de fortes variations de mise aux bons moments, une discipline de fer et une bankroll importante, et les casinos mélangent plus tôt ou vous montrent la sortie dès qu’ils s’en aperçoivent. Ça ne fonctionne pas en ligne. Tout est expliqué dans <a href={routes.counting.fr}>comment compter les cartes</a>.</p>
+
+  <h2 id="mindset">Une façon saine de voir les choses</h2>
+  <p>Considérez le blackjack comme n’importe quel divertissement payant : une place de concert coûte de l’argent et vous ne vous attendez pas à le récupérer. La différence, c’est qu’au blackjack vous choisissez combien cela vous coûte, et jouer parfaitement réduit ce prix au minimum.</p>
+  <p>Apprendre à bien jouer est aussi un défi mental vraiment satisfaisant : savoir exactement pourquoi on tire avec 12 contre un 2 ou pourquoi on sépare les 8 contre un 10. C’est ce qu’enseigne Veintiuno, sans argent réel et sans paris.</p>
+  <div class="callout warn"><p>Si le jeu vous coûte plus que vous ne le souhaitez, arrêtez. Joueurs Info Service répond au 09 74 75 13 13, et vous trouverez d’autres aides sur notre page <a href={routes.responsible.fr}>jeu responsable</a>.</p></div>
+</Guide>

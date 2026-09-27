@@ -1,0 +1,84 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { houseEdge, presets, defaultRules } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const base = houseEdge(defaultRules);
+const effects: [string, string, number][] = [
+  ['Le blackjack paie 6:5 au lieu de 3:2', 'Pire', houseEdge({ ...defaultRules, payout: 'sixToFive' }) - base],
+  ['Le blackjack paie 1:1 (à égalité)', 'Pire', houseEdge({ ...defaultRules, payout: 'evenMoney' }) - base],
+  ['Le croupier tire sur 17 souple (H17)', 'Pire', houseEdge({ ...defaultRules, dealerHitsSoft17: true }) - base],
+  ['Doubler seulement sur 10 ou 11', 'Pire', houseEdge({ ...defaultRules, doubleRule: 'tenEleven' }) - base],
+  ['Pas de doublement après séparation', 'Pire', houseEdge({ ...defaultRules, doubleAfterSplit: false }) - base],
+  ['Sans carte cachée (le croupier ne vérifie pas)', 'Pire', houseEdge({ ...defaultRules, holeCard: false }) - base],
+  ['Une seule séparation', 'Pire', houseEdge({ ...defaultRules, maxSplitHands: 2 }) - base],
+  ['Doubler seulement sur 9, 10 ou 11', 'Pire', houseEdge({ ...defaultRules, doubleRule: 'nineToEleven' }) - base],
+  ['Pas d’abandon', 'Pire', houseEdge({ ...defaultRules, surrender: 'none' }) - base],
+  ['8 jeux au lieu de 6', 'Pire', houseEdge({ ...defaultRules, decks: 8 }) - base],
+  ['4 jeux au lieu de 6', 'Mieux', houseEdge({ ...defaultRules, decks: 4 }) - base],
+  ['Re-séparer les as autorisé', 'Mieux', houseEdge({ ...defaultRules, resplitAces: true }) - base],
+  ['2 jeux au lieu de 6', 'Mieux', houseEdge({ ...defaultRules, decks: 2 }) - base],
+  ['1 jeu au lieu de 6', 'Mieux', houseEdge({ ...defaultRules, decks: 1 }) - base],
+];
+const fmt = (x: number) => (x > 0 ? '+' : '−') + Math.abs(x).toFixed(2).replace('.', ',') + ' pt';
+const tables: [string, keyof typeof presets][] = [
+  ['Las Vegas, 6 jeux, S17, abandon', 'vegasS17'],
+  ['Las Vegas, 6 jeux, H17, abandon', 'vegasH17'],
+  ['Européenne / en ligne, sans carte cachée', 'europeanOnline'],
+  ['Casino en Espagne', 'spainCasino'],
+  ['Deux jeux (double deck)', 'doubleDeck'],
+];
+const pct = (x: number) => x.toFixed(2).replace('.', ',') + ' %';
+
+const faq = [
+  { q: 'Quelle règle du blackjack est la pire pour le joueur ?', a: 'Le blackjack payé 6:5 au lieu de 3:2. Il augmente l’avantage de la maison d’environ 1,4 point de pourcentage, ce qui multiplie à peu près par quatre ce que vous perdez, même en jouant parfaitement. Si une table paie 6:5, le mieux est d’en chercher une autre.' },
+  { q: 'Quel est l’avantage de la maison au blackjack ?', a: 'Avec une stratégie de base parfaite, entre 0,2 % et 0,7 % selon les règles ; avec 6 jeux et des règles typiques de Las Vegas, environ 0,4 %. En jouant au feeling, l’avantage réel est bien plus élevé.' },
+  { q: 'Le nombre de jeux compte-t-il ?', a: 'Oui, mais moins que d’autres règles. Passer de 6 à 8 jeux coûte environ 0,02 point ; descendre à 2 jeux vous fait gagner environ 0,17. Le paiement du blackjack et le fait que le croupier tire ou non sur 17 souple pèsent bien davantage.' },
+];
+---
+<Guide
+  lang="fr"
+  route="dataRules"
+  title="Avantage de la maison au blackjack selon les règles"
+  h1="Ce que vous coûte chaque règle du blackjack"
+  description="L’avantage de la maison au blackjack selon les règles : paiement 6:5, H17, nombre de jeux, abandon, doublement après séparation, sans carte cachée."
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['dataBust', 'spain', 'howToWin', 'data']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En bref :</strong> avec une stratégie de base parfaite, la maison garde environ <strong>{pct(base)}</strong> de vos mises à une table à 6 jeux avec de bonnes règles. La règle de loin la plus coûteuse est le blackjack payé <strong>6:5</strong> (+1,39 point) ; vient ensuite le croupier qui tire sur 17 souple (+0,22).</p></div>
+  </div>
+
+  <h2 id="effects">L’effet de chaque règle</h2>
+  <p>Point de départ : 6 jeux, le croupier reste sur 17 souple, doublement sur deux cartes quelconques et après séparation, abandon tardif, carte cachée, et blackjack payé 3:2. Avantage de la maison avec une stratégie parfaite : <strong>{pct(base)}</strong>. Chaque ligne indique ce qui change si vous modifiez uniquement cette règle.</p>
+  <table class="data-table">
+    <thead><tr><th>Règle</th><th>Pour vous</th><th>Variation de l’avantage de la maison</th></tr></thead>
+    <tbody>
+      {effects.map(([name, dir, d]) => <tr><th scope="row">{name}</th><td>{dir}</td><td class={d > 0 ? 'bad' : 'good'}>{fmt(d)}</td></tr>)}
+    </tbody>
+  </table>
+
+  <h2 id="tables">Avantage de la maison aux tables courantes</h2>
+  <table class="data-table">
+    <thead><tr><th>Table</th><th>Avantage de la maison</th></tr></thead>
+    <tbody>
+      {tables.map(([name, k]) => <tr><th scope="row">{name}</th><td class="hl">{pct(houseEdge(presets[k]))}</td></tr>)}
+    </tbody>
+  </table>
+  <p>Ces chiffres supposent que vous jouez la stratégie de base sans erreur. Chaque erreur vous coûte davantage : prendre l’assurance, rester sur 12 face à un 2 ou ne pas séparer les 8 peut facilement représenter plusieurs points. C’est pourquoi le <a href={routes.strategy.fr}>tableau de stratégie</a> compte plus que la chasse à la table parfaite.</p>
+
+  <h2 id="source">D’où viennent les chiffres</h2>
+  <p>L’avantage de référence et l’effet de chaque règle sont les approximations habituelles de la table des effets de règles de Wizard of Odds, celle qu’utilise aussi l’application Veintiuno. Les effets s’additionnent approximativement : en combinant plusieurs règles, l’écart avec le calcul exact de cette combinaison précise peut atteindre quelques centièmes.</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 16px; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); font-weight: 600; }
+  .data-table td.bad { color: var(--wrong); font-weight: 700; }
+  .data-table td.good { color: var(--correct); font-weight: 700; }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

@@ -1,0 +1,53 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Faut-il tirer ou rester avec 16 contre un 10 ?', a: 'Tirer, sauf si la table propose l’abandon : dans ce cas, abandonner est le meilleur choix. Tirer perd un peu moins que rester (environ 0,007 mise par main avec 10-6), même si les deux options perdent plus de la moitié de la mise.' },
+  { q: 'Pourquoi tirer alors que 16 saute si souvent ?', a: 'Parce que rester sur 16 ne gagne que si le croupier saute, et avec un 10 visible il ne saute qu’environ 23 % du temps. Si vous tirez, vous sautez à peu près 6 fois sur 10 ; mais quand ce n’est pas le cas, vous passez à 17–21 et vous gagnez parfois.' },
+  { q: 'Et si mon 16 compte trois cartes ou plus ?', a: 'Alors rester est en général équivalent ou légèrement meilleur, car les petites cartes qui composent votre main ne sont plus dans le sabot et celles qui restent ont plus de chances de vous faire sauter. C’est l’une des rares exceptions « dépendantes de la composition ». Avec deux cartes, tirez.' },
+  { q: 'Et 16 contre un 10 quand c’est une paire de 8 ?', a: 'Séparez. On sépare 8-8 contre un 10 aux tables avec carte cachée, car deux mains qui partent de 8 perdent moins qu’un seul 16. Aux tables européennes sans carte cachée, on tire (ou on abandonne, si c’est permis).' },
+];
+---
+<Guide
+  lang="fr"
+  route="hand16v10"
+  title="16 contre 10 au blackjack : tirer ou rester ?"
+  h1="16 contre 10 : tirer ou rester ?"
+  description="Que faire avec 16 contre un 10 du croupier au blackjack : tirer, rester ou abandonner. L’espérance exacte de chaque option, pourquoi tirer et les exceptions."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['strategy', 'whenDouble', 'course', 'dataBust']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> avec un 16 dur contre un 10, <strong>abandonnez si la table le permet ; sinon, tirez</strong>. C’est la main la plus redoutée du blackjack parce que toutes les options perdent, mais tirer perd un peu moins que rester. L’exception : si votre 16 est un 8-8, séparez (aux tables avec carte cachée).</p></div>
+  </div>
+
+  <h2 id="numbers">Les chiffres exacts</h2>
+  <p>Voici ce que vaut chaque option en moyenne, par unité misée. Tout est négatif : avec 16 contre un 10, vous allez perdre de l’argent quoi que vous fassiez. La question est de savoir quelle option perd le moins.</p>
+  <EVTable lang="fr" cards={[10, 6]} up={10} tables={['vegasS17', 'doubleDeck', 'spainCasino']} />
+  <p>Avec les règles de Las Vegas, <strong>abandonner</strong> (−0,500) est le meilleur choix : vous récupérez la moitié de votre mise et vous évitez une main qui perd plus d’une fois sur deux. Sans abandon, <strong>tirer</strong> (−0,535) bat rester (−0,542).</p>
+  <p>À une table européenne sans carte cachée, comme c’est en général le cas dans les casinos d’Europe, les pertes sont un peu plus fortes parce que le croupier peut encore avoir blackjack, mais l’ordre ne change pas : tirer reste préférable.</p>
+
+  <h2 id="why">Pourquoi tirer alors qu’on saute si souvent</h2>
+  <p>L’intuition dit : « avec 16, je vais presque sûrement sauter, donc je reste. » Mais rester sur 16 ne sert qu’à une chose : attendre que le croupier saute. Et avec un 10 visible, le croupier ne saute qu’environ <strong>23 %</strong> du temps (voir la <a href={routes.dataBust.fr}>table des probabilités que le croupier saute</a>). Les 77 % restants, il termine sur 17 ou plus, et votre 16 perd.</p>
+  <p>Si vous tirez, vous sautez quand arrive un 6, un 7, un 8, un 9 ou un 10 (à peu près 6 fois sur 10). Mais quand arrive un as, un 2, un 3, un 4 ou un 5, vous passez à 17–21 et vous avez une vraie chance de gagner ou de faire égalité. Ces gains compensent largement le petit nombre de mains supplémentaires perdues en sautant.</p>
+  <div class="callout"><p><strong>L’écart est faible, et c’est pour ça qu’on en débat autant.</strong> Tirer plutôt que rester vous fait économiser moins d’un centième de mise par main. Vous ne le remarquerez pas sur une seule main. Sur mille mains de 16 contre 10, cela représente sept mises entières.</p></div>
+
+  <h2 id="exceptions">Les exceptions</h2>
+  <ul>
+    <li><strong>8-8 :</strong> séparez. Deux mains qui partent de 8 perdent nettement moins qu’un seul 16. Aux tables européennes sans carte cachée, 8-8 contre un 10 se tire (ou s’abandonne, si c’est permis).</li>
+    <li><strong>Un 16 de trois cartes ou plus</strong> (par exemple 4-5-7) : rester devient équivalent ou meilleur, car les petites cartes qui vous aideraient sont déjà dans votre main.</li>
+    <li><strong>Si vous comptez les cartes :</strong> à partir d’un compte réel (true count) de 0, restez. C’est l’indice le plus célèbre du Hi-Lo : quand il reste beaucoup de cartes hautes, tirer vous fait sauter trop souvent.</li>
+  </ul>
+
+  <h2 id="other">Et 16 contre les autres cartes ?</h2>
+  <ul>
+    <li><strong>Contre 2 à 6 :</strong> restez. Le croupier est faible et sautera souvent.</li>
+    <li><strong>Contre 7 ou 8 :</strong> tirez.</li>
+    <li><strong>Contre 9 ou as :</strong> abandonnez si vous pouvez ; sinon, tirez.</li>
+  </ul>
+  <p>Tout est dans le <a href={routes.strategy.fr}>tableau de stratégie de base</a>, que vous pouvez adapter aux règles de votre table.</p>
+</Guide>

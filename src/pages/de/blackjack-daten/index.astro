@@ -1,0 +1,26 @@
+---
+import Base from '../../../layouts/Base.astro';
+import AppCTA from '../../../components/AppCTA.astro';
+import { routes } from '../../../lib/site';
+const items = [
+  [routes.dataBust.de, 'Wahrscheinlichkeit, dass der Dealer sich überkauft', 'Nach offener Karte und nach Endsumme (17–21), für S17 und H17.'],
+  [routes.dataRules.de, 'Was jede Blackjack-Regel kostet', 'Wie 6:5, H17, Anzahl der Decks, Surrender und mehr den Hausvorteil verändern.'],
+  [routes.hand16v10.de, '16 gegen 10 in Zahlen', 'Der Erwartungswert von Ziehen, Stehenbleiben und Aufgeben.'],
+  [routes.whenDouble.de, 'Wann verdoppeln – mit Erwartungswerten', '11 gegen Ass, A-7 gegen 6 und jedes andere Verdoppeln.'],
+  [routes.whenSplit.de, 'Wann splitten – mit Erwartungswerten', 'Achten gegen 10, Zehnen gegen 6, Neunen gegen 7.'],
+];
+---
+<Base lang="de" route="data" title="Blackjack Wahrscheinlichkeiten: exakte Tabellen" description="Exakte Blackjack-Tabellen aus der Veintiuno-Engine: wie oft sich der Dealer überkauft, Hausvorteil je nach Regeln und Erwartungswerte der wichtigsten Züge.">
+  <div class="container read">
+    <header class="article-head">
+      <span class="eyebrow">Daten</span>
+      <h1>Blackjack-Wahrscheinlichkeiten und Daten</h1>
+      <p class="lead">Tabellen, berechnet mit derselben Engine, die auch die Veintiuno-App nutzt: exakte Berechnung statt Simulation, und auf jeder Seite stehen die Regeln und Annahmen dabei.</p>
+    </header>
+    <div class="grid-2">
+      {items.map(([href, title, text]) => <a class="card" href={href}><h3>{title}</h3><p>{text}</p></a>)}
+    </div>
+    <p class="muted small" style="margin-top:24px">Methodik: 6 Decks, sofern nicht anders angegeben; die sichtbaren Karten werden entfernt und jede mögliche Karte wird durchgespielt (Expectimax). Validiert mit einer unabhängigen Simulation von Millionen Händen. Details auf der Seite <a href={routes.about.de}>Über Veintiuno</a>.</p>
+    <AppCTA lang="de" campaign="data" />
+  </div>
+</Base>

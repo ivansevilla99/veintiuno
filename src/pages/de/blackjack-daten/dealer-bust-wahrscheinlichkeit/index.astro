@@ -1,0 +1,79 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { dealerTable } from '../../../../lib/ev';
+import { presets } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const ups = [2, 3, 4, 5, 6, 7, 8, 9, 10, 1];
+const upL = (u: number) => (u === 1 ? 'Ass' : String(u));
+const pct = (x: number) => (x * 100).toFixed(1).replace('.', ',') + ' %';
+const s17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasS17) }));
+const h17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasH17) }));
+const avgBust = s17.reduce((a, r) => a + r.bust * (r.u === 10 ? 4 : 1), 0) / 13;
+
+const faq = [
+  { q: 'Bei welcher offenen Karte überkauft sich der Dealer am häufigsten?', a: 'Bei einer 6 oder einer 5: in rund 42 % der Fälle, wenn der Dealer auf Soft 17 stehen bleibt. Bei einer 4 sind es knapp 40 %. Deshalb bleibst du mit 12 bis 16 gegen eine 4, 5 oder 6 stehen.' },
+  { q: 'Bei welcher offenen Karte überkauft sich der Dealer am seltensten?', a: 'Beim Ass: Ist ein Blackjack ausgeschlossen, überkauft sich der Dealer in etwa 17 % der Fälle. Bei einer 7, 8, 9 oder 10 liegt der Wert zwischen 23 % und 26 %.' },
+  { q: 'Wie viel ändert sich, wenn der Dealer auf Soft 17 zieht (H17)?', a: 'Mit niedrigen Karten und mit einem Ass überkauft sich der Dealer etwas häufiger, weil er in Situationen weiterzieht, in denen er sonst stehen bleiben würde; er landet aber auch öfter auf 18–21. Unterm Strich ist H17 für dich schlechter: Der Hausvorteil steigt um etwa 0,2 Prozentpunkte.' },
+];
+---
+<Guide
+  lang="de"
+  route="dataBust"
+  title="Dealer überkauft sich: Wahrscheinlichkeit (Tabelle)"
+  h1="Wie oft sich der Dealer überkauft – nach offener Karte"
+  description="Exakte Tabelle: Wie oft sich der Dealer beim Blackjack je nach offener Karte überkauft und wie wahrscheinlich jede Endsumme von 17 bis 21 ist: S17, H17, 6 Decks"
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['hand16v10', 'strategy', 'dataRules', 'data']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>Kurz gesagt:</strong> Mit 6 Decks und einem Dealer, der auf Soft 17 stehen bleibt, überkauft sich der Dealer in etwa <strong>42 % der Fälle bei einer 5 oder 6</strong>, <strong>40 % bei einer 4</strong>, <strong>35–37 % bei einer 2 oder 3</strong>, <strong>23–26 % bei einer 7 bis 10</strong> und <strong>17 % bei einem Ass</strong> (Dealer-Blackjacks nicht mitgezählt). Im Schnitt überkauft sich der Dealer in {pct(avgBust)} der Hände, in denen er keinen Blackjack hat.</p></div>
+  </div>
+
+  <div slot="wide" class="read">
+    <h2 id="s17">Dealer bleibt auf Soft 17 stehen (S17)</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>Offene Karte</th><th>Überkauft</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>Hat Blackjack</th></tr></thead>
+        <tbody>
+          {s17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="h17">Dealer zieht auf Soft 17 (H17)</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>Offene Karte</th><th>Überkauft</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>Hat Blackjack</th></tr></thead>
+        <tbody>
+          {h17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2 id="method">So liest du die Tabelle – und so wurde gerechnet</h2>
+  <ul>
+    <li>Die Spalten „Überkauft“ und 17–21 ergeben zusammen 100 % und sind die Wahrscheinlichkeiten, <strong>nachdem ein Dealer-Blackjack ausgeschlossen ist</strong> – also genau die Lage, in der du an einem Tisch mit Hole Card entscheidest. Die letzte Spalte ist die Wahrscheinlichkeit eines Dealer-Blackjacks vor dem Nachsehen (Peek).</li>
+    <li>Exakte Berechnung (keine Simulation) mit der Veintiuno-Engine: 6 Decks, die offene Karte des Dealers wird entfernt und jede mögliche Karte wird durchgespielt. Gegengeprüft mit einer unabhängigen Simulation von 1,5 Millionen Händen pro offener Karte; die Abweichungen liegen bei wenigen Zehntelpunkten.</li>
+    <li>Mit weniger Decks oder wenn man die Karten der Spieler berücksichtigt, verschieben sich die Werte leicht, die Reihenfolge ändert sich aber nie.</li>
+  </ul>
+
+  <h2 id="use">Was du mit dieser Tabelle anfängst</h2>
+  <p>Sie ist der eigentliche Grund, warum die Grundstrategie so aussieht, wie sie aussieht. Mit 12 bis 16 gegen eine 4, 5 oder 6 bleibst du stehen, weil sich der Dealer fast in der Hälfte der Fälle überkauft, in denen er nicht schon 17–21 hat; gegen eine 7 oder höher ziehst du, weil er fast immer auf 17 oder mehr landet. Der umstrittenste Fall wird in <a href={routes.hand16v10.de}>16 gegen 10</a> erklärt.</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 8px; background: var(--panel); border-radius: 14px; overflow: hidden; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

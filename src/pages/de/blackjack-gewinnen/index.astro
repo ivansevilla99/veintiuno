@@ -1,0 +1,67 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Kann man beim Blackjack immer gewinnen?', a: 'Nein. Kein System gewinnt jedes Mal. Mit perfekter Grundstrategie behält das Haus einen Vorteil von rund 0,5 %, auf Dauer verlierst du also leicht. In einer kurzen Session kannst du durch reines Glück gewinnen oder verlieren.' },
+  { q: 'Funktioniert die Martingale beim Blackjack?', a: 'Nein. Den Einsatz nach jedem Verlust zu verdoppeln ändert nichts am Hausvorteil – nur daran, wie du verlierst. Du gewinnst oft kleine Beträge, dann macht eine Pechsträhne alles zunichte oder stößt an das Tischlimit.' },
+  { q: 'Was ist die beste Blackjack-Strategie?', a: 'Die Grundstrategie: der mathematisch optimale Zug für jede Hand gegen jede Dealerkarte unter den Regeln deines Tisches. Sie senkt den Hausvorteil am stärksten. Setzsysteme, Serien und Bauchgefühl verbessern sie nicht.' },
+  { q: 'Wie hoch ist die Chance, eine Blackjack-Hand zu gewinnen?', a: 'Mit Grundstrategie gewinnst du etwa 42–43 % der Hände, spielst etwa 8–9 % unentschieden und verlierst etwa 48–49 %. Den größten Teil der Lücke holst du zurück, weil Blackjacks 3 zu 2 zahlen und du in günstigen Situationen verdoppelst und splittest.' },
+];
+---
+<Guide
+  lang="de"
+  route="howToWin"
+  title="Blackjack gewinnen: Was funktioniert und was nicht"
+  h1="Blackjack gewinnen: die ehrliche Antwort"
+  description="Kann man beim Blackjack gewinnen? Wie hoch der Hausvorteil ist, wie stark die Grundstrategie ihn senkt, was Kartenzählen bringt und welche Tricks nicht wirken."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['strategy', 'counting', 'howToPlay', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurze Antwort:</strong> Es gibt keinen Weg, immer zu gewinnen. Was du tun kannst: <strong>so wenig wie möglich verlieren</strong>. Perfekte Grundstrategie drückt den Hausvorteil auf etwa 0,5 %, gegenüber 2 % oder mehr bei jemandem, der aus dem Bauch heraus spielt. Kartenzählen kann einen kleinen Vorteil bringen, ist aber schwer, langsam, und die Casinos wehren sich dagegen.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In diesem Ratgeber">
+    <b>In diesem Ratgeber</b>
+    <ol>
+      <li><a href="#edge">Woher der Hausvorteil kommt</a></li>
+      <li><a href="#works">Was funktioniert: 5 Dinge, die deine Verluste senken</a></li>
+      <li><a href="#doesnt">Was nicht funktioniert</a></li>
+      <li><a href="#counting">Und Kartenzählen?</a></li>
+      <li><a href="#mindset">Eine gesunde Sichtweise</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="edge">Woher der Hausvorteil kommt</h2>
+  <p>Blackjack wirkt fair – du und der Dealer zieht aus denselben Karten. Der Haken ist die Reihenfolge. <strong>Du bist zuerst dran</strong>, und wenn du dich überkaufst, verlierst du, auch wenn sich der Dealer danach ebenfalls überkauft. Allein diese Regel ist für das Haus etwa 8 % wert.</p>
+  <p>Den Großteil holst du über Dinge zurück, die der Dealer nicht darf: 3 zu 2 für einen Blackjack kassieren, verdoppeln, splitten und stehen bleiben, wann es dir passt. Machst du all das richtig, schrumpft der Hausvorteil je nach Regeln auf <strong>0,3–0,7 %</strong>. Spielst du wie der Dealer (ziehen bis 17), liegt er bei etwa 5,5 %.</p>
+
+  <h2 id="works">Was funktioniert: 5 Dinge, die deine Verluste senken</h2>
+  <ol>
+    <li><strong>Lerne die Grundstrategie.</strong> Mit Abstand der wichtigste Faktor. Nutze die <a href={routes.strategy.de}>interaktive Strategietabelle</a> für die Regeln deines Tisches und übe, bis du nicht mehr zögerst.</li>
+    <li><strong>Spiel nur an 3:2-Tischen.</strong> Eine 6:5-Auszahlung kostet etwa 1,4 Prozentpunkte – mehr als alle deine Fehler zusammen.</li>
+    <li><strong>Lass die Versicherung weg.</strong> Sie ist eine Nebenwette mit rund 7 % Hausvorteil.</li>
+    <li><strong>Lies die Regeln.</strong> Ein Dealer, der auf Soft 17 stehen bleibt, Verdoppeln nach dem Splitten und Surrender helfen dir. Weniger Decks sind besser als mehr.</li>
+    <li><strong>Leg ein Limit fest, bevor du dich hinsetzt,</strong> und halte es ein. Die Schwankungen beim Blackjack sind groß: Auch bei perfektem Spiel wirst du Pechsträhnen haben.</li>
+  </ol>
+
+  <h2 id="doesnt">Was nicht funktioniert</h2>
+  <ul>
+    <li><strong>Setzsysteme</strong> (Martingale, Paroli, 1-3-2-6 …): Sie ändern die Einsatzhöhe, nicht die Chancen einer Hand. Der Hausvorteil gilt für jeden Euro, den du setzt.</li>
+    <li><strong>Heiße und kalte Tische:</strong> Die Karten wissen nicht, ob du die letzte Hand gewonnen hast.</li>
+    <li><strong>„Nie überkaufen“ (ab 12 stehen bleiben):</strong> klingt sicher, kostet gegen starke Dealerkarten aber Geld.</li>
+    <li><strong>Spielen wie der Dealer:</strong> eine der schlechtesten Strategien überhaupt.</li>
+    <li><strong>Im Internet verkaufte „Gewinnsysteme“:</strong> Wenn sie funktionieren würden, würde sie niemand verkaufen.</li>
+  </ul>
+
+  <h2 id="counting">Und Kartenzählen?</h2>
+  <p>Es ist die einzige legale Technik, die dem Spieler einen Vorteil verschaffen kann, und sie ist real: Ausgeteilte Karten kommen nicht zurück in den Schlitten. Aber der Vorteil ist klein (etwa 0,5–1 %), er verlangt starke Einsatzsprünge im richtigen Moment, eiserne Disziplin und eine große Bankroll – und die Spielbanken mischen früher oder zeigen dir die Tür, sobald sie es merken. Online funktioniert es nicht. Die ganze Geschichte steht in <a href={routes.counting.de}>Karten zählen beim Blackjack</a>.</p>
+
+  <h2 id="mindset">Eine gesunde Sichtweise</h2>
+  <p>Betrachte Blackjack wie jede bezahlte Unterhaltung: Ein Konzertticket kostet Geld, und du erwartest es nicht zurück. Der Unterschied: Beim Blackjack bestimmst du selbst, wie viel es kostet – und perfektes Spiel hält den Preis minimal.</p>
+  <p>Gut spielen zu lernen ist außerdem eine wirklich befriedigende geistige Herausforderung: genau zu wissen, warum du mit 12 gegen eine 2 ziehst oder Achten gegen eine 10 splittest. Genau das bringt dir Veintiuno bei, ohne Echtgeld und ohne Wetten.</p>
+  <div class="callout warn"><p>Wenn dich Glücksspiel mehr kostet, als du willst, hör auf. Kostenlose Hilfe findest du auf unserer Seite <a href={routes.responsible.de}>Verantwortungsvolles Spielen</a>.</p></div>
+</Guide>

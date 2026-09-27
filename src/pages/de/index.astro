@@ -1,0 +1,99 @@
+---
+import Base from '../../layouts/Base.astro';
+import AppStoreButton from '../../components/AppStoreButton.astro';
+import AppCTA from '../../components/AppCTA.astro';
+import { routes, APP_STORE_URL } from '../../lib/site';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: 'Veintiuno',
+    alternateName: 'Veintiuno',
+    operatingSystem: 'iOS',
+    applicationCategory: 'EducationalApplication',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+    url: APP_STORE_URL,
+    inLanguage: 'de',
+    description: 'Eine App, mit der du die Blackjack-Grundstrategie lernst und trainierst – mit sofortiger Korrektur und dem Grund hinter jedem Spielzug. Ohne Echtgeld.',
+  },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Veintiuno', url: 'https://veintiunoapp.com/de/', inLanguage: 'de' },
+];
+---
+<Base
+  lang="de"
+  route="home"
+  title="Veintiuno: Blackjack-Trainer und Grundstrategie"
+  description="Lerne Blackjack richtig: interaktive Strategietabelle für jede Regelvariante, klare Ratgeber und eine App, die jede Entscheidung korrigiert. Ohne Echtgeld."
+  schema={schema}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Blackjack ohne Mythen</span>
+        <h1>Lerne, Blackjack richtig zu spielen</h1>
+        <p class="lead">Die Grundstrategie, Spielzug für Spielzug erklärt und an die Regeln deines Tisches angepasst. Keine Wundersysteme, keine Versprechen von leichtem Geld – nur die richtigen Entscheidungen, bis sie automatisch sitzen.</p>
+        <div class="hero-actions">
+          <AppStoreButton lang="de" campaign="home-hero" />
+          <a class="btn btn-ghost" href={routes.simulator.de}>Kostenlos spielen mit Korrektur</a>
+        </div>
+        <p class="hero-note">Für iPhone und Mac · Kostenlos starten · Ohne Echtgeld</p>
+      </div>
+      <div class="fan" aria-hidden="true">
+        <div class="pcard"><span class="corner">10<i>♠</i></span><span class="pip">♠</span></div>
+        <div class="pcard"><span class="corner">6<i>♣</i></span><span class="pip">♣</span></div>
+        <div class="pcard red"><span class="corner">D<i>♥</i></span><span class="pip">♥</span></div>
+        <div class="chip-badge"><b>Richtig war: ziehen</b>Mit 16 gegen eine 10 verlierst du, wenn du stehen bleibst: Der Dealer kommt fast immer auf 17 oder mehr.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Hier anfangen</h2>
+      <p class="lead">Drei Ratgeber decken ab, was du wirklich brauchst. Wenn du lieber Schritt für Schritt vorgehst, mach den <a href={routes.course.de}>kostenlosen Blackjack-Kurs</a>: 10 kurze Lektionen mit Quiz.</p>
+      <div class="grid-3">
+        <a class="card" href={routes.howToPlay.de}><div class="icon">♠</div><h3>Blackjack-Regeln</h3><p>Die Regeln, die Kartenwerte und der Ablauf einer Hand von Anfang bis Ende, ohne Fachchinesisch.</p><span class="more">Regeln lernen →</span></a>
+        <a class="card" href={routes.strategy.de}><div class="icon">▦</div><h3>Strategietabelle</h3><p>Interaktiv und passend zu deinem Tisch: Vegas S17 oder H17, Double Deck, europäisch. Tipp auf ein Feld, um zu sehen, warum.</p><span class="more">Tabelle öffnen →</span></a>
+        <a class="card" href={routes.counting.de}><div class="icon">±</div><h3>Karten zählen</h3><p>Wie Hi-Lo funktioniert, welchen Vorteil es wirklich bringt und warum es sich für so wenige lohnt. Ehrlich erklärt.</p><span class="more">Zählen verstehen →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container grid-2" style="align-items:center">
+      <div>
+        <span class="eyebrow">Die App</span>
+        <h2 style="margin-top:0">Die Tabelle kennen ist nicht dasselbe wie sie spielen</h2>
+        <p>Am Tisch hast du zwei Sekunden für deine Entscheidung. Genau das trainiert Veintiuno: Die App teilt echte Hände aus, korrigiert dich sofort und erklärt den Grund hinter jedem Spielzug – nach den Regeln deines Tisches.</p>
+        <ul>
+          <li><strong>Sofortige Korrektur</strong> mit dem Grund für jeden Fehler.</li>
+          <li><strong>Ein 14-Tage-Plan:</strong> ein Konzept, eine Übung und eine Prüfung pro Tag.</li>
+          <li><strong>Eine Heatmap</strong> der Tabellenfelder, bei denen du dich am häufigsten irrst.</li>
+          <li><strong>Regeln aus Vegas, Europa und Spanien</strong>, mit oder ohne Hole Card.</li>
+          <li><strong>Hi-Lo-Zählen</strong> als Fortgeschrittenen-Modul, ohne Hype.</li>
+        </ul>
+        <AppStoreButton lang="de" campaign="home-app" />
+      </div>
+      <div class="card">
+        <h3>Was Veintiuno nicht ist</h3>
+        <p>Kein Casino und kein Glücksspiel: kein Echtgeld, keine Chips, keine Verbindung zu irgendeinem Anbieter. Und wir verkaufen dir kein System, mit dem du „immer gewinnst“, denn so etwas gibt es nicht.</p>
+        <p>Die Grundstrategie senkt den Hausvorteil auf etwa 0,5 %, beseitigt ihn aber nicht. Wir erklären es ohne Umschweife unter <a href={routes.howToWin.de}>Blackjack gewinnen</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Häufige Fragen</h2>
+      <div class="grid-2">
+        <a class="card" href={routes.howToPlay.de}><h3>Wie gewinnt man eine Hand Blackjack?</h3><p>Näher an 21 kommen als der Dealer, ohne dich zu überkaufen. Schritt für Schritt hier.</p></a>
+        <a class="card" href={routes.simulator.de}><h3>Wo kann ich kostenlos Blackjack spielen?</h3><p>Genau hier: ein Tisch ohne Geld und ohne Anmeldung, der jeden Spielzug korrigiert.</p></a>
+        <a class="card" href={routes.strategy.de}><h3>Wann verdoppeln oder splitten?</h3><p>Asse und Achten immer splitten, Zehner und Fünfer nie. Der Rest steht in der Tabelle.</p></a>
+        <a class="card" href={routes.counting.de}><h3>Ist Kartenzählen illegal?</h3><p>Im Kopf zu zählen ist nicht illegal, aber Casinos können dich bitten, damit aufzuhören.</p></a>
+        <a class="card" href={routes.howToWin.de}><h3>Kann man Blackjack auf Dauer schlagen?</h3><p>Nur mit Grundstrategie nicht – du verlierst so wenig wie möglich. Hier steht, was möglich ist.</p></a>
+      </div>
+      <AppCTA lang="de" campaign="home-bottom" />
+    </div>
+  </section>
+</Base>

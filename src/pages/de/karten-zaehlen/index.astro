@@ -1,0 +1,91 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import CountDrill from '../../../components/CountDrill.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Ist Kartenzählen illegal?', a: 'Karten im Kopf zu zählen ist nicht illegal – du passt einfach nur auf. Verboten sind Geräte, Notizen oder Zeichen mit Partnern. Spielbanken haben aber Hausrecht: Vielerorts (auch in Nevada) können sie dich bitten, nicht mehr Blackjack zu spielen oder zu gehen.' },
+  { q: 'Funktioniert Kartenzählen online?', a: 'Beim normalen Online-Blackjack nicht: Die Software mischt nach jeder Hand neu, es gibt also nichts zu zählen. Live-Dealer-Tische verwenden einen echten Schlitten, der aber meist neu gemischt wird, wenn noch die Hälfte oder mehr übrig ist – da bleibt kaum ein Vorteil.' },
+  { q: 'Wie viel kann man mit Kartenzählen verdienen?', a: 'Weniger, als die meisten denken. Ein disziplinierter Zähler hat bei guten Regeln vielleicht einen Vorteil von etwa 0,5–1 % auf den Gesamteinsatz, mit enormen Schwankungen – du kannst wochenlang verlieren, bevor sich der Vorteil zeigt. Deshalb lohnt es sich für die wenigsten.' },
+  { q: 'Was ist der True Count?', a: 'Der Running Count geteilt durch die Anzahl der Decks, die noch ausgeteilt werden. Ein Running Count von +6 bei drei verbleibenden Decks ergibt einen True Count von +2. Der True Count zeigt dir, ob die restlichen Karten zu deinen Gunsten stehen.' },
+  { q: 'Muss ich vorher die Grundstrategie können?', a: 'Ja. Zählen ohne sichere Grundstrategie ist sinnlos: Strategiefehler kosten mehr, als der Count einbringt. Erst die Tabelle, dann das Zählen.' },
+];
+---
+<Guide
+  lang="de"
+  route="counting"
+  title="Karten zählen beim Blackjack: Hi-Lo erklärt"
+  h1="Karten zählen beim Blackjack"
+  description="Karten zählen mit dem Hi-Lo-System: Running Count, True Count, welchen Vorteil es wirklich bringt, ob es legal ist und warum es online nicht klappt. Mit Übung."
+  updated="2026-09-27"
+  readMinutes={9}
+  faq={faq}
+  related={['strategy', 'howToWin', 'howToPlay', 'guides']}
+  cta={{ title: 'Erst die Strategie, dann das Zählen', text: 'Veintiuno trainiert die Grundstrategie, bis du keine Fehler mehr machst, und bringt dir dann Hi-Lo als Fortgeschrittenen-Modul bei – mit einer Running-Count-Übung in deinem Tempo.' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurze Antwort:</strong> Beim Kartenzählen führst du eine laufende Summe der ausgeteilten Karten, um zu erkennen, wann der Rest des Decks reich an hohen Karten ist – denn die begünstigen den Spieler. Im Hi-Lo zählen 2–6 als +1, Zehnen und Asse als −1. Es ist legal, aber der Vorteil ist klein, es verlangt echte Disziplin und es funktioniert online nicht.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In diesem Ratgeber">
+    <b>In diesem Ratgeber</b>
+    <ol>
+      <li><a href="#why">Warum Zählen funktioniert</a></li>
+      <li><a href="#hi-lo">Das Hi-Lo-System Schritt für Schritt</a></li>
+      <li><a href="#true">Der True Count</a></li>
+      <li><a href="#use">Was du mit dem Count machst</a></li>
+      <li><a href="#reality">Realitätscheck: Was es bringt</a></li>
+      <li><a href="#legal">Ist es legal?</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="why">Warum Zählen funktioniert</h2>
+  <p>Anders als Roulette hat Blackjack ein Gedächtnis: Ausgeteilte Karten kommen erst beim nächsten Mischen zurück in den Schlitten, also ändert sich der Rest von Hand zu Hand.</p>
+  <p>Sind die verbleibenden Karten <strong>reich an Zehnen und Assen</strong>, profitiert der Spieler: mehr Blackjacks (die 3 zu 2 zahlen), bessere Verdopplungen und ein Dealer, der auf 16 ziehen muss und sich öfter überkauft. Sind sie <strong>reich an kleinen Karten</strong>, passiert das Gegenteil. Zählen verfolgt einfach dieses Gleichgewicht.</p>
+
+  <h2 id="hi-lo">Das Hi-Lo-System Schritt für Schritt</h2>
+  <p>Hi-Lo ist das beliebteste System, weil es einfach ist und fast so wirksam wie komplizierte Systeme. Jede Karte, die du siehst, bekommt einen Wert:</p>
+  <table>
+    <thead><tr><th>Karten</th><th>Hi-Lo-Wert</th></tr></thead>
+    <tbody>
+      <tr><td>2, 3, 4, 5, 6</td><td>+1</td></tr>
+      <tr><td>7, 8, 9</td><td>0</td></tr>
+      <tr><td>10, B, D, K, A</td><td>−1</td></tr>
+    </tbody>
+  </table>
+  <p>Nach dem Mischen beginnst du bei 0 und addierst den Wert <strong>jeder</strong> Karte, die du siehst – deiner, der anderen Spieler und des Dealers. Diese Zahl ist der <strong>Running Count</strong>. Ein positiver Count bedeutet, dass mehr niedrige Karten gefallen sind, also mehr hohe übrig bleiben.</p>
+  <p>Beispiel: 5, K, 3, 9, 2, A → +1 −1 +1 0 +1 −1 = <strong>+1</strong>.</p>
+  <p>Profi-Tipp: Paare streichen. Eine 5 und ein König ergeben zusammen 0, du kannst sie also überspringen und schneller zählen.</p>
+
+  <CountDrill lang="de" />
+
+  <h2 id="true">Der True Count</h2>
+  <p>Ein Running Count von +6 bedeutet mit einem restlichen Deck etwas ganz anderes als mit fünf. Deshalb rechnest du ihn in den <strong>True Count</strong> um: Running Count geteilt durch die verbleibenden Decks.</p>
+  <ul>
+    <li>Running Count +6, drei Decks übrig → True Count <strong>+2</strong>.</li>
+    <li>Running Count +6, ein Deck übrig → True Count <strong>+6</strong>.</li>
+  </ul>
+  <p>Die verbleibenden Decks schätzt du mit einem Blick auf den Ablageschlitten. Auf ein halbes Deck genau zu runden reicht völlig.</p>
+
+  <h2 id="use">Was du mit dem Count machst</h2>
+  <ol>
+    <li><strong>Einsätze anpassen.</strong> Hier entsteht fast der gesamte Vorteil. Bei einem True Count von +1 oder weniger setzt du das Minimum; ab +2 erhöhst du deinen Einsatz schrittweise. Als Faustregel verschiebt jeder Punkt True Count den Vorteil um etwa ein halbes Prozent zu deinen Gunsten.</li>
+    <li><strong>Von der Grundstrategie abweichen.</strong> Bei sehr hohen oder niedrigen Counts ändern sich einige Spielzüge. Der bekannteste ist die Versicherung, die ab einem True Count von +3 richtig wird. Diese Abweichungen heißen Index-Spielzüge; die 18 wertvollsten sind die „Illustrious 18“.</li>
+  </ol>
+
+  <h2 id="reality">Realitätscheck: Was es bringt</h2>
+  <p>Hier übertreiben die meisten Ratgeber. Die ehrliche Version:</p>
+  <ul>
+    <li><strong>Der Vorteil ist klein.</strong> Mit guten Regeln und tiefer Penetration kommt ein geübter Zähler vielleicht auf etwa 0,5–1 % des Gesamteinsatzes.</li>
+    <li><strong>Die Schwankungen sind enorm.</strong> Mit diesem Vorteil kannst du wochenlang verlieren. Um das durchzustehen, brauchst du eine große Bankroll.</li>
+    <li><strong>Casinos wehren sich.</strong> Sie mischen früher, begrenzen deine Einsatzspanne oder bitten dich zu gehen.</li>
+    <li><strong>Online funktioniert es nicht.</strong> RNG-Blackjack mischt jede Hand neu, und bei Live-Dealer-Schlitten wird zu früh abgestochen, als dass es etwas bringt.</li>
+    <li><strong>Dauermischmaschinen</strong> legen die Karten nach jeder Hand zurück – dagegen ist Zählen nutzlos.</li>
+  </ul>
+  <p>Kartenzählen ist eine faszinierende geistige Fähigkeit und der beste Weg, das Spiel wirklich zu verstehen. Ein leichter Weg zu Geld ist es nicht, und wer etwas anderes behauptet, will dir etwas verkaufen.</p>
+
+  <h2 id="legal">Ist es legal?</h2>
+  <p>Zählen <strong>im Kopf</strong> ist legal – niemand kann dir das Denken verbieten. Hilfsmittel dagegen nicht: Handys, Notizen, Geräte oder Zeichen mit Komplizen.</p>
+  <p>Die Spielbanken müssen es aber nicht mögen. In den meisten Rechtsordnungen können sie dich im Rahmen ihres Hausrechts abweisen: dich bitten, nicht mehr Blackjack zu spielen, oder zu gehen. (New Jersey ist eine bekannte Ausnahme: Dort dürfen Casinos Zähler nicht ausschließen, aber trotzdem früher mischen oder Einsätze begrenzen.) In der Praxis wird meist zuerst früher gemischt oder dein Einsatz begrenzt. Mehr dazu unter <a href={routes.countingLegal.de}>Ist Kartenzählen illegal?</a></p>
+  <p>Bevor du zählst, beherrsche die <a href={routes.strategy.de}>Grundstrategie</a> – jeder Strategiefehler kostet mehr, als der Count zurückbringt.</p>
+</Guide>

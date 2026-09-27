@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { routes, ui, APP_ID, campaignURL, pathOf, type Lang, type RouteKey } from '../lib/site';
+import { routes, ui, APP_ID, campaignURL, pathOf, linkOf, LANGS, LANG_NAMES, type Lang, type RouteKey } from '../lib/site';
 
 interface Props {
   lang: Lang;
@@ -10,28 +10,30 @@ interface Props {
   route?: RouteKey;
   /** Path for pages outside `routes` (e.g. course lessons). */
   path?: string;
-  /** Path of the same page in the other language, for pages outside `routes`. */
-  alternate?: string;
+  /** Paths of the same page in other languages, for pages outside `routes` (course lessons). */
+  alternates?: Partial<Record<Lang, string>>;
   image?: string;
   type?: 'website' | 'article';
   schema?: object[];
   noindex?: boolean;
 }
 
-const { lang, title, description, route, path, alternate, image = '/og.png', type = 'website', schema = [], noindex = false } = Astro.props;
+const { lang, title, description, route, path, alternates: altMap = {}, image = '/og.png', type = 'website', schema = [], noindex = false } = Astro.props;
 const t = ui[lang];
 const site = Astro.site!;
 const selfPath = (route && pathOf(route, lang)) || path || Astro.url.pathname;
 const canonical = new URL(selfPath, site).href;
-const otherLangCode: Lang = lang === 'es' ? 'en' : 'es';
-const langPaths: [Lang, string][] = route
-  ? (Object.entries(routes[route]) as [Lang, string][])
-  : alternate ? [[lang, selfPathFrom()], [otherLangCode, alternate]] : [];
-function selfPathFrom() { return path ?? Astro.url.pathname; }
+// Every language version of this page: from `routes`, or from `alternates` for pages outside it.
+const versions: Partial<Record<Lang, string>> = route ? { ...(routes[route] as Partial<Record<Lang, string>>) } : { ...altMap, [lang]: selfPath };
 // hreflang only makes sense when the page exists in more than one language.
-const alternates = langPaths.length > 1 ? langPaths.map(([l, p]) => ({ lang: l, href: new URL(p, site).href })) : [];
-const otherLang: Lang = lang === 'es' ? 'en' : 'es';
-const otherHref = (route && pathOf(route, otherLang)) || alternate || routes.home[otherLang];
+const alternates = Object.keys(versions).length > 1
+  ? LANGS.filter((l) => versions[l]).map((l) => ({ lang: l, href: new URL(versions[l]!, site).href }))
+  : [];
+// Language menu: the page's own version where it exists, otherwise that language's home.
+const langLinks = LANGS.filter((l) => l !== lang).map((l) => ({ lang: l, href: versions[l] ?? routes.home[l] }));
+const skip: Record<Lang, string> = { es: 'Saltar al contenido', en: 'Skip to content', de: 'Zum Inhalt springen', fr: 'Aller au contenu' };
+const navLabel: Record<Lang, string> = { es: 'Principal', en: 'Main', de: 'Hauptmenü', fr: 'Principal' };
+const extra: Record<Lang, [string, string]> = { es: ['Curso gratis', 'Datos y probabilidades'], en: ['Free course', 'Blackjack data'], de: ['Kostenloser Kurs', 'Blackjack-Daten'], fr: ['Cours gratuit', 'Données du blackjack'] };
 const home = routes.home[lang];
 
 const orgSchema = {
@@ -71,20 +73,25 @@ const orgSchema = {
   <script type="application/ld+json" set:html={JSON.stringify([orgSchema, ...schema])} />
 </head>
 <body>
-  <a class="skip" href="#main">{lang === 'es' ? 'Saltar al contenido' : 'Skip to content'}</a>
+  <a class="skip" href="#main">{skip[lang]}</a>
   <header class="site-header">
     <div class="container header-row">
       <a class="brand" href={home} aria-label="Veintiuno">
         <img src="/icon-64.png" alt="" width="32" height="32" />
         <span>Veintiuno</span>
       </a>
-      <nav class="main-nav" aria-label={lang === 'es' ? 'Principal' : 'Main'}>
+      <nav class="main-nav" aria-label={navLabel[lang]}>
         {t.nav.map(([key, label]) => (
-          <a href={pathOf(key, lang)} aria-current={route === key ? 'page' : undefined}>{label}</a>
+          <a href={linkOf(key, lang)} aria-current={route === key ? 'page' : undefined}>{label}</a>
         ))}
       </nav>
       <div class="header-actions">
-        <a class="lang" href={otherHref} hreflang={otherLang} lang={otherLang}>{t.otherLang}</a>
+        <details class="lang-menu">
+          <summary aria-label={LANG_NAMES[lang]}>{lang.toUpperCase()}</summary>
+          <div class="lang-list">
+            {langLinks.map((l) => <a href={l.href} hreflang={l.lang} lang={l.lang}>{LANG_NAMES[l.lang]}</a>)}
+          </div>
+        </details>
         <a class="btn btn-gold btn-small" href={campaignURL(`${lang}-header`)} rel="noopener">{t.downloadShort}<span class="long">{t.downloadLong}</span></a>
       </div>
     </div>
@@ -101,11 +108,11 @@ const orgSchema = {
           <a class="brand" href={home}><img src="/icon-64.png" alt="" width="28" height="28" /><span>Veintiuno</span></a>
           <p class="muted small">{t.responsible}</p>
         </div>
-        <nav class="footer-links" aria-label={lang === 'es' ? 'Legal' : 'Legal'}>
-          {t.nav.map(([key, label]) => <a href={pathOf(key, lang)}>{label}</a>)}
-          <a href={routes.course[lang]}>{lang === 'es' ? 'Curso gratis' : 'Free course'}</a>
-          <a href={routes.data[lang]}>{lang === 'es' ? 'Datos y probabilidades' : 'Blackjack data'}</a>
-          {t.legal.map(([key, label]) => <a href={pathOf(key, lang)}>{label}</a>)}
+        <nav class="footer-links" aria-label="Legal">
+          {t.nav.map(([key, label]) => <a href={linkOf(key, lang)}>{label}</a>)}
+          <a href={linkOf('course', lang)}>{extra[lang][0]}</a>
+          <a href={linkOf('data', lang)}>{extra[lang][1]}</a>
+          {t.legal.map(([key, label]) => <a href={linkOf(key, lang)}>{label}</a>)}
         </nav>
       </div>
       <p class="muted small">© {new Date().getFullYear()} Veintiuno · Iván Sevilla</p>

@@ -1,0 +1,99 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Zählt das Ass beim Blackjack 1 oder 11?', a: 'Beides – je nachdem, was dir mehr nützt. Eine Hand, in der das Ass als 11 zählt, heißt „Soft Hand“: Ass-6 ist Soft 17. Würdest du dich mit der nächsten Karte überkaufen, zählt das Ass einfach als 1.' },
+  { q: 'Was passiert bei Gleichstand mit dem Dealer?', a: 'Das ist ein Push: Du bekommst deinen Einsatz zurück, niemand gewinnt. Habt ihr beide Blackjack, ist das ebenfalls ein Push.' },
+  { q: 'Wie viel zahlt ein Blackjack?', a: 'An einem Standardtisch zahlt ein Blackjack 3 zu 2 – 15 € bei 10 € Einsatz. Manche Tische zahlen nur 6 zu 5 (12 € bei 10 €). Diese kleine Änderung vervierfacht ungefähr den Hausvorteil, also meide 6:5-Tische.' },
+  { q: 'Wann muss der Dealer ziehen?', a: 'Der Dealer hat keine Wahl: Er zieht bei 16 oder weniger und bleibt bei 17 oder mehr stehen. An manchen Tischen zieht er auch bei Soft 17 (Ass-6); dann steht auf dem Tuch „Dealer hits soft 17“ oder „H17“.' },
+  { q: 'Ist Blackjack dasselbe wie 17 und 4?', a: 'Blackjack ist die Casino-Version des Kartenspiels „Einundzwanzig“. Das Ziel ist dasselbe, aber im Casino folgt der Dealer festen Regeln, und du hast zusätzliche Optionen wie Verdoppeln, Splitten und die Versicherung.' },
+];
+---
+<Guide
+  lang="de"
+  route="howToPlay"
+  title="Blackjack Regeln: Kartenwerte, Ablauf, Auszahlung"
+  h1="Blackjack-Regeln einfach erklärt"
+  description="Die Blackjack Regeln Schritt für Schritt: Ziel, Kartenwerte, Ablauf einer Hand, ziehen oder stehen, Verdoppeln, Splitten, Surrender und Auszahlungen."
+  updated="2026-09-27"
+  readMinutes={8}
+  faq={faq}
+  related={['strategy', 'howToWin', 'counting', 'spain']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurz gesagt:</strong> Du gewinnst, wenn du näher an 21 kommst als der Dealer, ohne dich zu überkaufen. Bildkarten zählen 10, Asse 1 oder 11, alle anderen Karten ihren Zahlenwert. Du entscheidest, ob du ziehst oder stehen bleibst; der Dealer entscheidet nicht – er zieht bis 17.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In diesem Ratgeber">
+    <b>In diesem Ratgeber</b>
+    <ol>
+      <li><a href="#ziel">Das Ziel</a></li>
+      <li><a href="#kartenwerte">Kartenwerte</a></li>
+      <li><a href="#ablauf">Ablauf einer Hand</a></li>
+      <li><a href="#optionen">Deine Optionen: ziehen, stehen, verdoppeln, splitten, aufgeben</a></li>
+      <li><a href="#auszahlungen">Auszahlungen</a></li>
+      <li><a href="#versicherung">Die Versicherung (und warum du sie auslassen solltest)</a></li>
+      <li><a href="#weiter">Nächster Schritt: die Grundstrategie</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="ziel">Das Ziel</h2>
+  <p>Beim Blackjack spielst du nicht gegen die anderen Spieler, sondern <strong>gegen den Dealer</strong>. Du gewinnst eine Hand, wenn deine Summe näher an 21 liegt als seine, ohne 21 zu überschreiten – oder wenn er sich überkauft und du nicht.</p>
+  <p>Kommst du über 21, hast du dich überkauft: Du verlierst sofort, auch wenn sich der Dealer danach ebenfalls überkauft. Weil du zuerst handelst, entsteht genau aus dieser einen Regel der Vorteil des Hauses.</p>
+
+  <h2 id="kartenwerte">Kartenwerte</h2>
+  <table>
+    <thead><tr><th>Karte</th><th>Wert</th></tr></thead>
+    <tbody>
+      <tr><td>2 bis 9</td><td>Zahlenwert</td></tr>
+      <tr><td>10, Bube, Dame, König</td><td>10</td></tr>
+      <tr><td>Ass</td><td>1 oder 11, je nachdem, was dir nützt</td></tr>
+    </tbody>
+  </table>
+  <p>Die Farben spielen keine Rolle. Mit vier Rängen im Wert von 10 ist fast ein Drittel des Decks 10 wert – das erklärt einen großen Teil der Grundstrategie.</p>
+  <p>Eine Hand, in der ein Ass als 11 zählt, ist eine <strong>Soft Hand</strong>: Ass-6 ist „Soft 17“. Du kannst gefahrlos ziehen, denn würdest du dich mit der nächsten Karte überkaufen, zählt das Ass als 1. Alle anderen Hände sind <strong>harte Hände</strong>.</p>
+  <p>Ein <strong>Blackjack</strong> (auch „Natural“) ist ein Ass plus eine Zehnerkarte als deine ersten beiden Karten. Es ist die beste Hand und schlägt jede andere 21.</p>
+
+  <h2 id="ablauf">Ablauf einer Hand</h2>
+  <ol>
+    <li><strong>Einsätze.</strong> Alle setzen vor dem Austeilen.</li>
+    <li><strong>Austeilen.</strong> Du bekommst zwei offene Karten. Der Dealer bekommt eine offene und, bei amerikanischen Regeln, eine verdeckte (die „Hole Card“). An europäischen Tischen erhält er seine zweite Karte erst, nachdem alle Spieler fertig sind.</li>
+    <li><strong>Blackjacks.</strong> Zeigt der Dealer ein Ass oder eine Zehn, schaut er (mit Hole Card) unter seine verdeckte Karte; hat er Blackjack, endet die Hand dort. Hast du Blackjack und der Dealer nicht, wirst du sofort ausgezahlt.</li>
+    <li><strong>Dein Zug.</strong> Ziehen, stehen bleiben, verdoppeln, splitten oder aufgeben. Du kannst so oft ziehen, wie du willst, bis du stehen bleibst oder dich überkaufst.</li>
+    <li><strong>Zug des Dealers.</strong> Der Dealer deckt seine zweite Karte auf und zieht bei 16 oder weniger, bei 17 oder mehr bleibt er stehen.</li>
+    <li><strong>Abrechnung.</strong> Die Summen werden verglichen und die Einsätze ausgezahlt.</li>
+  </ol>
+
+  <h2 id="optionen">Deine Optionen</h2>
+  <h3>Ziehen (Hit)</h3>
+  <p>Du nimmst eine weitere Karte. Das wiederholst du, bis du stehen bleibst oder dich überkaufst.</p>
+  <h3>Stehen bleiben (Stand)</h3>
+  <p>Du behältst deine Summe und beendest deinen Zug.</p>
+  <h3>Verdoppeln (Double)</h3>
+  <p>Du verdoppelst deinen Einsatz und bekommst dafür <strong>genau eine weitere Karte</strong>. Das lohnt sich mit einer starken Startsumme (9, 10 oder 11) gegen eine schwache Dealerkarte.</p>
+  <h3>Splitten (Split)</h3>
+  <p>Sind deine ersten beiden Karten gleich, teilst du sie in zwei Hände auf und setzt auf die zweite denselben Betrag. Asse und Achten immer splitten, Zehner und Fünfer nie.</p>
+  <h3>Aufgeben (Surrender)</h3>
+  <p>Wo es angeboten wird, gibst du die Hand direkt nach dem Austeilen auf und bekommst die Hälfte deines Einsatzes zurück. Das lohnt sich nur in wenigen sehr schlechten Situationen, etwa 16 gegen eine 10 des Dealers.</p>
+
+  <h2 id="auszahlungen">Auszahlungen</h2>
+  <table>
+    <thead><tr><th>Ergebnis</th><th>Auszahlung</th></tr></thead>
+    <tbody>
+      <tr><td>Gewinn</td><td>1 zu 1 (10 € Einsatz gewinnen 10 €)</td></tr>
+      <tr><td>Blackjack</td><td>3 zu 2 (10 € Einsatz gewinnen 15 €)</td></tr>
+      <tr><td>Push (Gleichstand)</td><td>Einsatz zurück</td></tr>
+      <tr><td>Versicherung</td><td>2 zu 1 auf den Versicherungseinsatz</td></tr>
+    </tbody>
+  </table>
+  <div class="callout warn"><p><strong>Vorsicht bei 6:5-Tischen.</strong> Zahlt ein Blackjack 6 zu 5 statt 3 zu 2, steigt der Hausvorteil um etwa 1,4 Prozentpunkte – mehr als durch jede andere einzelne Regel.</p></div>
+
+  <h2 id="versicherung">Die Versicherung (und warum du sie auslassen solltest)</h2>
+  <p>Zeigt der Dealer ein Ass, wird dir die <strong>Versicherung</strong> angeboten: eine Nebenwette von bis zu der Hälfte deines Einsatzes darauf, dass der Dealer Blackjack hat. Sie zahlt 2 zu 1.</p>
+  <p>Das klingt nach Schutz, ist aber nur eine weitere Wette – und eine schlechte. Bei sechs Decks liegt die Wahrscheinlichkeit einer Zehn unter dem Ass bei etwa 31 %, während die Versicherung mehr als 33 % bräuchte, nur um die Gewinnschwelle zu erreichen. Der Hausvorteil darauf liegt bei rund 7 %. Die Grundstrategie sagt: <strong>niemals nehmen</strong> – auch nicht „Even Money“, wenn du selbst Blackjack hast.</p>
+
+  <h2 id="weiter">Nächster Schritt: die Grundstrategie</h2>
+  <p>Die Regeln zu kennen ist die halbe Arbeit. Die andere Hälfte ist zu wissen, was in jeder Situation zu tun ist: 12 gegen eine 3 ziehen? 11 gegen eine 10 verdoppeln? Neunen gegen eine 7 splitten? Jede Kombination hat eine mathematisch richtige Antwort, und zusammen ergeben sie die <a href={routes.strategy.de}>Grundstrategie</a>.</p>
+  <p>Wer nach Gefühl spielt, schenkt dem Haus meist 2 % oder mehr. Mit der Grundstrategie sinkt der Hausvorteil auf etwa 0,5 %. Das macht dich nicht zum Gewinner, aber es ist der Unterschied zwischen gut spielen und blind spielen.</p>
+</Guide>

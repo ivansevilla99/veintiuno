@@ -1,0 +1,71 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quand faut-il doubler au blackjack ?', a: 'Avec 11 contre tout sauf un as ; avec 10 contre 2 à 9 ; avec 9 contre 3 à 6 ; et, si la table permet de doubler sur deux cartes quelconques, avec plusieurs mains souples (A-2 à A-7) contre les cartes faibles du croupier. Dans les casinos espagnols, on ne peut doubler que sur 9, 10 ou 11.' },
+  { q: 'Faut-il doubler 11 contre un as ?', a: 'Cela dépend des règles. Si le croupier reste sur 17 souple (S17), vous tirez ; s’il tire sur 17 souple (H17), vous doublez. À une table européenne sans carte cachée, vous tirez toujours.' },
+  { q: 'Peut-on doubler après avoir tiré ?', a: 'Non. On ne peut doubler que sur ses deux premières cartes (ou les deux premières cartes d’une main séparée, si la table autorise le doublement après séparation). Une fois que vous avez tiré, vous ne pouvez plus que tirer ou rester.' },
+  { q: 'Pourquoi doubler A-7 contre un 6 ?', a: 'Parce qu’un 18 souple ne peut pas sauter avec une seule carte, et qu’un croupier avec un 6 visible est au plus faible : il saute environ 42 % du temps. Doubler transforme cet avantage en deux fois plus d’argent.' },
+];
+---
+<Guide
+  lang="fr"
+  route="whenDouble"
+  title="Quand doubler au blackjack : toutes les mains"
+  h1="Quand doubler au blackjack"
+  description="Quand doubler au blackjack : 9, 10, 11 et mains souples, contre quelles cartes du croupier, ce qui change en H17 et sans carte cachée, espérance de chaque cas."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenSplit', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> doublez <strong>11</strong> contre tout sauf un as, <strong>10</strong> contre 2–9 et <strong>9</strong> contre 3–6. Si la table permet de doubler sur deux cartes quelconques, doublez aussi <strong>A-2 à A-7</strong> contre les cartes faibles du croupier. Doubler, c’est miser plus quand vous avez l’avantage — jamais pour « vous refaire ».</p></div>
+  </div>
+
+  <h2 id="what">Ce qu’est le doublement et pourquoi il rapporte</h2>
+  <p>Doubler, c’est doubler votre mise en échange d’<strong>une seule carte supplémentaire</strong>. On le fait sur les mains où l’on est déjà devant : votre total de départ est bon et le croupier est faible. Sur ces mains, vous gagnez plus souvent que vous ne perdez, donc miser deux fois plus multiplie un avantage que vous avez déjà.</p>
+  <p>Un exemple chiffré : 11 contre un 6. Tirer vaut +0,34 mise en moyenne ; doubler, +0,68. Doubler ne vous fait pas gagner plus souvent, mais quand vous gagnez, vous êtes payé deux fois plus.</p>
+  <EVTable lang="fr" cards={[6, 5]} up={6} tables={['vegasS17', 'spainCasino']} />
+
+  <h2 id="hard">Mains dures</h2>
+  <table>
+    <thead><tr><th>Votre main</th><th>Doublez contre</th><th>Sinon…</th></tr></thead>
+    <tbody>
+      <tr><td>11</td><td>2 à 10 (et as en H17)</td><td>tirez</td></tr>
+      <tr><td>10</td><td>2 à 9</td><td>tirez</td></tr>
+      <tr><td>9</td><td>3 à 6 (et 2 avec un ou deux jeux)</td><td>tirez</td></tr>
+      <tr><td>8 ou moins</td><td>jamais</td><td>tirez</td></tr>
+    </tbody>
+  </table>
+  <p>Le cas le plus discuté est <strong>11 contre un as</strong>. En S17, tirer et doubler sont très proches, et tirer l’emporte d’un cheveu ; en H17, c’est doubler qui passe devant :</p>
+  <EVTable lang="fr" cards={[6, 5]} up={1} tables={['vegasS17', 'vegasH17', 'spainCasino']} />
+  <p>À une table sans carte cachée, comme dans les casinos espagnols, doubler contre un as est nettement moins bon : si le croupier a blackjack, vous perdez le double.</p>
+
+  <h2 id="soft">Mains souples</h2>
+  <p>Uniquement aux tables qui permettent de doubler sur deux cartes quelconques :</p>
+  <table>
+    <thead><tr><th>Votre main</th><th>Doublez contre</th><th>Sinon…</th></tr></thead>
+    <tbody>
+      <tr><td>A-2, A-3</td><td>5 et 6</td><td>tirez</td></tr>
+      <tr><td>A-4, A-5</td><td>4 à 6</td><td>tirez</td></tr>
+      <tr><td>A-6</td><td>3 à 6</td><td>tirez</td></tr>
+      <tr><td>A-7</td><td>3 à 6 (et 2 en H17)</td><td>restez</td></tr>
+      <tr><td>A-8</td><td>6 seulement en H17</td><td>restez</td></tr>
+    </tbody>
+  </table>
+  <p>A-7 contre un 6 est le meilleur exemple : rester vaut +0,28, mais doubler vaut +0,38.</p>
+  <EVTable lang="fr" cards={[1, 7]} up={6} tables={['vegasS17']} caption="A-7 contre 6 : rester ou doubler" />
+
+  <h2 id="spain">Dans les casinos espagnols</h2>
+  <p>On ne peut doubler que sur 9, 10 ou 11, donc tous les doublements de mains souples disparaissent, et sans carte cachée on ne double pas 11 contre un 10 ou un as. Tout est expliqué dans <a href={routes.spain.fr}>les règles du blackjack en Espagne</a>.</p>
+
+  <h2 id="mistakes">Les erreurs de doublement qui coûtent le plus</h2>
+  <ul>
+    <li><strong>Ne pas doubler 11 contre un 10</strong> à une table avec carte cachée : vous abandonnez environ 0,06 mise par main.</li>
+    <li><strong>Doubler pour vous refaire</strong> après une perte : la décision dépend de votre main et de la carte du croupier, jamais de la tournure de votre séance.</li>
+    <li><strong>Doubler 12 ou plus :</strong> vous sautez trop souvent avec une seule carte.</li>
+  </ul>
+</Guide>

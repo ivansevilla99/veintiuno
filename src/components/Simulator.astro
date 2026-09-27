@@ -1,18 +1,35 @@
 ---
 import { campaignURL } from '../lib/site';
-interface Props { lang?: 'es' | 'en' }
+interface Props { lang?: 'es' | 'en' | 'de' | 'fr' }
 const { lang = 'es' } = Astro.props;
-const en = lang === 'en';
 const appLink = campaignURL(`${lang}-simulator`);
-const T = en
-  ? { aria: 'Blackjack practice table', table: 'Table', spain: 'Spanish casino', s17: 'Las Vegas (S17)', h17: 'Las Vegas (H17)', eu: 'European / online', accT: 'Correct decisions', acc: 'correct', strT: 'Streak of correct decisions', str: 'streak', reset: 'Reset', dealer: 'Dealer',
-      hit: 'Hit', stand: 'Stand', double: 'Double', split: 'Split', surrender: 'Surrender', deal: 'Deal', space: 'Space', keys: ['H', 'S', 'D', 'P', 'R'],
-      nudge1: 'You’ve played', nudge2: 'hands.', nudge3: 'The Veintiuno app adds the 14-day course, a heat map of the chart cells you miss most, and the hand consultant.', see: 'See the app →' }
-  : { aria: 'Mesa de blackjack para practicar', table: 'Mesa', spain: 'Casino en España', s17: 'Las Vegas (S17)', h17: 'Las Vegas (H17)', eu: 'Europea / online', accT: 'Decisiones correctas', acc: 'aciertos', strT: 'Racha de decisiones correctas', str: 'racha', reset: 'Poner a cero', dealer: 'Crupier',
-      hit: 'Pedir', stand: 'Plantarse', double: 'Doblar', split: 'Dividir', surrender: 'Rendirse', deal: 'Repartir', space: 'Espacio', keys: ['P', 'S', 'D', 'V', 'R'],
-      nudge1: 'Llevas', nudge2: 'manos.', nudge3: 'En la app de Veintiuno tienes el curso de 14 días, el mapa de calor con las casillas que más fallas y el consultor de manos.', see: 'Ver la app →' };
+const T = ({
+  es: { aria: 'Mesa de blackjack para practicar', table: 'Mesa', spain: 'Casino en España', s17: 'Las Vegas (S17)', h17: 'Las Vegas (H17)', eu: 'Europea / online', accT: 'Decisiones correctas', acc: 'aciertos', strT: 'Racha de decisiones correctas', str: 'racha', reset: 'Poner a cero', dealer: 'Crupier',
+        hit: 'Pedir', stand: 'Plantarse', double: 'Doblar', split: 'Dividir', surrender: 'Rendirse', deal: 'Repartir', space: 'Espacio', keys: ['P', 'S', 'D', 'V', 'R'],
+        nudge1: 'Llevas', nudge2: 'manos.', nudge3: 'En la app de Veintiuno tienes el curso de 14 días, el mapa de calor con las casillas que más fallas y el consultor de manos.', see: 'Ver la app →' },
+  en: { aria: 'Blackjack practice table', table: 'Table', spain: 'Spanish casino', s17: 'Las Vegas (S17)', h17: 'Las Vegas (H17)', eu: 'European / online', accT: 'Correct decisions', acc: 'correct', strT: 'Streak of correct decisions', str: 'streak', reset: 'Reset', dealer: 'Dealer',
+        hit: 'Hit', stand: 'Stand', double: 'Double', split: 'Split', surrender: 'Surrender', deal: 'Deal', space: 'Space', keys: ['H', 'S', 'D', 'P', 'R'],
+        nudge1: 'You’ve played', nudge2: 'hands.', nudge3: 'The Veintiuno app adds the 14-day course, a heat map of the chart cells you miss most, and the hand consultant.', see: 'See the app →' },
+  de: { aria: 'Blackjack-Übungstisch', table: 'Tisch', spain: 'Spanisches Casino', s17: 'Las Vegas (S17)', h17: 'Las Vegas (H17)', eu: 'Europäisch / online', accT: 'Richtige Entscheidungen', acc: 'richtig', strT: 'Serie richtiger Entscheidungen', str: 'Serie', reset: 'Zurücksetzen', dealer: 'Dealer',
+        hit: 'Ziehen', stand: 'Stehen', double: 'Verdoppeln', split: 'Splitten', surrender: 'Aufgeben', deal: 'Austeilen', space: 'Leertaste', keys: ['H', 'S', 'D', 'P', 'R'],
+        nudge1: 'Du hast', nudge2: 'Hände gespielt.', nudge3: 'Die Veintiuno-App bietet dazu den 14-Tage-Kurs, eine Heatmap der Felder, die du am häufigsten falsch spielst, und den Hand-Berater.', see: 'Zur App →' },
+  fr: { aria: 'Table d’entraînement au blackjack', table: 'Table', spain: 'Casino espagnol', s17: 'Las Vegas (S17)', h17: 'Las Vegas (H17)', eu: 'Européenne / en ligne', accT: 'Décisions correctes', acc: 'de réussite', strT: 'Série de décisions correctes', str: 'série', reset: 'Remettre à zéro', dealer: 'Croupier',
+        hit: 'Tirer', stand: 'Rester', double: 'Doubler', split: 'Séparer', surrender: 'Abandonner', deal: 'Distribuer', space: 'Espace', keys: ['T', 'R', 'D', 'S', 'A'],
+        nudge1: 'Vous avez joué', nudge2: 'mains.', nudge3: 'L’app Veintiuno ajoute le cours de 14 jours, une carte des cases où vous vous trompez le plus et le conseiller de mains.', see: 'Voir l’app →' },
+} as const)[lang];
+// Texts the table needs while playing (read by the script below).
+const W = ({
+  es: { name: { hit: 'pedir', stand: 'plantarse', double: 'doblar', split: 'dividir', surrender: 'rendirse' }, res: { blackjack: '¡Blackjack!', win: 'Ganas', push: 'Empate', lose: 'Pierdes', bust: 'Te pasas', surrender: 'Te rindes' },
+        hidden: 'Carta oculta', bj: 'Blackjack', bust: 'se pasa', doubled: 'doblada', of: 'de', won: 'ganadas', good: 'Bien', was: 'La jugada era', pct: ' %', rules: 'spainCasino', keys: { p: 'hit', h: 'hit', s: 'stand', d: 'double', v: 'split', r: 'surrender' } },
+  en: { name: { hit: 'hit', stand: 'stand', double: 'double', split: 'split', surrender: 'surrender' }, res: { blackjack: 'Blackjack!', win: 'You win', push: 'Push', lose: 'You lose', bust: 'Bust', surrender: 'Surrendered' },
+        hidden: 'Hole card', bj: 'Blackjack', bust: 'bust', doubled: 'doubled', of: 'of', won: 'won', good: 'Good', was: 'The right play was', pct: '%', rules: 'vegasS17', keys: { h: 'hit', s: 'stand', d: 'double', p: 'split', r: 'surrender' } },
+  de: { name: { hit: 'ziehen', stand: 'stehen bleiben', double: 'verdoppeln', split: 'splitten', surrender: 'aufgeben' }, res: { blackjack: 'Blackjack!', win: 'Gewonnen', push: 'Unentschieden', lose: 'Verloren', bust: 'Überkauft', surrender: 'Aufgegeben' },
+        hidden: 'Verdeckte Karte', bj: 'Blackjack', bust: 'überkauft', doubled: 'verdoppelt', of: 'von', won: 'gewonnen', good: 'Richtig', was: 'Richtig wäre:', pct: ' %', rules: 'europeanOnline', keys: { h: 'hit', s: 'stand', d: 'double', p: 'split', r: 'surrender' } },
+  fr: { name: { hit: 'tirer', stand: 'rester', double: 'doubler', split: 'séparer', surrender: 'abandonner' }, res: { blackjack: 'Blackjack !', win: 'Gagné', push: 'Égalité', lose: 'Perdu', bust: 'Vous sautez', surrender: 'Abandon' },
+        hidden: 'Carte cachée', bj: 'Blackjack', bust: 'saute', doubled: 'doublée', of: 'sur', won: 'gagnées', good: 'Bien', was: 'Il fallait', pct: ' %', rules: 'europeanOnline', keys: { t: 'hit', r: 'stand', d: 'double', s: 'split', a: 'surrender' } },
+} as const)[lang];
 ---
-<section class="sim" data-sim data-lang={lang} aria-label={T.aria}>
+<section class="sim" data-sim data-lang={lang} data-w={JSON.stringify(W)} aria-label={T.aria}>
   <div class="sim-top">
     <label class="sim-rules">{T.table}
       <select data-rules>
@@ -112,20 +129,12 @@ const T = en
   import { Shoe, Round, total, isBlackjack, type Card, type Outcome } from '../lib/game';
 
   const root = document.querySelector<HTMLElement>('[data-sim]')!;
-  const EN = root.dataset.lang === 'en';
-  const LANG = EN ? 'en' : 'es';
-  const NAME: Record<Action, string> = EN
-    ? { hit: 'hit', stand: 'stand', double: 'double', split: 'split', surrender: 'surrender' }
-    : { hit: 'pedir', stand: 'plantarse', double: 'doblar', split: 'dividir', surrender: 'rendirse' };
-  const KEYS: Record<string, Action> = EN
-    ? { h: 'hit', s: 'stand', d: 'double', p: 'split', r: 'surrender' }
-    : { p: 'hit', h: 'hit', s: 'stand', d: 'double', v: 'split', r: 'surrender' };
-  const RESULT: Record<Outcome, [string, string]> = EN
-    ? { blackjack: ['Blackjack!', 'win'], win: ['You win', 'win'], push: ['Push', 'push'], lose: ['You lose', 'lose'], bust: ['Bust', 'lose'], surrender: ['Surrendered', 'push'] }
-    : { blackjack: ['¡Blackjack!', 'win'], win: ['Ganas', 'win'], push: ['Empate', 'push'], lose: ['Pierdes', 'lose'], bust: ['Te pasas', 'lose'], surrender: ['Te rindes', 'push'] };
-  const W = EN
-    ? { hidden: 'Hole card', bj: 'Blackjack', bust: 'bust', doubled: 'doubled', of: 'of', won: 'won', good: 'Good', was: 'The right play was' }
-    : { hidden: 'Carta oculta', bj: 'Blackjack', bust: 'se pasa', doubled: 'doblada', of: 'de', won: 'ganadas', good: 'Bien', was: 'La jugada era' };
+  const LANG = (root.dataset.lang ?? 'es') as 'es' | 'en' | 'de' | 'fr';
+  const W = JSON.parse(root.dataset.w!) as { name: Record<Action, string>; res: Record<Outcome, string>; hidden: string; bj: string; bust: string; doubled: string; of: string; won: string; good: string; was: string; pct: string; rules: string; keys: Record<string, Action> };
+  const NAME = W.name;
+  const KEYS = W.keys;
+  const KIND: Record<Outcome, string> = { blackjack: 'win', win: 'win', push: 'push', lose: 'lose', bust: 'lose', surrender: 'push' };
+  const RESULT: Record<Outcome, [string, string]> = Object.fromEntries((Object.keys(KIND) as Outcome[]).map((o) => [o, [W.res[o], KIND[o]]])) as Record<Outcome, [string, string]>;
   const $ = <T extends HTMLElement>(s: string) => root.querySelector<T>(s)!;
   const store = {
     get(k: string, d: number) { try { return Number(localStorage.getItem(`vt-sim-${k}`) ?? d); } catch { return d; } },
@@ -133,7 +142,7 @@ const T = en
     getS(k: string) { try { return localStorage.getItem(`vt-sim-${k}`); } catch { return null; } },
   };
 
-  const DEFAULT = EN ? 'vegasS17' : 'spainCasino';
+  const DEFAULT = W.rules;
   let rulesKey = store.getS('rules') ?? DEFAULT;
   if (!presets[rulesKey]) rulesKey = DEFAULT;
   let rules: Rules = presets[rulesKey];
@@ -151,7 +160,7 @@ const T = en
   };
 
   function stats() {
-    $('[data-acc]').textContent = total_ ? `${Math.round((100 * right) / total_)}${EN ? '%' : ' %'}` : '—';
+    $('[data-acc]').textContent = total_ ? `${Math.round((100 * right) / total_)}${W.pct}` : '—';
     $('[data-streak]').textContent = String(streak);
   }
 

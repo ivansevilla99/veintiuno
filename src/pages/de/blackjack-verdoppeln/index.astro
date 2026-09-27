@@ -1,0 +1,71 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Wann sollte man beim Blackjack verdoppeln?', a: 'Mit 11 gegen alles außer ein Ass; mit 10 gegen 2 bis 9; mit 9 gegen 3 bis 6; und wenn der Tisch Verdoppeln auf zwei beliebige Karten erlaubt, mit mehreren Soft Hands (A-2 bis A-7) gegen die schwachen offenen Karten des Dealers. In spanischen Casinos darfst du nur auf 9, 10 oder 11 verdoppeln.' },
+  { q: 'Verdoppelt man 11 gegen ein Ass?', a: 'Das hängt von den Regeln ab. Bleibt der Dealer auf Soft 17 stehen (S17), ziehst du; zieht der Dealer auf Soft 17 (H17), verdoppelst du. An einem europäischen Tisch ohne Hole Card ziehst du immer.' },
+  { q: 'Kann man nach dem Ziehen noch verdoppeln?', a: 'Nein. Verdoppeln geht nur auf deine ersten beiden Karten (oder die ersten beiden Karten einer gesplitteten Hand, wenn der Tisch Verdoppeln nach dem Splitten erlaubt). Hast du einmal gezogen, kannst du nur noch ziehen oder stehen bleiben.' },
+  { q: 'Warum verdoppelt man A-7 gegen eine 6?', a: 'Weil sich eine Soft 18 mit einer Karte nicht überkaufen kann und ein Dealer mit offener 6 am schwächsten ist: Er überkauft sich in etwa 42 % der Fälle. Mit dem Verdoppeln machst du aus diesem Vorteil doppeltes Geld.' },
+];
+---
+<Guide
+  lang="de"
+  route="whenDouble"
+  title="Blackjack verdoppeln: Wann lohnt es sich?"
+  h1="Wann du beim Blackjack verdoppeln solltest"
+  description="Wann du beim Blackjack verdoppelst: 9, 10, 11 und Soft Hands, gegen welche Dealerkarten, was sich mit H17 und ohne Hole Card ändert – mit Erwartungswerten."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenSplit', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurze Antwort:</strong> Verdopple <strong>11</strong> gegen alles außer ein Ass, <strong>10</strong> gegen 2–9 und <strong>9</strong> gegen 3–6. Erlaubt der Tisch Verdoppeln auf zwei beliebige Karten, verdoppelst du auch <strong>A-2 bis A-7</strong> gegen die schwachen offenen Karten des Dealers. Verdoppeln heißt, mehr zu setzen, wenn du im Vorteil bist – niemals, um Verluste „zurückzuholen“.</p></div>
+  </div>
+
+  <h2 id="what">Was Verdoppeln ist und warum es Geld bringt</h2>
+  <p>Beim Verdoppeln verdoppelst du deinen Einsatz und bekommst dafür <strong>genau eine weitere Karte</strong>. Du machst das bei Händen, bei denen du ohnehin vorne liegst: Deine Startsumme ist gut und der Dealer ist schwach. Bei diesen Händen gewinnst du öfter, als du verlierst – also vervielfachst du mit dem doppelten Einsatz einen Vorteil, den du schon hast.</p>
+  <p>Ein Beispiel mit Zahlen: 11 gegen eine 6. Ziehen ist im Schnitt +0,34 Einsätze wert, Verdoppeln +0,68. Verdoppeln lässt dich nicht öfter gewinnen, aber wenn du gewinnst, bekommst du doppelt so viel.</p>
+  <EVTable lang="de" cards={[6, 5]} up={6} tables={['vegasS17', 'europeanOnline']} />
+
+  <h2 id="hard">Harte Hände</h2>
+  <table>
+    <thead><tr><th>Deine Hand</th><th>Verdoppeln gegen</th><th>Sonst …</th></tr></thead>
+    <tbody>
+      <tr><td>11</td><td>2 bis 10 (und Ass bei H17)</td><td>ziehen</td></tr>
+      <tr><td>10</td><td>2 bis 9</td><td>ziehen</td></tr>
+      <tr><td>9</td><td>3 bis 6 (und 2 mit einem oder zwei Decks)</td><td>ziehen</td></tr>
+      <tr><td>8 oder weniger</td><td>nie</td><td>ziehen</td></tr>
+    </tbody>
+  </table>
+  <p>Der umstrittenste Fall ist <strong>11 gegen ein Ass</strong>. Mit S17-Regeln liegen Ziehen und Verdoppeln sehr nah beieinander, und Ziehen gewinnt knapp; mit H17 zieht das Verdoppeln vorbei:</p>
+  <EVTable lang="de" cards={[6, 5]} up={1} tables={['vegasS17', 'vegasH17', 'europeanOnline']} />
+  <p>An einem Tisch ohne Hole Card, wie in den meisten deutschsprachigen Spielbanken, ist Verdoppeln gegen ein Ass klar schlechter: Hat der Dealer Blackjack, verlierst du den doppelten Einsatz.</p>
+
+  <h2 id="soft">Soft Hands</h2>
+  <p>Nur an Tischen, die Verdoppeln auf zwei beliebige Karten erlauben:</p>
+  <table>
+    <thead><tr><th>Deine Hand</th><th>Verdoppeln gegen</th><th>Sonst …</th></tr></thead>
+    <tbody>
+      <tr><td>A-2, A-3</td><td>5 und 6</td><td>ziehen</td></tr>
+      <tr><td>A-4, A-5</td><td>4 bis 6</td><td>ziehen</td></tr>
+      <tr><td>A-6</td><td>3 bis 6</td><td>ziehen</td></tr>
+      <tr><td>A-7</td><td>3 bis 6 (und 2 bei H17)</td><td>stehen bleiben</td></tr>
+      <tr><td>A-8</td><td>6, nur bei H17</td><td>stehen bleiben</td></tr>
+    </tbody>
+  </table>
+  <p>A-7 gegen eine 6 ist das beste Beispiel: Stehenbleiben ist +0,28 wert, Verdoppeln aber +0,38.</p>
+  <EVTable lang="de" cards={[1, 7]} up={6} tables={['vegasS17']} caption="A-7 gegen 6: stehen bleiben oder verdoppeln" />
+
+  <h2 id="spain">Ohne Hole Card und in spanischen Casinos</h2>
+  <p>Ohne Hole Card verdoppelst du 11 nicht gegen eine 10 oder ein Ass. In spanischen Casinos darfst du außerdem nur auf 9, 10 oder 11 verdoppeln, sodass alle Soft-Verdopplungen wegfallen. Alles dazu findest du in <a href={routes.spain.de}>Blackjack-Regeln in Spanien</a>.</p>
+
+  <h2 id="mistakes">Die teuersten Fehler beim Verdoppeln</h2>
+  <ul>
+    <li><strong>11 gegen eine 10 nicht verdoppeln</strong> an einem Tisch mit Hole Card: Du verschenkst etwa 0,06 Einsätze pro Hand.</li>
+    <li><strong>Verdoppeln, um Verluste zurückzuholen:</strong> Die Entscheidung hängt von deiner Hand und der offenen Karte des Dealers ab, nie davon, wie deine Session läuft.</li>
+    <li><strong>Verdoppeln mit 12 oder mehr:</strong> Mit einer einzigen Karte überkaufst du dich zu oft.</li>
+  </ul>
+</Guide>

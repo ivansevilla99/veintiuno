@@ -1,0 +1,53 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const pdfs = [
+  ['europeen', 'Table européenne / en ligne', 'Sans carte cachée, doublement sur deux cartes quelconques. La règle habituelle des casinos en France, en Belgique ou en Suisse, et du blackjack en ligne ou en direct.'],
+  ['las-vegas-s17', 'Las Vegas (S17)', 'Le croupier reste sur 17 souple, abandon autorisé.'],
+  ['las-vegas-h17', 'Las Vegas (H17)', 'Le croupier tire sur 17 souple, abandon autorisé.'],
+  ['espagne', 'Casinos espagnols', 'Sans carte cachée, doublement sur 9–11 seulement, sans abandon. Celui qu’il vous faut dans un casino en Espagne.'],
+];
+const faq = [
+  { q: 'Quel tableau de stratégie télécharger ?', a: 'Celui qui correspond aux règles de votre table. Dans un casino européen ou en ligne, en général le tableau européen (sans carte cachée). À Las Vegas, regardez le tapis : s’il indique que le croupier tire sur 17 souple, prenez H17 ; sinon, S17. Dans un casino en Espagne, le tableau des casinos espagnols.' },
+  { q: 'Puis-je apporter un tableau imprimé au casino ?', a: 'Certains casinos vous laissent consulter une carte imprimée aux tables à petites mises, d’autres non : demandez d’abord. Ce qui n’est jamais permis, c’est d’utiliser votre téléphone ou tout autre appareil à la table.' },
+  { q: 'Sont-ils gratuits ?', a: 'Oui. Vous pouvez les télécharger, les imprimer et les partager.' },
+];
+---
+<Guide
+  lang="fr"
+  route="printable"
+  title="Tableau stratégie blackjack PDF gratuit à imprimer"
+  h1="Tableau de stratégie de base du blackjack en PDF"
+  description="Téléchargez gratuitement le tableau de stratégie de base du blackjack en PDF : table européenne, Las Vegas S17 et H17, casinos espagnols. Une page A4 couleur."
+  updated="2026-09-27"
+  readMinutes={2}
+  faq={faq}
+  related={['strategy', 'simulator', 'spain', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Téléchargement gratuit&nbsp;:</strong> le tableau de stratégie de base en PDF, sur une page A4 en couleur. Choisissez celui qui correspond aux règles de votre table&nbsp;: le tableau d’une table européenne n’est pas le même que celui de Las Vegas.</p></div>
+  </div>
+
+  <div class="pdf-grid">
+    {pdfs.map(([slug, name, text]) => (
+      <a class="card pdf-card" href={`/pdf/tableau-strategie-blackjack-${slug}.pdf`} download>
+        <span class="pdf-ico">PDF</span>
+        <span><b>{name}</b><small>{text}</small></span>
+      </a>
+    ))}
+  </div>
+
+  <h2 id="utilisation">Comment l’utiliser</h2>
+  <p>Cherchez votre main dans les lignes et la carte visible du croupier dans les colonnes. Vérifiez d’abord si vous avez une paire, puis si votre main est souple (avec un as qui compte pour 11), et sinon, utilisez les mains dures. Les lettres et les couleurs sont expliquées dans la légende de chaque tableau.</p>
+  <p>Si vous préférez ajuster les règles une à une ou voir pourquoi chaque case est ce qu’elle est, utilisez le <a href={routes.strategy.fr}>tableau interactif</a>. Et pour l’apprendre par cœur, ce qui marche, c’est de s’entraîner avec une correction immédiate&nbsp;: vous pouvez le faire gratuitement à la <a href={routes.simulator.fr}>table d’entraînement</a>.</p>
+</Guide>
+
+<style>
+  .pdf-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
+  .pdf-card { display: flex !important; gap: 14px; align-items: flex-start; }
+  .pdf-ico { flex: none; width: 44px; height: 52px; border-radius: 8px; background: #c8283a; color: #fff; font: 800 12px/52px var(--font); text-align: center; }
+  .pdf-card b { display: block; color: var(--text); font-size: 17px; }
+  .pdf-card small { display: block; color: var(--muted); font-size: 14px; margin-top: 4px; line-height: 1.45; }
+  @media (max-width: 600px) { .pdf-grid { grid-template-columns: 1fr; } }
+</style>

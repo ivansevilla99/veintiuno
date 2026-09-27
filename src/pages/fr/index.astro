@@ -1,0 +1,99 @@
+---
+import Base from '../../layouts/Base.astro';
+import AppStoreButton from '../../components/AppStoreButton.astro';
+import AppCTA from '../../components/AppCTA.astro';
+import { routes, APP_STORE_URL } from '../../lib/site';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: 'Blackjack Trainer: Veintiuno',
+    alternateName: 'Veintiuno',
+    operatingSystem: 'iOS',
+    applicationCategory: 'EducationalApplication',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+    url: APP_STORE_URL,
+    description: 'Une application pour apprendre et répéter la stratégie de base du blackjack, avec correction immédiate et la raison de chaque décision. Sans argent réel.',
+    inLanguage: 'fr',
+  },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Veintiuno', url: 'https://veintiunoapp.com/fr/', inLanguage: 'fr' },
+];
+---
+<Base
+  lang="fr"
+  route="home"
+  title="Veintiuno : apprendre la stratégie de base du blackjack"
+  description="Apprenez à bien jouer au blackjack : tableau de stratégie de base interactif selon vos règles, guides clairs et une appli qui corrige vos erreurs. Sans argent."
+  schema={schema}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Le blackjack, sans mythes</span>
+        <h1>Apprenez à jouer au blackjack correctement</h1>
+        <p class="lead">La stratégie de base, expliquée coup par coup et adaptée aux règles de votre table. Pas de système miracle, pas de promesse d’argent facile&nbsp;: juste les bonnes décisions, jusqu’à ce qu’elles deviennent automatiques.</p>
+        <div class="hero-actions">
+          <AppStoreButton lang="fr" campaign="home-hero" />
+          <a class="btn btn-ghost" href={routes.simulator.fr}>Jouer gratuitement avec correction</a>
+        </div>
+        <p class="hero-note">Pour iPhone et Mac · Gratuit pour commencer · Sans argent réel</p>
+      </div>
+      <div class="fan" aria-hidden="true">
+        <div class="pcard"><span class="corner">10<i>♠</i></span><span class="pip">♠</span></div>
+        <div class="pcard"><span class="corner">6<i>♣</i></span><span class="pip">♣</span></div>
+        <div class="pcard red"><span class="corner">D<i>♥</i></span><span class="pip">♥</span></div>
+        <div class="chip-badge"><b>Il fallait tirer</b>Avec 16 contre un 10, rester vous fait perdre&nbsp;: le croupier fera presque toujours 17 ou plus.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Par où commencer</h2>
+      <p class="lead">Trois guides couvrent l’essentiel. Si vous préférez avancer pas à pas, suivez le <a href={routes.course.fr}>cours de blackjack gratuit</a>&nbsp;: 10 leçons courtes avec quiz.</p>
+      <div class="grid-3">
+        <a class="card" href={routes.howToPlay.fr}><div class="icon">♠</div><h3>Règles du blackjack</h3><p>Les règles, la valeur des cartes et le déroulement d’une main, du début à la fin, sans jargon.</p><span class="more">Apprendre les règles →</span></a>
+        <a class="card" href={routes.strategy.fr}><div class="icon">▦</div><h3>Tableau de stratégie de base</h3><p>Interactif et adapté à votre table&nbsp;: Las Vegas S17 ou H17, double jeu, européen. Touchez une case pour savoir pourquoi.</p><span class="more">Ouvrir le tableau →</span></a>
+        <a class="card" href={routes.counting.fr}><div class="icon">±</div><h3>Compter les cartes</h3><p>Comment fonctionne le Hi-Lo, quel avantage il donne vraiment et pourquoi si peu de gens le rentabilisent. Expliqué honnêtement.</p><span class="more">Comprendre le comptage →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container grid-2" style="align-items:center">
+      <div>
+        <span class="eyebrow">L’application</span>
+        <h2 style="margin-top:0">Connaître le tableau n’est pas savoir le jouer</h2>
+        <p>À la table, vous avez deux secondes pour décider. Veintiuno entraîne exactement cela&nbsp;: elle distribue de vraies mains, vous corrige sur le moment et explique la raison de chaque décision, selon les règles de votre table.</p>
+        <ul>
+          <li><strong>Correction immédiate</strong> avec la raison de chaque erreur.</li>
+          <li><strong>Un parcours de 14 jours&nbsp;:</strong> un concept, un exercice et un examen par jour.</li>
+          <li><strong>Une carte de chaleur</strong> des cases du tableau où vous vous trompez le plus.</li>
+          <li><strong>Règles de Las Vegas, européennes et espagnoles</strong>, avec ou sans carte cachée.</li>
+          <li><strong>Le comptage Hi-Lo</strong> en module avancé, sans esbroufe.</li>
+        </ul>
+        <AppStoreButton lang="fr" campaign="home-app" />
+      </div>
+      <div class="card">
+        <h3>Ce que Veintiuno n’est pas</h3>
+        <p>Ce n’est ni un casino ni un jeu d’argent&nbsp;: pas d’argent réel, pas de jetons à acheter, aucun lien avec un opérateur. Et nous ne vous vendrons pas un système pour «&nbsp;toujours gagner&nbsp;», parce qu’il n’en existe pas.</p>
+        <p>La stratégie de base réduit l’avantage de la maison à environ 0,5&nbsp;%, mais ne l’efface pas. Nous l’expliquons simplement dans <a href={routes.howToWin.fr}>comment gagner au blackjack</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Les questions les plus fréquentes</h2>
+      <div class="grid-2">
+        <a class="card" href={routes.howToPlay.fr}><h3>Comment gagne-t-on une main de blackjack&nbsp;?</h3><p>En finissant plus près de 21 que le croupier sans le dépasser. Pas à pas ici.</p></a>
+        <a class="card" href={routes.simulator.fr}><h3>Où jouer au blackjack gratuitement&nbsp;?</h3><p>Ici même&nbsp;: une table sans argent et sans inscription qui corrige chaque décision.</p></a>
+        <a class="card" href={routes.strategy.fr}><h3>Quand doubler ou séparer&nbsp;?</h3><p>Séparez toujours les as et les huit, jamais les dix ni les cinq. Le reste est dans le tableau.</p></a>
+        <a class="card" href={routes.countingLegal.fr}><h3>Compter les cartes est-il illégal&nbsp;?</h3><p>Compter de tête n’est pas illégal, mais le casino peut vous demander d’arrêter.</p></a>
+        <a class="card" href={routes.howToWin.fr}><h3>Peut-on battre le blackjack sur la durée&nbsp;?</h3><p>Avec la seule stratégie de base, non&nbsp;: vous perdez le moins possible. Voici ce qui est possible.</p></a>
+      </div>
+      <AppCTA lang="fr" campaign="home-bottom" />
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,84 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { houseEdge, presets, defaultRules } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const base = houseEdge(defaultRules);
+const effects: [string, string, number][] = [
+  ['Blackjack zahlt 6:5 statt 3:2', 'Schlechter', houseEdge({ ...defaultRules, payout: 'sixToFive' }) - base],
+  ['Blackjack zahlt 1:1 (Even Money)', 'Schlechter', houseEdge({ ...defaultRules, payout: 'evenMoney' }) - base],
+  ['Dealer zieht auf Soft 17 (H17)', 'Schlechter', houseEdge({ ...defaultRules, dealerHitsSoft17: true }) - base],
+  ['Verdoppeln nur auf 10 oder 11', 'Schlechter', houseEdge({ ...defaultRules, doubleRule: 'tenEleven' }) - base],
+  ['Kein Verdoppeln nach dem Splitten', 'Schlechter', houseEdge({ ...defaultRules, doubleAfterSplit: false }) - base],
+  ['Keine Hole Card (Dealer schaut nicht nach)', 'Schlechter', houseEdge({ ...defaultRules, holeCard: false }) - base],
+  ['Nur einmal splitten', 'Schlechter', houseEdge({ ...defaultRules, maxSplitHands: 2 }) - base],
+  ['Verdoppeln nur auf 9, 10 oder 11', 'Schlechter', houseEdge({ ...defaultRules, doubleRule: 'nineToEleven' }) - base],
+  ['Kein Surrender', 'Schlechter', houseEdge({ ...defaultRules, surrender: 'none' }) - base],
+  ['8 Decks statt 6', 'Schlechter', houseEdge({ ...defaultRules, decks: 8 }) - base],
+  ['4 Decks statt 6', 'Besser', houseEdge({ ...defaultRules, decks: 4 }) - base],
+  ['Asse erneut splitten erlaubt', 'Besser', houseEdge({ ...defaultRules, resplitAces: true }) - base],
+  ['2 Decks statt 6', 'Besser', houseEdge({ ...defaultRules, decks: 2 }) - base],
+  ['1 Deck statt 6', 'Besser', houseEdge({ ...defaultRules, decks: 1 }) - base],
+];
+const fmt = (x: number) => (x > 0 ? '+' : '−') + Math.abs(x).toFixed(2).replace('.', ',') + ' Pkt.';
+const tables: [string, keyof typeof presets][] = [
+  ['Las Vegas, 6 Decks, S17, Surrender', 'vegasS17'],
+  ['Las Vegas, 6 Decks, H17, Surrender', 'vegasH17'],
+  ['Europäisch / online, ohne Hole Card (meist in deutschsprachigen Spielbanken)', 'europeanOnline'],
+  ['Casino in Spanien', 'spainCasino'],
+  ['Double Deck (2 Decks)', 'doubleDeck'],
+];
+const pct = (x: number) => x.toFixed(2).replace('.', ',') + ' %';
+
+const faq = [
+  { q: 'Welche Blackjack-Regel ist für dich am schlechtesten?', a: 'Wenn Blackjack 6:5 statt 3:2 zahlt. Das erhöht den Hausvorteil um etwa 1,4 Prozentpunkte und vervierfacht damit ungefähr, was du selbst mit perfektem Spiel verlierst. Zahlt ein Tisch 6:5, ist dein bester Zug, dir einen anderen zu suchen.' },
+  { q: 'Wie hoch ist der Hausvorteil beim Blackjack?', a: 'Mit perfekter Grundstrategie zwischen 0,2 % und 0,7 %, je nach Regeln; mit 6 Decks und typischen Las-Vegas-Regeln etwa 0,4 %. Wer aus dem Bauch heraus spielt, hat einen deutlich höheren tatsächlichen Nachteil.' },
+  { q: 'Spielt die Anzahl der Decks eine Rolle?', a: 'Ja, aber weniger als andere Regeln. Von 6 auf 8 Decks kostet es etwa 0,02 Punkte; mit 2 Decks sparst du etwa 0,17. Die Auszahlung für Blackjack und ob der Dealer auf Soft 17 zieht, sind viel wichtiger.' },
+];
+---
+<Guide
+  lang="de"
+  route="dataRules"
+  title="Blackjack Hausvorteil: Was jede Regel dich kostet"
+  h1="Was dich jede Blackjack-Regel kostet"
+  description="Hausvorteil beim Blackjack je nach Tischregeln: 6:5-Auszahlung, H17, Anzahl der Decks, Surrender, Verdoppeln nach Split, ohne Hole Card. Was jede Regel kostet."
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['dataBust', 'spain', 'howToWin', 'data']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurz gesagt:</strong> Mit perfekter Grundstrategie behält das Haus an einem Tisch mit 6 Decks und guten Regeln etwa <strong>{pct(base)}</strong> deiner Einsätze. Die mit Abstand teuerste Regel ist ein Blackjack, der nur <strong>6:5</strong> zahlt (+1,39 Punkte); danach kommt der Dealer, der auf Soft 17 zieht (+0,22).</p></div>
+  </div>
+
+  <h2 id="effects">Die Wirkung jeder Regel</h2>
+  <p>Ausgangslage: 6 Decks, der Dealer bleibt auf Soft 17 stehen, Verdoppeln auf zwei beliebige Karten und nach dem Splitten, Late Surrender, Hole Card, und Blackjack zahlt 3:2. Hausvorteil mit perfekter Strategie: <strong>{pct(base)}</strong>. Jede Zeile zeigt, wie viel sich ändert, wenn du nur diese eine Regel änderst.</p>
+  <table class="data-table">
+    <thead><tr><th>Regel</th><th>Für dich</th><th>Änderung des Hausvorteils</th></tr></thead>
+    <tbody>
+      {effects.map(([name, dir, d]) => <tr><th scope="row">{name}</th><td>{dir}</td><td class={d > 0 ? 'bad' : 'good'}>{fmt(d)}</td></tr>)}
+    </tbody>
+  </table>
+
+  <h2 id="tables">Hausvorteil an typischen Tischen</h2>
+  <table class="data-table">
+    <thead><tr><th>Tisch</th><th>Hausvorteil</th></tr></thead>
+    <tbody>
+      {tables.map(([name, k]) => <tr><th scope="row">{name}</th><td class="hl">{pct(houseEdge(presets[k]))}</td></tr>)}
+    </tbody>
+  </table>
+  <p>Diese Werte setzen voraus, dass du die Grundstrategie fehlerfrei spielst. Jeder Fehler kostet dich zusätzlich: Versicherung nehmen, mit 12 gegen eine 2 stehen bleiben oder Achten nicht splitten – das summiert sich schnell auf mehrere Punkte. Deshalb ist die <a href={routes.strategy.de}>Strategietabelle</a> wichtiger als die Suche nach dem perfekten Tisch.</p>
+
+  <h2 id="source">Woher die Zahlen stammen</h2>
+  <p>Der Basisvorteil und die Wirkung jeder Regel sind die üblichen Näherungswerte aus der Regeleffekt-Tabelle von Wizard of Odds – dieselbe, die auch die Veintiuno-App verwendet. Die Effekte addieren sich näherungsweise: Kombinierst du mehrere Regeln, kann das Ergebnis um einige Hundertstel von der exakten Berechnung für genau diese Kombination abweichen.</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 16px; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); font-weight: 600; }
+  .data-table td.bad { color: var(--wrong); font-weight: 700; }
+  .data-table td.good { color: var(--correct); font-weight: 700; }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

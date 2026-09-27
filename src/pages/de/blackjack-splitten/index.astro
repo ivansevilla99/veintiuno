@@ -1,0 +1,58 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Welche Paare splittet man beim Blackjack immer?', a: 'Asse und Achten, gegen jede offene Karte des Dealers, an Tischen mit Hole Card. An europäischen Tischen ohne Hole Card gibt es zwei Ausnahmen: keine Asse gegen ein Ass splitten und keine Achten gegen eine 10 oder ein Ass.' },
+  { q: 'Sollte man Zehnen splitten?', a: 'Nie. Selbst gegen eine 6, die schlechteste offene Karte des Dealers, ist eine 20 beim Stehenbleiben +0,70 Einsätze wert und beim Splitten +0,57. Wer sie splittet, tauscht eine fast gewonnene Hand gegen zwei unsichere.' },
+  { q: 'Sollte man Fünfen splitten?', a: 'Nein. 5-5 ist eine 10, eine der besten Hände zum Verdoppeln. Splittest du, hast du zwei Hände, die mit einer 5 beginnen – und das sind schlechte Hände.' },
+  { q: 'Und Neunen gegen eine 7?', a: 'Stehen bleiben. 9-9 ergibt 18, und gegen eine 7 landet der Dealer oft auf 17: Deine 18 gewinnt. Stehenbleiben ist +0,40 wert, Splitten +0,37.' },
+];
+---
+<Guide
+  lang="de"
+  route="whenSplit"
+  title="Blackjack splitten: Welche Paare? (Tabelle)"
+  h1="Wann du beim Blackjack splitten solltest"
+  description="Welche Paare du beim Blackjack splittest und gegen welche Dealerkarte: Asse, Achten, Neunen, Siebenen, Sechsen, Zweien, Dreien – und warum nie Zehnen, Fünfen."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenDouble', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurze Antwort:</strong> Splitte immer <strong>Asse und Achten</strong>; splitte nie <strong>Zehnen oder Fünfen</strong>. Neunen gegen 2–9 außer 7. Siebenen, Zweien und Dreien gegen 2–7. Sechsen gegen 2–6. Vieren nur gegen 5 und 6, wenn du nach dem Splitten verdoppeln darfst.</p></div>
+  </div>
+
+  <h2 id="chart">Die Tabelle zum Splitten von Paaren</h2>
+  <table>
+    <thead><tr><th>Paar</th><th>Splitten gegen</th><th>Sonst …</th></tr></thead>
+    <tbody>
+      <tr><td>A-A</td><td>alle</td><td>—</td></tr>
+      <tr><td>8-8</td><td>alle</td><td>—</td></tr>
+      <tr><td>10-10</td><td>nie</td><td>stehen bleiben</td></tr>
+      <tr><td>9-9</td><td>2 bis 6, 8 und 9</td><td>stehen bleiben (gegen 7, 10 und Ass)</td></tr>
+      <tr><td>7-7</td><td>2 bis 7</td><td>ziehen</td></tr>
+      <tr><td>6-6</td><td>2 bis 6</td><td>ziehen</td></tr>
+      <tr><td>5-5</td><td>nie</td><td>verdoppeln gegen 2–9</td></tr>
+      <tr><td>4-4</td><td>5 und 6 (mit Verdoppeln nach dem Splitten)</td><td>ziehen</td></tr>
+      <tr><td>2-2, 3-3</td><td>2 bis 7</td><td>ziehen</td></tr>
+    </tbody>
+  </table>
+  <p>Das ist die Tabelle für 6 Decks mit erlaubtem Verdoppeln nach dem Splitten. Erlaubt dein Tisch kein Verdoppeln nach dem Splitten, ziehst du mit 2-2 und 3-3 gegen 2 und 3 sowie mit 4-4 und 6-6 gegen 2. In der <a href={routes.strategy.de}>interaktiven Strategietabelle</a> siehst du das, wenn du diese Regel umstellst.</p>
+
+  <h2 id="aces-eights">Warum immer Asse und Achten</h2>
+  <p><strong>Zwei Asse</strong> zusammen sind 2 oder 12 wert, eine mittelmäßige Hand. Gesplittet beginnt jedes mit 11, und jede Zehn macht daraus 21. <strong>Zwei Achten</strong> ergeben 16, die schlechteste Hand im Spiel. Gesplittet beginnt jede mit 8. Selbst gegen eine 10 verlierst du beim Splitten deutlich weniger, als wenn du die 16 spielst:</p>
+  <EVTable lang="de" cards={[8, 8]} up={10} tables={['vegasS17', 'vegasH17', 'europeanOnline']} />
+  <p>An einem Tisch ohne Hole Card, wie in den meisten deutschsprachigen Spielbanken, sieht es anders aus: Splittest du gegen eine 10, setzt du zwei Einsätze einem möglichen Dealer-Blackjack aus, und das wird schlechter als Ziehen.</p>
+
+  <h2 id="never">Warum nie Zehnen oder Fünfen</h2>
+  <p>Eine 20 ist fast unschlagbar. Selbst wenn der Dealer eine 6 zeigt, seine schwächste offene Karte, ist Stehenbleiben mit 20 viel mehr wert als Splitten:</p>
+  <EVTable lang="de" cards={[10, 10]} up={6} tables={['vegasS17']} caption="10-10 gegen 6: stehen bleiben oder splitten" />
+  <p>Ähnlich ist es bei <strong>5-5</strong>: Das ist eine 10, eine perfekte Hand zum Verdoppeln. Splittest du sie, hast du zwei Hände, die mit einer 5 beginnen.</p>
+
+  <h2 id="depends">Paare, die von der offenen Karte des Dealers abhängen</h2>
+  <p>Die übrigen Paare (2-2, 3-3, 6-6, 7-7, 9-9) splittest du, wenn der Dealer schwach ist, denn zwei Einsätze gegen einen Dealer, der sich oft überkauft, sind mehr wert als eine mittelmäßige Hand. Der Sonderfall ist <strong>9-9 gegen eine 7</strong>: Du bleibst stehen, weil ein Dealer mit offener 7 oft auf 17 landet und deine 18 ihn schlägt.</p>
+  <EVTable lang="de" cards={[9, 9]} up={7} tables={['vegasS17']} caption="9-9 gegen 7: stehen bleiben oder splitten" />
+</Guide>

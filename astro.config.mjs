@@ -7,13 +7,13 @@ export default defineConfig({
   build: { format: 'directory' },
   i18n: {
     defaultLocale: 'es',
-    locales: ['es', 'en'],
+    locales: ['es', 'en', 'de', 'fr'],
     routing: { prefixDefaultLocale: false },
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/imprimir/') && !page.includes('/en/print/'),
-      i18n: { defaultLocale: 'es', locales: { es: 'es', en: 'en' } },
+      filter: (page) => !page.includes('/imprimir/') && !/\/(en|de|fr)\/print\//.test(page),
+      i18n: { defaultLocale: 'es', locales: { es: 'es', en: 'en', de: 'de', fr: 'fr' } },
     }),
   ],
 });

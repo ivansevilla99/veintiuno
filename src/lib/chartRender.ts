@@ -38,6 +38,40 @@ export const chartText = {
       Rp: 'Surrender (if not allowed, split)',
     } as Record<Play, string>,
   },
+  de: {
+    hard: 'Harte Hände',
+    soft: 'Soft Hands (mit Ass)',
+    pairs: 'Paare',
+    player: 'Deine Hand',
+    dealer: 'Offene Karte des Dealers',
+    legend: {
+      H: 'Ziehen (Hit)',
+      S: 'Stehen bleiben',
+      D: 'Verdoppeln (sonst ziehen)',
+      Ds: 'Verdoppeln (sonst stehen)',
+      P: 'Splitten',
+      Rh: 'Aufgeben (sonst ziehen)',
+      Rs: 'Aufgeben (sonst stehen)',
+      Rp: 'Aufgeben (sonst splitten)',
+    } as Record<Play, string>,
+  },
+  fr: {
+    hard: 'Mains dures',
+    soft: 'Mains souples (avec un as)',
+    pairs: 'Paires',
+    player: 'Votre main',
+    dealer: 'Carte visible du croupier',
+    legend: {
+      H: 'Tirer',
+      S: 'Rester',
+      D: 'Doubler (sinon tirer)',
+      Ds: 'Doubler (sinon rester)',
+      P: 'Séparer',
+      Rh: 'Abandonner (sinon tirer)',
+      Rs: 'Abandonner (sinon rester)',
+      Rp: 'Abandonner (sinon séparer)',
+    } as Record<Play, string>,
+  },
 };
 
 export const keyId = (k: HandKey) => (k.kind === 'pair' ? `pair${k.value}` : `${k.kind}${k.total}`);

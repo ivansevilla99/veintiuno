@@ -1,12 +1,10 @@
 ---
 import CourseLesson from '../../../components/CourseLesson.astro';
-import { lessons } from '../../../lib/course';
-import { lessonsEn } from '../../../lib/course-en';
-import { routes } from '../../../lib/site';
+import { courses } from '../../../lib/courses';
 
 export function getStaticPaths() {
-  return lessonsEn.map((lesson, i) => ({ params: { slug: lesson.slug }, props: { i } }));
+  return courses.en.map((lesson, i) => ({ params: { slug: lesson.slug }, props: { i } }));
 }
 const { i } = Astro.props as { i: number };
 ---
-<CourseLesson lang="en" lessons={lessonsEn} i={i} alternate={`${routes.course.es}${lessons[i].slug}/`} />
+<CourseLesson lang="en" lessons={courses.en} i={i} />

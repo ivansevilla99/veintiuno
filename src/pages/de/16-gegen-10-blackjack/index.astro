@@ -1,0 +1,53 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Ziehen oder stehen bleiben mit 16 gegen eine 10?', a: 'Ziehen – außer der Tisch erlaubt Surrender, dann ist Aufgeben am besten. Ziehen verliert etwas weniger als Stehenbleiben (mit 10-6 etwa 0,007 Einsätze pro Hand), auch wenn beide Optionen mehr als die Hälfte deines Einsatzes verlieren.' },
+  { q: 'Warum ziehen, wenn man sich mit 16 so oft überkauft?', a: 'Weil Stehenbleiben mit 16 nur gewinnt, wenn sich der Dealer überkauft – und mit einer offenen 10 passiert das nur in etwa 23 % der Fälle. Wenn du ziehst, überkaufst du dich ungefähr 6 von 10 Mal; wenn nicht, verbesserst du dich auf 17–21 und gewinnst manchmal.' },
+  { q: 'Was, wenn meine 16 aus drei oder mehr Karten besteht?', a: 'Dann ist Stehenbleiben meist gleich gut oder etwas besser, weil die kleinen Karten, aus denen deine Hand besteht, nicht mehr im Deck sind und die verbleibenden Karten dich eher überkaufen. Das ist eine der wenigen Ausnahmen, die von der Zusammensetzung der Hand abhängen. Mit zwei Karten: ziehen.' },
+  { q: 'Und 16 gegen eine 10, wenn es ein Achterpaar ist?', a: 'Splitten. 8-8 gegen eine 10 wird an Tischen mit Hole Card gesplittet, weil zwei Hände, die mit einer 8 beginnen, weniger verlieren als eine 16. An europäischen Tischen ohne Hole Card ziehst du stattdessen (oder gibst auf, wenn es erlaubt ist).' },
+];
+---
+<Guide
+  lang="de"
+  route="hand16v10"
+  title="16 gegen 10 beim Blackjack: ziehen oder stehen?"
+  h1="16 gegen 10: ziehen oder stehen bleiben?"
+  description="Was tun mit 16 gegen eine 10 des Dealers beim Blackjack: ziehen, stehen bleiben oder aufgeben? Der exakte Erwartungswert jeder Option, warum Ziehen besser ist."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['strategy', 'whenDouble', 'course', 'dataBust']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurze Antwort:</strong> Mit einer harten 16 gegen eine 10 <strong>gibst du auf, wenn der Tisch es erlaubt; sonst ziehst du</strong>. Es ist die gefürchtetste Hand beim Blackjack, weil jede Option verliert – aber Ziehen verliert etwas weniger als Stehenbleiben. Die Ausnahme: Ist deine 16 ein 8-8, splittest du (an Tischen mit Hole Card).</p></div>
+  </div>
+
+  <h2 id="numbers">Die exakten Zahlen</h2>
+  <p>So viel ist jede Option im Schnitt wert, pro Einsatzeinheit. Alle Werte sind negativ: Mit 16 gegen eine 10 verlierst du Geld, egal was du tust. Die Frage ist nur, welche Option am wenigsten verliert.</p>
+  <EVTable lang="de" cards={[10, 6]} up={10} tables={['vegasS17', 'europeanOnline', 'doubleDeck']} />
+  <p>Mit Las-Vegas-Regeln ist <strong>Aufgeben</strong> (−0,500) am besten: Du bekommst die Hälfte deines Einsatzes zurück und ersparst dir eine Hand, die öfter als jedes zweite Mal verliert. Ohne Surrender schlägt <strong>Ziehen</strong> (−0,535) das Stehenbleiben (−0,542).</p>
+  <p>An einem europäischen Tisch ohne Hole Card, wie in den meisten deutschsprachigen Spielbanken, sind die Verluste etwas größer, weil der Dealer immer noch einen Blackjack haben kann – an der Reihenfolge ändert das aber nichts: Ziehen bleibt besser.</p>
+
+  <h2 id="why">Warum ziehen, obwohl du dich so oft überkaufst</h2>
+  <p>Das Bauchgefühl sagt: „Mit 16 überkaufe ich mich fast sicher, also bleibe ich stehen.“ Aber Stehenbleiben mit 16 bringt dir nur eines: darauf zu warten, dass sich der Dealer überkauft. Und mit einer offenen 10 passiert das nur in etwa <strong>23 %</strong> der Fälle (siehe die <a href={routes.dataBust.de}>Tabelle, wie oft sich der Dealer überkauft</a>). In den übrigen 77 % landet der Dealer auf 17 oder mehr, und deine 16 verliert.</p>
+  <p>Wenn du ziehst, überkaufst du dich bei einer 6, 7, 8, 9 oder 10 (ungefähr 6 von 10 Mal). Kommt aber ein Ass, eine 2, 3, 4 oder 5, verbesserst du dich auf 17–21 und hast eine echte Chance auf Gewinn oder Unentschieden. Diese Gewinne gleichen die wenigen zusätzlichen Hände, die du durchs Überkaufen verlierst, mehr als aus.</p>
+  <div class="callout"><p><strong>Der Unterschied ist klein – und genau deshalb wird so viel darüber gestritten.</strong> Ziehen statt Stehenbleiben spart dir weniger als ein Hundertstel Einsatz pro Hand. In einer einzelnen Hand merkst du das nicht. Über tausend Hände 16 gegen 10 summiert es sich auf sieben ganze Einsätze.</p></div>
+
+  <h2 id="exceptions">Die Ausnahmen</h2>
+  <ul>
+    <li><strong>8-8:</strong> splitten. Zwei Hände, die mit einer 8 beginnen, verlieren deutlich weniger als eine 16. An europäischen Tischen ohne Hole Card wird 8-8 gegen eine 10 gezogen (oder aufgegeben, wenn es erlaubt ist).</li>
+    <li><strong>Eine 16 aus drei oder mehr Karten</strong> (zum Beispiel 4-5-7): Stehenbleiben wird gleich gut oder besser, weil die niedrigen Karten, die dir helfen würden, schon in deiner Hand sind.</li>
+    <li><strong>Wenn du Karten zählst:</strong> Ab einem True Count von 0 bleibst du stehen. Das ist der bekannteste Index-Spielzug im Hi-Lo: Wenn viele hohe Karten übrig sind, überkaufst du dich beim Ziehen zu oft.</li>
+  </ul>
+
+  <h2 id="other">Und 16 gegen andere offene Karten?</h2>
+  <ul>
+    <li><strong>Gegen 2 bis 6:</strong> stehen bleiben. Der Dealer ist schwach und überkauft sich oft.</li>
+    <li><strong>Gegen 7 oder 8:</strong> ziehen.</li>
+    <li><strong>Gegen 9 oder Ass:</strong> aufgeben, wenn du kannst; sonst ziehen.</li>
+  </ul>
+  <p>Alles steht in der <a href={routes.strategy.de}>Strategietabelle für die Grundstrategie</a>, die du an die Regeln deines Tisches anpassen kannst.</p>
+</Guide>

@@ -1,0 +1,46 @@
+---
+import Base from '../../../layouts/Base.astro';
+import AppCTA from '../../../components/AppCTA.astro';
+import { routes } from '../../../lib/site';
+const groups = [
+  { title: 'Par où commencer', items: [
+    ['course', 'Cours de blackjack gratuit', '10 leçons courtes avec quiz, des règles jusqu’au comptage des cartes.'],
+    ['simulator', 'Jouer au blackjack gratuitement', 'Une table d’entraînement qui corrige chaque décision, sans argent ni inscription.'],
+    ['howToPlay', 'Règles du blackjack', 'Le but du jeu, la valeur des cartes, le déroulement d’une main et les paiements.'],
+  ] },
+  { title: 'Bien jouer', items: [
+    ['strategy', 'Tableau de stratégie de base', 'Interactif, adapté aux règles de votre table, avec la raison de chaque case.'],
+    ['printable', 'Tableau de stratégie en PDF', 'Des tableaux à imprimer pour les tables européennes, de Las Vegas et d’Espagne.'],
+    ['whenDouble', 'Quand doubler', 'Tous les doublements, avec l’espérance de chacun.'],
+    ['whenSplit', 'Quand séparer', 'Quelles paires séparer, et contre quelle carte.'],
+    ['hand16v10', '16 contre 10', 'La main la plus redoutée, chiffres à l’appui.'],
+    ['howToWin', 'Comment gagner au blackjack', 'Ce qui réduit vraiment l’avantage de la maison, et ce qui n’est que du vent.'],
+    ['spain', 'Règles du blackjack en Espagne', 'Sans carte cachée, doublement sur 9–11 seulement, sans abandon : ce qui change.'],
+    ['app', 'Application pour apprendre le blackjack', 'Pourquoi un entraîneur vous apprend à jouer et un jeu de casino non.'],
+  ] },
+  { title: 'Niveau avancé', items: [
+    ['counting', 'Compter les cartes', 'Le Hi-Lo, le compte réel et la réalité du comptage, avec un exercice.'],
+    ['practiceCounting', 'S’entraîner à compter les cartes', 'Un plan pas à pas et l’exercice du compte à rebours du paquet.'],
+    ['countingLegal', 'Compter les cartes est-il illégal ?', 'Ce que dit la loi, et ce que le casino peut faire.'],
+  ] },
+  { title: 'Données', items: [
+    ['dataBust', 'Probabilité que le croupier saute', 'Tableau exact par carte visible, S17 et H17.'],
+    ['dataRules', 'Avantage de la maison selon les règles', 'Ce que vous coûte chaque règle de la table.'],
+  ] },
+] as const;
+---
+<Base lang="fr" route="guides" title="Guides de blackjack : règles, stratégie et comptage" description="Tous les guides blackjack de Veintiuno : règles du jeu, tableau de stratégie de base, règles des casinos espagnols et un guide honnête du comptage des cartes.">
+  <div class="container">
+    <header class="article-head read" style="margin-left:0">
+      <h1>Guides de blackjack</h1>
+      <p class="lead">Tout ce qu’il faut pour bien jouer, dans l’ordre&nbsp;: des règles à la stratégie et, si le cœur vous en dit, le comptage des cartes.</p>
+    </header>
+    {groups.map((g) => (
+      <section>
+        <h2>{g.title}</h2>
+        <div class="grid-2">{g.items.map(([key, title, text]) => <a class="card" href={routes[key].fr}><h3>{title}</h3><p>{text}</p></a>)}</div>
+      </section>
+    ))}
+    <AppCTA lang="fr" campaign="guides" />
+  </div>
+</Base>
