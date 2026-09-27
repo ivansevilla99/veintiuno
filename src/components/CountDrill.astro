@@ -1,4 +1,5 @@
 ---
+import { packs } from '../i18n';
 import type { Lang } from '../lib/site';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -7,7 +8,7 @@ const L = ({
   en: { title: 'Try it: count these cards', deal: 'Deal 12 cards', ask: 'What is the running count?', check: 'Check', ok: 'Correct!', ko: 'Not quite. The count was', again: 'Another round', hint: '2–6 count +1, 7–9 count 0, tens, faces and aces count −1.' },
   de: { title: 'Probier’s aus: Zähl diese Karten', deal: '12 Karten austeilen', ask: 'Wie lautet der Running Count?', check: 'Prüfen', ok: 'Richtig!', ko: 'Nicht ganz. Der Count war', again: 'Nächste Runde', hint: '2 bis 6 zählen +1, 7 bis 9 zählen 0, Zehner, Bilder und Asse zählen −1.' },
   fr: { title: 'Essayez : comptez ces cartes', deal: 'Distribuer 12 cartes', ask: 'Quel est le compte courant ?', check: 'Vérifier', ok: 'Correct !', ko: 'Pas tout à fait. Le compte était', again: 'Encore une', hint: 'Du 2 au 6 : +1, du 7 au 9 : 0, dix, figures et as : −1.' },
-} as const)[lang];
+} as Record<string, any>)[lang] ?? packs[lang]!.drill;
 ---
 <div class="count-drill card" data-lang={lang} data-ok={L.ok} data-ko={L.ko} data-again={L.again}>
   <h3>{L.title}</h3>

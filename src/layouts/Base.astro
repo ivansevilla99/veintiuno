@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
-import { routes, ui, APP_ID, campaignURL, pathOf, linkOf, LANGS, LANG_NAMES, type Lang, type RouteKey } from '../lib/site';
+import { routes, ui, APP_ID, campaignURL, pathOf, linkOf, homeOf, htmlLangOf, LANGS, LANG_NAMES, type Lang, type RouteKey } from '../lib/site';
+import { packs } from '../i18n';
 
 interface Props {
   lang: Lang;
@@ -27,14 +28,15 @@ const canonical = new URL(selfPath, site).href;
 const versions: Partial<Record<Lang, string>> = route ? { ...(routes[route] as Partial<Record<Lang, string>>) } : { ...altMap, [lang]: selfPath };
 // hreflang only makes sense when the page exists in more than one language.
 const alternates = Object.keys(versions).length > 1
-  ? LANGS.filter((l) => versions[l]).map((l) => ({ lang: l, href: new URL(versions[l]!, site).href }))
+  ? LANGS.filter((l) => versions[l]).map((l) => ({ lang: htmlLangOf(l), href: new URL(versions[l]!, site).href }))
   : [];
 // Language menu: the page's own version where it exists, otherwise that language's home.
-const langLinks = LANGS.filter((l) => l !== lang).map((l) => ({ lang: l, href: versions[l] ?? routes.home[l] }));
-const skip: Record<Lang, string> = { es: 'Saltar al contenido', en: 'Skip to content', de: 'Zum Inhalt springen', fr: 'Aller au contenu' };
-const navLabel: Record<Lang, string> = { es: 'Principal', en: 'Main', de: 'Hauptmenü', fr: 'Principal' };
-const extra: Record<Lang, [string, string]> = { es: ['Curso gratis', 'Datos y probabilidades'], en: ['Free course', 'Blackjack data'], de: ['Kostenloser Kurs', 'Blackjack-Daten'], fr: ['Cours gratuit', 'Données du blackjack'] };
-const home = routes.home[lang];
+const langLinks = LANGS.filter((l) => l !== lang && pathOf('home', l)).map((l) => ({ lang: l, code: htmlLangOf(l), href: versions[l] ?? homeOf(l) }));
+const pk = packs[lang];
+const skip = ({ es: 'Saltar al contenido', en: 'Skip to content', de: 'Zum Inhalt springen', fr: 'Aller au contenu' } as Record<string, string>)[lang] ?? pk!.base.skip;
+const navLabel = ({ es: 'Principal', en: 'Main', de: 'Hauptmenü', fr: 'Principal' } as Record<string, string>)[lang] ?? pk!.base.nav;
+const extra = ({ es: ['Curso gratis', 'Datos y probabilidades'], en: ['Free course', 'Blackjack data'], de: ['Kostenloser Kurs', 'Blackjack-Daten'], fr: ['Cours gratuit', 'Données du blackjack'] } as Record<string, [string, string]>)[lang] ?? [pk!.base.course, pk!.base.data];
+const home = homeOf(lang);
 
 const orgSchema = {
   '@context': 'https://schema.org',
@@ -46,7 +48,7 @@ const orgSchema = {
 };
 ---
 <!doctype html>
-<html lang={t.htmlLang}>
+<html lang={htmlLangOf(lang)}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -73,14 +75,14 @@ const orgSchema = {
   <script type="application/ld+json" set:html={JSON.stringify([orgSchema, ...schema])} />
 </head>
 <body>
-  <a class="skip" href="#main">{skip[lang]}</a>
+  <a class="skip" href="#main">{skip}</a>
   <header class="site-header">
     <div class="container header-row">
       <a class="brand" href={home} aria-label="Veintiuno">
         <img src="/icon-64.png" alt="" width="32" height="32" />
         <span>Veintiuno</span>
       </a>
-      <nav class="main-nav" aria-label={navLabel[lang]}>
+      <nav class="main-nav" aria-label={navLabel}>
         {t.nav.map(([key, label]) => (
           <a href={linkOf(key, lang)} aria-current={route === key ? 'page' : undefined}>{label}</a>
         ))}
@@ -89,7 +91,7 @@ const orgSchema = {
         <details class="lang-menu">
           <summary aria-label={LANG_NAMES[lang]}>{lang.toUpperCase()}</summary>
           <div class="lang-list">
-            {langLinks.map((l) => <a href={l.href} hreflang={l.lang} lang={l.lang}>{LANG_NAMES[l.lang]}</a>)}
+            {langLinks.map((l) => <a href={l.href} hreflang={l.code} lang={l.code}>{LANG_NAMES[l.lang]}</a>)}
           </div>
         </details>
         <a class="btn btn-gold btn-small" href={campaignURL(`${lang}-header`)} rel="noopener">{t.downloadShort}<span class="long">{t.downloadLong}</span></a>
@@ -110,8 +112,8 @@ const orgSchema = {
         </div>
         <nav class="footer-links" aria-label="Legal">
           {t.nav.map(([key, label]) => <a href={linkOf(key, lang)}>{label}</a>)}
-          <a href={linkOf('course', lang)}>{extra[lang][0]}</a>
-          <a href={linkOf('data', lang)}>{extra[lang][1]}</a>
+          <a href={linkOf('course', lang)}>{extra[0]}</a>
+          <a href={linkOf('data', lang)}>{extra[1]}</a>
           {t.legal.map(([key, label]) => <a href={linkOf(key, lang)}>{label}</a>)}
         </nav>
       </div>

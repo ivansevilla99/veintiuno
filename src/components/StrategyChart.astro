@@ -1,4 +1,5 @@
 ---
+import { packs } from '../i18n';
 import { presets, houseEdge } from '../lib/strategy';
 import { renderChart, chartText } from '../lib/chartRender';
 import type { Lang } from '../lib/site';
@@ -23,7 +24,7 @@ const C = ({
   fr: { names: { europeanOnline: 'Européenne / en ligne (sans carte cachée)', vegasS17: 'Las Vegas (le croupier reste sur 17 souple)', vegasH17: 'Las Vegas (le croupier tire sur 17 souple)', doubleDeck: 'Deux jeux', spainCasino: 'Casino espagnol', custom: 'Personnalisée' },
         order: ['europeanOnline', 'vegasS17', 'vegasH17', 'doubleDeck', 'spainCasino'], aria: 'Tableau de stratégie de base interactif', adjust: 'Ajuster les règles', locale: 'fr-FR', pct: ' %',
         L: { table: 'Type de table', decks: 'Jeux de cartes', h17: 'Le croupier tire sur 17 souple (H17)', hole: 'Le croupier vérifie le blackjack (carte cachée)', das: 'Doubler après séparation', dbl: 'Doubler avec', any: 'N’importe quelle main', nine: '9, 10 ou 11 seulement', ten: '10 ou 11 seulement', surr: 'Abandon', none: 'Non', late: 'Oui (tardif)', edge: 'Avantage de la maison avec une stratégie parfaite', tap: 'Touchez une case pour voir pourquoi.', legendTitle: 'Légende' } },
-} as const)[lang];
+} as Record<string, any>)[lang] ?? packs[lang]!.chart;
 const presetNames = C.names as Record<string, string>;
 const presetOrder = C.order as readonly string[];
 const L = C.L;

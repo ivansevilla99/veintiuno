@@ -1,10 +1,13 @@
 ---
 export interface QuizQuestion { q: string; options: string[]; answer: number; why: string }
-interface Props { questions: QuizQuestion[]; title?: string; lang?: 'es' | 'en' | 'de' | 'fr' }
-const TITLES = { es: 'Comprueba lo que has aprendido', en: 'Check what you’ve learned', de: 'Teste dein Wissen', fr: 'Vérifiez ce que vous avez appris' };
-const { questions, lang = 'es', title = TITLES[lang] } = Astro.props;
+import { packs } from '../i18n';
+interface Props { questions: QuizQuestion[]; title?: string; lang?: string }
+const TITLES: Record<string, string> = { es: 'Comprueba lo que has aprendido', en: 'Check what you’ve learned', de: 'Teste dein Wissen', fr: 'Vérifiez ce que vous avez appris' };
+const SCORES: Record<string, string> = { es: 'de {n} correctas.', en: 'of {n} correct.', de: 'von {n} richtig.', fr: 'sur {n} correctes.' };
+const { questions, lang = 'es', title = TITLES[lang] ?? packs[lang]!.quiz.title } = Astro.props;
+const score = SCORES[lang] ?? packs[lang]!.quiz.score;
 ---
-<section class="quiz card" data-quiz data-lang={lang}>
+<section class="quiz card" data-quiz data-lang={lang} data-score-text={score}>
   <h3>{title}</h3>
   {questions.map((qq, i) => (
     <fieldset class="quiz-q" data-answer={qq.answer}>
@@ -48,8 +51,7 @@ const { questions, lang = 'es', title = TITLES[lang] } = Astro.props;
           answered++;
           q.querySelector<HTMLElement>('.quiz-why')!.hidden = false;
           if (answered === qs.length) {
-            const SCORE: Record<string, string> = { es: 'de {n} correctas.', en: 'of {n} correct.', de: 'von {n} richtig.', fr: 'sur {n} correctes.' };
-            quiz.querySelector<HTMLElement>('[data-score]')!.textContent = `${right} ${(SCORE[quiz.dataset.lang ?? 'es'] ?? SCORE.en).replace('{n}', String(qs.length))}`;
+            quiz.querySelector<HTMLElement>('[data-score]')!.textContent = `${right} ${quiz.dataset.scoreText!.replace('{n}', String(qs.length))}`;
           }
         }),
       );

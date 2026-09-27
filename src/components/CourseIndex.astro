@@ -1,4 +1,5 @@
 ---
+import { packs } from '../i18n';
 import Base from '../layouts/Base.astro';
 import AppCTA from './AppCTA.astro';
 import type { Lesson } from '../lib/course';
@@ -30,7 +31,7 @@ const T = ({
       eyebrow: 'Cours gratuit', h1: 'Cours de blackjack', lead: `Dix leçons courtes pour passer de « je ne connais pas les règles » à une stratégie de base sans faute. Environ ${total} minutes au total, avec un quiz à la fin de chaque leçon. Sans inscription et sans argent réel.`,
       start: 'Commencer la leçon 1', min: 'min', direct: 'Une question précise ? Voici le', chart: 'tableau de stratégie', dbl: 'quand doubler', spl: 'quand séparer', h16: '16 contre 10', and: 'et',
       ctaT: 'Du cours à la table', ctaX: 'Le cours vous dit quoi faire. L’app Veintiuno vous le fait pratiquer : elle distribue des mains, corrige chaque décision et revient sur vos erreurs jusqu’à ce que ce soit automatique.', cur: 'EUR' },
-})[lang];
+} as Record<string, any>)[lang] ?? packs[lang]!.courseIndex(total);
 const schema = [
   {
     '@context': 'https://schema.org', '@type': 'Course', name: T.name, description: T.desc, inLanguage: lang, isAccessibleForFree: true,

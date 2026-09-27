@@ -1,4 +1,5 @@
 ---
+import { packs } from '../i18n';
 interface Props { lang?: 'es' | 'en' | 'de' | 'fr' }
 const { lang = 'es' } = Astro.props;
 const T = ({
@@ -10,7 +11,7 @@ const T = ({
         again: 'Neues Deck', left: 'noch {n} Karten', ok: 'Richtig! Count {c} nach {n} Karten.', ko: 'Der Count war {c} nach {n} Karten.' },
   fr: { h: 'Exercice : compter un jeu complet', p: 'Les 52 cartes sortent une par une. Tenez le compte Hi-Lo. Arrêtez quand vous voulez pour vérifier ; à la fin, le compte doit être 0.', speed: 'Vitesse', slow: 'Lente (1,2 s)', med: 'Moyenne (0,8 s)', fast: 'Rapide (0,5 s)', casino: 'Casino (0,3 s)', start: 'Commencer', stop: 'Arrêter et vérifier', yours: 'Votre compte', check: 'Vérifier',
         again: 'Un autre jeu', left: 'encore {n} cartes', ok: 'Correct ! Compte {c} après {n} cartes.', ko: 'Le compte était {c} après {n} cartes.' },
-} as const)[lang];
+} as Record<string, any>)[lang] ?? packs[lang]!.deck;
 ---
 <div class="deck-cd card" data-deck data-lang={lang} data-again={T.again} data-left={T.left} data-ok={T.ok} data-ko={T.ko}>
   <h3>{T.h}</h3>

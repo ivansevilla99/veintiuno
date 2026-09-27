@@ -1,4 +1,5 @@
 ---
+import { packs } from '../i18n';
 // Black-on-white strategy chart for printing / PDF. Same data as the interactive chart.
 import { strategyTable, presets, houseEdge, upcards, hardKeys, softKeys, pairKeys, type HandKey, type Play } from '../lib/strategy';
 import { keyLabel } from '../lib/chartRender';
@@ -13,7 +14,7 @@ const P = ({
         legend: ['Ziehen', 'Stehen', 'Verdoppeln (sonst ziehen)', 'Verdoppeln (sonst stehen)', 'Splitten', 'Aufgeben (sonst ziehen)', 'Aufgeben (sonst stehen)', 'Aufgeben (sonst splitten)'] },
   fr: { groups: ['Mains dures', 'Mains souples', 'Paires'], edge: (x: number) => `Avantage de la maison avec une stratégie parfaite : ${x.toFixed(2).replace('.', ',')} %`, foot: 'Lignes : votre main · Colonnes : carte visible du croupier · Ne prenez jamais l’assurance · veintiunoapp.com/fr — tableau interactif, cours et table d’entraînement gratuits',
         legend: ['Tirer', 'Rester', 'Doubler (sinon tirer)', 'Doubler (sinon rester)', 'Séparer', 'Abandonner (sinon tirer)', 'Abandonner (sinon rester)', 'Abandonner (sinon séparer)'] },
-} as const)[lang];
+} as Record<string, any>)[lang] ?? packs[lang]!.print;
 const rules = presets[preset];
 const play = strategyTable(rules);
 const hard = hardKeys.filter((k) => k.kind === 'hard' && (k.total === 5 || k.total >= 9));

@@ -2,6 +2,7 @@
 // page for search engines and no-JS readers) and in the browser when the rules change.
 import { hardKeys, softKeys, pairKeys, upcards, strategyTable, type HandKey, type Play, type Rules } from './strategy';
 import type { Lang } from './site';
+import { packs } from '../i18n';
 
 export const chartText = {
   es: {
@@ -74,6 +75,8 @@ export const chartText = {
   },
 };
 
+for (const [l, p] of Object.entries(packs)) if (p) (chartText as Record<string, any>)[l] = p.chartText;
+
 export const keyId = (k: HandKey) => (k.kind === 'pair' ? `pair${k.value}` : `${k.kind}${k.total}`);
 
 export function keyLabel(k: HandKey): string {
@@ -89,7 +92,7 @@ const upLabel = (u: number) => (u === 11 ? 'A' : String(u));
 const hardRows = hardKeys.filter((k) => k.kind === 'hard' && (k.total === 5 || k.total >= 9));
 
 function table(title: string, keys: HandKey[], play: (k: HandKey, u: (typeof upcards)[number]) => Play, lang: Lang, group: string) {
-  const t = chartText[lang];
+  const t = (chartText as Record<string, any>)[lang];
   const head = upcards.map((u) => `<th scope="col">${upLabel(u)}</th>`).join('');
   const body = keys
     .map((k) => {
@@ -107,7 +110,7 @@ function table(title: string, keys: HandKey[], play: (k: HandKey, u: (typeof upc
 
 export function renderChart(rules: Rules, lang: Lang): string {
   const play = strategyTable(rules);
-  const t = chartText[lang];
+  const t = (chartText as Record<string, any>)[lang];
   return [
     table(t.hard, hardRows, play, lang, 'hard'),
     table(t.soft, softKeys.filter((k) => k.kind === 'soft' && k.total <= 20), play, lang, 'soft'),

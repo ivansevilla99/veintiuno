@@ -1,7 +1,8 @@
 ---
 import Base from './Base.astro';
 import AppCTA from '../components/AppCTA.astro';
-import { routes, ui, pathOf, linkOf, type Lang, type RouteKey } from '../lib/site';
+import { routes, ui, pathOf, linkOf, localeOf, type Lang, type RouteKey } from '../lib/site';
+import { packs } from '../i18n';
 
 export interface Faq { q: string; a: string }
 interface Props {
@@ -23,7 +24,7 @@ const t = ui[lang];
 const site = Astro.site!;
 const url = new URL(pathOf(route, lang)!, site).href;
 const date = new Date(updated);
-const dateLabel = date.toLocaleDateString(({ es: 'es-ES', en: 'en-US', de: 'de-DE', fr: 'fr-FR' } as const)[lang], { day: 'numeric', month: 'long', year: 'numeric' });
+const dateLabel = date.toLocaleDateString(localeOf(lang), { day: 'numeric', month: 'long', year: 'numeric' });
 
 const schema: object[] = [
   {
@@ -117,8 +118,8 @@ const relatedLabels: Record<string, Partial<Record<Lang, [string, string]>> & { 
           <div class="grid-2">
             {related.map((r) => (
               <a class="card" href={linkOf(r, lang)}>
-                <h3>{(relatedLabels[r][lang] ?? relatedLabels[r].en)[0]}</h3>
-                <p>{(relatedLabels[r][lang] ?? relatedLabels[r].en)[1]}</p>
+                <h3>{(relatedLabels[r][lang] ?? packs[lang]?.related[r] ?? relatedLabels[r].en)[0]}</h3>
+                <p>{(relatedLabels[r][lang] ?? packs[lang]?.related[r] ?? relatedLabels[r].en)[1]}</p>
               </a>
             ))}
           </div>

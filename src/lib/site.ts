@@ -1,6 +1,15 @@
-export type Lang = 'es' | 'en' | 'de' | 'fr';
-export const LANGS: Lang[] = ['es', 'en', 'de', 'fr'];
-export const LANG_NAMES: Record<Lang, string> = { es: 'Español', en: 'English', de: 'Deutsch', fr: 'Français' };
+import { packs } from '../i18n';
+
+export type Lang = 'es' | 'en' | 'de' | 'fr' | 'ja' | 'pt' | 'it' | 'nl' | 'zh';
+export const LANGS: Lang[] = ['es', 'en', 'de', 'fr', 'pt', 'it', 'nl', 'ja', 'zh'];
+export const LANG_NAMES: Record<Lang, string> = {
+  es: 'Español', en: 'English', de: 'Deutsch', fr: 'Français',
+  pt: 'Português', it: 'Italiano', nl: 'Nederlands', ja: '日本語', zh: '繁體中文',
+};
+/** BCP-47 tag for <html lang> and hreflang. */
+export const htmlLangOf = (l: Lang): string => packs[l]?.htmlLang ?? l;
+/** Locale for dates and numbers. */
+export const localeOf = (l: Lang): string => packs[l]?.locale ?? ({ es: 'es-ES', en: 'en-US', de: 'de-DE', fr: 'fr-FR' } as Record<string, string>)[l];
 
 export const APP_ID = '6813226836';
 export const APP_STORE_URL = `https://apps.apple.com/app/id${APP_ID}`;
@@ -48,8 +57,17 @@ export const routes = {
 
 export type RouteKey = keyof typeof routes;
 
+// Pages of the pack languages (ja, pt, it, nl, zh) come from their packs.
+for (const [lang, pack] of Object.entries(packs)) {
+  for (const [key, path] of Object.entries(pack?.routes ?? {})) {
+    if (path) ((routes as Record<string, Record<string, string>>)[key] ??= {} as never)[lang] = path;
+  }
+}
+
 /** Path of a page in a language, or undefined when that version doesn't exist yet. */
 export const pathOf = (key: RouteKey, lang: Lang): string | undefined => (routes[key] as Partial<Record<Lang, string>>)[lang];
+/** Home of a language, or the English home when that language has no pages yet. */
+export const homeOf = (lang: Lang): string => pathOf('home', lang) ?? routes.home.en;
 
 /** Where to link a page from `lang`: its own version, else English, else Spanish. */
 export const linkOf = (key: RouteKey, lang: Lang): string => pathOf(key, lang) ?? pathOf(key, 'en') ?? routes[key].es;
@@ -195,4 +213,6 @@ export const ui = {
     related: 'Pour aller plus loin',
     breadcrumbHome: 'Accueil',
   },
-} as const;
+} as Record<string, any>;
+
+for (const [lang, pack] of Object.entries(packs)) if (pack) ui[lang] = pack.ui;

@@ -6,8 +6,13 @@ import { lessons, type Lesson } from './course';
 import { lessonsEn } from './course-en';
 import { lessonsDe } from './course-de';
 import { lessonsFr } from './course-fr';
+import { lessonsJa } from './course-ja';
+import { lessonsPt } from './course-pt';
+import { lessonsIt } from './course-it';
+import { lessonsNl } from './course-nl';
+import { lessonsZh } from './course-zh';
 
-export const courses: Record<Lang, Lesson[]> = { es: lessons, en: lessonsEn, de: lessonsDe, fr: lessonsFr };
+export const courses: Record<Lang, Lesson[]> = { es: lessons, en: lessonsEn, de: lessonsDe, fr: lessonsFr, ja: lessonsJa, pt: lessonsPt, it: lessonsIt, nl: lessonsNl, zh: lessonsZh };
 
 export function lessonAlternates(i: number): Partial<Record<Lang, string>> {
   const out: Partial<Record<Lang, string>> = {};

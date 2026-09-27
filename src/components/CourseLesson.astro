@@ -1,4 +1,5 @@
 ---
+import { packs } from '../i18n';
 import Base from '../layouts/Base.astro';
 import Quiz from './Quiz.astro';
 import AppCTA from './AppCTA.astro';
@@ -21,7 +22,7 @@ const T = ({
       ctaT: 'Mit Korrektur üben', ctaX: 'In der Veintiuno-App hat jede Lektion ihre Übung und ihren Test – mit echten Händen und einer Erklärung zu jedem Fehler.', courseName: 'Kostenloser Blackjack-Kurs' },
   fr: { home: 'Accueil', course: 'Cours de blackjack', lesson: 'Leçon', of: 'sur', key: 'L’essentiel :', prev: '← Précédente', index: '← Sommaire', next: 'Suivante →', after: 'Et maintenant →', chart: 'Le tableau de stratégie complet',
       ctaT: 'Pratiquez avec correction', ctaX: 'Dans l’app Veintiuno, chaque leçon a son exercice et son examen, avec de vraies mains et l’explication de chaque erreur.', courseName: 'Cours de blackjack gratuit' },
-})[lang];
+} as Record<string, any>)[lang] ?? packs[lang]!.courseLesson;
 const schema = [
   {
     '@context': 'https://schema.org', '@type': 'Article', headline: lesson.h1, description: lesson.description, inLanguage: lang,

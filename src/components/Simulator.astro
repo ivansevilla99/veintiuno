@@ -1,4 +1,5 @@
 ---
+import { packs } from '../i18n';
 import { campaignURL } from '../lib/site';
 interface Props { lang?: 'es' | 'en' | 'de' | 'fr' }
 const { lang = 'es' } = Astro.props;
@@ -16,7 +17,7 @@ const T = ({
   fr: { aria: 'Table d’entraînement au blackjack', table: 'Table', spain: 'Casino espagnol', s17: 'Las Vegas (S17)', h17: 'Las Vegas (H17)', eu: 'Européenne / en ligne', accT: 'Décisions correctes', acc: 'de réussite', strT: 'Série de décisions correctes', str: 'série', reset: 'Remettre à zéro', dealer: 'Croupier',
         hit: 'Tirer', stand: 'Rester', double: 'Doubler', split: 'Séparer', surrender: 'Abandonner', deal: 'Distribuer', space: 'Espace', keys: ['T', 'R', 'D', 'S', 'A'],
         nudge1: 'Vous avez joué', nudge2: 'mains.', nudge3: 'L’app Veintiuno ajoute le cours de 14 jours, une carte des cases où vous vous trompez le plus et le conseiller de mains.', see: 'Voir l’app →' },
-} as const)[lang];
+} as Record<string, any>)[lang] ?? packs[lang]!.simT;
 // Texts the table needs while playing (read by the script below).
 const W = ({
   es: { name: { hit: 'pedir', stand: 'plantarse', double: 'doblar', split: 'dividir', surrender: 'rendirse' }, res: { blackjack: '¡Blackjack!', win: 'Ganas', push: 'Empate', lose: 'Pierdes', bust: 'Te pasas', surrender: 'Te rindes' },
@@ -27,7 +28,7 @@ const W = ({
         hidden: 'Verdeckte Karte', bj: 'Blackjack', bust: 'überkauft', doubled: 'verdoppelt', of: 'von', won: 'gewonnen', good: 'Richtig', was: 'Richtig wäre:', pct: ' %', rules: 'europeanOnline', keys: { h: 'hit', s: 'stand', d: 'double', p: 'split', r: 'surrender' } },
   fr: { name: { hit: 'tirer', stand: 'rester', double: 'doubler', split: 'séparer', surrender: 'abandonner' }, res: { blackjack: 'Blackjack !', win: 'Gagné', push: 'Égalité', lose: 'Perdu', bust: 'Vous sautez', surrender: 'Abandon' },
         hidden: 'Carte cachée', bj: 'Blackjack', bust: 'saute', doubled: 'doublée', of: 'sur', won: 'gagnées', good: 'Bien', was: 'Il fallait', pct: ' %', rules: 'europeanOnline', keys: { t: 'hit', r: 'stand', d: 'double', s: 'split', a: 'surrender' } },
-} as const)[lang];
+} as Record<string, any>)[lang] ?? packs[lang]!.simW;
 ---
 <section class="sim" data-sim data-lang={lang} data-w={JSON.stringify(W)} aria-label={T.aria}>
   <div class="sim-top">
