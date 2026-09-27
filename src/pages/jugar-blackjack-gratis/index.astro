@@ -1,0 +1,59 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import Simulator from '../../components/Simulator.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Se puede jugar al blackjack gratis sin registrarse?', a: 'Sí. Esta mesa funciona en el navegador, sin registro, sin descargar nada y sin dinero real. Tu porcentaje de aciertos se guarda solo en tu navegador.' },
+  { q: '¿En qué se diferencia de jugar gratis en un casino online?', a: 'Los modos gratuitos de los casinos están pensados para que acabes jugando con dinero y no te dicen si has jugado bien. Esta mesa no tiene dinero ni apuestas y te corrige cada decisión con la jugada correcta para las reglas que elijas.' },
+  { q: '¿Qué reglas usa la mesa?', a: 'Las que elijas: casino en España (sin carta oculta, doblar con 9–11, sin rendición), Las Vegas con el crupier plantándose o pidiendo con 17 blando, o europea/online. Siempre 6 barajas, barajando al llegar a tres cuartos del zapato.' },
+  { q: '¿Por qué me corrige aunque haya ganado la mano?', a: 'Porque el resultado de una mano depende de la suerte y la decisión no. Puedes plantarte con 16 contra un 10 y ganar porque el crupier se pasa, pero a la larga esa jugada pierde más que pedir. La corrección te enseña la decisión correcta, no el resultado.' },
+];
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Mesa de blackjack gratis con corrección',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web',
+  inLanguage: 'es',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: 0, priceCurrency: 'EUR' },
+  url: 'https://veintiunoapp.com/jugar-blackjack-gratis/',
+}];
+---
+<Guide
+  lang="es"
+  route="simulator"
+  title="Jugar al blackjack gratis, sin registro y con corrección"
+  h1="Jugar al blackjack gratis"
+  description="Juega al blackjack gratis en el navegador, sin registro y sin dinero real, con la corrección de cada jugada: reglas de casino español, Las Vegas u online."
+  updated="2026-09-27"
+  faq={faq}
+  related={['strategy', 'course', 'hand16v10', 'app']}
+  extraSchema={schema}
+  wide
+>
+  <div slot="top">
+    <p class="lead" style="margin-top:0">Una mesa de práctica <strong>gratis, sin registro y sin dinero real</strong>. Después de cada decisión te dice si era la jugada correcta y por qué, con la estrategia básica de la mesa que elijas.</p>
+  </div>
+
+  <div slot="wide" style="max-width:820px">
+    <Simulator />
+  </div>
+
+  <h2 id="como">Cómo funciona</h2>
+  <ul>
+    <li><strong>Elige la mesa:</strong> casino en España, Las Vegas (S17 o H17) o europea/online. La estrategia correcta cambia con las reglas.</li>
+    <li><strong>Reparte y decide:</strong> pedir, plantarte, doblar, dividir o rendirte. Solo se activan las opciones que permite la mesa en cada momento.</li>
+    <li><strong>Mira la corrección:</strong> en verde si has acertado; en rojo, la jugada correcta y la explicación.</li>
+    <li>En ordenador puedes jugar con el teclado: <kbd>P</kbd> pedir, <kbd>S</kbd> plantarse, <kbd>D</kbd> doblar, <kbd>V</kbd> dividir, <kbd>R</kbd> rendirse y <kbd>Espacio</kbd> para repartir.</li>
+  </ul>
+
+  <h2 id="por-que">Por qué practicar con corrección</h2>
+  <p>Jugando sin corrección aprendes lo contrario de lo que deberías: una mala jugada que sale bien se queda como «la buena». Aquí cada decisión se compara con la <a href={routes.strategy.es}>estrategia básica</a>, que es la jugada que menos pierde a largo plazo, y te explica por qué.</p>
+  <p>Cuando aciertes más del 95 % de las decisiones, juegas mejor que la inmensa mayoría de la gente que se sienta en una mesa. Si fallas siempre las mismas manos, repasa el <a href={routes.course.es}>curso gratis</a> o la guía de <a href={routes.hand16v10.es}>16 contra 10</a>.</p>
+
+  <h2 id="sin-dinero">Sin dinero, sin casinos</h2>
+  <p>Esta mesa no tiene apuestas ni fichas, no enlaza a ningún casino y no guarda nada fuera de tu navegador. Es para aprender. Si el juego te está costando más de lo que quieres, tienes ayuda en <a href={routes.responsible.es}>juego responsable</a>.</p>
+</Guide>

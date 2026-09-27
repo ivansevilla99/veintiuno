@@ -1,0 +1,212 @@
+---
+import { campaignURL } from '../lib/site';
+const appLink = campaignURL('es-simulator');
+---
+<section class="sim" data-sim aria-label="Mesa de blackjack para practicar">
+  <div class="sim-top">
+    <label class="sim-rules">Mesa
+      <select data-rules>
+        <option value="spainCasino">Casino en España</option>
+        <option value="vegasS17">Las Vegas (S17)</option>
+        <option value="vegasH17">Las Vegas (H17)</option>
+        <option value="europeanOnline">Europea / online</option>
+      </select>
+    </label>
+    <div class="sim-stats" aria-live="polite">
+      <span title="Decisiones correctas"><b data-acc>—</b> aciertos</span>
+      <span title="Racha de decisiones correctas"><b data-streak>0</b> racha</span>
+      <button type="button" class="sim-reset" data-reset title="Poner a cero">↺</button>
+    </div>
+  </div>
+
+  <div class="felt">
+    <div class="row dealer">
+      <span class="lbl">Crupier <em data-dtotal></em></span>
+      <div class="cards" data-dealer></div>
+    </div>
+    <div class="result" data-result aria-live="polite"></div>
+    <div class="row player" data-player></div>
+  </div>
+
+  <div class="feedback" data-feedback aria-live="polite" hidden></div>
+
+  <div class="actions" data-actions>
+    <button type="button" data-a="hit">Pedir <kbd>P</kbd></button>
+    <button type="button" data-a="stand">Plantarse <kbd>S</kbd></button>
+    <button type="button" data-a="double">Doblar <kbd>D</kbd></button>
+    <button type="button" data-a="split">Dividir <kbd>V</kbd></button>
+    <button type="button" data-a="surrender">Rendirse <kbd>R</kbd></button>
+  </div>
+  <button type="button" class="deal btn btn-gold" data-deal>Repartir <kbd>Espacio</kbd></button>
+
+  <aside class="sim-nudge" data-nudge hidden>
+    <b>Llevas <span data-nhands>20</span> manos.</b> En la app de Veintiuno tienes el curso de 14 días, el mapa de calor con las casillas que más fallas y el consultor de manos.
+    <a href={appLink} rel="noopener">Ver la app →</a>
+  </aside>
+</section>
+
+<style is:global>
+  .sim { margin: 24px 0 8px; }
+  .sim-top { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .sim-rules { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 14px; }
+  .sim-rules select { font: inherit; font-size: 15px; color: var(--text); background: var(--panel-2); border: 1px solid var(--line-strong); border-radius: 12px; padding: 8px 10px; }
+  .sim-stats { display: flex; gap: 16px; align-items: center; font-size: 14px; color: var(--muted); }
+  .sim-stats b { color: var(--gold); font-size: 17px; margin-right: 4px; font-variant-numeric: tabular-nums; }
+  .sim-reset { background: none; border: 1px solid var(--line-strong); color: var(--muted); border-radius: 99px; width: 30px; height: 30px; cursor: pointer; }
+  .felt { position: relative; border-radius: 28px; padding: 22px 18px 26px; min-height: 380px; display: grid; grid-template-rows: auto 1fr auto; gap: 8px;
+    background: radial-gradient(900px 420px at 50% 0%, #11574a, var(--felt-deep) 70%); border: 1px solid rgba(237,194,92,.25); box-shadow: inset 0 0 60px rgba(0,0,0,.35); }
+  .row { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .lbl { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.55); font-weight: 700; }
+  .lbl em { font-style: normal; color: var(--text); margin-left: 6px; letter-spacing: 0; }
+  .cards { display: flex; min-height: 112px; }
+  .card-el { width: 76px; height: 108px; border-radius: 10px; background: var(--card); color: var(--card-ink); position: relative; margin-left: -26px; box-shadow: 0 8px 22px rgba(0,0,0,.4); font-family: var(--font-display); animation: dealin .28s cubic-bezier(.2,.8,.2,1) both; }
+  .card-el:first-child { margin-left: 0; }
+  .card-el.red { color: var(--red); }
+  .card-el .c { position: absolute; top: 6px; left: 8px; font-weight: 800; font-size: 20px; line-height: 1; text-align: center; }
+  .card-el .c i { display: block; font-style: normal; font-size: 16px; }
+  .card-el .p { position: absolute; right: 8px; bottom: 6px; font-size: 34px; line-height: 1; }
+  .card-el.back { background: repeating-linear-gradient(45deg, #8c1f29 0 7px, #7a1a23 7px 14px); border: 5px solid var(--card); }
+  @keyframes dealin { from { opacity: 0; transform: translate(40px, -60px) rotate(8deg); } }
+  .result { align-self: center; text-align: center; font: 800 30px/1.1 var(--font-display); min-height: 36px; }
+  .result.win { color: var(--correct); } .result.lose { color: var(--wrong); } .result.push { color: var(--text-2); }
+  .player { flex-direction: row; justify-content: center; gap: 22px; flex-wrap: wrap; }
+  .phand { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px; border-radius: 16px; border: 2px solid transparent; }
+  .phand.active { border-color: rgba(237,194,92,.7); background: rgba(237,194,92,.06); }
+  .phand .tot { font-size: 13px; font-weight: 700; color: var(--text); background: rgba(0,0,0,.35); padding: 3px 10px; border-radius: 99px; }
+  .phand .tot.bad { color: var(--wrong); } .phand .tot.good { color: var(--correct); }
+  .feedback { margin: 12px 0 0; padding: 12px 16px; border-radius: 14px; font-size: 15px; }
+  .feedback.ok { background: rgba(92,214,140,.1); border: 1px solid rgba(92,214,140,.4); color: var(--text-2); }
+  .feedback.ko { background: rgba(242,97,92,.1); border: 1px solid rgba(242,97,92,.5); color: var(--text); }
+  .feedback b { display: block; margin-bottom: 2px; }
+  .feedback.ok b { color: var(--correct); } .feedback.ko b { color: var(--wrong); }
+  .actions { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 12px; }
+  .actions button { font: 700 15px/1.1 var(--font); padding: 14px 6px; border-radius: 14px; border: 1px solid var(--line-strong); background: var(--panel-2); color: var(--text); cursor: pointer; }
+  .actions button:hover:not(:disabled) { border-color: var(--gold); }
+  .actions button:disabled { opacity: .3; cursor: default; }
+  kbd { display: inline-block; font: 600 11px/1 var(--font); color: var(--muted); border: 1px solid var(--line-strong); border-radius: 5px; padding: 2px 5px; margin-left: 4px; vertical-align: middle; }
+  .deal { width: 100%; margin-top: 10px; }
+  .deal kbd { color: #5a4613; border-color: rgba(0,0,0,.25); }
+  .sim-nudge { margin-top: 14px; padding: 14px 16px; border-radius: 14px; background: linear-gradient(135deg, rgba(237,194,92,.14), rgba(237,194,92,.04)); border: 1px solid rgba(237,194,92,.35); font-size: 15px; color: var(--text-2); }
+  .sim-nudge a { font-weight: 700; margin-left: 4px; }
+  @media (max-width: 560px) {
+    .actions { grid-template-columns: repeat(3, 1fr); }
+    kbd { display: none; }
+    .card-el { width: 62px; height: 88px; margin-left: -22px; } .card-el .p { font-size: 26px; } .card-el .c { font-size: 17px; }
+    .felt { min-height: 340px; padding: 18px 10px 20px; }
+  }
+</style>
+
+<script>
+  import { presets, type Action, type Rules } from '../lib/strategy';
+  import { explain } from '../lib/explain';
+  import { Shoe, Round, total, isBlackjack, type Card, type Outcome } from '../lib/game';
+
+  const NAME: Record<Action, string> = { hit: 'pedir', stand: 'plantarse', double: 'doblar', split: 'dividir', surrender: 'rendirse' };
+  const KEYS: Record<string, Action> = { p: 'hit', h: 'hit', s: 'stand', d: 'double', v: 'split', r: 'surrender' };
+  const RESULT: Record<Outcome, [string, string]> = {
+    blackjack: ['¡Blackjack!', 'win'], win: ['Ganas', 'win'], push: ['Empate', 'push'], lose: ['Pierdes', 'lose'], bust: ['Te pasas', 'lose'], surrender: ['Te rindes', 'push'],
+  };
+
+  const root = document.querySelector<HTMLElement>('[data-sim]')!;
+  const $ = <T extends HTMLElement>(s: string) => root.querySelector<T>(s)!;
+  const store = {
+    get(k: string, d: number) { try { return Number(localStorage.getItem(`vt-sim-${k}`) ?? d); } catch { return d; } },
+    set(k: string, v: number | string) { try { localStorage.setItem(`vt-sim-${k}`, String(v)); } catch {} },
+    getS(k: string) { try { return localStorage.getItem(`vt-sim-${k}`); } catch { return null; } },
+  };
+
+  let rulesKey = store.getS('rules') ?? 'spainCasino';
+  if (!presets[rulesKey]) rulesKey = 'spainCasino';
+  let rules: Rules = presets[rulesKey];
+  let shoe = new Shoe(rules.decks);
+  let round: Round | null = null;
+  let right = store.get('right', 0), total_ = store.get('total', 0), streak = store.get('streak', 0), hands = store.get('hands', 0);
+  let nudged = false;
+
+  $<HTMLSelectElement>('[data-rules]').value = rulesKey;
+
+  const cardHTML = (c: Card | null) => {
+    if (!c) return '<div class="card-el back" aria-label="Carta oculta"></div>';
+    const red = c.suit === '♥' || c.suit === '♦';
+    return `<div class="card-el${red ? ' red' : ''}" aria-label="${c.rank}${c.suit}"><span class="c">${c.rank}<i>${c.suit}</i></span><span class="p">${c.suit}</span></div>`;
+  };
+
+  function stats() {
+    $('[data-acc]').textContent = total_ ? `${Math.round((100 * right) / total_)} %` : '—';
+    $('[data-streak]').textContent = String(streak);
+  }
+
+  function render() {
+    const dealerEl = $('[data-dealer]'), playerEl = $('[data-player]');
+    if (!round) { dealerEl.innerHTML = ''; playerEl.innerHTML = ''; $('[data-dtotal]').textContent = ''; }
+    else {
+      const showAll = round.finished;
+      const dcards: (Card | null)[] = showAll ? round.dealer : [round.dealer[0], ...(rules.holeCard ? [null] : [])];
+      dealerEl.innerHTML = dcards.map(cardHTML).join('');
+      const dt = total(showAll ? round.dealer : [round.dealer[0]]);
+      $('[data-dtotal]').textContent = showAll && isBlackjack(round.dealer) ? 'Blackjack' : dt.total > 21 ? `${dt.total} · se pasa` : `${dt.soft && dt.total < 21 ? dt.total - 10 + '/' : ''}${dt.total}`;
+      playerEl.innerHTML = round.player.map((h, i) => {
+        const t = total(h.cards);
+        const label = isBlackjack(h.cards) && round!.player.length === 1 ? 'Blackjack' : t.total > 21 ? (round!.finished ? `${t.total}` : `${t.total} · se pasa`) : `${t.soft && t.total < 21 ? t.total - 10 + '/' : ''}${t.total}`;
+        const out = round!.finished ? round!.outcomes[i] : null;
+        const cls = out ? (RESULT[out][1] === 'win' ? 'good' : RESULT[out][1] === 'lose' ? 'bad' : '') : '';
+        const active = !round!.finished && i === round!.active && round!.player.length > 1 ? ' active' : '';
+        return `<div class="phand${active}"><div class="cards">${h.cards.map(cardHTML).join('')}</div><span class="tot ${cls}">${label}${h.bet === 2 ? ' · doblada' : ''}${out ? ' · ' + RESULT[out][0] : ''}</span></div>`;
+      }).join('');
+    }
+    const res = $('[data-result]');
+    if (round?.finished) {
+      const outs = round.outcomes;
+      const main = outs.length === 1 ? RESULT[outs[0]] : [`${outs.filter((o) => RESULT[o][1] === 'win').length} de ${outs.length} ganadas`, 'push'];
+      res.textContent = main[0]; res.className = `result ${main[1]}`;
+    } else { res.textContent = ''; res.className = 'result'; }
+    const avail = round && !round.finished ? round.available() : new Set<Action>();
+    root.querySelectorAll<HTMLButtonElement>('[data-a]').forEach((b) => (b.disabled = !avail.has(b.dataset.a as Action)));
+    $<HTMLButtonElement>('[data-deal]').disabled = !!round && !round.finished;
+  }
+
+  function deal() {
+    if (round && !round.finished) return;
+    if (shoe.needsShuffle()) shoe.shuffle();
+    $('[data-feedback]').hidden = true;
+    round = new Round(shoe, rules);
+    if (round.finished) { hands++; store.set('hands', hands); }
+    render();
+  }
+
+  function act(a: Action) {
+    if (!round || round.finished || !round.available().has(a)) return;
+    const correct = round.correct();
+    const key = round.key(), up = round.upcard;
+    const ok = a === correct;
+    total_++; if (ok) { right++; streak++; } else streak = 0;
+    store.set('right', right); store.set('total', total_); store.set('streak', streak);
+    const fb = $('[data-feedback]');
+    fb.hidden = false;
+    fb.className = `feedback ${ok ? 'ok' : 'ko'}`;
+    const why = explain(key, up, correct, rules, 'es');
+    fb.innerHTML = ok ? `<b>Bien: ${NAME[a]}.</b>${why}` : `<b>La jugada era ${NAME[correct]}.</b>${why}`;
+    round.perform(a);
+    if (round.finished) {
+      hands++; store.set('hands', hands);
+      if (!nudged && hands >= 20 && hands % 20 === 0) { nudged = true; $('[data-nhands]').textContent = String(hands); $('[data-nudge]').hidden = false; }
+    }
+    stats(); render();
+  }
+
+  root.querySelectorAll<HTMLButtonElement>('[data-a]').forEach((b) => b.addEventListener('click', () => act(b.dataset.a as Action)));
+  $('[data-deal]').addEventListener('click', deal);
+  $('[data-reset]').addEventListener('click', () => { right = total_ = streak = 0; ['right', 'total', 'streak'].forEach((k) => store.set(k, 0)); stats(); });
+  $<HTMLSelectElement>('[data-rules]').addEventListener('change', (e) => {
+    rulesKey = (e.target as HTMLSelectElement).value; store.set('rules', rulesKey);
+    rules = presets[rulesKey]; shoe = new Shoe(rules.decks); round = null; $('[data-feedback]').hidden = true; render();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement).closest('input, select, textarea')) return;
+    if (e.key === ' ' || e.key === 'Enter') { if (!round || round.finished) { e.preventDefault(); deal(); } return; }
+    const a = KEYS[e.key.toLowerCase()];
+    if (a) act(a);
+  });
+
+  stats(); render();
+</script>

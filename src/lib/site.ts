@@ -29,6 +29,7 @@ export const routes = {
   support: { es: '/soporte/', en: '/en/support/' },
   // Spanish-only for now: the English versions come after Search Console shows what works.
   course: { es: '/curso-blackjack/' },
+  simulator: { es: '/jugar-blackjack-gratis/' },
   hand16v10: { es: '/16-contra-10-blackjack/' },
   whenDouble: { es: '/cuando-doblar-blackjack/' },
   whenSplit: { es: '/cuando-dividir-blackjack/' },
@@ -49,6 +50,7 @@ export const ui = {
     htmlLang: 'es',
     ogLocale: 'es_ES',
     nav: [
+      ['simulator', 'Jugar gratis'],
       ['strategy', 'Estrategia'],
       ['howToPlay', 'Cómo jugar'],
       ['counting', 'Contar cartas'],
@@ -57,7 +59,7 @@ export const ui = {
     otherLang: 'English',
     download: 'Descargar la app',
     downloadShort: 'Descargar',
-    downloadLong: ' la app',
+    downloadLong: '\u00a0la app',
     appStoreSmall: 'Descárgala en el',
     appStoreBig: 'App Store',
     ctaTitle: 'Practica cada decisión hasta que salga sola',
@@ -91,7 +93,7 @@ export const ui = {
     otherLang: 'Español',
     download: 'Get the app',
     downloadShort: 'Get',
-    downloadLong: ' the app',
+    downloadLong: '\u00a0the app',
     appStoreSmall: 'Download on the',
     appStoreBig: 'App Store',
     ctaTitle: 'Drill every decision until it’s automatic',
