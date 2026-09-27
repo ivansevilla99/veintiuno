@@ -1,0 +1,71 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'When should you double down in blackjack?', a: 'With 11 against anything except an ace; with 10 against 2 through 9; with 9 against 3 through 6; and, if the table lets you double on any two cards, with several soft hands (A-2 through A-7) against the dealer’s weak upcards. In Spanish casinos you can only double on 9, 10 or 11.' },
+  { q: 'Do you double 11 against an ace?', a: 'It depends on the rules. If the dealer stands on soft 17 (S17), you hit; if the dealer hits soft 17 (H17), you double. At a European table with no hole card, you always hit.' },
+  { q: 'Can you double down after hitting?', a: 'No. You can only double on your first two cards (or the first two cards of a split hand, if the table allows doubling after splitting). Once you’ve hit, you can only hit or stand.' },
+  { q: 'Why double A-7 against a 6?', a: 'Because soft 18 can’t bust on one card, and a dealer showing a 6 is at their weakest: they bust about 42% of the time. Doubling turns that edge into twice the money.' },
+];
+---
+<Guide
+  lang="en"
+  route="whenDouble"
+  title="When to Double Down in Blackjack: Every Hand"
+  h1="When to double down in blackjack"
+  description="When to double down in blackjack: 9, 10, 11 and soft hands, against which dealer upcards, what changes with H17 and no-hole-card rules, and the EV of each case."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenSplit', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> double <strong>11</strong> against everything but an ace, <strong>10</strong> against 2–9 and <strong>9</strong> against 3–6. If the table lets you double on any two cards, also double <strong>A-2 through A-7</strong> against the dealer’s weak upcards. Doubling means betting more when you have the edge — never to “win it back.”</p></div>
+  </div>
+
+  <h2 id="what">What doubling down is and why it makes money</h2>
+  <p>Doubling down means doubling your bet in exchange for <strong>exactly one more card</strong>. You do it on hands where you’re already ahead: your starting total is good and the dealer is weak. On those hands you win more often than you lose, so betting twice as much multiplies an edge you already have.</p>
+  <p>Here’s an example with numbers: 11 against a 6. Hitting is worth +0.34 bets on average; doubling, +0.68. Doubling doesn’t make you win more often, but when you win, you get paid twice as much.</p>
+  <EVTable lang="en" cards={[6, 5]} up={6} tables={['vegasS17', 'spainCasino']} />
+
+  <h2 id="hard">Hard hands</h2>
+  <table>
+    <thead><tr><th>Your hand</th><th>Double against</th><th>Otherwise…</th></tr></thead>
+    <tbody>
+      <tr><td>11</td><td>2 through 10 (and ace with H17)</td><td>hit</td></tr>
+      <tr><td>10</td><td>2 through 9</td><td>hit</td></tr>
+      <tr><td>9</td><td>3 through 6 (and 2 with one or two decks)</td><td>hit</td></tr>
+      <tr><td>8 or less</td><td>never</td><td>hit</td></tr>
+    </tbody>
+  </table>
+  <p>The most debated case is <strong>11 against an ace</strong>. Under S17 rules hitting and doubling are very close, and hitting wins by a hair; under H17, doubling moves ahead:</p>
+  <EVTable lang="en" cards={[6, 5]} up={1} tables={['vegasS17', 'vegasH17', 'spainCasino']} />
+  <p>At a no-hole-card table like those in Spanish casinos, doubling against an ace is clearly worse: if the dealer has blackjack, you lose double.</p>
+
+  <h2 id="soft">Soft hands</h2>
+  <p>Only at tables that let you double on any two cards:</p>
+  <table>
+    <thead><tr><th>Your hand</th><th>Double against</th><th>Otherwise…</th></tr></thead>
+    <tbody>
+      <tr><td>A-2, A-3</td><td>5 and 6</td><td>hit</td></tr>
+      <tr><td>A-4, A-5</td><td>4 through 6</td><td>hit</td></tr>
+      <tr><td>A-6</td><td>3 through 6</td><td>hit</td></tr>
+      <tr><td>A-7</td><td>3 through 6 (and 2 with H17)</td><td>stand</td></tr>
+      <tr><td>A-8</td><td>6 only with H17</td><td>stand</td></tr>
+    </tbody>
+  </table>
+  <p>A-7 against a 6 is the best example: standing is worth +0.28, but doubling is worth +0.38.</p>
+  <EVTable lang="en" cards={[1, 7]} up={6} tables={['vegasS17']} caption="A-7 vs 6: stand or double" />
+
+  <h2 id="spain">In Spanish casinos</h2>
+  <p>You can only double on 9, 10 or 11, so every soft double disappears, and with no hole card you don’t double 11 against a 10 or an ace. It’s all covered in <a href={routes.spain.en}>blackjack rules in Spain</a>.</p>
+
+  <h2 id="mistakes">The costliest doubling mistakes</h2>
+  <ul>
+    <li><strong>Not doubling 11 against a 10</strong> at a hole-card table: you give up about 0.06 of a bet per hand.</li>
+    <li><strong>Doubling to win it back</strong> after a loss: the decision depends on your hand and the dealer’s upcard, never on how your session is going.</li>
+    <li><strong>Doubling 12 or more:</strong> you bust too often with a single card.</li>
+  </ul>
+</Guide>

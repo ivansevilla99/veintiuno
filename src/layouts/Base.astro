@@ -8,24 +8,30 @@ interface Props {
   description: string;
   /** Page id in `routes`; drives canonical, hreflang and the language switch. */
   route?: RouteKey;
-  /** Path for pages that only exist in one language (canonical only). */
+  /** Path for pages outside `routes` (e.g. course lessons). */
   path?: string;
+  /** Path of the same page in the other language, for pages outside `routes`. */
+  alternate?: string;
   image?: string;
   type?: 'website' | 'article';
   schema?: object[];
   noindex?: boolean;
 }
 
-const { lang, title, description, route, path, image = '/og.png', type = 'website', schema = [], noindex = false } = Astro.props;
+const { lang, title, description, route, path, alternate, image = '/og.png', type = 'website', schema = [], noindex = false } = Astro.props;
 const t = ui[lang];
 const site = Astro.site!;
 const selfPath = (route && pathOf(route, lang)) || path || Astro.url.pathname;
 const canonical = new URL(selfPath, site).href;
-const langPaths = route ? (Object.entries(routes[route]) as [Lang, string][]) : [];
+const otherLangCode: Lang = lang === 'es' ? 'en' : 'es';
+const langPaths: [Lang, string][] = route
+  ? (Object.entries(routes[route]) as [Lang, string][])
+  : alternate ? [[lang, selfPathFrom()], [otherLangCode, alternate]] : [];
+function selfPathFrom() { return path ?? Astro.url.pathname; }
 // hreflang only makes sense when the page exists in more than one language.
 const alternates = langPaths.length > 1 ? langPaths.map(([l, p]) => ({ lang: l, href: new URL(p, site).href })) : [];
 const otherLang: Lang = lang === 'es' ? 'en' : 'es';
-const otherHref = (route && pathOf(route, otherLang)) || routes.home[otherLang];
+const otherHref = (route && pathOf(route, otherLang)) || alternate || routes.home[otherLang];
 const home = routes.home[lang];
 
 const orgSchema = {
@@ -97,8 +103,8 @@ const orgSchema = {
         </div>
         <nav class="footer-links" aria-label={lang === 'es' ? 'Legal' : 'Legal'}>
           {t.nav.map(([key, label]) => <a href={pathOf(key, lang)}>{label}</a>)}
-          {lang === 'es' && <a href={routes.course.es}>Curso gratis</a>}
-          {lang === 'es' && <a href={routes.data.es}>Datos y probabilidades</a>}
+          <a href={routes.course[lang]}>{lang === 'es' ? 'Curso gratis' : 'Free course'}</a>
+          <a href={routes.data[lang]}>{lang === 'es' ? 'Datos y probabilidades' : 'Blackjack data'}</a>
           {t.legal.map(([key, label]) => <a href={pathOf(key, lang)}>{label}</a>)}
         </nav>
       </div>

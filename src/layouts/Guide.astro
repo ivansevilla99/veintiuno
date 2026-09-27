@@ -23,7 +23,7 @@ const t = ui[lang];
 const site = Astro.site!;
 const url = new URL(pathOf(route, lang)!, site).href;
 const date = new Date(updated);
-const dateLabel = date.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const dateLabel = date.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' });
 
 const schema: object[] = [
   {
@@ -66,21 +66,21 @@ const relatedLabels: Record<string, Record<Lang, [string, string]>> = {
   spain: { es: ['Blackjack en los casinos de España', 'Sin carta oculta y doblando solo con 9, 10 u 11: qué cambia.'], en: ['Blackjack rules in Spain', 'No hole card, doubling on 9–11 only: what changes.'] },
   about: { es: ['Sobre Veintiuno', 'Quién hay detrás y de dónde salen las tablas.'], en: ['About Veintiuno', 'Who’s behind it and where the charts come from.'] },
   responsible: { es: ['Juego responsable', 'Señales de alerta y dónde pedir ayuda.'], en: ['Responsible gambling', 'Warning signs and where to get help.'] },
-  live: { es: ['Blackjack en vivo', 'Cómo funciona, qué reglas mirar y por qué contar apenas sirve.'], en: ['', ''] },
-  countingLegal: { es: ['¿Es ilegal contar cartas?', 'Qué dice la ley en España, México, Argentina y EE. UU.'], en: ['', ''] },
-  printable: { es: ['Tabla de estrategia en PDF', 'Para imprimir: España y Las Vegas.'], en: ['', ''] },
-  movie21: { es: ['La película 21 y el equipo del MIT', 'Qué es verdad y qué es de Hollywood.'], en: ['', ''] },
-  bj21: { es: ['¿Blackjack y 21 son lo mismo?', 'Diferencias entre el 21 casero y el blackjack de casino.'], en: ['', ''] },
-  simulator: { es: ['Jugar al blackjack gratis', 'Mesa de práctica con corrección de cada jugada, sin dinero.'], en: ['', ''] },
-  course: { es: ['Curso de blackjack gratis', '10 lecciones cortas, de las reglas al conteo, con ejercicios.'], en: ['', ''] },
-  hand16v10: { es: ['16 contra 10: ¿pedir o plantarse?', 'La mano más temida, con los números exactos.'], en: ['', ''] },
-  whenDouble: { es: ['Cuándo doblar en el blackjack', 'Todas las manos en las que doblar gana dinero.'], en: ['', ''] },
-  whenSplit: { es: ['Cuándo dividir en el blackjack', 'Qué parejas separar y contra qué carta.'], en: ['', ''] },
-  practiceCounting: { es: ['Cómo practicar el conteo de cartas', 'Un plan de ejercicios de menos a más.'], en: ['', ''] },
-  app: { es: ['La mejor app para aprender blackjack', 'Qué tipo de app te enseña de verdad.'], en: ['', ''] },
-  dataBust: { es: ['Probabilidad de que el crupier se pase', 'Tabla exacta por carta visible, S17 y H17.'], en: ['', ''] },
-  dataRules: { es: ['Cuánto cuesta cada regla', 'La ventaja de la casa según las reglas de la mesa.'], en: ['', ''] },
-  data: { es: ['Datos y probabilidades', 'Todas las tablas calculadas con el motor de Veintiuno.'], en: ['', ''] },
+  live: { es: ['Blackjack en vivo', 'Cómo funciona, qué reglas mirar y por qué contar apenas sirve.'], en: ['Live blackjack', 'How it works, which rules to check and why counting barely helps.'] },
+  countingLegal: { es: ['¿Es ilegal contar cartas?', 'Qué dice la ley en España, México, Argentina y EE. UU.'], en: ['Is card counting illegal?', 'What the law says in Spain, Mexico, Argentina and the US.'] },
+  printable: { es: ['Tabla de estrategia en PDF', 'Para imprimir: España y Las Vegas.'], en: ['Strategy chart PDF', 'Printable charts for Las Vegas, European and Spanish tables.'] },
+  movie21: { es: ['La película 21 y el equipo del MIT', 'Qué es verdad y qué es de Hollywood.'], en: ['The 21 movie and the MIT team', 'What’s true and what’s Hollywood.'] },
+  bj21: { es: ['¿Blackjack y 21 son lo mismo?', 'Diferencias entre el 21 casero y el blackjack de casino.'], en: ['Blackjack vs 21', 'How casino blackjack differs from home games of 21.'] },
+  simulator: { es: ['Jugar al blackjack gratis', 'Mesa de práctica con corrección de cada jugada, sin dinero.'], en: ['Play blackjack free', 'A practice table that corrects every decision, no money involved.'] },
+  course: { es: ['Curso de blackjack gratis', '10 lecciones cortas, de las reglas al conteo, con ejercicios.'], en: ['Free blackjack course', '10 short lessons with quizzes, from the rules to counting.'] },
+  hand16v10: { es: ['16 contra 10: ¿pedir o plantarse?', 'La mano más temida, con los números exactos.'], en: ['16 vs 10: hit or stand?', 'The most dreaded hand, with the exact numbers.'] },
+  whenDouble: { es: ['Cuándo doblar en el blackjack', 'Todas las manos en las que doblar gana dinero.'], en: ['When to double down', 'Every hand where doubling makes money.'] },
+  whenSplit: { es: ['Cuándo dividir en el blackjack', 'Qué parejas separar y contra qué carta.'], en: ['When to split', 'Which pairs to split and against what.'] },
+  practiceCounting: { es: ['Cómo practicar el conteo de cartas', 'Un plan de ejercicios de menos a más.'], en: ['How to practice card counting', 'A step-by-step drill plan.'] },
+  app: { es: ['La mejor app para aprender blackjack', 'Qué tipo de app te enseña de verdad.'], en: ['Best app to learn blackjack', 'What kind of app actually teaches you.'] },
+  dataBust: { es: ['Probabilidad de que el crupier se pase', 'Tabla exacta por carta visible, S17 y H17.'], en: ['Dealer bust probability', 'Exact table by upcard, S17 and H17.'] },
+  dataRules: { es: ['Cuánto cuesta cada regla', 'La ventaja de la casa según las reglas de la mesa.'], en: ['House edge by rules', 'What each table rule costs you.'] },
+  data: { es: ['Datos y probabilidades', 'Todas las tablas calculadas con el motor de Veintiuno.'], en: ['Blackjack data', 'All tables computed with the Veintiuno engine.'] },
 };
 ---
 <Base lang={lang} route={route} title={title} description={description} type="article" schema={schema}>

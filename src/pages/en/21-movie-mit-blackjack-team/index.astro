@@ -1,0 +1,51 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Is the movie 21 based on a true story?', a: 'Partly. It’s inspired by Ben Mezrich’s book “Bringing Down the House” (2003), about the MIT blackjack team, which really existed and made money counting cards as a team. But both the book and the movie dramatize and change a lot of the facts.' },
+  { q: 'Does what they do in 21 actually work?', a: 'The basic idea does: players count cards at several tables and signal a teammate, who comes in and bets big when the count is high. What isn’t realistic is how quick and easy winning looks, or how violent casino security is.' },
+  { q: 'What counting system do they use in 21?', a: 'The movie doesn’t get into technical details, but what it shows fits a simple Hi-Lo-style count, where low cards add and high cards subtract, combined with team play.' },
+  { q: 'Could the MIT team pull it off today?', a: 'It would be much harder. Casinos now shuffle earlier, use continuous shuffling machines, have cameras and recognition software, and share information about players. And online, counting doesn’t work.' },
+];
+---
+<Guide
+  lang="en"
+  route="movie21"
+  title="21 Movie True Story: The MIT Blackjack Team"
+  h1="The 21 movie and the MIT blackjack team: what’s true"
+  description="Is the movie 21 (2008) a true story? The real MIT blackjack team, how they counted cards as a team, what Hollywood changed and whether it could work today."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['counting', 'countingLegal', 'practiceCounting', 'howToWin']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>The short version:</strong> “21” (2008) is based on a real team of MIT students who made money counting cards as a team in casinos. The technique it shows is real: <strong>counters who signal a “big player”</strong> when the count is high. What isn’t real is how easy it looks — the book and the movie exaggerate and change many of the facts.</p></div>
+  </div>
+
+  <h2 id="true-story">The true story</h2>
+  <p>The MIT blackjack team was a group of students and alumni from the Massachusetts Institute of Technology and other universities who, from the late 1970s through the ’80s and ’90s, played blackjack using counting techniques in casinos in the United States and abroad. It ran almost like a business: investors, training, counting tests before anyone was allowed to play, and records of every result.</p>
+  <p>In 2003, journalist Ben Mezrich published “Bringing Down the House”, a book based on the experiences of some team members. The 2008 movie “21” adapts that book. Both take major liberties: composite characters, invented scenes and a story more dramatic than reality.</p>
+
+  <h2 id="technique">The technique: counting as a team</h2>
+  <p>The most accurate part of the movie is the team strategy, and it’s clever:</p>
+  <ol>
+    <li><strong>Spotters</strong> sit at several tables betting the minimum and keeping the count, without drawing attention.</li>
+    <li>When a table’s count climbs high (lots of high cards left), they call it in with <strong>discreet signals</strong>.</li>
+    <li><strong>The big player</strong> walks up to that table and bets big while the count is favorable, posing as a rich, carefree gambler.</li>
+  </ol>
+  <p>That way they avoid the easiest tell for a casino to spot: one player who goes from small bets to big bets as the shoe goes on. The math behind it is the same one we explain in <a href={routes.counting.en}>how to count cards</a>.</p>
+
+  <h2 id="hollywood">What Hollywood changed</h2>
+  <ul>
+    <li><strong>How easy winning looks.</strong> In the movie the money rolls in fast with hardly any losing streaks. In reality, even with an edge, the swings are huge and you have to ride out big losses.</li>
+    <li><strong>The violence.</strong> The beatings by casino security are dramatization. What usually happens when a casino spots a counter is that they’re asked to stop playing blackjack or to leave.</li>
+    <li><strong>The characters.</strong> They’re invented or blended versions of real people. The casting was controversial because much of the real team was Asian American, which the movie barely reflects.</li>
+    <li><strong>The classroom scenes.</strong> The famous Monty Hall problem in class is a screenwriting device to introduce the main character, not part of the team’s real story.</li>
+  </ul>
+
+  <h2 id="today">Could it be done today?</h2>
+  <p>It’s much harder than in the ’80s and ’90s. Casinos shuffle earlier, use continuous shuffling machines, have cameras and software that analyzes how each player bets, and share information. Online, counting doesn’t work because the deck is reshuffled every hand. Counting is still <a href={routes.countingLegal.en}>legal</a>, but making money that way is very different from what the movie shows.</p>
+  <p>If it got you curious, the first step is the same one the team members took: master <a href={routes.strategy.en}>basic strategy</a> without a single mistake, then <a href={routes.practiceCounting.en}>practice counting</a>.</p>
+</Guide>

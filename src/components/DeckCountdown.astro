@@ -1,24 +1,29 @@
 ---
+interface Props { lang?: 'es' | 'en' }
+const { lang = 'es' } = Astro.props;
+const T = lang === 'en'
+  ? { h: 'Drill: count down a full deck', p: 'All 52 cards come out one by one. Keep the Hi-Lo count. Stop whenever you like to check your count; if you reach the end, it must be 0.', speed: 'Speed', slow: 'Slow (1.2 s)', med: 'Medium (0.8 s)', fast: 'Fast (0.5 s)', casino: 'Casino (0.3 s)', start: 'Start', stop: 'Stop and check', yours: 'Your count', check: 'Check' }
+  : { h: 'Ejercicio: cuenta una baraja entera', p: 'Salen las 52 cartas una a una. Lleva la cuenta Hi-Lo. Puedes parar cuando quieras y comprobar tu cuenta; si llegas al final, debe dar 0.', speed: 'Velocidad', slow: 'Lenta (1,2 s)', med: 'Media (0,8 s)', fast: 'Rápida (0,5 s)', casino: 'Casino (0,3 s)', start: 'Empezar', stop: 'Parar y comprobar', yours: 'Tu cuenta', check: 'Comprobar' };
 ---
-<div class="deck-cd card" data-deck>
-  <h3>Ejercicio: cuenta una baraja entera</h3>
-  <p class="muted small">Salen las 52 cartas una a una. Lleva la cuenta Hi-Lo. Puedes parar cuando quieras y comprobar tu cuenta; si llegas al final, debe dar 0.</p>
+<div class="deck-cd card" data-deck data-lang={lang}>
+  <h3>{T.h}</h3>
+  <p class="muted small">{T.p}</p>
   <div class="dc-row">
-    <label>Velocidad
+    <label>{T.speed}
       <select data-speed>
-        <option value="1200">Lenta (1,2 s)</option>
-        <option value="800" selected>Media (0,8 s)</option>
-        <option value="500">Rápida (0,5 s)</option>
-        <option value="300">Casino (0,3 s)</option>
+        <option value="1200">{T.slow}</option>
+        <option value="800" selected>{T.med}</option>
+        <option value="500">{T.fast}</option>
+        <option value="300">{T.casino}</option>
       </select>
     </label>
-    <button type="button" class="btn btn-gold" data-start>Empezar</button>
-    <button type="button" class="btn btn-ghost" data-stop disabled>Parar y comprobar</button>
+    <button type="button" class="btn btn-gold" data-start>{T.start}</button>
+    <button type="button" class="btn btn-ghost" data-stop disabled>{T.stop}</button>
   </div>
   <div class="dc-stage"><span class="dc-card" data-card aria-live="off">?</span><span class="muted small" data-left></span></div>
   <form class="dc-row" data-form hidden>
-    <label>Tu cuenta <input type="number" step="1" inputmode="numeric" data-answer required /></label>
-    <button type="submit" class="btn btn-ghost">Comprobar</button>
+    <label>{T.yours} <input type="number" step="1" inputmode="numeric" data-answer required /></label>
+    <button type="submit" class="btn btn-ghost">{T.check}</button>
   </form>
   <p class="dc-result" data-result hidden></p>
 </div>
@@ -42,6 +47,7 @@
   const suits = ['♠', '♥', '♦', '♣'];
   const hilo = (r: string) => (['2', '3', '4', '5', '6'].includes(r) ? 1 : ['7', '8', '9'].includes(r) ? 0 : -1);
   document.querySelectorAll<HTMLElement>('[data-deck]').forEach((root) => {
+    const en = root.dataset.lang === 'en';
     const q = <T extends HTMLElement>(s: string) => root.querySelector<T>(s)!;
     const card = q<HTMLElement>('[data-card]'), left = q<HTMLElement>('[data-left]');
     const start = q<HTMLButtonElement>('[data-start]'), stop = q<HTMLButtonElement>('[data-stop]');
@@ -49,7 +55,7 @@
     let timer = 0, count = 0, shown = 0;
     const finish = () => {
       clearInterval(timer);
-      stop.disabled = true; start.disabled = false; start.textContent = 'Otra baraja';
+      stop.disabled = true; start.disabled = false; start.textContent = en ? 'Another deck' : 'Otra baraja';
       form.hidden = false; answer.value = ''; answer.focus();
     };
     start.addEventListener('click', () => {
@@ -64,7 +70,7 @@
         count += hilo(r);
         card.textContent = r + s;
         card.classList.toggle('red', s === '♥' || s === '♦');
-        left.textContent = `${deck.length - shown} cartas por salir`;
+        left.textContent = en ? `${deck.length - shown} cards to go` : `${deck.length - shown} cartas por salir`;
       }, speed);
     });
     stop.addEventListener('click', finish);
@@ -73,7 +79,10 @@
       const ok = Number(answer.value) === count;
       result.hidden = false;
       result.className = `dc-result ${ok ? 'ok' : 'ko'}`;
-      result.textContent = ok ? `¡Correcto! Cuenta ${count > 0 ? '+' : ''}${count} tras ${shown} cartas.` : `La cuenta era ${count > 0 ? '+' : ''}${count} tras ${shown} cartas.`;
+      const c = `${count > 0 ? '+' : ''}${count}`;
+      result.textContent = en
+        ? (ok ? `Correct! Count ${c} after ${shown} cards.` : `The count was ${c} after ${shown} cards.`)
+        : (ok ? `¡Correcto! Cuenta ${c} tras ${shown} cartas.` : `La cuenta era ${c} tras ${shown} cartas.`);
     });
   });
 </script>

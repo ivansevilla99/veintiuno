@@ -7,26 +7,26 @@ interface Props {
   up: number;
   tables?: (keyof typeof presets)[];
   caption?: string;
+  lang?: 'es' | 'en';
 }
-const { cards, up, tables = ['vegasS17', 'spainCasino'], caption } = Astro.props;
-const names: Record<string, string> = {
-  vegasS17: 'Las Vegas (S17, rendición)',
-  vegasH17: 'Las Vegas (H17, rendición)',
-  spainCasino: 'Casino en España (sin carta oculta)',
-  europeanOnline: 'Europea / online',
-  doubleDeck: 'Dos barajas',
-};
-const label: Record<ActionName, string> = { hit: 'Pedir', stand: 'Plantarse', double: 'Doblar', split: 'Dividir', surrender: 'Rendirse' };
+const { cards, up, tables = ['vegasS17', 'spainCasino'], caption, lang = 'es' } = Astro.props;
+const en = lang === 'en';
+const names: Record<string, string> = en
+  ? { vegasS17: 'Las Vegas (S17, surrender)', vegasH17: 'Las Vegas (H17, surrender)', spainCasino: 'Spanish casino (no hole card)', europeanOnline: 'European / online', doubleDeck: 'Double deck' }
+  : { vegasS17: 'Las Vegas (S17, rendición)', vegasH17: 'Las Vegas (H17, rendición)', spainCasino: 'Casino en España (sin carta oculta)', europeanOnline: 'Europea / online', doubleDeck: 'Dos barajas' };
+const label: Record<ActionName, string> = en
+  ? { hit: 'Hit', stand: 'Stand', double: 'Double', split: 'Split', surrender: 'Surrender' }
+  : { hit: 'Pedir', stand: 'Plantarse', double: 'Doblar', split: 'Dividir', surrender: 'Rendirse' };
 const order: ActionName[] = ['stand', 'hit', 'double', 'split', 'surrender'];
 const rows = tables.map((k) => ({ name: names[k], ...evaluate(cards, up, presets[k]) }));
-const fmt = (x: number) => (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(3).replace('.', ',');
+const fmt = (x: number) => (x >= 0 ? '+' : '−') + (en ? Math.abs(x).toFixed(3) : Math.abs(x).toFixed(3).replace('.', ','));
 const cardName = (c: number) => (c === 1 ? 'A' : String(c));
 ---
 <figure class="ev-table">
-  <figcaption>{caption ?? `Valor esperado de cada opción: ${cardName(cards[0])}-${cardName(cards[1])} contra ${cardName(up)}`}</figcaption>
+  <figcaption>{caption ?? (en ? `Expected value of each option: ${cardName(cards[0])}-${cardName(cards[1])} vs ${cardName(up)}` : `Valor esperado de cada opción: ${cardName(cards[0])}-${cardName(cards[1])} contra ${cardName(up)}`)}</figcaption>
   <div class="chart-scroll">
     <table>
-      <thead><tr><th>Mesa</th>{order.map((a) => <th>{label[a]}</th>)}</tr></thead>
+      <thead><tr><th>{en ? 'Table' : 'Mesa'}</th>{order.map((a) => <th>{label[a]}</th>)}</tr></thead>
       <tbody>
         {rows.map((r) => {
           const vals = order.map((a) => r.ev[a]).filter((v): v is number => v !== undefined);
@@ -44,7 +44,9 @@ const cardName = (c: number) => (c === 1 ? 'A' : String(c));
       </tbody>
     </table>
   </div>
-  <p class="ev-note">Unidades de apuesta por mano (−0,500 = pierdes media apuesta de media). En verde, la mejor opción. «—»: no se puede en esa mesa. Calculado con el motor de Veintiuno (6 barajas, salvo en «Dos barajas»), retirando las cartas visibles.</p>
+  <p class="ev-note">{en
+    ? 'Bet units per hand (−0.500 = you lose half a bet on average). Best option in green. “—”: not allowed at that table. Computed with the Veintiuno engine (6 decks unless “Double deck”), with the visible cards removed.'
+    : 'Unidades de apuesta por mano (−0,500 = pierdes media apuesta de media). En verde, la mejor opción. «—»: no se puede en esa mesa. Calculado con el motor de Veintiuno (6 barajas, salvo en «Dos barajas»), retirando las cartas visibles.'}</p>
 </figure>
 
 <style>

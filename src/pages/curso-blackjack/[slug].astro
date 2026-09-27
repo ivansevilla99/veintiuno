@@ -1,72 +1,12 @@
 ---
-import Base from '../../layouts/Base.astro';
-import Quiz from '../../components/Quiz.astro';
-import AppCTA from '../../components/AppCTA.astro';
+import CourseLesson from '../../components/CourseLesson.astro';
 import { lessons } from '../../lib/course';
+import { lessonsEn } from '../../lib/course-en';
 import { routes } from '../../lib/site';
 
 export function getStaticPaths() {
   return lessons.map((lesson, i) => ({ params: { slug: lesson.slug }, props: { i } }));
 }
 const { i } = Astro.props as { i: number };
-const lesson = lessons[i];
-const prev = lessons[i - 1];
-const next = lessons[i + 1];
-const site = Astro.site!;
-const path = `/curso-blackjack/${lesson.slug}/`;
-const schema = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: lesson.h1,
-    description: lesson.description,
-    inLanguage: 'es',
-    datePublished: '2026-09-27',
-    dateModified: '2026-09-27',
-    mainEntityOfPage: new URL(path, site).href,
-    isPartOf: { '@type': 'Course', name: 'Curso de blackjack gratis', url: new URL(routes.course.es, site).href },
-    author: { '@type': 'Person', name: 'Iván Sevilla' },
-    publisher: { '@type': 'Organization', name: 'Veintiuno', logo: { '@type': 'ImageObject', url: new URL('/icon-512.png', site).href } },
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Inicio', item: new URL('/', site).href },
-      { '@type': 'ListItem', position: 2, name: 'Curso de blackjack', item: new URL(routes.course.es, site).href },
-      { '@type': 'ListItem', position: 3, name: lesson.title, item: new URL(path, site).href },
-    ],
-  },
-];
 ---
-<Base lang="es" path={path} title={lesson.metaTitle} description={lesson.description} type="article" schema={schema}>
-  <div class="container">
-    <div class="read">
-      <header class="article-head">
-        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Inicio</a> / <a href={routes.course.es}>Curso de blackjack</a> / <span>Lección {i + 1}</span></nav>
-        <p class="eyebrow" style="margin:0 0 8px">Lección {i + 1} de {lessons.length} · {lesson.minutes} min</p>
-        <h1>{lesson.h1}</h1>
-        <div class="progress" aria-hidden="true"><span style={`width:${((i + 1) / lessons.length) * 100}%`}></span></div>
-      </header>
-      <div class="tldr"><p><strong>Lo esencial:</strong> {lesson.summary}</p></div>
-      <div class="prose" set:html={lesson.body} />
-      <Quiz questions={lesson.quiz} />
-      <nav class="lesson-nav" aria-label="Lecciones">
-        {prev ? <a href={`/curso-blackjack/${prev.slug}/`}><small>← Anterior</small>{prev.title}</a> : <a href={routes.course.es}><small>← Índice</small>Curso de blackjack</a>}
-        {next ? <a class="next" href={`/curso-blackjack/${next.slug}/`}><small>Siguiente →</small>{next.title}</a> : <a class="next" href={routes.strategy.es}><small>Y ahora →</small>La tabla de estrategia completa</a>}
-      </nav>
-      <AppCTA lang="es" campaign={`course-${i + 1}`} title="Practícalo con corrección" text="En la app de Veintiuno cada lección tiene su ejercicio y su examen, con manos reales y la explicación de cada error." />
-    </div>
-  </div>
-</Base>
-
-<style>
-  .progress { height: 6px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; margin: 18px 0 8px; }
-  .progress span { display: block; height: 100%; background: var(--gold); border-radius: 99px; }
-  .lesson-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; }
-  .lesson-nav a { display: block; padding: 14px 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; text-decoration: none; color: var(--text); font-weight: 600; }
-  .lesson-nav a:hover { border-color: rgba(237,194,92,.6); }
-  .lesson-nav a.next { text-align: right; }
-  .lesson-nav small { display: block; color: var(--gold); font-weight: 700; font-size: 13px; margin-bottom: 2px; }
-  @media (max-width: 560px) { .lesson-nav { grid-template-columns: 1fr; } .lesson-nav a.next { text-align: left; } }
-</style>
+<CourseLesson lang="es" lessons={lessons} i={i} alternate={`${routes.course.en}${lessonsEn[i].slug}/`} />

@@ -1,0 +1,53 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Do you hit or stand on 16 against a 10?', a: 'Hit, unless the table offers surrender, in which case surrendering is best. Hitting loses slightly less than standing (about 0.007 of a bet per hand with 10-6), although both options lose more than half of what you bet.' },
+  { q: 'Why hit when 16 busts so often?', a: 'Because standing on 16 only wins if the dealer busts, and with a 10 showing the dealer busts only about 23% of the time. If you hit you bust roughly 6 times out of 10, but when you don’t, you improve to 17–21 and sometimes win.' },
+  { q: 'What if my 16 has three or more cards?', a: 'Then standing is usually equal or slightly better, because the small cards that make up your hand are no longer in the deck and the cards left are more likely to bust you. It’s one of the few “composition-dependent” exceptions. With two cards, hit.' },
+  { q: 'What about 16 against a 10 when it’s a pair of eights?', a: 'Split. 8-8 against a 10 is split at hole-card tables, because two hands starting on 8 lose less than one 16. At European no-hole-card tables you hit instead (or surrender, if it’s allowed).' },
+];
+---
+<Guide
+  lang="en"
+  route="hand16v10"
+  title="16 vs 10 in Blackjack: Hit or Stand? (The Math)"
+  h1="16 vs 10: hit or stand?"
+  description="What to do with 16 against a dealer 10 in blackjack: hit, stand or surrender. The exact expected value of each option, why hitting is better and the exceptions."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['strategy', 'whenDouble', 'course', 'dataBust']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> with hard 16 against a 10, <strong>surrender if the table allows it; otherwise, hit</strong>. It’s the most dreaded hand in blackjack because every option loses, but hitting loses a little less than standing. The exception: if your 16 is 8-8, split (at hole-card tables).</p></div>
+  </div>
+
+  <h2 id="numbers">The exact numbers</h2>
+  <p>Here’s what each option is worth on average, per unit bet. They’re all negative: with 16 against a 10 you’re going to lose money whatever you do. The question is which option loses the least.</p>
+  <EVTable lang="en" cards={[10, 6]} up={10} tables={['vegasS17', 'doubleDeck', 'spainCasino']} />
+  <p>Under Las Vegas rules, <strong>surrender</strong> (−0.500) is best: you get half your bet back and skip a hand that loses more than half the time. Without surrender, <strong>hitting</strong> (−0.535) beats standing (−0.542).</p>
+  <p>At a European-style table with no hole card, such as in Spanish casinos, the losses are a bit bigger because the dealer can still turn out to have blackjack, but the order doesn’t change: hitting is still better.</p>
+
+  <h2 id="why">Why hit when you bust so often</h2>
+  <p>Intuition says, “with 16 I’m almost sure to bust, so I’ll stand.” But standing on 16 is good for only one thing: waiting for the dealer to bust. And with a 10 showing, the dealer busts only about <strong>23%</strong> of the time (see the <a href={routes.dataBust.en}>dealer bust probability table</a>). The other 77% of the time the dealer ends on 17 or more, and your 16 loses.</p>
+  <p>If you hit, you bust when a 6, 7, 8, 9 or 10 comes (roughly 6 times out of 10). But when an ace, 2, 3, 4 or 5 comes, you improve to 17–21 and have a real chance to win or push. Those wins more than make up for the small number of extra hands you lose by busting.</p>
+  <div class="callout"><p><strong>The difference is small, and that’s why people argue about it so much.</strong> Hitting instead of standing saves you less than one hundredth of a bet per hand. You won’t notice it in a single hand. Over a thousand hands of 16 vs 10, it adds up to seven whole bets.</p></div>
+
+  <h2 id="exceptions">The exceptions</h2>
+  <ul>
+    <li><strong>8-8:</strong> split. Two hands starting on 8 lose quite a bit less than one 16. At European no-hole-card tables, 8-8 against a 10 is a hit (or surrender, if it’s allowed).</li>
+    <li><strong>A 16 made of three or more cards</strong> (for example 4-5-7): standing becomes equal or better, because the low cards that would help you are already in your hand.</li>
+    <li><strong>If you count cards:</strong> at a true count of 0 or higher, stand. It’s the most famous index play in Hi-Lo: when lots of high cards are left, hitting busts you too often.</li>
+  </ul>
+
+  <h2 id="other">What about 16 against other upcards?</h2>
+  <ul>
+    <li><strong>Against 2 through 6:</strong> stand. The dealer is weak and will bust often.</li>
+    <li><strong>Against 7 or 8:</strong> hit.</li>
+    <li><strong>Against 9 or ace:</strong> surrender if you can; otherwise, hit.</li>
+  </ul>
+  <p>It’s all in the <a href={routes.strategy.en}>basic strategy chart</a>, which you can adjust to your table’s rules.</p>
+</Guide>

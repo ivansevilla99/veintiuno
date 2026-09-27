@@ -1,0 +1,63 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+import { houseEdge, defaultRules } from '../../../lib/strategy';
+
+const typical = houseEdge({ ...defaultRules, decks: 8, holeCard: false, surrender: 'none' });
+const pct = (x: number) => x.toFixed(2) + '%';
+const faq = [
+  { q: 'What is live blackjack?', a: 'It’s online blackjack where the cards are dealt by a real dealer, streamed on video from a studio or a casino. You make your decisions from your phone or computer, and the dealer plays with physical cards and a real shoe.' },
+  { q: 'Does basic strategy work in live blackjack?', a: 'Yes, just as it does in a land-based casino: it’s what lowers the house edge the most. You just need to use the chart that matches that table’s rules, which are usually European (no hole card).' },
+  { q: 'Can you count cards in live blackjack?', a: 'In practice, barely. The cards come from a real shoe, but it’s usually reshuffled with around half of it still undealt, and some variants shuffle continuously or use an “infinite” deck. With penetration that shallow, counting gives almost no edge.' },
+  { q: 'Are side bets like 21+3 or Perfect Pairs worth it?', a: 'No. They carry a house edge of several percentage points, much higher than the main hand played with basic strategy. They’re the fastest way to lose money at a blackjack table.' },
+];
+---
+<Guide
+  lang="en"
+  route="live"
+  title="Live Blackjack: How It Works, Rules and Counting"
+  h1="Live blackjack: how it works and what to watch for"
+  description="What live dealer blackjack is, the rules it usually uses, which strategy to play, why counting cards barely helps and what to know about side bets like 21+3."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['strategy', 'counting', 'dataRules', 'spain']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> live blackjack is online blackjack with a real dealer streamed on video. It’s usually played with <strong>8 decks and European rules</strong> (no hole card), so use the strategy chart for a <strong>European table</strong>. Counting cards barely helps because the shoe is reshuffled early, and <strong>side bets</strong> carry a much bigger house edge than the main hand.</p></div>
+  </div>
+
+  <h2 id="what">What it is and how it differs</h2>
+  <p>In regular online blackjack, the cards are decided by a random number generator and the deck is reshuffled every hand. In <strong>live blackjack</strong> there’s a real dealer, in a studio or a casino, with physical cards and a shoe, and a camera streaming it all. You make your decisions on a screen, against a timer.</p>
+  <p>It’s the same game of blackjack, but three differences matter: the rules are usually European, you have limited time to decide, and the table offers lots of side bets.</p>
+
+  <h2 id="rules">The rules to check</h2>
+  <p>Every table lists its rules behind the info button. Before you play, check:</p>
+  <ul>
+    <li><strong>Does the dealer take a hole card?</strong> Almost all live tables are European: the dealer draws their second card at the end. Check whether, when the dealer has blackjack, you also lose your doubles and splits or only your original bet (the “OBO” rule). It changes which chart to use.</li>
+    <li><strong>Number of decks:</strong> usually 8.</li>
+    <li><strong>Does the dealer hit soft 17?</strong> Usually the dealer stands (S17).</li>
+    <li><strong>Blackjack payout:</strong> it should be 3 to 2.</li>
+    <li><strong>Doubling and splitting:</strong> which hands you can double on and whether you can double after splitting.</li>
+    <li><strong>Surrender:</strong> almost never offered.</li>
+  </ul>
+  <p>With typical rules (8 decks, S17, no hole card, double on any two cards and after splitting, no surrender, 3 to 2), the house edge with perfect play is around <strong>{pct(typical)}</strong>. You can set exactly those rules in the <a href={routes.strategy.en}>interactive strategy chart</a>.</p>
+
+  <h2 id="variants">Variants that change the strategy</h2>
+  <p>Many live tables aren’t classic blackjack but variants with their own rules. For example, ones that give you free doubles and splits but push when the dealer makes 22, or ones that pay multipliers. In those variants <strong>the classic basic strategy chart isn’t correct</strong>, and the house edge is usually higher. If you don’t know how much it changes, stick to classic blackjack.</p>
+
+  <h2 id="counting">Can you count cards in live blackjack?</h2>
+  <p>In theory yes, because the cards come out of a real shoe. In practice it barely helps:</p>
+  <ul>
+    <li>The shoe is usually reshuffled when it’s around <strong>half dealt</strong>. With penetration that shallow, the true count rarely climbs high enough.</li>
+    <li>Some variants use continuous shuffling or an “infinite” deck: there, counting is useless.</li>
+    <li>Counting only gives you an edge if you raise your bet a lot when the count is high, and online tables cap and watch for that.</li>
+  </ul>
+  <p>We cover it in depth in <a href={routes.counting.en}>how to count cards</a>.</p>
+
+  <h2 id="side-bets">Side bets</h2>
+  <p>Live tables push side bets hard: <strong>21+3</strong> (your two cards plus the dealer’s upcard make a poker hand), <strong>Perfect Pairs</strong>, bets on the dealer busting… They pay a lot when they hit, but they carry a house edge of <strong>several percentage points</strong>, far above the {pct(typical)} of the main hand played well. If you want your money to last, skip them.</p>
+
+  <h2 id="before-you-play">Before you play</h2>
+  <p>Live blackjack is fast and available around the clock, which makes it easy to play more than you meant to. Set a money limit and a time limit before you start. If gambling is costing you more than you want, help is available: in the US call 1-800-GAMBLER, in the UK visit BeGambleAware.org, and see our <a href={routes.responsible.en}>responsible gambling</a> page. And to learn without risking anything, try our <a href={routes.simulator.en}>free practice table</a>.</p>
+</Guide>

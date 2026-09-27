@@ -1,0 +1,84 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { houseEdge, presets, defaultRules } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const base = houseEdge(defaultRules);
+const effects: [string, string, number][] = [
+  ['Blackjack pays 6:5 instead of 3:2', 'Worse', houseEdge({ ...defaultRules, payout: 'sixToFive' }) - base],
+  ['Blackjack pays 1:1 (even money)', 'Worse', houseEdge({ ...defaultRules, payout: 'evenMoney' }) - base],
+  ['Dealer hits soft 17 (H17)', 'Worse', houseEdge({ ...defaultRules, dealerHitsSoft17: true }) - base],
+  ['Double on 10 or 11 only', 'Worse', houseEdge({ ...defaultRules, doubleRule: 'tenEleven' }) - base],
+  ['No doubling after a split', 'Worse', houseEdge({ ...defaultRules, doubleAfterSplit: false }) - base],
+  ['No hole card (dealer doesn’t peek)', 'Worse', houseEdge({ ...defaultRules, holeCard: false }) - base],
+  ['Split only once', 'Worse', houseEdge({ ...defaultRules, maxSplitHands: 2 }) - base],
+  ['Double on 9, 10 or 11 only', 'Worse', houseEdge({ ...defaultRules, doubleRule: 'nineToEleven' }) - base],
+  ['No surrender', 'Worse', houseEdge({ ...defaultRules, surrender: 'none' }) - base],
+  ['8 decks instead of 6', 'Worse', houseEdge({ ...defaultRules, decks: 8 }) - base],
+  ['4 decks instead of 6', 'Better', houseEdge({ ...defaultRules, decks: 4 }) - base],
+  ['Resplitting aces allowed', 'Better', houseEdge({ ...defaultRules, resplitAces: true }) - base],
+  ['2 decks instead of 6', 'Better', houseEdge({ ...defaultRules, decks: 2 }) - base],
+  ['1 deck instead of 6', 'Better', houseEdge({ ...defaultRules, decks: 1 }) - base],
+];
+const fmt = (x: number) => (x > 0 ? '+' : '−') + Math.abs(x).toFixed(2) + ' pts';
+const tables: [string, keyof typeof presets][] = [
+  ['Las Vegas, 6 decks, S17, surrender', 'vegasS17'],
+  ['Las Vegas, 6 decks, H17, surrender', 'vegasH17'],
+  ['European / online, no hole card', 'europeanOnline'],
+  ['Casino in Spain', 'spainCasino'],
+  ['Double deck', 'doubleDeck'],
+];
+const pct = (x: number) => x.toFixed(2) + '%';
+
+const faq = [
+  { q: 'Which blackjack rule is worst for the player?', a: 'Blackjack paying 6:5 instead of 3:2. It raises the house edge by about 1.4 percentage points, roughly quadrupling what you lose even with perfect play. If a table pays 6:5, your best move is to find another one.' },
+  { q: 'What is the house edge in blackjack?', a: 'With perfect basic strategy, between 0.2% and 0.7% depending on the rules; with 6 decks and typical Las Vegas rules, about 0.4%. Playing by gut feel, the real edge is much bigger.' },
+  { q: 'Does the number of decks matter?', a: 'Yes, but less than other rules. Going from 6 to 8 decks costs about 0.02 points; dropping to 2 decks saves you about 0.17. The blackjack payout and whether the dealer hits soft 17 matter far more.' },
+];
+---
+<Guide
+  lang="en"
+  route="dataRules"
+  title="Blackjack House Edge by Rules: What Each Rule Costs"
+  h1="What each blackjack rule costs you"
+  description="The blackjack house edge by table rules: 6:5 payouts, H17, number of decks, surrender, double after split and no hole card. See what each rule costs."
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['dataBust', 'spain', 'howToWin', 'data']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>The short version:</strong> with perfect basic strategy, the house keeps about <strong>{pct(base)}</strong> of what you bet at a 6-deck table with good rules. By far the most costly rule is blackjack paying <strong>6:5</strong> (+1.39 points); next comes the dealer hitting soft 17 (+0.22).</p></div>
+  </div>
+
+  <h2 id="effects">The effect of each rule</h2>
+  <p>Baseline: 6 decks, dealer stands on soft 17, double on any two cards and after splitting, late surrender, hole card, and blackjack pays 3:2. House edge with perfect strategy: <strong>{pct(base)}</strong>. Each row shows how much it changes if you change only that one rule.</p>
+  <table class="data-table">
+    <thead><tr><th>Rule</th><th>For you</th><th>Change in house edge</th></tr></thead>
+    <tbody>
+      {effects.map(([name, dir, d]) => <tr><th scope="row">{name}</th><td>{dir}</td><td class={d > 0 ? 'bad' : 'good'}>{fmt(d)}</td></tr>)}
+    </tbody>
+  </table>
+
+  <h2 id="tables">House edge at typical tables</h2>
+  <table class="data-table">
+    <thead><tr><th>Table</th><th>House edge</th></tr></thead>
+    <tbody>
+      {tables.map(([name, k]) => <tr><th scope="row">{name}</th><td class="hl">{pct(houseEdge(presets[k]))}</td></tr>)}
+    </tbody>
+  </table>
+  <p>These figures assume you play basic strategy without mistakes. Every mistake costs you more: taking insurance, standing on 12 against a 2 or not splitting eights can easily add up to several points. That’s why the <a href={routes.strategy.en}>strategy chart</a> matters more than hunting for the perfect table.</p>
+
+  <h2 id="source">Where the numbers come from</h2>
+  <p>The baseline edge and the effect of each rule are the standard approximations from the Wizard of Odds rule-effects table, the same one the Veintiuno app uses. The effects add up approximately: combining several rules can be off by a few hundredths from the exact calculation for that specific combination.</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 16px; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); font-weight: 600; }
+  .data-table td.bad { color: var(--wrong); font-weight: 700; }
+  .data-table td.good { color: var(--correct); font-weight: 700; }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

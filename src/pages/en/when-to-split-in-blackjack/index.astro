@@ -1,0 +1,58 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Which pairs do you always split in blackjack?', a: 'Aces and eights, against any dealer upcard, at hole-card tables. At European tables with no hole card there are two exceptions: don’t split aces against an ace, or eights against a 10 or an ace.' },
+  { q: 'Should you split tens?', a: 'Never. Even against a 6, the dealer’s worst upcard, a 20 is worth +0.70 bets if you stand and +0.57 if you split. Splitting them trades a hand that’s almost won for two uncertain ones.' },
+  { q: 'Should you split fives?', a: 'No. 5-5 is a 10, one of the best hands to double on. Splitting leaves you with two hands starting on 5, which are bad hands.' },
+  { q: 'What about nines against a 7?', a: 'Stand. 9-9 is 18, and against a 7 the dealer often ends up on 17: your 18 wins. Standing is worth +0.40; splitting, +0.37.' },
+];
+---
+<Guide
+  lang="en"
+  route="whenSplit"
+  title="When to Split in Blackjack: Which Pairs (Chart)"
+  h1="When to split in blackjack"
+  description="Which pairs to split in blackjack and against which dealer upcard: aces, eights, nines, sevens, sixes, twos, threes, and why never tens or fives. With the math."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenDouble', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> always split <strong>aces and eights</strong>; never split <strong>tens or fives</strong>. Nines against 2–9 except 7. Sevens, twos and threes against 2–7. Sixes against 2–6. Fours only against 5 and 6, if you can double after splitting.</p></div>
+  </div>
+
+  <h2 id="chart">The pair-splitting chart</h2>
+  <table>
+    <thead><tr><th>Pair</th><th>Split against</th><th>Otherwise…</th></tr></thead>
+    <tbody>
+      <tr><td>A-A</td><td>all</td><td>—</td></tr>
+      <tr><td>8-8</td><td>all</td><td>—</td></tr>
+      <tr><td>10-10</td><td>never</td><td>stand</td></tr>
+      <tr><td>9-9</td><td>2 through 6, 8 and 9</td><td>stand (against 7, 10 and ace)</td></tr>
+      <tr><td>7-7</td><td>2 through 7</td><td>hit</td></tr>
+      <tr><td>6-6</td><td>2 through 6</td><td>hit</td></tr>
+      <tr><td>5-5</td><td>never</td><td>double against 2–9</td></tr>
+      <tr><td>4-4</td><td>5 and 6 (with double after split)</td><td>hit</td></tr>
+      <tr><td>2-2, 3-3</td><td>2 through 7</td><td>hit</td></tr>
+    </tbody>
+  </table>
+  <p>This is the 6-deck chart with doubling after splitting allowed. If your table doesn’t allow doubling after splitting, hit 2-2 and 3-3 against 2 and 3, and 4-4 and 6-6 against 2. You can see it in the <a href={routes.strategy.en}>interactive chart</a> by changing that rule.</p>
+
+  <h2 id="aces-eights">Why always aces and eights</h2>
+  <p><strong>Two aces</strong> together are worth 2 or 12, a mediocre hand. Split, each one starts on 11 and any ten turns it into 21. <strong>Two eights</strong> add up to 16, the worst hand in the game. Split, each one starts on 8. Even against a 10, splitting loses quite a bit less than playing the 16:</p>
+  <EVTable lang="en" cards={[8, 8]} up={10} tables={['vegasS17', 'vegasH17', 'spainCasino']} />
+  <p>At a no-hole-card table, as in Spanish casinos, things change: splitting against a 10 exposes two bets to a dealer blackjack, and it becomes worse than hitting.</p>
+
+  <h2 id="never">Why never tens or fives</h2>
+  <p>A 20 is almost unbeatable. Even when the dealer shows a 6, their weakest upcard, standing on 20 is worth much more than splitting:</p>
+  <EVTable lang="en" cards={[10, 10]} up={6} tables={['vegasS17']} caption="10-10 vs 6: stand or split" />
+  <p>Something similar happens with <strong>5-5</strong>: it’s a 10, a perfect hand for doubling down. Splitting it leaves you with two hands starting on 5.</p>
+
+  <h2 id="depends">Pairs that depend on the dealer’s upcard</h2>
+  <p>The remaining pairs (2-2, 3-3, 6-6, 7-7, 9-9) are split when the dealer is weak, because two bets against a dealer who busts often are worth more than one mediocre hand. The odd case is <strong>9-9 against a 7</strong>: you stand, because a dealer showing a 7 often ends on 17, and your 18 beats it.</p>
+  <EVTable lang="en" cards={[9, 9]} up={7} tables={['vegasS17']} caption="9-9 vs 7: stand or split" />
+</Guide>

@@ -1,0 +1,53 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const pdfs = [
+  ['las-vegas-s17', 'Las Vegas (S17)', 'Dealer stands on soft 17, surrender allowed.'],
+  ['las-vegas-h17', 'Las Vegas (H17)', 'Dealer hits soft 17, surrender allowed.'],
+  ['european', 'European / online table', 'No hole card, double on any two cards. Typical of online and live dealer blackjack.'],
+  ['spain', 'Spanish casinos', 'No hole card, double on 9–11 only, no surrender. The one you need at a casino in Spain.'],
+];
+const faq = [
+  { q: 'Which strategy chart should I download?', a: 'The one that matches your table’s rules. In Las Vegas, check the felt: if it says “dealer hits soft 17”, use H17; otherwise, S17. If you play online or at a live dealer table, it’s usually the European one. At a casino in Spain, the Spanish casinos chart.' },
+  { q: 'Can I bring a printed chart to the casino?', a: 'Some casinos let you check a printed card at low-stakes tables and others don’t; ask first. What’s never allowed is using your phone or any other device at the table.' },
+  { q: 'Are they free?', a: 'Yes. You can download, print and share them.' },
+];
+---
+<Guide
+  lang="en"
+  route="printable"
+  title="Blackjack Strategy Chart PDF (Free, Printable)"
+  h1="Blackjack basic strategy chart PDF"
+  description="Download a free printable blackjack basic strategy chart PDF: Las Vegas S17 and H17, European/online and Spanish casino rules. One full-color A4 page each."
+  updated="2026-09-27"
+  readMinutes={2}
+  faq={faq}
+  related={['strategy', 'simulator', 'spain', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Free download:</strong> the basic strategy chart as a PDF, on one full-color A4 page. Pick the one that matches your table’s rules — the chart for Las Vegas isn’t the same as the one for a Spanish casino.</p></div>
+  </div>
+
+  <div class="pdf-grid">
+    {pdfs.map(([slug, name, text]) => (
+      <a class="card pdf-card" href={`/pdf/blackjack-strategy-chart-${slug}.pdf`} download>
+        <span class="pdf-ico">PDF</span>
+        <span><b>{name}</b><small>{text}</small></span>
+      </a>
+    ))}
+  </div>
+
+  <h2 id="how-to-use">How to use it</h2>
+  <p>Find your hand in the rows and the dealer’s upcard in the columns. Check first whether you have a pair, then whether your hand is soft (with an ace counting as 11), and if neither, use the hard totals. The letters: H hit, S stand, D double, P split, R surrender.</p>
+  <p>If you’d rather adjust the rules one by one or see why each cell is what it is, use the <a href={routes.strategy.en}>interactive chart</a>. And to memorize it, what works is practicing with instant feedback: you can do that for free at the <a href={routes.simulator.en}>practice table</a>.</p>
+</Guide>
+
+<style>
+  .pdf-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
+  .pdf-card { display: flex !important; gap: 14px; align-items: flex-start; }
+  .pdf-ico { flex: none; width: 44px; height: 52px; border-radius: 8px; background: #c8283a; color: #fff; font: 800 12px/52px var(--font); text-align: center; }
+  .pdf-card b { display: block; color: var(--text); font-size: 17px; }
+  .pdf-card small { display: block; color: var(--muted); font-size: 14px; margin-top: 4px; line-height: 1.45; }
+  @media (max-width: 600px) { .pdf-grid { grid-template-columns: 1fr; } }
+</style>

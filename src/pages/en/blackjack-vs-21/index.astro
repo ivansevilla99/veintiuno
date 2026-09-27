@@ -1,0 +1,52 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Are blackjack and 21 the same game?', a: 'Almost. Blackjack is the casino version of 21: same goal and same card values, but with fixed rules for the dealer, set payouts (3 to 2 for a blackjack) and options like doubling, splitting, surrender and insurance. Home games of 21 have rules that change from one house to the next.' },
+  { q: 'Why is it called blackjack?', a: 'According to the most common story, some US gambling halls paid a special bonus to anyone who got the ace of spades together with a black jack. The bonus disappeared, but the name stuck for any ace plus a 10-value card.' },
+  { q: 'What is Spanish 21?', a: 'Despite the name, it’s a different game. It’s played with 48-card decks with the tens removed (the face cards stay), and it has its own rules and bonuses. Its strategy is different from blackjack’s, so don’t use our chart for Spanish 21.' },
+  { q: 'Can you play 21 with a Spanish deck?', a: 'Yes, it’s common in home games in Spain. The rules vary a lot from one house to another (what face cards are worth, who acts as the bank, what happens on ties), so casino blackjack basic strategy is only a rough guide there.' },
+];
+---
+<Guide
+  lang="en"
+  route="bj21"
+  title="Blackjack vs 21: Are They the Same Game?"
+  h1="Blackjack vs 21: are they the same?"
+  description="Blackjack vs 21: how casino blackjack differs from home games of 21, where the name blackjack comes from, and why Spanish 21 is a different game altogether."
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['howToPlay', 'course', 'strategy', 'simulator']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>The short version:</strong> blackjack is the <strong>casino version of 21</strong>. The goal and the card values are the same, but blackjack has fixed rules: the dealer hits up to 16, a blackjack pays 3 to 2, and you can double, split or surrender. In home games of 21, the rules change from one house to the next.</p></div>
+  </div>
+
+  <h2 id="differences">The differences</h2>
+  <table>
+    <thead><tr><th></th><th>Casino blackjack</th><th>Home game of 21</th></tr></thead>
+    <tbody>
+      <tr><td>Who is the bank</td><td>Always the dealer</td><td>Often rotates among the players</td></tr>
+      <tr><td>How the bank plays</td><td>Fixed rule: hits up to 16</td><td>Usually free to choose</td></tr>
+      <tr><td>Ties</td><td>You get your bet back</td><td>Depends: sometimes the bank wins</td></tr>
+      <tr><td>Blackjack pays</td><td>3 to 2</td><td>Varies</td></tr>
+      <tr><td>Double, split, surrender</td><td>Yes, depending on the table</td><td>Sometimes not available</td></tr>
+      <tr><td>Decks</td><td>6 or 8 standard decks</td><td>One, standard or Spanish</td></tr>
+    </tbody>
+  </table>
+  <p>The most important difference is that <strong>the casino dealer doesn’t make choices</strong>: they follow a fixed rule. That’s what makes it possible to work out an exact <a href={routes.strategy.en}>basic strategy</a>. In a home game of 21 where the bank plays however it likes, the game changes completely.</p>
+
+  <h2 id="origin">From “veintiuna” to blackjack</h2>
+  <p>The game has European roots. One of the oldest written references is Spanish: Miguel de Cervantes mentions “veintiuna” in “Rinconete y Cortadillo”, one of his Exemplary Novels, published in 1613, as a card game his main characters have mastered. In France people played “vingt-et-un”, which is the version that made it to the United States.</p>
+  <p>The name “blackjack” was born in the United States. According to the most common story, some gambling halls paid a special bonus for getting the ace of spades together with a black jack. The bonus disappeared, but the name stuck.</p>
+
+  <h2 id="variants">Games that look like blackjack but aren’t</h2>
+  <ul>
+    <li><strong>Spanish 21:</strong> 48-card decks with the tens removed, and its own bonuses and rules. A different game with a different strategy — it isn’t the blackjack played in Spanish casinos.</li>
+    <li><strong>Pontoon:</strong> a British variant with its own vocabulary and rules.</li>
+    <li><strong>Online and live dealer variants</strong> with multipliers or where the dealer pushes on 22: these change the strategy. We cover them in <a href={routes.live.en}>live blackjack</a>.</li>
+  </ul>
+  <p>If you want to learn casino blackjack from scratch, start with the <a href={routes.course.en}>free course</a>, or jump straight into the <a href={routes.simulator.en}>practice table</a>.</p>
+</Guide>

@@ -1,9 +1,9 @@
 ---
-interface Props { title: string }
-const { title } = Astro.props;
+interface Props { title: string; lang?: 'es' | 'en' }
+const { title, lang = 'es' } = Astro.props;
 ---
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />

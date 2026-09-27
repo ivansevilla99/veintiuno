@@ -1,0 +1,79 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { dealerTable } from '../../../../lib/ev';
+import { presets } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const ups = [2, 3, 4, 5, 6, 7, 8, 9, 10, 1];
+const upL = (u: number) => (u === 1 ? 'Ace' : String(u));
+const pct = (x: number) => (x * 100).toFixed(1) + '%';
+const s17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasS17) }));
+const h17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasH17) }));
+const avgBust = s17.reduce((a, r) => a + r.bust * (r.u === 10 ? 4 : 1), 0) / 13;
+
+const faq = [
+  { q: 'Which upcard makes the dealer bust the most?', a: 'A 6 or a 5: around 42% of the time when the dealer stands on soft 17. With a 4, close to 40%. That’s why you stand on 12 through 16 against a 4, 5 or 6.' },
+  { q: 'Which upcard makes the dealer bust the least?', a: 'An ace: once blackjack has been ruled out, the dealer busts about 17% of the time. With a 7, 8, 9 or 10, between 23% and 26%.' },
+  { q: 'How much does it change if the dealer hits soft 17 (H17)?', a: 'The dealer busts a bit more with low cards and with an ace, because they keep hitting in spots where they used to stand; but they also finish on 18–21 more often. Overall, H17 is worse for the player: it raises the house edge by about 0.2 percentage points.' },
+];
+---
+<Guide
+  lang="en"
+  route="dataBust"
+  title="Dealer Bust Probability in Blackjack (Exact Table)"
+  h1="Dealer bust probability by upcard"
+  description="Exact table of the dealer’s bust probability in blackjack by upcard, plus the odds of each final total from 17 to 21, for S17 and H17 games with 6 decks."
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['hand16v10', 'strategy', 'dataRules', 'data']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>The short version:</strong> with 6 decks and the dealer standing on soft 17, the dealer busts about <strong>42% of the time with a 5 or 6</strong>, <strong>40% with a 4</strong>, <strong>35–37% with a 2 or 3</strong>, <strong>23–26% with a 7 through 10</strong> and <strong>17% with an ace</strong> (excluding dealer blackjacks). On average, the dealer busts on {pct(avgBust)} of the hands where they don’t have blackjack.</p></div>
+  </div>
+
+  <div slot="wide" class="read">
+    <h2 id="s17">Dealer stands on soft 17 (S17)</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>Upcard</th><th>Bust</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>Has blackjack</th></tr></thead>
+        <tbody>
+          {s17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="h17">Dealer hits soft 17 (H17)</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>Upcard</th><th>Bust</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>Has blackjack</th></tr></thead>
+        <tbody>
+          {h17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2 id="method">How to read it and how it was calculated</h2>
+  <ul>
+    <li>The “Bust” and 17–21 columns add up to 100% and are the probabilities <strong>once dealer blackjack has been ruled out</strong>, which is the situation you’re in when you decide at a table with a hole card. The last column is the chance of a dealer blackjack before the peek.</li>
+    <li>Exact calculation (not simulation) with the Veintiuno engine: 6 decks, the dealer’s upcard is removed and every possible card is played out. We checked it against an independent simulation of 1.5 million hands per upcard, with differences of a few tenths of a point.</li>
+    <li>With fewer decks, or once the players’ cards are taken into account, the numbers shift slightly, but the order never changes.</li>
+  </ul>
+
+  <h2 id="use">What to do with this table</h2>
+  <p>It’s the whole reason basic strategy looks the way it does. With 12 through 16 against a 4, 5 or 6 you stand, because the dealer busts close to half the time they don’t already have 17–21; against a 7 or higher you hit, because they’ll almost always end up on 17 or more. The most debated case is explained in <a href={routes.hand16v10.en}>16 vs 10</a>.</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 8px; background: var(--panel); border-radius: 14px; overflow: hidden; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

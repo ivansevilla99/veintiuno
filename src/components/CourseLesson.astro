@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import Quiz from './Quiz.astro';
+import AppCTA from './AppCTA.astro';
+import type { Lesson } from '../lib/course';
+import { routes, type Lang } from '../lib/site';
+
+interface Props { lang: Lang; lessons: Lesson[]; i: number; alternate?: string }
+const { lang, lessons, i, alternate } = Astro.props;
+const en = lang === 'en';
+const lesson = lessons[i], prev = lessons[i - 1], next = lessons[i + 1];
+const base = routes.course[lang];
+const site = Astro.site!;
+const path = `${base}${lesson.slug}/`;
+const T = en
+  ? { home: 'Home', course: 'Blackjack course', lesson: 'Lesson', of: 'of', key: 'Key takeaway:', prev: '← Previous', index: '← Index', next: 'Next →', after: 'Now →', chart: 'The full strategy chart',
+      ctaT: 'Practise it with corrections', ctaX: 'In the Veintiuno app every lesson has its drill and its exam, with real hands and an explanation for every mistake.', courseName: 'Free blackjack course' }
+  : { home: 'Inicio', course: 'Curso de blackjack', lesson: 'Lección', of: 'de', key: 'Lo esencial:', prev: '← Anterior', index: '← Índice', next: 'Siguiente →', after: 'Y ahora →', chart: 'La tabla de estrategia completa',
+      ctaT: 'Practícalo con corrección', ctaX: 'En la app de Veintiuno cada lección tiene su ejercicio y su examen, con manos reales y la explicación de cada error.', courseName: 'Curso de blackjack gratis' };
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'Article', headline: lesson.h1, description: lesson.description, inLanguage: lang,
+    datePublished: '2026-09-27', dateModified: '2026-09-27', mainEntityOfPage: new URL(path, site).href,
+    isPartOf: { '@type': 'Course', name: T.courseName, url: new URL(base, site).href },
+    author: { '@type': 'Person', name: 'Iván Sevilla' },
+    publisher: { '@type': 'Organization', name: 'Veintiuno', logo: { '@type': 'ImageObject', url: new URL('/icon-512.png', site).href } },
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: T.home, item: new URL(routes.home[lang], site).href },
+      { '@type': 'ListItem', position: 2, name: T.course, item: new URL(base, site).href },
+      { '@type': 'ListItem', position: 3, name: lesson.title, item: new URL(path, site).href },
+    ],
+  },
+];
+---
+<Base lang={lang} path={path} alternate={alternate} title={lesson.metaTitle} description={lesson.description} type="article" schema={schema}>
+  <div class="container">
+    <div class="read">
+      <header class="article-head">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href={routes.home[lang]}>{T.home}</a> / <a href={base}>{T.course}</a> / <span>{T.lesson} {i + 1}</span></nav>
+        <p class="eyebrow" style="margin:0 0 8px">{T.lesson} {i + 1} {T.of} {lessons.length} · {lesson.minutes} min</p>
+        <h1>{lesson.h1}</h1>
+        <div class="progress" aria-hidden="true"><span style={`width:${((i + 1) / lessons.length) * 100}%`}></span></div>
+      </header>
+      <div class="tldr"><p><strong>{T.key}</strong> {lesson.summary}</p></div>
+      <div class="prose" set:html={lesson.body} />
+      <Quiz questions={lesson.quiz} lang={lang} />
+      <nav class="lesson-nav" aria-label="Lessons">
+        {prev ? <a href={`${base}${prev.slug}/`}><small>{T.prev}</small>{prev.title}</a> : <a href={base}><small>{T.index}</small>{T.course}</a>}
+        {next ? <a class="next" href={`${base}${next.slug}/`}><small>{T.next}</small>{next.title}</a> : <a class="next" href={routes.strategy[lang]}><small>{T.after}</small>{T.chart}</a>}
+      </nav>
+      <AppCTA lang={lang} campaign={`course-${i + 1}`} title={T.ctaT} text={T.ctaX} />
+    </div>
+  </div>
+</Base>
+
+<style>
+  .progress { height: 6px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; margin: 18px 0 8px; }
+  .progress span { display: block; height: 100%; background: var(--gold); border-radius: 99px; }
+  .lesson-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; }
+  .lesson-nav a { display: block; padding: 14px 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; text-decoration: none; color: var(--text); font-weight: 600; }
+  .lesson-nav a:hover { border-color: rgba(237,194,92,.6); }
+  .lesson-nav a.next { text-align: right; }
+  .lesson-nav small { display: block; color: var(--gold); font-weight: 700; font-size: 13px; margin-bottom: 2px; }
+  @media (max-width: 560px) { .lesson-nav { grid-template-columns: 1fr; } .lesson-nav a.next { text-align: left; } }
+</style>

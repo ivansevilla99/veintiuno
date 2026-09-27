@@ -12,7 +12,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/imprimir/'),
+      filter: (page) => !page.includes('/imprimir/') && !page.includes('/en/print/'),
       i18n: { defaultLocale: 'es', locales: { es: 'es', en: 'en' } },
     }),
   ],

@@ -1,0 +1,70 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import AppStoreButton from '../../../components/AppStoreButton.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Is there an app to learn how to play blackjack?', a: 'Yes. Veintiuno is an iPhone and Mac app built to teach basic strategy: it deals you hands, corrects every decision instantly and explains why. No real money is involved.' },
+  { q: 'What’s the difference between a blackjack app and a blackjack trainer?', a: 'A regular blackjack app is a game: it lets you play with play-money chips, but it never tells you whether you played well. A trainer checks every decision against the correct play for your table’s rules and reviews your mistakes. Only the second one teaches you.' },
+  { q: 'Is Veintiuno free?', a: 'You can start for free: the first three days of the course are free. Veintiuno Pro unlocks the rest of the course, the hand consultant and the heat map of your mistakes, with a weekly or yearly subscription.' },
+  { q: 'Can you play for real money in Veintiuno?', a: 'No. It’s an educational tool: there’s no real money, no chips with any value and no connection to any casino or sportsbook.' },
+];
+---
+<Guide
+  lang="en"
+  route="app"
+  title="Best App to Learn Blackjack (No Real Money)"
+  h1="The best app to learn blackjack"
+  description="The best app to learn blackjack isn’t a casino game with play-money chips but a trainer that corrects every decision. Meet Veintiuno, for iPhone and Mac."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['course', 'strategy', 'practiceCounting', 'howToPlay']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> not just any blackjack app will teach you blackjack. The ones that simulate a casino with play-money chips let you play, but they don’t tell you whether you’re playing well. What teaches you is a <strong>trainer</strong>: an app that corrects every decision, explains why and reviews your mistakes. That’s what Veintiuno is.</p></div>
+  </div>
+
+  <h2 id="types">Two kinds of blackjack apps</h2>
+  <table>
+    <thead><tr><th></th><th>Casino game</th><th>Trainer</th></tr></thead>
+    <tbody>
+      <tr><td>What you do</td><td>Play hands with play-money chips</td><td>Make decisions and get corrected</td></tr>
+      <tr><td>Does it tell you if you played well?</td><td>No: only whether you won the hand</td><td>Yes, on every decision</td></tr>
+      <tr><td>Does it explain why?</td><td>No</td><td>Yes</td></tr>
+      <tr><td>Your table’s rules</td><td>Whatever the game uses</td><td>You pick them (Las Vegas, European/online, Spain)</td></tr>
+      <tr><td>Mistake review</td><td>No</td><td>Yes</td></tr>
+      <tr><td>What it’s for</td><td>Entertainment</td><td>Learning</td></tr>
+    </tbody>
+  </table>
+  <p>The problem with learning from a game is that <strong>the outcome of a hand doesn’t tell you whether you played it well</strong>. You can stand on 16 against a 10, which is a mistake, and win because the dealer busts. Your brain learns exactly the wrong lesson. A trainer separates the decision from the result: it tells you whether the play was correct, however the hand turns out.</p>
+
+  <h2 id="veintiuno">What Veintiuno does</h2>
+  <div class="shots">
+    <figure><img src="/img/app-correccion.webp" alt="Veintiuno correcting a decision: with 16 against a 10, the right play was to hit" width="480" height="1042" loading="lazy" /><figcaption>Instant correction, with the why.</figcaption></figure>
+    <figure><img src="/img/app-tabla.webp" alt="Veintiuno’s basic strategy chart for Spanish casino rules" width="480" height="1042" loading="lazy" /><figcaption>The chart for your table.</figcaption></figure>
+    <figure><img src="/img/app-progreso.webp" alt="Veintiuno progress screen showing accuracy and mistakes" width="480" height="1042" loading="lazy" /><figcaption>Your progress and your mistakes.</figcaption></figure>
+  </div>
+  <ul>
+    <li><strong>A practice table with instant correction.</strong> Every decision you make is compared with basic strategy for your table, and if you get it wrong it shows you the right play and why.</li>
+    <li><strong>A 14-day course.</strong> One concept, one drill and one quiz a day, from the rules to card counting.</li>
+    <li><strong>Your table’s rules:</strong> Las Vegas S17 and H17, European or online, or a Spanish casino (no hole card).</li>
+    <li><strong>A heat map of your mistakes</strong> on the strategy chart, so you only review what you get wrong.</li>
+    <li><strong>A hand consultant</strong> with the expected value of every option.</li>
+    <li><strong>Hi-Lo card counting</strong> as an advanced module, explained with no promises.</li>
+    <li>Ten languages, carefully crafted card sounds and haptics. For iPhone and Mac.</li>
+  </ul>
+  <p>There’s no real money and no betting: it’s a tool for learning, and it isn’t tied to any casino.</p>
+  <p><AppStoreButton lang="en" campaign="app-page" /></p>
+
+  <h2 id="no-app">What about without an app?</h2>
+  <p>You can learn the rules and the strategy for free on this site: there’s the <a href={routes.course.en}>blackjack course</a>, the <a href={routes.strategy.en}>interactive chart</a> and <a href={routes.practiceCounting.en}>card counting drills</a>. What a website can’t do is deal you hundreds of hands and correct every one of them: that’s what the app is for.</p>
+</Guide>
+
+<style>
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+  .shots figure { margin: 0; }
+  .shots img { border-radius: 22px; border: 1px solid var(--line-strong); display: block; }
+  .shots figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; text-align: center; }
+  @media (max-width: 560px) { .shots { grid-template-columns: repeat(3, 1fr); gap: 8px; } .shots img { border-radius: 12px; } }
+</style>

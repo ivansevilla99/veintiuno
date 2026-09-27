@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import AppCTA from './AppCTA.astro';
+import type { Lesson } from '../lib/course';
+import { routes, type Lang } from '../lib/site';
+
+interface Props { lang: Lang; lessons: Lesson[] }
+const { lang, lessons } = Astro.props;
+const en = lang === 'en';
+const base = routes.course[lang];
+const site = Astro.site!;
+const total = lessons.reduce((a, l) => a + l.minutes, 0);
+const T = en
+  ? { name: 'Free blackjack course', desc: 'A free course to learn blackjack: rules, payouts, basic strategy (hit, stand, double, split, surrender), choosing a table and card counting.',
+      title: 'Free Blackjack Course: From Zero to Basic Strategy', meta: `Free online blackjack course: 10 short lessons (${total} minutes in total) with quizzes, from the rules and payouts to basic strategy and card counting.`,
+      eyebrow: 'Free course', h1: 'Blackjack course', lead: `Ten short lessons to go from not knowing the rules to playing perfect basic strategy. About ${total} minutes in total, with a quiz at the end of each lesson. No sign-up, no real money.`,
+      start: 'Start lesson 1', min: 'min', direct: 'Want to jump straight to a question? Try the', chart: 'strategy chart', dbl: 'when to double', spl: 'when to split', h16: '16 vs 10', and: 'and',
+      ctaT: 'From the course to the table', ctaX: 'The course teaches you what to do. The Veintiuno app makes you practise it: it deals hands, corrects every decision and reviews your mistakes until it’s automatic.', cur: 'USD' }
+  : { name: 'Curso de blackjack gratis', desc: 'Curso gratuito para aprender a jugar al blackjack: reglas, pagos, estrategia básica (pedir, plantarse, doblar, dividir, rendirse), elegir mesa y conteo de cartas.',
+      title: 'Curso de blackjack gratis: de cero a la estrategia básica', meta: `Curso de blackjack gratis y online: 10 lecciones cortas (${total} minutos en total) con ejercicios, de las reglas y los pagos a la estrategia básica y el conteo de cartas.`,
+      eyebrow: 'Curso gratis', h1: 'Curso de blackjack', lead: `Diez lecciones cortas para pasar de no saber las reglas a jugar con la estrategia básica. Unos ${total} minutos en total, con un ejercicio al final de cada lección. Sin registro y sin dinero real.`,
+      start: 'Empezar la lección 1', min: 'min', direct: '¿Prefieres ir directo a una duda? Tienes la', chart: 'tabla de estrategia', dbl: 'cuándo doblar', spl: 'cuándo dividir', h16: '16 contra 10', and: 'y',
+      ctaT: 'Del curso a la mesa', ctaX: 'El curso te enseña qué hacer. La app de Veintiuno te lo hace practicar: te reparte manos, te corrige cada decisión y repasa tus errores hasta que te sale solo.', cur: 'EUR' };
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'Course', name: T.name, description: T.desc, inLanguage: lang, isAccessibleForFree: true,
+    provider: { '@type': 'Organization', name: 'Veintiuno', url: site.href },
+    offers: { '@type': 'Offer', price: 0, priceCurrency: T.cur, category: 'Free' },
+    hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'Online', courseWorkload: `PT${total}M` },
+  },
+  { '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: lessons.map((l, i) => ({ '@type': 'ListItem', position: i + 1, name: l.title, url: new URL(`${base}${l.slug}/`, site).href })) },
+];
+---
+<Base lang={lang} route="course" title={T.title} description={T.meta} schema={schema}>
+  <section class="hero" style="padding:56px 0 48px">
+    <div class="container read">
+      <span class="eyebrow">{T.eyebrow}</span>
+      <h1>{T.h1}</h1>
+      <p class="lead">{T.lead}</p>
+      <div class="hero-actions"><a class="btn btn-gold" href={`${base}${lessons[0].slug}/`}>{T.start}</a></div>
+    </div>
+  </section>
+  <div class="container read" style="padding-top:32px">
+    <ol class="course-list">
+      {lessons.map((l, i) => (
+        <li><a href={`${base}${l.slug}/`}><span class="num">{i + 1}</span><span><b>{l.title}</b><small>{l.summary}</small></span><span class="min">{l.minutes} {T.min}</span></a></li>
+      ))}
+    </ol>
+    <p class="muted">{T.direct} <a href={routes.strategy[lang]}>{T.chart}</a>, <a href={routes.whenDouble[lang]}>{T.dbl}</a>, <a href={routes.whenSplit[lang]}>{T.spl}</a> {T.and} <a href={routes.hand16v10[lang]}>{T.h16}</a>.</p>
+    <AppCTA lang={lang} campaign="course" title={T.ctaT} text={T.ctaX} />
+  </div>
+</Base>
+
+<style>
+  .course-list { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 10px; }
+  .course-list a { display: grid; grid-template-columns: 44px 1fr auto; gap: 14px; align-items: center; padding: 16px 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; text-decoration: none; color: var(--text); transition: border-color .15s; }
+  .course-list a:hover { border-color: rgba(237,194,92,.6); }
+  .course-list .num { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(237,194,92,.14); color: var(--gold); font: 800 18px/1 var(--font-display); }
+  .course-list b { display: block; font-size: 17px; }
+  .course-list small { display: block; color: var(--muted); font-size: 14px; margin-top: 2px; line-height: 1.45; }
+  .course-list .min { color: var(--muted); font-size: 13px; white-space: nowrap; }
+</style>

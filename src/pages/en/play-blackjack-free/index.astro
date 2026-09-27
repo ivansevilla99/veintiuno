@@ -1,0 +1,59 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import Simulator from '../../../components/Simulator.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Can I play blackjack for free without signing up?', a: 'Yes. This table runs in your browser: no sign-up, no download and no real money. Your accuracy is stored only in your own browser.' },
+  { q: 'How is this different from free play at an online casino?', a: 'Casino free-play modes are designed to get you playing for real money, and they never tell you whether you played a hand well. This table has no money and no betting, and it checks every decision against the correct play for the rules you pick.' },
+  { q: 'What rules does the table use?', a: 'Whichever you choose: Las Vegas with the dealer standing or hitting on soft 17, European/online, or a Spanish casino (no hole card, doubling on 9–11 only, no surrender). Always 6 decks, reshuffled once three quarters of the shoe has been dealt.' },
+  { q: 'Why does it correct me even when I won the hand?', a: 'Because the outcome of a hand comes down to luck, and the decision doesn’t. You can stand on 16 against a 10 and win because the dealer busts, but over time that play loses more than hitting. The correction teaches you the right decision, not the result.' },
+];
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Free blackjack practice table with instant feedback',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web',
+  inLanguage: 'en',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: 0, priceCurrency: 'USD' },
+  url: 'https://veintiunoapp.com/en/play-blackjack-free/',
+}];
+---
+<Guide
+  lang="en"
+  route="simulator"
+  title="Play Blackjack Free: No Sign-Up, Instant Feedback"
+  h1="Play blackjack free"
+  description="Play blackjack free in your browser, no sign-up and no real money. Every decision is checked against basic strategy for Las Vegas, European or online rules."
+  updated="2026-09-27"
+  faq={faq}
+  related={['strategy', 'course', 'hand16v10', 'app']}
+  extraSchema={schema}
+  wide
+>
+  <div slot="top">
+    <p class="lead" style="margin-top:0">A practice table that’s <strong>free, with no sign-up and no real money</strong>. After every decision it tells you whether that was the right play and why, using basic strategy for the table rules you pick.</p>
+  </div>
+
+  <div slot="wide" style="max-width:820px">
+    <Simulator lang="en" />
+  </div>
+
+  <h2 id="how">How it works</h2>
+  <ul>
+    <li><strong>Pick your table:</strong> Las Vegas (S17 or H17), European/online or a Spanish casino. The correct strategy changes with the rules.</li>
+    <li><strong>Deal and decide:</strong> hit, stand, double, split or surrender. Only the options the table allows at that moment are enabled.</li>
+    <li><strong>Check the feedback:</strong> green if you got it right; red with the correct play and the explanation if you didn’t.</li>
+    <li>On a computer you can play with the keyboard: <kbd>H</kbd> hit, <kbd>S</kbd> stand, <kbd>D</kbd> double, <kbd>P</kbd> split, <kbd>R</kbd> surrender and <kbd>Space</kbd> to deal.</li>
+  </ul>
+
+  <h2 id="why">Why practice with feedback</h2>
+  <p>Playing without feedback teaches you the opposite of what you should learn: a bad play that happens to win gets filed away as “the right one.” Here every decision is compared with <a href={routes.strategy.en}>basic strategy</a>, the play that loses the least over the long run, and you’re told why.</p>
+  <p>Once you get more than 95% of your decisions right, you’re playing better than the vast majority of people who sit down at a blackjack table. If you keep missing the same hands, go through the <a href={routes.course.en}>free course</a> or the guide to <a href={routes.hand16v10.en}>16 vs 10</a>.</p>
+
+  <h2 id="no-money">No money, no casinos</h2>
+  <p>This table has no bets and no chips, doesn’t link to any casino and doesn’t store anything outside your browser. It’s for learning. If gambling is costing you more than you want, you’ll find help on our <a href={routes.responsible.en}>responsible gambling</a> page.</p>
+</Guide>

@@ -1,0 +1,57 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Is card counting illegal in blackjack?', a: 'No. Counting cards in your head is not illegal in Spain, Mexico, Argentina or the United States: you’re just using your brain on information that’s face up on the table. What is illegal is using devices or outside help, and the casino can ask you to stop playing.' },
+  { q: 'Can a casino kick you out for counting cards?', a: 'In many places, yes. Casinos are private businesses and can refuse service: they can bar you from blackjack or ask you to leave. A well-known exception is New Jersey (Atlantic City), where you can’t be barred for counting, although the casino can still shuffle early or limit your bets.' },
+  { q: 'Is it illegal to use a card counting app in a casino?', a: 'Yes, almost everywhere. Using your phone or any device to count cards or work out plays at a real table breaks casino rules and, in places like Nevada, is a crime. Apps like Veintiuno are for practicing at home.' },
+  { q: 'What do casinos do about card counters?', a: 'Shuffle earlier (less penetration), use continuous shuffling machines, cap how much you can raise your bet, watch on camera and, where they’re allowed to, ask you to stop playing blackjack.' },
+];
+---
+<Guide
+  lang="en"
+  route="countingLegal"
+  title="Is Card Counting Illegal? US, Spain, Mexico & More"
+  h1="Is card counting illegal?"
+  description="Is card counting illegal in blackjack? What the law says in the US (Nevada, New Jersey), Spain, Mexico and Argentina, what casinos can do and what is banned."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['counting', 'practiceCounting', 'movie21', 'howToWin']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Short answer:</strong> <strong>no, counting cards in your head is not illegal.</strong> What’s banned is using devices, notes or partners passing signals. But a casino is a private business: if it spots you, it can shuffle early, limit your bets or ask you to stop playing.</p></div>
+  </div>
+
+  <h2 id="why">Why it isn’t illegal</h2>
+  <p>Counting cards just means remembering which cards have come out and drawing conclusions. You don’t tamper with anything, you don’t see hidden cards and you don’t use outside help: you only use the information the casino itself puts face up on the table. There’s no reasonable way to outlaw thinking.</p>
+  <p>The line is drawn at <strong>outside help</strong>: a calculator, a phone, an app, a hidden device, or a team passing the count with signals. That is banned in casinos and, in some places, it’s a crime.</p>
+
+  <h2 id="countries">Country by country</h2>
+  <table>
+    <thead><tr><th>Country</th><th>Counting in your head?</th><th>Can they kick you out?</th></tr></thead>
+    <tbody>
+      <tr><td>Spain</td><td>Not illegal</td><td>Yes: casinos reserve the right to refuse admission</td></tr>
+      <tr><td>Mexico</td><td>Not illegal</td><td>Yes, as a private business</td></tr>
+      <tr><td>Argentina</td><td>Not illegal</td><td>Yes, as a private business</td></tr>
+      <tr><td>US (Nevada)</td><td>Not illegal</td><td>Yes; using a device to count is a crime</td></tr>
+      <tr><td>US (New Jersey)</td><td>Not illegal</td><td>They can’t bar you for counting, but they can take countermeasures</td></tr>
+    </tbody>
+  </table>
+  <p class="muted small">A general summary, not legal advice. Each casino’s rules and each state or region’s regulations can add conditions.</p>
+
+  <h2 id="casinos">What casinos do</h2>
+  <ul>
+    <li><strong>Shuffle earlier.</strong> The fewer cards dealt before the shuffle, the less useful the count.</li>
+    <li><strong>Continuous shuffling machines.</strong> The cards go back into the shoe after every hand, so counting is pointless.</li>
+    <li><strong>Limit your bets.</strong> Counting only gives you an edge if you bet much more when the count is high; if they won’t let you raise, there’s no edge.</li>
+    <li><strong>Ask you to stop playing</strong> blackjack, or to leave, where the law allows it.</li>
+  </ul>
+
+  <h2 id="online">What about online?</h2>
+  <p>In software-based online blackjack there’s nothing to ban: the deck is reshuffled every hand, so counting doesn’t work. In <a href={routes.live.en}>live blackjack</a> the shoe is real, but it’s shuffled early and the edge is tiny.</p>
+
+  <h2 id="learn">If you want to learn to count</h2>
+  <p>It’s legal and it’s great mental exercise. Start by mastering <a href={routes.strategy.en}>basic strategy</a>, then move on to <a href={routes.counting.en}>how to count cards</a> and the <a href={routes.practiceCounting.en}>practice drills</a>. And keep reality in mind: the edge is small and most people who try it don’t make money.</p>
+</Guide>

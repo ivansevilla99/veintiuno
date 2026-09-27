@@ -34,7 +34,7 @@ const schema = [
         <p class="lead">Basic strategy, explained play by play and adjusted to your table’s rules. No miracle systems, no promises of easy money — just the right decisions, until they’re automatic.</p>
         <div class="hero-actions">
           <AppStoreButton lang="en" campaign="home-hero" />
-          <a class="btn btn-ghost" href={routes.strategy.en}>Open the strategy chart</a>
+          <a class="btn btn-ghost" href={routes.simulator.en}>Play free with corrections</a>
         </div>
         <p class="hero-note">For iPhone and Mac · Free to start · No real money</p>
       </div>
@@ -50,7 +50,7 @@ const schema = [
   <section class="section">
     <div class="container">
       <h2>Start here</h2>
-      <p class="lead">Three guides cover what you actually need. Everything else is detail.</p>
+      <p class="lead">Three guides cover what you actually need. If you’d rather go step by step, take the <a href={routes.course.en}>free blackjack course</a>: 10 short lessons with quizzes.</p>
       <div class="grid-3">
         <a class="card" href={routes.howToPlay.en}><div class="icon">♠</div><h3>How to play blackjack</h3><p>The rules, card values and how a hand plays out, start to finish, without jargon.</p><span class="more">Learn the rules →</span></a>
         <a class="card" href={routes.strategy.en}><div class="icon">▦</div><h3>Basic strategy chart</h3><p>Interactive and matched to your table: Vegas S17 or H17, double deck, European. Tap a cell to see why.</p><span class="more">Open the chart →</span></a>
@@ -87,6 +87,7 @@ const schema = [
       <h2>Most asked questions</h2>
       <div class="grid-2">
         <a class="card" href={routes.howToPlay.en}><h3>How do you win a hand of blackjack?</h3><p>Finish closer to 21 than the dealer without going over. Step by step here.</p></a>
+        <a class="card" href={routes.simulator.en}><h3>Where can I play blackjack for free?</h3><p>Right here: a table with no money and no sign-up that corrects every play.</p></a>
         <a class="card" href={routes.strategy.en}><h3>When should you double or split?</h3><p>Always split aces and eights, never tens or fives. The rest is in the chart.</p></a>
         <a class="card" href={routes.counting.en}><h3>Is card counting illegal?</h3><p>Counting in your head isn’t illegal, but casinos can ask you to stop.</p></a>
         <a class="card" href={routes.howToWin.en}><h3>Can you beat blackjack long term?</h3><p>With basic strategy alone, no — you lose the least possible. Here’s what is possible.</p></a>

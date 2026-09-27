@@ -1,27 +1,37 @@
 ---
 import { campaignURL } from '../lib/site';
-const appLink = campaignURL('es-simulator');
+interface Props { lang?: 'es' | 'en' }
+const { lang = 'es' } = Astro.props;
+const en = lang === 'en';
+const appLink = campaignURL(`${lang}-simulator`);
+const T = en
+  ? { aria: 'Blackjack practice table', table: 'Table', spain: 'Spanish casino', s17: 'Las Vegas (S17)', h17: 'Las Vegas (H17)', eu: 'European / online', accT: 'Correct decisions', acc: 'correct', strT: 'Streak of correct decisions', str: 'streak', reset: 'Reset', dealer: 'Dealer',
+      hit: 'Hit', stand: 'Stand', double: 'Double', split: 'Split', surrender: 'Surrender', deal: 'Deal', space: 'Space', keys: ['H', 'S', 'D', 'P', 'R'],
+      nudge1: 'You’ve played', nudge2: 'hands.', nudge3: 'The Veintiuno app adds the 14-day course, a heat map of the chart cells you miss most, and the hand consultant.', see: 'See the app →' }
+  : { aria: 'Mesa de blackjack para practicar', table: 'Mesa', spain: 'Casino en España', s17: 'Las Vegas (S17)', h17: 'Las Vegas (H17)', eu: 'Europea / online', accT: 'Decisiones correctas', acc: 'aciertos', strT: 'Racha de decisiones correctas', str: 'racha', reset: 'Poner a cero', dealer: 'Crupier',
+      hit: 'Pedir', stand: 'Plantarse', double: 'Doblar', split: 'Dividir', surrender: 'Rendirse', deal: 'Repartir', space: 'Espacio', keys: ['P', 'S', 'D', 'V', 'R'],
+      nudge1: 'Llevas', nudge2: 'manos.', nudge3: 'En la app de Veintiuno tienes el curso de 14 días, el mapa de calor con las casillas que más fallas y el consultor de manos.', see: 'Ver la app →' };
 ---
-<section class="sim" data-sim aria-label="Mesa de blackjack para practicar">
+<section class="sim" data-sim data-lang={lang} aria-label={T.aria}>
   <div class="sim-top">
-    <label class="sim-rules">Mesa
+    <label class="sim-rules">{T.table}
       <select data-rules>
-        <option value="spainCasino">Casino en España</option>
-        <option value="vegasS17">Las Vegas (S17)</option>
-        <option value="vegasH17">Las Vegas (H17)</option>
-        <option value="europeanOnline">Europea / online</option>
+        <option value="spainCasino">{T.spain}</option>
+        <option value="vegasS17">{T.s17}</option>
+        <option value="vegasH17">{T.h17}</option>
+        <option value="europeanOnline">{T.eu}</option>
       </select>
     </label>
     <div class="sim-stats" aria-live="polite">
-      <span title="Decisiones correctas"><b data-acc>—</b> aciertos</span>
-      <span title="Racha de decisiones correctas"><b data-streak>0</b> racha</span>
-      <button type="button" class="sim-reset" data-reset title="Poner a cero">↺</button>
+      <span title={T.accT}><b data-acc>—</b> {T.acc}</span>
+      <span title={T.strT}><b data-streak>0</b> {T.str}</span>
+      <button type="button" class="sim-reset" data-reset title={T.reset}>↺</button>
     </div>
   </div>
 
   <div class="felt">
     <div class="row dealer">
-      <span class="lbl">Crupier <em data-dtotal></em></span>
+      <span class="lbl">{T.dealer} <em data-dtotal></em></span>
       <div class="cards" data-dealer></div>
     </div>
     <div class="result" data-result aria-live="polite"></div>
@@ -31,17 +41,17 @@ const appLink = campaignURL('es-simulator');
   <div class="feedback" data-feedback aria-live="polite" hidden></div>
 
   <div class="actions" data-actions>
-    <button type="button" data-a="hit">Pedir <kbd>P</kbd></button>
-    <button type="button" data-a="stand">Plantarse <kbd>S</kbd></button>
-    <button type="button" data-a="double">Doblar <kbd>D</kbd></button>
-    <button type="button" data-a="split">Dividir <kbd>V</kbd></button>
-    <button type="button" data-a="surrender">Rendirse <kbd>R</kbd></button>
+    <button type="button" data-a="hit">{T.hit} <kbd>{T.keys[0]}</kbd></button>
+    <button type="button" data-a="stand">{T.stand} <kbd>{T.keys[1]}</kbd></button>
+    <button type="button" data-a="double">{T.double} <kbd>{T.keys[2]}</kbd></button>
+    <button type="button" data-a="split">{T.split} <kbd>{T.keys[3]}</kbd></button>
+    <button type="button" data-a="surrender">{T.surrender} <kbd>{T.keys[4]}</kbd></button>
   </div>
-  <button type="button" class="deal btn btn-gold" data-deal>Repartir <kbd>Espacio</kbd></button>
+  <button type="button" class="deal btn btn-gold" data-deal>{T.deal} <kbd>{T.space}</kbd></button>
 
   <aside class="sim-nudge" data-nudge hidden>
-    <b>Llevas <span data-nhands>20</span> manos.</b> En la app de Veintiuno tienes el curso de 14 días, el mapa de calor con las casillas que más fallas y el consultor de manos.
-    <a href={appLink} rel="noopener">Ver la app →</a>
+    <b>{T.nudge1} <span data-nhands>20</span> {T.nudge2}</b> {T.nudge3}
+    <a href={appLink} rel="noopener">{T.see}</a>
   </aside>
 </section>
 
@@ -101,13 +111,21 @@ const appLink = campaignURL('es-simulator');
   import { explain } from '../lib/explain';
   import { Shoe, Round, total, isBlackjack, type Card, type Outcome } from '../lib/game';
 
-  const NAME: Record<Action, string> = { hit: 'pedir', stand: 'plantarse', double: 'doblar', split: 'dividir', surrender: 'rendirse' };
-  const KEYS: Record<string, Action> = { p: 'hit', h: 'hit', s: 'stand', d: 'double', v: 'split', r: 'surrender' };
-  const RESULT: Record<Outcome, [string, string]> = {
-    blackjack: ['¡Blackjack!', 'win'], win: ['Ganas', 'win'], push: ['Empate', 'push'], lose: ['Pierdes', 'lose'], bust: ['Te pasas', 'lose'], surrender: ['Te rindes', 'push'],
-  };
-
   const root = document.querySelector<HTMLElement>('[data-sim]')!;
+  const EN = root.dataset.lang === 'en';
+  const LANG = EN ? 'en' : 'es';
+  const NAME: Record<Action, string> = EN
+    ? { hit: 'hit', stand: 'stand', double: 'double', split: 'split', surrender: 'surrender' }
+    : { hit: 'pedir', stand: 'plantarse', double: 'doblar', split: 'dividir', surrender: 'rendirse' };
+  const KEYS: Record<string, Action> = EN
+    ? { h: 'hit', s: 'stand', d: 'double', p: 'split', r: 'surrender' }
+    : { p: 'hit', h: 'hit', s: 'stand', d: 'double', v: 'split', r: 'surrender' };
+  const RESULT: Record<Outcome, [string, string]> = EN
+    ? { blackjack: ['Blackjack!', 'win'], win: ['You win', 'win'], push: ['Push', 'push'], lose: ['You lose', 'lose'], bust: ['Bust', 'lose'], surrender: ['Surrendered', 'push'] }
+    : { blackjack: ['¡Blackjack!', 'win'], win: ['Ganas', 'win'], push: ['Empate', 'push'], lose: ['Pierdes', 'lose'], bust: ['Te pasas', 'lose'], surrender: ['Te rindes', 'push'] };
+  const W = EN
+    ? { hidden: 'Hole card', bj: 'Blackjack', bust: 'bust', doubled: 'doubled', of: 'of', won: 'won', good: 'Good', was: 'The right play was' }
+    : { hidden: 'Carta oculta', bj: 'Blackjack', bust: 'se pasa', doubled: 'doblada', of: 'de', won: 'ganadas', good: 'Bien', was: 'La jugada era' };
   const $ = <T extends HTMLElement>(s: string) => root.querySelector<T>(s)!;
   const store = {
     get(k: string, d: number) { try { return Number(localStorage.getItem(`vt-sim-${k}`) ?? d); } catch { return d; } },
@@ -115,8 +133,9 @@ const appLink = campaignURL('es-simulator');
     getS(k: string) { try { return localStorage.getItem(`vt-sim-${k}`); } catch { return null; } },
   };
 
-  let rulesKey = store.getS('rules') ?? 'spainCasino';
-  if (!presets[rulesKey]) rulesKey = 'spainCasino';
+  const DEFAULT = EN ? 'vegasS17' : 'spainCasino';
+  let rulesKey = store.getS('rules') ?? DEFAULT;
+  if (!presets[rulesKey]) rulesKey = DEFAULT;
   let rules: Rules = presets[rulesKey];
   let shoe = new Shoe(rules.decks);
   let round: Round | null = null;
@@ -126,7 +145,7 @@ const appLink = campaignURL('es-simulator');
   $<HTMLSelectElement>('[data-rules]').value = rulesKey;
 
   const cardHTML = (c: Card | null) => {
-    if (!c) return '<div class="card-el back" aria-label="Carta oculta"></div>';
+    if (!c) return `<div class="card-el back" aria-label="${W.hidden}"></div>`;
     const red = c.suit === '♥' || c.suit === '♦';
     return `<div class="card-el${red ? ' red' : ''}" aria-label="${c.rank}${c.suit}"><span class="c">${c.rank}<i>${c.suit}</i></span><span class="p">${c.suit}</span></div>`;
   };
@@ -144,20 +163,20 @@ const appLink = campaignURL('es-simulator');
       const dcards: (Card | null)[] = showAll ? round.dealer : [round.dealer[0], ...(rules.holeCard ? [null] : [])];
       dealerEl.innerHTML = dcards.map(cardHTML).join('');
       const dt = total(showAll ? round.dealer : [round.dealer[0]]);
-      $('[data-dtotal]').textContent = showAll && isBlackjack(round.dealer) ? 'Blackjack' : dt.total > 21 ? `${dt.total} · se pasa` : `${dt.soft && dt.total < 21 ? dt.total - 10 + '/' : ''}${dt.total}`;
+      $('[data-dtotal]').textContent = showAll && isBlackjack(round.dealer) ? W.bj : dt.total > 21 ? `${dt.total} · ${W.bust}` : `${dt.soft && dt.total < 21 ? dt.total - 10 + '/' : ''}${dt.total}`;
       playerEl.innerHTML = round.player.map((h, i) => {
         const t = total(h.cards);
-        const label = isBlackjack(h.cards) && round!.player.length === 1 ? 'Blackjack' : t.total > 21 ? (round!.finished ? `${t.total}` : `${t.total} · se pasa`) : `${t.soft && t.total < 21 ? t.total - 10 + '/' : ''}${t.total}`;
+        const label = isBlackjack(h.cards) && round!.player.length === 1 ? W.bj : t.total > 21 ? (round!.finished ? `${t.total}` : `${t.total} · ${W.bust}`) : `${t.soft && t.total < 21 ? t.total - 10 + '/' : ''}${t.total}`;
         const out = round!.finished ? round!.outcomes[i] : null;
         const cls = out ? (RESULT[out][1] === 'win' ? 'good' : RESULT[out][1] === 'lose' ? 'bad' : '') : '';
         const active = !round!.finished && i === round!.active && round!.player.length > 1 ? ' active' : '';
-        return `<div class="phand${active}"><div class="cards">${h.cards.map(cardHTML).join('')}</div><span class="tot ${cls}">${label}${h.bet === 2 ? ' · doblada' : ''}${out ? ' · ' + RESULT[out][0] : ''}</span></div>`;
+        return `<div class="phand${active}"><div class="cards">${h.cards.map(cardHTML).join('')}</div><span class="tot ${cls}">${label}${h.bet === 2 ? ` · ${W.doubled}` : ''}${out ? ' · ' + RESULT[out][0] : ''}</span></div>`;
       }).join('');
     }
     const res = $('[data-result]');
     if (round?.finished) {
       const outs = round.outcomes;
-      const main = outs.length === 1 ? RESULT[outs[0]] : [`${outs.filter((o) => RESULT[o][1] === 'win').length} de ${outs.length} ganadas`, 'push'];
+      const main = outs.length === 1 ? RESULT[outs[0]] : [`${outs.filter((o) => RESULT[o][1] === 'win').length} ${W.of} ${outs.length} ${W.won}`, 'push'];
       res.textContent = main[0]; res.className = `result ${main[1]}`;
     } else { res.textContent = ''; res.className = 'result'; }
     const avail = round && !round.finished ? round.available() : new Set<Action>();
@@ -184,8 +203,8 @@ const appLink = campaignURL('es-simulator');
     const fb = $('[data-feedback]');
     fb.hidden = false;
     fb.className = `feedback ${ok ? 'ok' : 'ko'}`;
-    const why = explain(key, up, correct, rules, 'es');
-    fb.innerHTML = ok ? `<b>Bien: ${NAME[a]}.</b>${why}` : `<b>La jugada era ${NAME[correct]}.</b>${why}`;
+    const why = explain(key, up, correct, rules, LANG);
+    fb.innerHTML = ok ? `<b>${W.good}: ${NAME[a]}.</b>${why}` : `<b>${W.was} ${NAME[correct]}.</b>${why}`;
     round.perform(a);
     if (round.finished) {
       hands++; store.set('hands', hands);

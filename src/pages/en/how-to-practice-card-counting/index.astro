@@ -1,0 +1,74 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import DeckCountdown from '../../../components/DeckCountdown.astro';
+import CountDrill from '../../../components/CountDrill.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'How long does it take to learn card counting?', a: 'Learning the Hi-Lo values takes an afternoon. Counting down a full deck with no mistakes in under 30 seconds usually takes several weeks of daily practice. Doing it at a real table, with noise, conversation and betting, takes a good deal longer.' },
+  { q: 'What’s the best drill for practicing card counting?', a: 'The deck countdown: you go through all 52 cards and the count must end at 0. It’s the standard drill for every counter because it tests accuracy and speed at the same time.' },
+  { q: 'Is there an app to practice card counting?', a: 'Yes. Veintiuno includes Hi-Lo counting as an advanced module at the end of its course: a running-count drill at adjustable speed plus an explanation of the true count. This page also gives you two free drills that run in your browser.' },
+  { q: 'Can I practice card counting at an online casino?', a: 'You can practice the mechanics; you can’t make money. Software-based online blackjack reshuffles after every hand, so the count is useless. At most, use it to get used to the pace.' },
+];
+---
+<Guide
+  lang="en"
+  route="practiceCounting"
+  title="How to Practice Card Counting: Step-by-Step Drills"
+  h1="How to practice card counting"
+  description="Step-by-step plan to practice Hi-Lo card counting: card values, the deck countdown, canceling pairs, true count and table speed. Free drills in your browser."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['counting', 'countingLegal', 'strategy', 'course']}
+  cta={{ title: 'Strategy first, then counting', text: 'In Veintiuno, Hi-Lo comes at the end of the course, once you’ve mastered basic strategy, because counting without it is pointless.' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> learn the Hi-Lo values (2–6 count +1, 7–9 count 0, tens and aces count −1), practice the <strong>deck countdown</strong> until you can do it with no mistakes in under 30 seconds, learn to count in <strong>pairs that cancel out</strong> and to convert to the <strong>true count</strong>, and only then practice with noise and distractions. Before any of that, master basic strategy.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In this guide">
+    <b>In this guide</b>
+    <ol>
+      <li><a href="#before">Before you start</a></li>
+      <li><a href="#step1">Step 1: the values, without thinking</a></li>
+      <li><a href="#step2">Step 2: the deck countdown</a></li>
+      <li><a href="#step3">Step 3: counting in pairs</a></li>
+      <li><a href="#step4">Step 4: the true count</a></li>
+      <li><a href="#step5">Step 5: table speed</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="before">Before you start</h2>
+  <p>Counting cards only makes sense if you already play <a href={routes.strategy.en}>basic strategy</a> without mistakes. A single strategy error every few hands costs more than the entire edge counting gives you. If you still hesitate on 12 against a 3 or A-7 against a 9, start there.</p>
+  <p>And be clear about why you’re doing it: counting is a great mental exercise and the best way to understand the game, but it’s not an easy way to make money. We explain why in <a href={routes.counting.en}>how to count cards</a>.</p>
+
+  <h2 id="step1">Step 1: the values, without thinking</h2>
+  <p>You need to see a card and know its value without translating it in your head. 2 through 6: <strong>+1</strong>. 7 through 9: <strong>0</strong>. Tens, face cards and aces: <strong>−1</strong>. Practice with short runs until you don’t hesitate:</p>
+  <CountDrill lang="en" />
+
+  <h2 id="step2">Step 2: the deck countdown</h2>
+  <p>The classic drill every counter uses. A full deck has as many high cards as low cards, so if you count all 52, the result has to be 0. Start slow and build up speed:</p>
+  <ul>
+    <li><strong>Goal 1:</strong> finish at 0 with no mistakes, at any speed.</li>
+    <li><strong>Goal 2:</strong> finish at 0 in under 30 seconds (about 0.5 s per card).</li>
+    <li><strong>Goal 3:</strong> stop halfway through the deck and get the count right.</li>
+  </ul>
+  <DeckCountdown lang="en" />
+
+  <h2 id="step3">Step 3: counting in pairs</h2>
+  <p>At the table, cards come out two or three at a time. Counters don’t add them up one by one: they recognize <strong>pairs that cancel out</strong>. A 5 and a king add up to 0, so you ignore them. A 4 and a 6 are +2 in one go. Practice looking at two cards at once and saying only the result for the pair.</p>
+
+  <h2 id="step4">Step 4: the true count</h2>
+  <p>The running count tells you how many extra high cards are left, but not how many cards are still to come. For that, divide by the number of decks remaining: <strong>true count = running count ÷ decks remaining</strong>. Practice working it out in your head:</p>
+  <ul>
+    <li>+8 with 4 decks left → <strong>+2</strong></li>
+    <li>+6 with 1.5 decks left → <strong>+4</strong></li>
+    <li>−3 with 3 decks left → <strong>−1</strong></li>
+  </ul>
+  <p>To estimate the decks remaining, look at the discard tray: rounding to the nearest half deck is good enough.</p>
+
+  <h2 id="step5">Step 5: table speed</h2>
+  <p>Counting at home in silence is easy. At a table there’s noise, conversation, chips and cards from several players. Once you’ve mastered the earlier steps, practice with the TV on, while talking, or with a video of a real table. If you lose the count, don’t worry: you start over from zero after the next shuffle.</p>
+  <div class="callout warn"><p><strong>Remember:</strong> counting in your head is legal, but using a phone or any device at the table is not. And the casino can ask you to stop playing if it spots you.</p></div>
+</Guide>

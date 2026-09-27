@@ -1,0 +1,26 @@
+---
+import Base from '../../../layouts/Base.astro';
+import AppCTA from '../../../components/AppCTA.astro';
+import { routes } from '../../../lib/site';
+const items = [
+  [routes.dataBust.en, 'Dealer bust probability', 'By upcard and by final total (17–21), for S17 and H17.'],
+  [routes.dataRules.en, 'What each blackjack rule costs', 'How 6:5, H17, number of decks, surrender and more change the house edge.'],
+  [routes.hand16v10.en, '16 vs 10, by the numbers', 'The expected value of hitting, standing and surrendering.'],
+  [routes.whenDouble.en, 'When to double down, with expected values', '11 vs ace, A-7 vs 6 and every other double.'],
+  [routes.whenSplit.en, 'When to split, with expected values', 'Eights vs 10, tens vs 6, nines vs 7.'],
+];
+---
+<Base lang="en" route="data" title="Blackjack Odds & Data: Exact Tables · Veintiuno" description="Exact blackjack odds tables computed with the Veintiuno engine: dealer bust probability, house edge by table rules and the expected value of the key plays.">
+  <div class="container read">
+    <header class="article-head">
+      <span class="eyebrow">Data</span>
+      <h1>Blackjack odds and data</h1>
+      <p class="lead">Tables computed with the same engine the Veintiuno app uses: exact calculation, not simulation, with the rules and assumptions spelled out on each page.</p>
+    </header>
+    <div class="grid-2">
+      {items.map(([href, title, text]) => <a class="card" href={href}><h3>{title}</h3><p>{text}</p></a>)}
+    </div>
+    <p class="muted small" style="margin-top:24px">Methodology: 6 decks unless stated otherwise; the visible cards are removed and every possible card is played out (expectimax). Validated against an independent simulation of millions of hands. Details on the <a href={routes.about.en}>About</a> page.</p>
+    <AppCTA lang="en" campaign="data" />
+  </div>
+</Base>
