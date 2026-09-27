@@ -1,0 +1,38 @@
+---
+// Black-on-white strategy chart for printing / PDF. Same data as the interactive chart.
+import { strategyTable, presets, houseEdge, upcards, hardKeys, softKeys, pairKeys, type HandKey, type Play } from '../lib/strategy';
+import { keyLabel } from '../lib/chartRender';
+interface Props { preset: keyof typeof presets; title: string; rulesText: string }
+const { preset, title, rulesText } = Astro.props;
+const rules = presets[preset];
+const play = strategyTable(rules);
+const hard = hardKeys.filter((k) => k.kind === 'hard' && (k.total === 5 || k.total >= 9));
+const soft = softKeys.filter((k) => k.kind === 'soft' && k.total <= 20);
+const groups: [string, HandKey[]][] = [['Totales duros', hard], ['Totales blandos', soft], ['Parejas', pairKeys]];
+const up = (u: number) => (u === 11 ? 'A' : String(u));
+const legend: [Play, string][] = [['H', 'Pedir'], ['S', 'Plantarse'], ['D', 'Doblar (si no, pedir)'], ['Ds', 'Doblar (si no, plantarse)'], ['P', 'Dividir'], ['Rh', 'Rendirse (si no, pedir)'], ['Rs', 'Rendirse (si no, plantarse)'], ['Rp', 'Rendirse (si no, dividir)']];
+const usedPlays = new Set(groups.flatMap(([, ks]) => ks.flatMap((k) => upcards.map((u) => play(k, u)))));
+---
+<div class="pc">
+  <header>
+    <h1>{title}</h1>
+    <p>{rulesText} · Ventaja de la casa con estrategia perfecta: {houseEdge(rules).toFixed(2).replace('.', ',')} %</p>
+  </header>
+  <div class="pc-grid">
+    {groups.map(([name, keys]) => (
+      <table>
+        <caption>{name}</caption>
+        <thead><tr><th></th>{upcards.map((u) => <th>{up(u)}</th>)}</tr></thead>
+        <tbody>
+          {keys.map((k) => (
+            <tr><th>{keyLabel(k)}</th>{upcards.map((u) => { const p = play(k, u); return <td class={`p-${p}`}>{p}</td>; })}</tr>
+          ))}
+        </tbody>
+      </table>
+    ))}
+  </div>
+  <ul class="pc-legend">
+    {legend.filter(([p]) => usedPlays.has(p)).map(([p, t]) => <li><span class={`p-${p}`}>{p}</span>{t}</li>)}
+  </ul>
+  <p class="pc-foot">Filas: tu mano · Columnas: carta visible del crupier · Nunca tomes el seguro · veintiunoapp.com — tabla interactiva, curso y mesa de práctica gratis</p>
+</div>

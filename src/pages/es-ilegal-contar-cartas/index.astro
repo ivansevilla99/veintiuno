@@ -1,0 +1,57 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Es ilegal contar cartas en el blackjack?', a: 'No. Contar cartas de memoria no es ilegal en España, México, Argentina ni Estados Unidos: estás usando tu cabeza con la información que ves en la mesa. Lo que sí es ilegal es usar dispositivos o ayudas externas, y el casino puede pedirte que dejes de jugar.' },
+  { q: '¿Te pueden echar del casino por contar cartas?', a: 'En muchos sitios sí. Los casinos son negocios privados con derecho de admisión: pueden pedirte que no juegues al blackjack o que te vayas. Una excepción conocida es Nueva Jersey (Atlantic City), donde no pueden vetarte por contar, aunque sí barajar antes o limitar tus apuestas.' },
+  { q: '¿Es ilegal usar una app para contar cartas en el casino?', a: 'Sí, en la mayoría de sitios. Usar el móvil o cualquier dispositivo para contar cartas o calcular jugadas en una mesa real está prohibido por las normas de los casinos y, en lugares como Nevada, es un delito. Las apps como Veintiuno son para practicar en casa.' },
+  { q: '¿Qué hacen los casinos contra los contadores?', a: 'Barajar antes (menos penetración), usar máquinas de barajado continuo, limitar cuánto puedes subir la apuesta, vigilar con cámaras y, en los sitios donde pueden, pedirte que dejes de jugar al blackjack.' },
+];
+---
+<Guide
+  lang="es"
+  route="countingLegal"
+  title="¿Es ilegal contar cartas en el blackjack? (España, México y EE. UU.)"
+  h1="¿Es ilegal contar cartas?"
+  description="¿Es ilegal contar cartas en el blackjack? Qué ocurre en España, México, Argentina y Estados Unidos, qué pueden hacer los casinos y qué sí está prohibido."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['counting', 'practiceCounting', 'movie21', 'howToWin']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Respuesta corta:</strong> <strong>no, contar cartas de memoria no es ilegal.</strong> Lo que está prohibido es usar dispositivos, apuntes o compinches con señales. Pero el casino es un negocio privado: si te detecta, puede barajar antes, limitar tus apuestas o pedirte que dejes de jugar.</p></div>
+  </div>
+
+  <h2 id="por-que">Por qué no es ilegal</h2>
+  <p>Contar cartas es recordar qué cartas han salido y sacar conclusiones. No manipulas nada, no ves cartas ocultas y no usas ayuda externa: solo usas la información que el propio casino pone boca arriba en la mesa. No hay forma razonable de prohibir que alguien piense.</p>
+  <p>La línea está en las <strong>ayudas externas</strong>: una calculadora, el móvil, una app, un dispositivo escondido, o un equipo que se pasa la cuenta con señales. Eso sí está prohibido en los casinos y, en algunos sitios, es delito.</p>
+
+  <h2 id="paises">País por país</h2>
+  <table>
+    <thead><tr><th>País</th><th>¿Contar de memoria?</th><th>¿Pueden echarte?</th></tr></thead>
+    <tbody>
+      <tr><td>España</td><td>No es ilegal</td><td>Sí: los casinos se reservan el derecho de admisión</td></tr>
+      <tr><td>México</td><td>No es ilegal</td><td>Sí, como establecimiento privado</td></tr>
+      <tr><td>Argentina</td><td>No es ilegal</td><td>Sí, como establecimiento privado</td></tr>
+      <tr><td>EE. UU. (Nevada)</td><td>No es ilegal</td><td>Sí; usar dispositivos para contar es delito</td></tr>
+      <tr><td>EE. UU. (Nueva Jersey)</td><td>No es ilegal</td><td>No pueden vetarte por contar, pero sí tomar contramedidas</td></tr>
+    </tbody>
+  </table>
+  <p class="muted small">Resumen orientativo, no asesoramiento legal. Las normas de cada casino y de cada comunidad o estado pueden añadir condiciones.</p>
+
+  <h2 id="casinos">Qué hacen los casinos</h2>
+  <ul>
+    <li><strong>Barajar antes.</strong> Cuantas menos cartas se reparten antes de barajar, menos útil es la cuenta.</li>
+    <li><strong>Máquinas de barajado continuo.</strong> Devuelven las cartas al zapato tras cada mano: contar es inútil.</li>
+    <li><strong>Limitar las apuestas.</strong> El conteo solo da ventaja si apuestas mucho más con cuentas altas; si no te dejan subir, no hay ventaja.</li>
+    <li><strong>Pedirte que dejes de jugar</strong> al blackjack, o que te vayas, donde la ley se lo permite.</li>
+  </ul>
+
+  <h2 id="online">¿Y online?</h2>
+  <p>En el blackjack online por software no hay nada que prohibir: la baraja se mezcla en cada mano, así que contar no sirve. En el <a href={routes.live.es}>blackjack en vivo</a> el zapato es real, pero se baraja pronto y la ventaja es mínima.</p>
+
+  <h2 id="aprender">Si quieres aprender a contar</h2>
+  <p>Es legal y es un ejercicio mental excelente. Empieza por dominar la <a href={routes.strategy.es}>estrategia básica</a> y sigue con <a href={routes.counting.es}>cómo contar cartas</a> y los <a href={routes.practiceCounting.es}>ejercicios de práctica</a>. Y ten presente la realidad: la ventaja es pequeña y la mayoría de quienes lo intentan no ganan dinero.</p>
+</Guide>

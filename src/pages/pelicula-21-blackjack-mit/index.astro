@@ -1,0 +1,51 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿La película 21 está basada en una historia real?', a: 'En parte. Se inspira en el libro «Bringing Down the House» (2003) de Ben Mezrich, sobre el equipo de blackjack del MIT, que existió de verdad y ganó dinero contando cartas en equipo. Pero tanto el libro como la película dramatizan y cambian mucho los hechos.' },
+  { q: '¿Funciona de verdad lo que hacen en la película 21?', a: 'La idea básica sí: jugadores que cuentan cartas en varias mesas y avisan con señales a un compañero que entra a apostar fuerte cuando la cuenta es alta. Lo que no es realista es lo fácil y rápido que parece ganar, ni la violencia de la seguridad del casino.' },
+  { q: '¿Qué sistema de conteo usan en 21?', a: 'La película no entra en detalles técnicos, pero lo que muestra encaja con un sistema de conteo sencillo de tipo Hi-Lo, en el que las cartas bajas suman y las altas restan, combinado con juego en equipo.' },
+  { q: '¿Se podría hacer hoy lo del equipo del MIT?', a: 'Mucho más difícil. Hoy los casinos barajan antes, usan máquinas de barajado continuo, tienen cámaras y software de reconocimiento, y comparten información sobre jugadores. Y online el conteo no sirve.' },
+];
+---
+<Guide
+  lang="es"
+  route="movie21"
+  title="La película 21 y el equipo del MIT: qué es verdad (blackjack)"
+  h1="La película 21 y el equipo de blackjack del MIT: qué es verdad"
+  description="¿Es real la película 21 (2008)? La historia del equipo de blackjack del MIT, cómo contaban cartas en equipo, qué cambió Hollywood y si se podría repetir hoy."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['counting', 'countingLegal', 'practiceCounting', 'howToWin']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> «21» (2008) se basa en un equipo real de estudiantes del MIT que ganó dinero contando cartas en equipo en los casinos. La técnica que muestra es real: <strong>contadores que avisan a un «gran jugador»</strong> cuando la cuenta es alta. Lo que no es real es lo fácil que parece: el libro y la película exageran y cambian muchos hechos.</p></div>
+  </div>
+
+  <h2 id="historia">La historia real</h2>
+  <p>El equipo de blackjack del MIT fue un grupo de estudiantes y antiguos alumnos del Instituto Tecnológico de Massachusetts y otras universidades que, desde finales de los años 70 y durante los 80 y 90, jugó al blackjack con técnicas de conteo en los casinos de Estados Unidos y de otros países. Funcionaba casi como una empresa: con inversores, entrenamiento, exámenes de conteo antes de dejar jugar a alguien y registro de resultados.</p>
+  <p>En 2003, el periodista Ben Mezrich publicó «Bringing Down the House», un libro basado en las experiencias de algunos miembros del equipo. La película «21», de 2008, adapta ese libro. Tanto uno como otra toman libertades importantes: personajes compuestos, escenas inventadas y una historia más dramática que la realidad.</p>
+
+  <h2 id="tecnica">La técnica: contar en equipo</h2>
+  <p>La parte más fiel de la película es la estrategia de equipo, y es ingeniosa:</p>
+  <ol>
+    <li><strong>Los contadores</strong> («spotters») se sientan en varias mesas apostando el mínimo y llevando la cuenta, sin llamar la atención.</li>
+    <li>Cuando la cuenta de una mesa sube mucho (quedan muchas cartas altas), avisan con <strong>señales discretas</strong>.</li>
+    <li><strong>El gran jugador</strong> («big player») llega a esa mesa y apuesta fuerte mientras la cuenta es favorable, haciéndose pasar por un jugador rico y despreocupado.</li>
+  </ol>
+  <p>Así evitan la señal más fácil de detectar para el casino: un mismo jugador que pasa de apostar poco a apostar mucho según avanza el zapato. La base matemática es la misma que explicamos en <a href={routes.counting.es}>cómo contar cartas</a>.</p>
+
+  <h2 id="hollywood">Lo que cambió Hollywood</h2>
+  <ul>
+    <li><strong>Lo fácil que parece ganar.</strong> En la película el dinero llega rápido y casi sin rachas malas. En realidad, incluso con ventaja, la variación es enorme y hay que aguantar pérdidas grandes.</li>
+    <li><strong>La violencia.</strong> Las escenas de palizas de la seguridad del casino son dramatización. Lo habitual cuando un casino detecta a un contador es pedirle que deje de jugar al blackjack o que se vaya.</li>
+    <li><strong>Los personajes.</strong> Son versiones inventadas o mezcladas de personas reales. La elección del reparto generó polémica porque buena parte del equipo real era de origen asiático-americano y en la película casi no se refleja.</li>
+    <li><strong>Las escenas de clase.</strong> El famoso problema de Monty Hall en el aula es un recurso de guion para presentar al protagonista, no parte de la historia real del equipo.</li>
+  </ul>
+
+  <h2 id="hoy">¿Se podría hacer hoy?</h2>
+  <p>Es mucho más difícil que en los 80 y 90. Los casinos barajan antes, usan máquinas de barajado continuo, tienen cámaras y software que analiza cómo apuesta cada jugador, y comparten información. Online, el conteo no sirve porque la baraja se mezcla en cada mano. Contar sigue siendo <a href={routes.countingLegal.es}>legal</a>, pero ganar dinero así es muy distinto de lo que muestra la película.</p>
+  <p>Si te picó la curiosidad, el primer paso es el mismo que daban los miembros del equipo: dominar la <a href={routes.strategy.es}>estrategia básica</a> sin un solo error, y después <a href={routes.practiceCounting.es}>practicar el conteo</a>.</p>
+</Guide>

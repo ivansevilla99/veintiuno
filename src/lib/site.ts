@@ -30,6 +30,11 @@ export const routes = {
   // Spanish-only for now: the English versions come after Search Console shows what works.
   course: { es: '/curso-blackjack/' },
   simulator: { es: '/jugar-blackjack-gratis/' },
+  live: { es: '/blackjack-en-vivo/' },
+  countingLegal: { es: '/es-ilegal-contar-cartas/' },
+  printable: { es: '/tabla-estrategia-blackjack-pdf/' },
+  movie21: { es: '/pelicula-21-blackjack-mit/' },
+  bj21: { es: '/blackjack-y-21-diferencias/' },
   hand16v10: { es: '/16-contra-10-blackjack/' },
   whenDouble: { es: '/cuando-doblar-blackjack/' },
   whenSplit: { es: '/cuando-dividir-blackjack/' },

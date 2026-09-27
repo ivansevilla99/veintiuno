@@ -1,0 +1,32 @@
+---
+interface Props { title: string }
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>{title}</title>
+<style is:global>
+  @page { size: A4; margin: 12mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 11px/1.35 -apple-system, 'Helvetica Neue', Arial, sans-serif; color: #111; background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .pc { max-width: 186mm; margin: 0 auto; }
+  .pc header h1 { font-size: 20px; margin: 0 0 2px; }
+  .pc header p { margin: 0 0 10px; color: #444; }
+  .pc-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+  .pc table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  .pc caption { text-align: left; font-weight: 700; font-size: 13px; padding: 4px 0; }
+  .pc th, .pc td { border: 1px solid #fff; text-align: center; padding: 3px 0; font-weight: 700; }
+  .pc thead th { background: #222; color: #fff; }
+  .pc tbody th { background: #eee; width: 12%; }
+  .p-H { background: #f4a497; } .p-S { background: #f6dd86; } .p-D, .p-Ds { background: #9fd9f2; } .p-P { background: #a9e3b3; } .p-Rh, .p-Rs, .p-Rp { background: #dcdcdc; }
+  .pc-legend { list-style: none; padding: 0; margin: 10px 0 6px; display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  .pc-legend span { display: inline-block; min-width: 24px; text-align: center; font-weight: 700; margin-right: 5px; padding: 1px 3px; }
+  .pc-foot { color: #555; margin: 6px 0 0; font-size: 10px; }
+</style>
+</head>
+<body><slot /></body>
+</html>

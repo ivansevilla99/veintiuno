@@ -1,0 +1,63 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+import { houseEdge, defaultRules } from '../../lib/strategy';
+
+const typical = houseEdge({ ...defaultRules, decks: 8, holeCard: false, surrender: 'none' });
+const pct = (x: number) => x.toFixed(2).replace('.', ',') + ' %';
+const faq = [
+  { q: '¿Qué es el blackjack en vivo?', a: 'Es blackjack online en el que las cartas las reparte un crupier real, retransmitido en vídeo desde un estudio o un casino. Tú decides desde el móvil o el ordenador, y el crupier juega con cartas y un zapato físicos.' },
+  { q: '¿Sirve la estrategia básica en el blackjack en vivo?', a: 'Sí, igual que en un casino físico: es lo que más reduce la ventaja de la casa. Solo tienes que usar la tabla que corresponde a las reglas de esa mesa, que suelen ser europeas (sin carta oculta).' },
+  { q: '¿Se puede contar cartas en el blackjack en vivo?', a: 'En la práctica, apenas. Se reparte desde un zapato real, pero suelen barajar cuando queda cerca de la mitad, y algunas variantes barajan continuamente o usan una baraja «infinita». Con tan poca penetración la ventaja del conteo es mínima.' },
+  { q: '¿Merecen la pena las apuestas laterales como 21+3 o Perfect Pairs?', a: 'No. Tienen una ventaja para la casa de varios puntos, mucho mayor que la de la mano principal jugada con estrategia básica. Son la forma más rápida de perder dinero en una mesa de blackjack.' },
+];
+---
+<Guide
+  lang="es"
+  route="live"
+  title="Blackjack en vivo: cómo funciona, reglas y si sirve contar"
+  h1="Blackjack en vivo: cómo funciona y qué tener en cuenta"
+  description="Qué es el blackjack en vivo, qué reglas suele tener, qué estrategia usar, por qué contar cartas apenas sirve y qué pasa con las apuestas laterales como 21+3."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['spain', 'strategy', 'counting', 'dataRules']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> el blackjack en vivo es blackjack online con un crupier real retransmitido en vídeo. Suele jugarse con <strong>8 barajas y reglas europeas</strong> (sin carta oculta), así que usa la tabla de estrategia de <strong>mesa europea</strong>. Contar cartas apenas sirve porque se baraja pronto, y las <strong>apuestas laterales</strong> tienen una ventaja para la casa muy superior a la de la mano principal.</p></div>
+  </div>
+
+  <h2 id="que-es">Qué es y en qué se diferencia</h2>
+  <p>En el blackjack online normal, las cartas las decide un generador de números aleatorios y la baraja se mezcla en cada mano. En el <strong>blackjack en vivo</strong> hay un crupier de verdad, en un estudio o en un casino, con cartas y un zapato físicos, y una cámara que lo retransmite. Tú tomas las decisiones desde una pantalla con un tiempo límite.</p>
+  <p>El juego es el mismo blackjack, pero hay tres diferencias que importan: las reglas suelen ser europeas, hay tiempo limitado para decidir y la mesa ofrece muchas apuestas laterales.</p>
+
+  <h2 id="reglas">Las reglas que tienes que mirar</h2>
+  <p>Cada mesa publica sus reglas en el botón de información. Antes de jugar, comprueba:</p>
+  <ul>
+    <li><strong>¿Tiene carta oculta el crupier?</strong> Casi todas las mesas en vivo son europeas: el crupier saca su segunda carta al final. Mira si, cuando el crupier tiene blackjack, pierdes también lo doblado y dividido o solo la apuesta original (regla «OBO»). Cambia qué tabla usar.</li>
+    <li><strong>Número de barajas:</strong> normalmente 8.</li>
+    <li><strong>¿Pide el crupier con 17 blando?</strong> Lo habitual es que se plante (S17).</li>
+    <li><strong>Pago del blackjack:</strong> debe ser 3 a 2.</li>
+    <li><strong>Doblar y dividir:</strong> con qué manos se puede doblar y si se puede doblar tras dividir.</li>
+    <li><strong>Rendición:</strong> casi nunca está disponible.</li>
+  </ul>
+  <p>Con reglas típicas (8 barajas, S17, sin carta oculta, doblar con cualquier mano y tras dividir, sin rendición, 3 a 2), la ventaja de la casa jugando perfecto ronda el <strong>{pct(typical)}</strong>. Puedes ajustar exactamente esas reglas en la <a href={routes.strategy.es}>tabla de estrategia interactiva</a>.</p>
+
+  <h2 id="variantes">Las variantes que cambian la estrategia</h2>
+  <p>Muchas mesas en vivo no son blackjack clásico, sino variantes con reglas propias. Por ejemplo, las que te regalan dobladas y divisiones pero a cambio empatan cuando el crupier hace 22, o las que pagan multiplicadores. En esas variantes <strong>la tabla de estrategia básica clásica no es correcta</strong> y la ventaja de la casa suele ser mayor. Si no sabes cuánto cambia, juega al blackjack clásico.</p>
+
+  <h2 id="contar">¿Se puede contar cartas en vivo?</h2>
+  <p>En teoría sí, porque las cartas salen de un zapato real. En la práctica apenas sirve:</p>
+  <ul>
+    <li>Se suele barajar cuando queda cerca de la <strong>mitad del zapato</strong>. Con tan poca penetración, la cuenta verdadera rara vez sube lo suficiente.</li>
+    <li>Algunas variantes usan barajado continuo o una baraja «infinita»: ahí contar es inútil.</li>
+    <li>El conteo solo da ventaja si subes mucho la apuesta cuando la cuenta es alta, y las mesas online limitan y vigilan eso.</li>
+  </ul>
+  <p>Lo explicamos a fondo en <a href={routes.counting.es}>cómo contar cartas</a>.</p>
+
+  <h2 id="laterales">Las apuestas laterales</h2>
+  <p>Las mesas en vivo empujan mucho las apuestas laterales: <strong>21+3</strong> (tus dos cartas y la del crupier forman una jugada de póquer), <strong>parejas perfectas</strong>, apuestas a que el crupier se pasa… Pagan mucho cuando salen, pero tienen una ventaja para la casa de <strong>varios puntos</strong>, muy superior al {pct(typical)} de la mano principal jugada bien. Si quieres que tu dinero dure, no las juegues.</p>
+
+  <h2 id="responsable">Antes de jugar</h2>
+  <p>El blackjack en vivo es rápido y está disponible a cualquier hora, lo que hace fácil jugar más de lo que querías. Pon un límite de dinero y de tiempo antes de empezar. Si el juego te está costando más de lo que quieres, tienes ayuda en <a href={routes.responsible.es}>juego responsable</a>. Y para aprender sin arriesgar nada, tienes nuestra <a href={routes.simulator.es}>mesa de práctica gratis</a>.</p>
+</Guide>

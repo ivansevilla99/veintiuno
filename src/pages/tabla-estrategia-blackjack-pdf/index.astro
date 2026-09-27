@@ -1,0 +1,53 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+
+const pdfs = [
+  ['espana', 'Casinos de España', 'Sin carta oculta, doblar con 9–11, sin rendición. La que necesitas si juegas en un casino español.'],
+  ['europea', 'Mesa europea / online', 'Sin carta oculta, doblar con cualquier mano. Típica del blackjack online y en vivo.'],
+  ['las-vegas-s17', 'Las Vegas (S17)', 'El crupier se planta con 17 blando, con rendición.'],
+  ['las-vegas-h17', 'Las Vegas (H17)', 'El crupier pide con 17 blando, con rendición.'],
+];
+const faq = [
+  { q: '¿Qué tabla de estrategia tengo que descargar?', a: 'La que coincide con las reglas de tu mesa. Si juegas en un casino de España, la de casinos de España. Si juegas online o en vivo, normalmente la europea. Si juegas en Las Vegas, mira en el tapete si el crupier pide con 17 blando («dealer hits soft 17»): entonces H17; si no, S17.' },
+  { q: '¿Puedo llevar la tabla impresa al casino?', a: 'Algunos casinos permiten consultar una tarjeta impresa en mesas de apuesta baja y otros no; pregunta antes. Lo que no está permitido en ningún caso es usar el móvil u otros dispositivos en la mesa.' },
+  { q: '¿Son gratis?', a: 'Sí. Puedes descargarlas, imprimirlas y compartirlas.' },
+];
+---
+<Guide
+  lang="es"
+  route="printable"
+  title="Tabla de estrategia de blackjack en PDF (gratis, para imprimir)"
+  h1="Tabla de estrategia básica de blackjack en PDF"
+  description="Descarga gratis la tabla de estrategia básica del blackjack en PDF para imprimir: casinos de España, mesa europea/online y Las Vegas S17 y H17. Una página A4 a color."
+  updated="2026-09-27"
+  readMinutes={2}
+  faq={faq}
+  related={['strategy', 'simulator', 'spain', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Descarga gratis</strong> la tabla de estrategia básica en PDF, en una página A4 a color. Elige la que corresponde a las reglas de tu mesa: no es la misma tabla en un casino español que en Las Vegas.</p></div>
+  </div>
+
+  <div class="pdf-grid">
+    {pdfs.map(([slug, name, text]) => (
+      <a class="card pdf-card" href={`/pdf/tabla-estrategia-blackjack-${slug}.pdf`} download>
+        <span class="pdf-ico">PDF</span>
+        <span><b>{name}</b><small>{text}</small></span>
+      </a>
+    ))}
+  </div>
+
+  <h2 id="usar">Cómo usarla</h2>
+  <p>Busca tu mano en las filas y la carta visible del crupier en las columnas. Mira primero si tienes pareja, después si tu mano es blanda (con un as que vale 11) y si no, usa los totales duros. Las letras: H pedir, S plantarse, D doblar, P dividir, R rendirse.</p>
+  <p>Si prefieres ajustar las reglas una a una o ver por qué cada casilla es así, usa la <a href={routes.strategy.es}>tabla interactiva</a>. Y para memorizarla, lo que funciona es practicar con corrección: puedes hacerlo gratis en la <a href={routes.simulator.es}>mesa de práctica</a>.</p>
+</Guide>
+
+<style>
+  .pdf-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
+  .pdf-card { display: flex !important; gap: 14px; align-items: flex-start; }
+  .pdf-ico { flex: none; width: 44px; height: 52px; border-radius: 8px; background: #c8283a; color: #fff; font: 800 12px/52px var(--font); text-align: center; }
+  .pdf-card b { display: block; color: var(--text); font-size: 17px; }
+  .pdf-card small { display: block; color: var(--muted); font-size: 14px; margin-top: 4px; line-height: 1.45; }
+  @media (max-width: 600px) { .pdf-grid { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,52 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿El blackjack y el 21 son el mismo juego?', a: 'Casi. El blackjack es la versión de casino del 21: mismo objetivo y mismos valores de cartas, pero con reglas fijas para el crupier, pagos establecidos (3 a 2 por blackjack) y opciones como doblar, dividir, rendirse o el seguro. El 21 casero tiene reglas que cambian de una casa a otra.' },
+  { q: '¿Por qué se llama blackjack?', a: 'Según la historia más extendida, algunas salas de juego de Estados Unidos pagaban un premio especial a quien reuniera el as de picas con una jota negra (un «black jack»). El premio desapareció, pero el nombre se quedó para cualquier as con una carta de valor 10.' },
+  { q: '¿Qué es el Spanish 21?', a: 'Es otro juego, a pesar del nombre. Se juega con barajas de 48 cartas, sin los dieces (las figuras sí se mantienen), y tiene reglas y premios propios. Su estrategia es distinta de la del blackjack, así que no uses nuestra tabla para Spanish 21.' },
+  { q: '¿Se puede jugar al 21 con la baraja española?', a: 'Sí, es habitual en juegos caseros. Las reglas varían mucho de una casa a otra (cuánto valen las figuras, quién hace de banca, qué pasa con los empates), así que la estrategia básica del blackjack de casino solo sirve como orientación.' },
+];
+---
+<Guide
+  lang="es"
+  route="bj21"
+  title="¿Blackjack y 21 son lo mismo? Diferencias y origen del nombre"
+  h1="¿Blackjack y 21 son lo mismo?"
+  description="Diferencias entre el blackjack de casino y el 21 casero, de dónde viene el nombre blackjack, qué es el Spanish 21 y cómo se juega con baraja española."
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['howToPlay', 'course', 'strategy', 'simulator']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> el blackjack es la <strong>versión de casino del 21</strong>. El objetivo y los valores de las cartas son los mismos, pero el blackjack tiene reglas fijas: el crupier pide hasta 16, el blackjack paga 3 a 2 y puedes doblar, dividir o rendirte. En el 21 casero, las reglas cambian de una casa a otra.</p></div>
+  </div>
+
+  <h2 id="diferencias">Las diferencias</h2>
+  <table>
+    <thead><tr><th></th><th>Blackjack de casino</th><th>21 casero</th></tr></thead>
+    <tbody>
+      <tr><td>Quién hace de banca</td><td>Siempre el crupier</td><td>A menudo rota entre los jugadores</td></tr>
+      <tr><td>Cómo juega la banca</td><td>Regla fija: pide hasta 16</td><td>Suele decidir libremente</td></tr>
+      <tr><td>Empates</td><td>Recuperas la apuesta</td><td>Depende: a veces gana la banca</td></tr>
+      <tr><td>Pago del blackjack</td><td>3 a 2</td><td>Varía</td></tr>
+      <tr><td>Doblar, dividir, rendirse</td><td>Sí, según la mesa</td><td>A veces no existen</td></tr>
+      <tr><td>Barajas</td><td>6 u 8, francesas</td><td>Una, francesa o española</td></tr>
+    </tbody>
+  </table>
+  <p>La diferencia más importante es que <strong>el crupier del casino no decide</strong>: sigue una regla fija. Eso es lo que permite calcular una <a href={routes.strategy.es}>estrategia básica</a> exacta. En un 21 casero, si la banca decide libremente, el juego cambia por completo.</p>
+
+  <h2 id="origen">De la «veintiuna» al blackjack</h2>
+  <p>El juego tiene raíces europeas. Una de las referencias escritas más antiguas es española: Miguel de Cervantes menciona la «veintiuna» en «Rinconete y Cortadillo», una de sus Novelas ejemplares, publicadas en 1613, como un juego de naipes que sus protagonistas dominan. En Francia se jugaba el «vingt-et-un», que es la versión que llegó a Estados Unidos.</p>
+  <p>El nombre «blackjack» nació en Estados Unidos. Según la historia más contada, algunas salas pagaban un premio especial por reunir el as de picas con una jota negra. El premio desapareció, pero el nombre se quedó.</p>
+
+  <h2 id="variantes">Juegos que se parecen pero no son blackjack</h2>
+  <ul>
+    <li><strong>Spanish 21:</strong> barajas de 48 cartas, sin los dieces, con premios y reglas propios. Otra estrategia.</li>
+    <li><strong>Pontoon:</strong> variante británica con su propio vocabulario y reglas.</li>
+    <li><strong>Variantes de casino online y en vivo</strong> con multiplicadores o con el crupier empatando con 22: cambian la estrategia. Lo explicamos en <a href={routes.live.es}>blackjack en vivo</a>.</li>
+  </ul>
+  <p>Si quieres aprender el blackjack de casino desde cero, empieza por el <a href={routes.course.es}>curso gratis</a>, o prueba directamente la <a href={routes.simulator.es}>mesa de práctica</a>.</p>
+</Guide>
