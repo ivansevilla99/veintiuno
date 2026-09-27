@@ -1,0 +1,74 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import DeckCountdown from '../../../components/DeckCountdown.astro';
+import CountDrill from '../../../components/CountDrill.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Hoe lang duurt het om kaarten tellen te leren?', a: 'De Hi-Lo-waarden leer je in een middag. Een heel deck in minder dan 30 seconden foutloos aftellen kost meestal een paar weken dagelijks oefenen. Het aan een echte tafel doen, met lawaai, gesprekken en inzetten, duurt nog een stuk langer.' },
+  { q: 'Wat is de beste oefening voor kaarten tellen?', a: 'De deck-countdown: je gaat alle 52 kaarten door, en aan het eind moet de count op 0 staan. Het is de standaardoefening van alle tellers, omdat hij nauwkeurigheid en snelheid tegelijk test.' },
+  { q: 'Is er een app om kaarten tellen te oefenen?', a: 'Ja. Veintiuno bevat Hi-Lo-tellen als module voor gevorderden aan het eind van de cursus: een running-count-oefening met instelbare snelheid plus uitleg over de true count. Op deze pagina vind je bovendien twee gratis oefeningen die direct in je browser werken.' },
+  { q: 'Kan ik kaarten tellen oefenen in een online casino?', a: 'Je kunt de techniek oefenen, maar geen geld verdienen. Online blackjack met software schudt na elke hand opnieuw, dus de count is nutteloos. Hooguit om aan het tempo te wennen.' },
+];
+---
+<Guide
+  lang="nl"
+  route="practiceCounting"
+  title="Kaarten tellen oefenen: oefeningen stap voor stap"
+  h1="Kaarten tellen oefenen"
+  description="Stappenplan om kaarten tellen te oefenen met Hi-Lo: kaartwaarden, deck-countdown, paren wegstrepen, true count en tafeltempo. Gratis oefeningen in je browser."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['counting', 'countingLegal', 'strategy', 'course']}
+  cta={{ title: 'Eerst de strategie, dan het tellen', text: 'In Veintiuno komt Hi-Lo aan het eind van de cursus, als je de basisstrategie beheerst – want tellen zonder basisstrategie is zinloos.' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> Leer de Hi-Lo-waarden (2–6 tellen +1, 7–9 tellen 0, tienen en azen tellen −1), oefen de <strong>deck-countdown</strong> tot je hem foutloos in minder dan 30 seconden haalt, leer tellen in <strong>paren die elkaar opheffen</strong> en omrekenen naar de <strong>true count</strong> – en oefen pas daarna met lawaai en afleiding. Vóór alles: beheers de basisstrategie.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In deze gids">
+    <b>In deze gids</b>
+    <ol>
+      <li><a href="#before">Voordat je begint</a></li>
+      <li><a href="#step1">Stap 1: de waarden, zonder na te denken</a></li>
+      <li><a href="#step2">Stap 2: de deck-countdown</a></li>
+      <li><a href="#step3">Stap 3: tellen in paren</a></li>
+      <li><a href="#step4">Stap 4: de true count</a></li>
+      <li><a href="#step5">Stap 5: tafeltempo</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="before">Voordat je begint</h2>
+  <p>Kaarten tellen heeft alleen zin als je de <a href={routes.strategy.nl}>basisstrategie</a> al foutloos speelt. Eén strategiefout om de paar handen kost meer dan het hele voordeel dat tellen je oplevert. Twijfel je nog bij 12 tegen een 3 of A-7 tegen een 9, begin dan daar.</p>
+  <p>En wees duidelijk over waarom je het doet: tellen is een geweldige geheugentraining en de beste manier om het spel te begrijpen – maar geen makkelijke manier om geld te verdienen. Waarom niet, leggen we uit in <a href={routes.counting.nl}>Kaarten tellen bij blackjack</a>.</p>
+
+  <h2 id="step1">Stap 1: de waarden, zonder na te denken</h2>
+  <p>Je moet een kaart zien en de waarde kennen zonder die in je hoofd te vertalen. 2 tot 6: <strong>+1</strong>. 7 tot 9: <strong>0</strong>. Tienen, plaatjes en azen: <strong>−1</strong>. Oefen met korte reeksen tot je niet meer twijfelt:</p>
+  <CountDrill lang="nl" />
+
+  <h2 id="step2">Stap 2: de deck-countdown</h2>
+  <p>De klassieke oefening die elke teller doet. Een volledig deck heeft evenveel hoge als lage kaarten; als je alle 52 telt, moet de uitkomst dus 0 zijn. Begin langzaam en voer het tempo op:</p>
+  <ul>
+    <li><strong>Doel 1:</strong> foutloos op 0 uitkomen, hoe snel ook.</li>
+    <li><strong>Doel 2:</strong> binnen 30 seconden op 0 uitkomen (ongeveer 0,5 s per kaart).</li>
+    <li><strong>Doel 3:</strong> halverwege het deck stoppen en de juiste count hebben.</li>
+  </ul>
+  <DeckCountdown lang="nl" />
+
+  <h2 id="step3">Stap 3: tellen in paren</h2>
+  <p>Aan tafel komen de kaarten per twee of drie. Tellers tellen ze niet één voor één op, maar herkennen <strong>paren die elkaar opheffen</strong>. Een 5 en een heer zijn samen 0, dus die negeer je. Een 4 en een 6 zijn in één keer +2. Oefen om twee kaarten tegelijk te bekijken en alleen de uitkomst van het paar te noemen.</p>
+
+  <h2 id="step4">Stap 4: de true count</h2>
+  <p>De running count vertelt je hoeveel hoge kaarten er extra over zijn, maar niet hoeveel kaarten er nog komen. Daarvoor deel je door de resterende decks: <strong>true count = running count ÷ resterende decks</strong>. Oefen dat uit je hoofd te berekenen:</p>
+  <ul>
+    <li>+8 met 4 resterende decks → <strong>+2</strong></li>
+    <li>+6 met 1,5 resterende decks → <strong>+4</strong></li>
+    <li>−3 met 3 resterende decks → <strong>−1</strong></li>
+  </ul>
+  <p>Om de resterende decks te schatten kijk je naar de discardhouder: afronden op een half deck is genoeg.</p>
+
+  <h2 id="step5">Stap 5: tafeltempo</h2>
+  <p>Thuis in alle rust tellen is makkelijk. Aan tafel is er lawaai, zijn er gesprekken, fiches en kaarten van meerdere spelers. Beheers je de vorige stappen, oefen dan met de tv aan, terwijl je praat, of met een video van een echte tafel. Raak je de count kwijt, geen probleem: na het volgende schudden begin je weer bij nul.</p>
+  <div class="callout warn"><p><strong>Onthoud:</strong> tellen in je hoofd is legaal, een telefoon of ander apparaat aan tafel gebruiken is dat niet. En het casino kan je vragen te stoppen met spelen als het je opmerkt. Meer daarover in <a href={routes.countingLegal.nl}>Is kaarten tellen illegaal?</a></p></div>
+</Guide>

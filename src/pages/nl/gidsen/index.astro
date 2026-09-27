@@ -1,0 +1,46 @@
+---
+import Base from '../../../layouts/Base.astro';
+import AppCTA from '../../../components/AppCTA.astro';
+import { routes } from '../../../lib/site';
+const groups = [
+  { title: 'Begin hier', items: [
+    ['course', 'Gratis blackjack cursus', '10 korte lessen met quiz, van de regels tot kaarten tellen.'],
+    ['simulator', 'Gratis blackjack spelen', 'Een oefentafel die elke beslissing corrigeert – zonder geld, zonder account.'],
+    ['howToPlay', 'Blackjack regels', 'Het doel, de kaartwaarden, het verloop van een hand en de uitbetalingen.'],
+  ] },
+  { title: 'Goed spelen', items: [
+    ['strategy', 'Blackjack strategietabel', 'Interactief, aangepast aan de regels van jouw tafel, met de reden achter elk vakje.'],
+    ['printable', 'Strategietabel als pdf', 'Tabellen om te printen voor Europese, Las Vegas- en Spaanse tafels.'],
+    ['whenDouble', 'Wanneer verdubbelen?', 'Elke verdubbeling, met de verwachte waarde van elke situatie.'],
+    ['whenSplit', 'Wanneer splitsen?', 'Welke paren je splitst en tegen welke kaart van de dealer.'],
+    ['hand16v10', '16 tegen 10', 'De meest gevreesde hand, in cijfers.'],
+    ['howToWin', 'Winnen met blackjack', 'Wat het huisvoordeel echt verlaagt en wat alleen hype is.'],
+    ['spain', 'Blackjack regels in Spanje', 'Geen hole card, alleen verdubbelen op 9–11, geen surrender: wat er verandert.'],
+    ['app', 'De beste app om blackjack te leren', 'Waarom een trainer je iets leert en een casinospel niet.'],
+  ] },
+  { title: 'Voor gevorderden', items: [
+    ['counting', 'Kaarten tellen', 'Hi-Lo, de true count en de realiteit van het tellen, met oefening.'],
+    ['practiceCounting', 'Kaarten tellen oefenen', 'Een plan stap voor stap en de oefening om een deck af te tellen.'],
+    ['countingLegal', 'Is kaarten tellen illegaal?', 'Wat de wet zegt in Spanje, Mexico, Argentinië en de VS.'],
+  ] },
+  { title: 'Data', items: [
+    ['dataBust', 'Kans dat de dealer kapotgaat', 'Exacte tabel per open kaart, S17 en H17.'],
+    ['dataRules', 'Huisvoordeel per regel', 'Wat elke tafelregel je kost.'],
+  ] },
+] as const;
+---
+<Base lang="nl" route="guides" title="Blackjack gidsen: regels, strategie, kaarten tellen" description="Alle blackjack gidsen van Veintiuno: de regels, de basisstrategie en strategietabel, de regels in Spanje en kaarten tellen – eerlijk uitgelegd, zonder hype.">
+  <div class="container">
+    <header class="article-head read" style="margin-left:0">
+      <h1>Blackjack gidsen</h1>
+      <p class="lead">Alles wat je nodig hebt om goed te spelen, in de juiste volgorde: van de regels via de strategie tot, als je wilt, kaarten tellen.</p>
+    </header>
+    {groups.map((g) => (
+      <section>
+        <h2>{g.title}</h2>
+        <div class="grid-2">{g.items.map(([key, title, text]) => <a class="card" href={routes[key].nl}><h3>{title}</h3><p>{text}</p></a>)}</div>
+      </section>
+    ))}
+    <AppCTA lang="nl" campaign="guides" />
+  </div>
+</Base>

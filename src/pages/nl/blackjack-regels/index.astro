@@ -1,0 +1,99 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Telt de aas bij blackjack als 1 of 11?', a: 'Allebei – wat jou het beste uitkomt. Een hand waarin de aas als 11 telt, heet een „zachte hand” (soft): aas-6 is zachte 17. Zou je met de volgende kaart kapotgaan, dan telt de aas gewoon als 1.' },
+  { q: 'Wat gebeurt er bij gelijkspel met de dealer?', a: 'Dat is een push: je krijgt je inzet terug en niemand wint. Hebben jullie allebei blackjack, dan is het ook een push.' },
+  { q: 'Hoeveel betaalt een blackjack?', a: 'Aan een standaardtafel betaalt een blackjack 3 tegen 2 – € 15 bij een inzet van € 10. Sommige tafels betalen maar 6 tegen 5 (€ 12 bij € 10). Die kleine wijziging maakt het huisvoordeel ongeveer vier keer zo groot, dus mijd 6:5-tafels.' },
+  { q: 'Wanneer moet de dealer een kaart nemen?', a: 'De dealer heeft geen keus: hij neemt een kaart op 16 of minder en past op 17 of meer. Aan sommige tafels neemt hij ook een kaart op zachte 17 (aas-6); dan staat er op het laken „Dealer hits soft 17” of „H17”.' },
+  { q: 'Is blackjack hetzelfde als eenentwintigen?', a: 'Blackjack is de casinoversie van het kaartspel eenentwintigen. Het doel is hetzelfde, maar in het casino volgt de dealer vaste regels en heb jij extra opties zoals verdubbelen, splitsen en verzekering.' },
+];
+---
+<Guide
+  lang="nl"
+  route="howToPlay"
+  title="Blackjack regels: kaartwaarden, verloop en uitbetaling"
+  h1="Blackjack regels, eenvoudig uitgelegd"
+  description="De blackjack regels stap voor stap: het doel, de kaartwaarden, het verloop van een hand, kaart vragen of passen, verdubbelen, splitsen, opgeven, uitbetaling."
+  updated="2026-09-27"
+  readMinutes={8}
+  faq={faq}
+  related={['strategy', 'howToWin', 'counting', 'spain']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort gezegd:</strong> je wint als je dichter bij 21 komt dan de dealer, zonder kapot te gaan. Plaatjes tellen 10, azen 1 of 11, alle andere kaarten hun getal. Jij beslist of je een kaart vraagt of past; de dealer beslist niets – hij neemt kaarten tot 17.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In deze gids">
+    <b>In deze gids</b>
+    <ol>
+      <li><a href="#doel">Het doel</a></li>
+      <li><a href="#kaartwaarden">Kaartwaarden</a></li>
+      <li><a href="#verloop">Het verloop van een hand</a></li>
+      <li><a href="#opties">Je opties: kaart vragen, passen, verdubbelen, splitsen, opgeven</a></li>
+      <li><a href="#uitbetalingen">Uitbetalingen</a></li>
+      <li><a href="#verzekering">De verzekering (en waarom je die overslaat)</a></li>
+      <li><a href="#verder">Volgende stap: de basisstrategie</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="doel">Het doel</h2>
+  <p>Bij blackjack speel je niet tegen de andere spelers, maar <strong>tegen de dealer</strong>. Je wint een hand als je totaal dichter bij 21 ligt dan dat van de dealer, zonder boven 21 te komen – of als hij kapotgaat en jij niet.</p>
+  <p>Kom je boven 21, dan ben je kapot (bust): je verliest meteen, ook als de dealer daarna ook kapotgaat. Omdat jij eerst speelt, ontstaat het voordeel van het huis precies uit deze ene regel.</p>
+
+  <h2 id="kaartwaarden">Kaartwaarden</h2>
+  <table>
+    <thead><tr><th>Kaart</th><th>Waarde</th></tr></thead>
+    <tbody>
+      <tr><td>2 t/m 9</td><td>Wat erop staat</td></tr>
+      <tr><td>10, boer, vrouw, heer</td><td>10</td></tr>
+      <tr><td>Aas</td><td>1 of 11, wat jou het beste uitkomt</td></tr>
+    </tbody>
+  </table>
+  <p>De kleuren doen er niet toe. Met vier soorten kaarten die 10 waard zijn, is bijna een derde van het deck 10 waard – dat verklaart een groot deel van de basisstrategie.</p>
+  <p>Een hand waarin een aas als 11 telt, is een <strong>zachte hand</strong> (soft): aas-6 is „zachte 17”. Je kunt zonder gevaar een kaart vragen, want zou je met de volgende kaart kapotgaan, dan telt de aas als 1. Alle andere handen zijn <strong>harde handen</strong>.</p>
+  <p>Een <strong>blackjack</strong> (ook „natural”) is een aas plus een kaart met waarde 10 als je eerste twee kaarten. Het is de beste hand en wint van elke andere 21.</p>
+
+  <h2 id="verloop">Het verloop van een hand</h2>
+  <ol>
+    <li><strong>Inzetten.</strong> Iedereen zet in voordat er gedeeld wordt.</li>
+    <li><strong>Delen.</strong> Je krijgt twee open kaarten. De dealer krijgt één open kaart en, bij Amerikaanse regels, een gesloten kaart (de „hole card”). Aan Europese tafels – zoals meestal in Nederlandse en Belgische casino’s – krijgt hij zijn tweede kaart pas als alle spelers klaar zijn.</li>
+    <li><strong>Blackjacks.</strong> Heeft de dealer een aas of een tien open, dan kijkt hij (met hole card) onder zijn gesloten kaart; heeft hij blackjack, dan eindigt de hand daar. Heb jij blackjack en de dealer niet, dan word je meteen uitbetaald.</li>
+    <li><strong>Jouw beurt.</strong> Kaart vragen, passen, verdubbelen, splitsen of opgeven. Je mag zo vaak een kaart vragen als je wilt, tot je past of kapotgaat.</li>
+    <li><strong>Beurt van de dealer.</strong> De dealer draait zijn tweede kaart om en neemt een kaart op 16 of minder; op 17 of meer past hij.</li>
+    <li><strong>Afrekening.</strong> De totalen worden vergeleken en de inzetten uitbetaald.</li>
+  </ol>
+
+  <h2 id="opties">Je opties</h2>
+  <h3>Kaart vragen (hit)</h3>
+  <p>Je neemt nog een kaart. Dat herhaal je tot je past of kapotgaat.</p>
+  <h3>Passen (stand)</h3>
+  <p>Je houdt je totaal en je beurt is voorbij.</p>
+  <h3>Verdubbelen (double)</h3>
+  <p>Je verdubbelt je inzet en krijgt daarvoor <strong>precies één extra kaart</strong>. Dat loont met een sterk begintotaal (9, 10 of 11) tegen een zwakke kaart van de dealer.</p>
+  <h3>Splitsen (split)</h3>
+  <p>Zijn je eerste twee kaarten gelijk, dan splits je ze in twee handen en zet je op de tweede hetzelfde bedrag in. Azen en achten altijd splitsen, tienen en vijven nooit.</p>
+  <h3>Opgeven (surrender)</h3>
+  <p>Waar het wordt aangeboden, geef je de hand direct na het delen op en krijg je de helft van je inzet terug. Dat loont alleen in een paar heel slechte situaties, zoals 16 tegen een 10 van de dealer.</p>
+
+  <h2 id="uitbetalingen">Uitbetalingen</h2>
+  <table>
+    <thead><tr><th>Resultaat</th><th>Uitbetaling</th></tr></thead>
+    <tbody>
+      <tr><td>Winst</td><td>1 tegen 1 (€ 10 inzet wint € 10)</td></tr>
+      <tr><td>Blackjack</td><td>3 tegen 2 (€ 10 inzet wint € 15)</td></tr>
+      <tr><td>Push (gelijkspel)</td><td>Inzet terug</td></tr>
+      <tr><td>Verzekering</td><td>2 tegen 1 op de verzekeringsinzet</td></tr>
+    </tbody>
+  </table>
+  <div class="callout warn"><p><strong>Pas op voor 6:5-tafels.</strong> Betaalt een blackjack 6 tegen 5 in plaats van 3 tegen 2, dan stijgt het huisvoordeel met ongeveer 1,4 procentpunt – meer dan door welke andere regel ook.</p></div>
+
+  <h2 id="verzekering">De verzekering (en waarom je die overslaat)</h2>
+  <p>Heeft de dealer een aas open, dan krijg je <strong>verzekering</strong> aangeboden: een extra inzet van maximaal de helft van je inzet dat de dealer blackjack heeft. Die betaalt 2 tegen 1.</p>
+  <p>Het klinkt als bescherming, maar het is gewoon nog een inzet – en een slechte. Met zes decks is de kans op een tien onder de aas ongeveer 31%, terwijl de verzekering meer dan 33% nodig heeft om alleen al quitte te spelen. Het huisvoordeel erop is zo’n 7%. De basisstrategie zegt: <strong>nooit nemen</strong> – ook geen „even money” als je zelf blackjack hebt.</p>
+
+  <h2 id="verder">Volgende stap: de basisstrategie</h2>
+  <p>De regels kennen is het halve werk. De andere helft is weten wat je in elke situatie doet: kaart vragen met 12 tegen een 3? 11 verdubbelen tegen een 10? Negens splitsen tegen een 7? Elke combinatie heeft een wiskundig juist antwoord, en samen vormen ze de <a href={routes.strategy.nl}>basisstrategie</a>.</p>
+  <p>Wie op gevoel speelt, geeft het huis meestal 2% of meer. Met de basisstrategie zakt het huisvoordeel tot ongeveer 0,5%. Dat maakt je geen winnaar, maar het is het verschil tussen goed spelen en blind spelen.</p>
+</Guide>

@@ -1,0 +1,56 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes, linkOf } from '../../../lib/site';
+
+const faq = [
+  { q: 'Contar cartas no blackjack é ilegal?', a: 'Não. Contar cartas de cabeça não é ilegal no Brasil, em Portugal nem nos EUA: você só usa a cabeça com informações que estão abertas na mesa. O que é proibido é usar aparelhos ou ajuda externa, e o cassino pode pedir que você pare de jogar.' },
+  { q: 'Um cassino pode expulsar você por contar cartas?', a: 'Em muitos lugares, sim. Os cassinos podem recusar o atendimento ou excluir o jogador: podem impedir você de jogar blackjack ou pedir que vá embora. Uma exceção conhecida é Nova Jersey (Atlantic City), onde não podem excluir você por contar, mas o cassino ainda pode embaralhar antes ou limitar suas apostas.' },
+  { q: 'É proibido usar um app de contagem de cartas no cassino?', a: 'Sim, em quase todo lugar. Usar o celular ou qualquer aparelho numa mesa de verdade para contar cartas ou calcular jogadas viola as regras do cassino, e em lugares como Nevada é até crime. Apps como o Veintiuno são para treinar em casa.' },
+  { q: 'O que os cassinos fazem contra os contadores de cartas?', a: 'Embaralham antes (menos penetração), usam embaralhadoras contínuas, limitam quanto você pode aumentar a aposta, observam pelas câmeras e, onde podem, pedem que você pare de jogar blackjack.' },
+];
+---
+<Guide
+  lang="pt"
+  route="countingLegal"
+  title="Contar cartas é ilegal? Brasil, Portugal e EUA"
+  h1="Contar cartas é ilegal?"
+  description="Contar cartas no blackjack é ilegal? O que vale no Brasil, em Portugal e nos EUA, o que os cassinos podem fazer com você e o que é realmente proibido na mesa."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['counting', 'practiceCounting', 'howToWin', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Resposta curta:</strong> <strong>não, contar cartas de cabeça não é ilegal.</strong> O que é proibido são aparelhos, anotações ou parceiros que passam sinais. Mas o cassino pode se reservar o direito de admissão: se você chamar atenção, ele pode embaralhar antes, limitar suas apostas ou pedir que você pare de jogar.</p></div>
+  </div>
+
+  <h2 id="why">Por que não é ilegal</h2>
+  <p>Contar cartas é só lembrar quais cartas já saíram e tirar conclusões disso. Você não manipula nada, não vê cartas escondidas e não usa ajuda externa: usa apenas a informação que o próprio cassino coloca aberta na mesa. Não dá para proibir alguém de pensar.</p>
+  <p>O limite está na <strong>ajuda externa</strong>: uma calculadora, um celular, um app, um aparelho escondido ou uma equipe que passa a contagem por sinais. Isso é proibido nos cassinos e, em alguns lugares, é crime.</p>
+
+  <h2 id="countries">País por país</h2>
+  <table>
+    <thead><tr><th>País</th><th>Contar de cabeça?</th><th>Podem expulsar você?</th></tr></thead>
+    <tbody>
+      <tr><td>Brasil</td><td>Não é ilegal</td><td>Cassinos físicos não funcionam legalmente no Brasil, então a questão aparece sobretudo em viagens; no blackjack online com gerador aleatório, contar não serve porque as cartas são embaralhadas a cada mão</td></tr>
+      <tr><td>Portugal</td><td>Não é ilegal</td><td>Sim: o cassino pode recusar o atendimento ou excluir o jogador; aparelhos e ajudas externas são proibidos</td></tr>
+      <tr><td>EUA (Nevada)</td><td>Não é ilegal</td><td>Sim; usar um aparelho para contar é crime</td></tr>
+      <tr><td>EUA (Nova Jersey)</td><td>Não é ilegal</td><td>Não podem excluir você por contar, mas o cassino pode tomar contramedidas</td></tr>
+    </tbody>
+  </table>
+  <p class="muted small">Um panorama geral, não é aconselhamento jurídico. As regras internas de cada cassino e as normas de cada país ou estado podem estabelecer outras condições.</p>
+
+  <h2 id="casinos">O que os cassinos fazem</h2>
+  <ul>
+    <li><strong>Embaralhar antes.</strong> Quanto menos cartas saem antes do embaralhamento, menos a contagem ajuda.</li>
+    <li><strong>Embaralhadoras contínuas.</strong> As cartas voltam ao sapato depois de cada mão, então contar não adianta nada.</li>
+    <li><strong>Limitar as apostas.</strong> A contagem só dá vantagem se você apostar bem mais quando a contagem está alta; se não puder aumentar, não há vantagem.</li>
+    <li><strong>Pedir que você pare de jogar blackjack</strong> ou que vá embora, onde a lei permite.</li>
+  </ul>
+
+  <h2 id="online">E online?</h2>
+  <p>No blackjack online com software não há nada a proibir: o baralho é embaralhado a cada mão, então a contagem não funciona. No <a href={linkOf('live', 'pt')}>blackjack ao vivo</a> o sapato é real, mas o embaralhamento é cedo e a vantagem é mínima.</p>
+
+  <h2 id="learn">Se você quer aprender a contar</h2>
+  <p>É legal e um ótimo treino de memória. Domine primeiro a <a href={routes.strategy.pt}>estratégia básica</a> e depois siga para <a href={routes.counting.pt}>como contar cartas</a> e os <a href={routes.practiceCounting.pt}>exercícios de contagem de cartas</a>. E não perca a realidade de vista: a vantagem é pequena, e a maioria de quem tenta não ganha dinheiro com isso. Veja mais em <a href={routes.responsible.pt}>jogo responsável</a>.</p>
+</Guide>

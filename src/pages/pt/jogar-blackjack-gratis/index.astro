@@ -1,0 +1,59 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import Simulator from '../../../components/Simulator.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Posso jogar blackjack grátis e sem cadastro?', a: 'Sim. Esta mesa roda no seu navegador: sem cadastro, sem download e sem dinheiro real. Sua taxa de acerto fica salva só no seu próprio navegador.' },
+  { q: 'Qual a diferença para o modo grátis de um cassino online?', a: 'Os modos grátis dos cassinos existem para levar você a jogar com dinheiro real e nunca dizem se você jogou bem uma mão. Esta mesa não tem dinheiro nem apostas e confere cada decisão com a jogada certa para as regras que você escolher.' },
+  { q: 'Com quais regras a mesa joga?', a: 'Com as que você escolher: Las Vegas com dealer que para ou pede no 17 macio, europeia/online ou cassino espanhol (sem carta oculta, dobrar só com 9–11, sem surrender). Sempre 6 baralhos; o shoe é embaralhado de novo quando três quartos já foram distribuídos.' },
+  { q: 'Por que sou corrigido se ganhei a mão?', a: 'Porque o resultado de uma mão depende da sorte, mas a decisão não. Você pode parar com 16 contra um 10 e ganhar porque o dealer estourou — mas, no longo prazo, essa jogada perde mais do que pedir. A correção ensina a decisão certa, não o resultado.' },
+];
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Mesa de treino de blackjack grátis com correção imediata',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web',
+  inLanguage: 'pt-BR',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: 0, priceCurrency: 'BRL' },
+  url: 'https://veintiunoapp.com/pt/jogar-blackjack-gratis/',
+}];
+---
+<Guide
+  lang="pt"
+  route="simulator"
+  title="Jogar blackjack grátis, sem cadastro · Veintiuno"
+  h1="Jogar blackjack grátis"
+  description="Jogue blackjack grátis no navegador, sem cadastro e sem dinheiro real. Cada decisão é conferida com a estratégia básica para regras europeias ou de Las Vegas."
+  updated="2026-09-27"
+  faq={faq}
+  related={['strategy', 'course', 'hand16v10', 'app']}
+  extraSchema={schema}
+  wide
+>
+  <div slot="top">
+    <p class="lead" style="margin-top:0">Uma mesa de treino <strong>grátis, sem cadastro e sem dinheiro real</strong>. Depois de cada decisão, ela diz se aquela era a jogada certa e por quê — segundo a estratégia básica para as regras de mesa que você escolher.</p>
+  </div>
+
+  <div slot="wide" style="max-width:820px">
+    <Simulator lang="pt" />
+  </div>
+
+  <h2 id="como-funciona">Como funciona</h2>
+  <ul>
+    <li><strong>Escolha sua mesa:</strong> Las Vegas (S17 ou H17), europeia/online ou cassino espanhol. A estratégia certa muda com as regras.</li>
+    <li><strong>Distribua e decida:</strong> pedir, parar, dobrar, dividir ou desistir. Só ficam ativas as opções que a mesa permite naquele momento.</li>
+    <li><strong>Veja o retorno:</strong> verde quando você acertou; vermelho, com a jogada certa e a explicação, quando não.</li>
+    <li>No computador você pode jogar pelo teclado: <kbd>P</kbd> pedir, <kbd>S</kbd> parar, <kbd>D</kbd> dobrar, <kbd>V</kbd> dividir, <kbd>R</kbd> desistir e <kbd>Espaço</kbd> para distribuir.</li>
+  </ul>
+
+  <h2 id="por-que">Por que treinar com correção</h2>
+  <p>Sem correção, você aprende o contrário do que deveria: uma jogada ruim que ganha por acaso fica gravada como “a certa”. Aqui cada decisão é comparada com a <a href={routes.strategy.pt}>estratégia básica</a> — a jogada que menos perde no longo prazo — e você fica sabendo o porquê.</p>
+  <p>Quando você acertar mais de 95% das decisões, estará jogando melhor do que a grande maioria das pessoas que se sentam a uma mesa de blackjack. Se você erra sempre as mesmas mãos, faça o <a href={routes.course.pt}>curso grátis</a> ou leia o guia sobre <a href={routes.hand16v10.pt}>16 contra 10</a>.</p>
+
+  <h2 id="sem-dinheiro">Sem dinheiro, sem cassinos</h2>
+  <p>Esta mesa não tem apostas nem fichas, não leva a nenhum cassino e não guarda nada fora do seu navegador. Ela existe para você aprender. Se o jogo está custando mais do que você quer, encontre ajuda na nossa página de <a href={routes.responsible.pt}>jogo responsável</a>.</p>
+</Guide>

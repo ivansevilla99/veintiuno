@@ -1,0 +1,71 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quando dobrar no blackjack?', a: 'Com 11 contra tudo menos um ás; com 10 contra 2 a 9; com 9 contra 3 a 6; e, se a mesa permitir dobrar com quaisquer duas cartas, com várias mãos macias (A-2 a A-7) contra as cartas fracas do dealer. Nos cassinos da Espanha você só pode dobrar com 9, 10 ou 11.' },
+  { q: 'Dobra-se 11 contra um ás?', a: 'Depende das regras. Se o dealer para no 17 macio (S17), você pede; se o dealer pede no 17 macio (H17), você dobra. Numa mesa europeia sem carta oculta, você sempre pede.' },
+  { q: 'Dá para dobrar depois de pedir carta?', a: 'Não. Só dá para dobrar com as suas duas primeiras cartas (ou com as duas primeiras de uma mão dividida, se a mesa permitir dobrar depois de dividir). Depois de pedir uma vez, você só pode pedir ou parar.' },
+  { q: 'Por que dobrar A-7 contra um 6?', a: 'Porque um 18 macio não estoura com uma carta e um dealer com 6 à mostra está no ponto mais fraco: estoura em cerca de 42% das vezes. Dobrando, você transforma essa vantagem em dinheiro em dobro.' },
+];
+---
+<Guide
+  lang="pt"
+  route="whenDouble"
+  title="Quando dobrar no blackjack: 9, 10, 11 e mãos macias"
+  h1="Quando dobrar no blackjack"
+  description="Quando dobrar no blackjack: 9, 10, 11 e mãos macias, contra quais cartas do dealer e o que muda com H17 e sem carta oculta. Com o valor esperado de cada jogada."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenSplit', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Resposta curta:</strong> dobre <strong>11</strong> contra tudo menos um ás, <strong>10</strong> contra 2–9 e <strong>9</strong> contra 3–6. Se a mesa permitir dobrar com quaisquer duas cartas, dobre também <strong>A-2 a A-7</strong> contra as cartas fracas do dealer. Dobrar é apostar mais quando você está em vantagem, nunca para “recuperar” perdas.</p></div>
+  </div>
+
+  <h2 id="what">O que é dobrar e por que dá dinheiro</h2>
+  <p>Ao dobrar, você dobra a aposta e recebe em troca <strong>exatamente mais uma carta</strong>. Você faz isso nas mãos em que já está na frente: seu total inicial é bom e o dealer está fraco. Nessas mãos você ganha mais vezes do que perde, então, com a aposta dobrada, multiplica uma vantagem que já tem.</p>
+  <p>Um exemplo com números: 11 contra um 6. Pedir vale em média +0,34 aposta; dobrar, +0,68. Dobrar não faz você ganhar mais vezes, mas quando você ganha, recebe o dobro.</p>
+  <EVTable lang="pt" cards={[6, 5]} up={6} tables={['vegasS17', 'europeanOnline']} />
+
+  <h2 id="hard">Mãos duras</h2>
+  <table>
+    <thead><tr><th>Sua mão</th><th>Dobrar contra</th><th>Se não…</th></tr></thead>
+    <tbody>
+      <tr><td>11</td><td>2 a 10 (e ás com H17)</td><td>pedir</td></tr>
+      <tr><td>10</td><td>2 a 9</td><td>pedir</td></tr>
+      <tr><td>9</td><td>3 a 6 (e 2 com um ou dois baralhos)</td><td>pedir</td></tr>
+      <tr><td>8 ou menos</td><td>nunca</td><td>pedir</td></tr>
+    </tbody>
+  </table>
+  <p>O caso mais discutido é <strong>11 contra um ás</strong>. Com regras S17, pedir e dobrar ficam muito próximos, e pedir ganha por pouco; com H17, dobrar passa à frente:</p>
+  <EVTable lang="pt" cards={[6, 5]} up={1} tables={['vegasS17', 'vegasH17', 'europeanOnline']} />
+  <p>Numa mesa sem carta oculta, como nas regras europeias/online, dobrar contra um ás é claramente pior: se o dealer tiver blackjack, você perde a aposta dobrada.</p>
+
+  <h2 id="soft">Mãos macias</h2>
+  <p>Só nas mesas que permitem dobrar com quaisquer duas cartas:</p>
+  <table>
+    <thead><tr><th>Sua mão</th><th>Dobrar contra</th><th>Se não…</th></tr></thead>
+    <tbody>
+      <tr><td>A-2, A-3</td><td>5 e 6</td><td>pedir</td></tr>
+      <tr><td>A-4, A-5</td><td>4 a 6</td><td>pedir</td></tr>
+      <tr><td>A-6</td><td>3 a 6</td><td>pedir</td></tr>
+      <tr><td>A-7</td><td>3 a 6 (e 2 com H17)</td><td>parar</td></tr>
+      <tr><td>A-8</td><td>6, só com H17</td><td>parar</td></tr>
+    </tbody>
+  </table>
+  <p>A-7 contra um 6 é o melhor exemplo: parar vale +0,28, mas dobrar vale +0,38.</p>
+  <EVTable lang="pt" cards={[1, 7]} up={6} tables={['vegasS17']} caption="A-7 contra 6: parar ou dobrar" />
+
+  <h2 id="spain">Sem carta oculta e nos cassinos da Espanha</h2>
+  <p>Sem carta oculta, você não dobra 11 contra um 10 nem contra um ás. Nos cassinos da Espanha, além disso, só é permitido dobrar com 9, 10 ou 11, então todas as dobras com mãos macias desaparecem. Tudo sobre isso está em <a href={routes.spain.pt}>Regras do blackjack na Espanha</a>.</p>
+
+  <h2 id="mistakes">Os erros mais caros ao dobrar</h2>
+  <ul>
+    <li><strong>Não dobrar 11 contra um 10</strong> numa mesa com carta oculta: você joga fora cerca de 0,06 aposta por mão.</li>
+    <li><strong>Dobrar para recuperar perdas:</strong> a decisão depende da sua mão e da carta à mostra do dealer, nunca de como vai a sua sessão.</li>
+    <li><strong>Dobrar com 12 ou mais:</strong> com uma única carta você estoura vezes demais.</li>
+  </ul>
+</Guide>

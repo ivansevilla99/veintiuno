@@ -1,0 +1,53 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Kaart vragen of passen met 16 tegen een 10?', a: 'Kaart vragen – tenzij de tafel opgeven toestaat, dan is opgeven het best. Kaart vragen verliest iets minder dan passen (met 10-6 ongeveer 0,007 inzet per hand), ook al verliezen beide opties meer dan de helft van je inzet.' },
+  { q: 'Waarom kaart vragen als je met 16 zo vaak kapotgaat?', a: 'Omdat passen met 16 alleen wint als de dealer kapotgaat – en met een open 10 gebeurt dat maar in ongeveer 23% van de gevallen. Als je een kaart vraagt, ga je ongeveer 6 van de 10 keer kapot; zo niet, dan verbeter je naar 17–21 en win je soms.' },
+  { q: 'En als mijn 16 uit drie of meer kaarten bestaat?', a: 'Dan is passen meestal even goed of iets beter, omdat de kleine kaarten waaruit je hand bestaat niet meer in het deck zitten en de resterende kaarten je eerder kapot laten gaan. Dit is een van de weinige uitzonderingen die afhangen van de samenstelling van de hand. Met twee kaarten: kaart vragen.' },
+  { q: 'En 16 tegen een 10 als het een paar achten is?', a: 'Splitsen. 8-8 tegen een 10 wordt aan tafels met gesloten kaart gesplitst, omdat twee handen die met een 8 beginnen minder verliezen dan één 16. Aan Europese tafels zonder gesloten kaart vraag je in plaats daarvan een kaart (of geef je op, als dat mag).' },
+];
+---
+<Guide
+  lang="nl"
+  route="hand16v10"
+  title="16 tegen 10 bij blackjack: kaart vragen of passen?"
+  h1="16 tegen 10: kaart vragen of passen?"
+  description="Wat doe je met 16 tegen een 10 van de dealer bij blackjack: kaart vragen, passen of opgeven? De exacte verwachte waarde per optie en waarom kaart vragen wint."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['strategy', 'whenDouble', 'course', 'dataBust']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> Met een harde 16 tegen een 10 <strong>geef je op als de tafel dat toestaat; anders vraag je een kaart</strong>. Het is de meest gevreesde hand bij blackjack, omdat elke optie verliest – maar kaart vragen verliest iets minder dan passen. De uitzondering: is je 16 een 8-8, dan splits je (aan tafels met gesloten kaart).</p></div>
+  </div>
+
+  <h2 id="numbers">De exacte cijfers</h2>
+  <p>Zoveel is elke optie gemiddeld waard, per inzeteenheid. Alle waarden zijn negatief: met 16 tegen een 10 verlies je geld, wat je ook doet. De enige vraag is welke optie het minst verliest.</p>
+  <EVTable lang="nl" cards={[10, 6]} up={10} tables={['vegasS17', 'europeanOnline', 'doubleDeck']} />
+  <p>Met Las Vegas-regels is <strong>opgeven</strong> (−0,500) het best: je krijgt de helft van je inzet terug en bespaart je een hand die vaker dan de helft van de keren verliest. Zonder opgeven wint <strong>kaart vragen</strong> (−0,535) van passen (−0,542).</p>
+  <p>Aan een Europese tafel zonder gesloten kaart, zoals in Spaanse casino’s, zijn de verliezen iets groter omdat de dealer nog steeds blackjack kan hebben – maar de volgorde verandert niet: kaart vragen blijft beter.</p>
+
+  <h2 id="why">Waarom kaart vragen terwijl je zo vaak kapotgaat</h2>
+  <p>Je onderbuik zegt: „Met 16 ga ik bijna zeker kapot, dus ik pas.” Maar passen met 16 levert je maar één ding op: wachten tot de dealer kapotgaat. En met een open 10 gebeurt dat maar in ongeveer <strong>23%</strong> van de gevallen (zie de <a href={routes.dataBust.nl}>tabel met hoe vaak de dealer kapotgaat</a>). In de overige 77% eindigt de dealer op 17 of meer, en je 16 verliest.</p>
+  <p>Als je een kaart vraagt, ga je kapot bij een 6, 7, 8, 9 of 10 (ongeveer 6 van de 10 keer). Maar komt er een aas, 2, 3, 4 of 5, dan verbeter je naar 17–21 en heb je een echte kans op winst of gelijkspel. Die winsten maken de paar extra handen die je door kapotgaan verliest ruimschoots goed.</p>
+  <div class="callout"><p><strong>Het verschil is klein – en juist daarom wordt er zoveel over gediscussieerd.</strong> Kaart vragen in plaats van passen bespaart je minder dan een honderdste inzet per hand. In één hand merk je dat niet. Over duizend handen 16 tegen 10 telt het op tot zeven hele inzetten.</p></div>
+
+  <h2 id="exceptions">De uitzonderingen</h2>
+  <ul>
+    <li><strong>8-8:</strong> splitsen. Twee handen die met een 8 beginnen verliezen flink minder dan één 16. Aan Europese tafels zonder gesloten kaart vraag je met 8-8 tegen een 10 een kaart (of geef je op, als dat mag).</li>
+    <li><strong>Een 16 uit drie of meer kaarten</strong> (bijvoorbeeld 4-5-7): passen wordt even goed of beter, omdat de lage kaarten die je zouden helpen al in je hand zitten.</li>
+    <li><strong>Als je kaarten telt:</strong> vanaf een true count van 0 pas je. Dat is het bekendste indexspel in Hi-Lo: als er veel hoge kaarten over zijn, ga je bij kaart vragen te vaak kapot.</li>
+  </ul>
+
+  <h2 id="other">En 16 tegen andere open kaarten?</h2>
+  <ul>
+    <li><strong>Tegen 2 tot 6:</strong> passen. De dealer is zwak en gaat vaak kapot.</li>
+    <li><strong>Tegen 7 of 8:</strong> kaart vragen.</li>
+    <li><strong>Tegen 9 of aas:</strong> opgeven als het kan; anders kaart vragen.</li>
+  </ul>
+  <p>Alles staat in de <a href={routes.strategy.nl}>strategietabel voor de basisstrategie</a>, die je kunt aanpassen aan de regels van jouw tafel.</p>
+</Guide>

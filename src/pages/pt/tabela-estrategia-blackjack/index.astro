@@ -1,0 +1,90 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import StrategyChart from '../../../components/StrategyChart.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'A estratégia básica garante que eu ganhe no blackjack?', a: 'Não. A estratégia básica é a forma de jogar com que você perde menos no longo prazo: reduz a vantagem da casa para cerca de 0,3–0,7%, conforme as regras, mas a casa continua com a vantagem. Ela torna cada decisão correta, não o lucro garantido.' },
+  { q: 'Por que existem tabelas de estratégia diferentes?', a: 'Porque a melhor jogada depende das regras da mesa: número de baralhos, se o dealer pede ou para no 17 macio, se você pode dobrar depois de dividir, se há surrender e se o dealer confere o blackjack (carta oculta). Escolha sua mesa acima e a tabela se ajusta.' },
+  { q: 'Posso usar uma tabela de estratégia no cassino?', a: 'Alguns cassinos toleram um cartão impresso em mesas de apostas baixas, outros não — pergunte antes. Celular ou outros aparelhos eletrônicos na mesa não são permitidos em lugar nenhum. O melhor é decorar a tabela antes.' },
+  { q: 'O que significa “macia” (soft) no blackjack?', a: 'Uma mão macia tem um ás contado como 11. Ás-6 é um 17 macio: se vier um dez, o ás passa a valer 1 e você fica com 17 duro — com uma carta você não pode estourar. Por isso, com mãos macias se dobra e se pede com mais frequência.' },
+  { q: 'Quando devo desistir (surrender)?', a: 'Só se a mesa oferecer late surrender. Com as regras padrão de Las Vegas: 16 contra 9, 10 ou ás e 15 contra 10. Ao desistir você recebe metade da aposta de volta — melhor do que jogar mãos que perdem mais da metade das vezes.' },
+];
+---
+<Guide
+  lang="pt"
+  route="strategy"
+  title="Tabela de estratégia do blackjack (interativa)"
+  h1="Tabela de estratégia do blackjack: a estratégia básica para a sua mesa"
+  description="Tabela de estratégia de blackjack interativa: escolha as regras (europeia sem carta oculta, Vegas S17/H17, dois baralhos) e toque numa casa para ver o porquê."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['howToPlay', 'counting', 'howToWin', 'guides']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>Resumindo:</strong> procure sua mão na coluna da esquerda e a carta visível do dealer na linha de cima. A cor diz o que fazer: <b style="color:var(--c-hit)">pedir</b>, <b style="color:var(--c-stand)">parar</b>, <b style="color:var(--c-double)">dobrar</b>, <b style="color:var(--c-split)">dividir</b> ou <b style="color:var(--c-surrender)">desistir</b>. Escolha primeiro o tipo de mesa — as regras mudam a tabela. O padrão são as regras europeias sem carta oculta, que é o que usa a maioria das mesas online e ao vivo.</p></div>
+  </div>
+
+  <div slot="wide">
+    <StrategyChart lang="pt" preset="europeanOnline" />
+  </div>
+
+  <nav class="toc" aria-label="Neste guia">
+    <b>Neste guia</b>
+    <ol>
+      <li><a href="#como-ler">Como ler a tabela</a></li>
+      <li><a href="#regras">As 10 regras mais importantes</a></li>
+      <li><a href="#regras-da-mesa">Como as regras da mesa mudam a tabela</a></li>
+      <li><a href="#decorar">Como decorar a tabela</a></li>
+      <li><a href="#faq">Perguntas frequentes</a></li>
+    </ol>
+  </nav>
+
+  <p class="callout">Prefere no papel? <a href={routes.printable.pt}>Baixe a tabela em PDF</a> — para mesas europeias, de Las Vegas ou da Espanha. Ou pratique agora mesmo na nossa <a href={routes.simulator.pt}>mesa de treino grátis</a>.</p>
+
+  <h2 id="como-ler">Como ler a tabela</h2>
+  <p>A estratégia básica é a decisão matematicamente melhor para cada combinação de <strong>sua mão</strong> e <strong>carta visível do dealer</strong>, calculada pela simulação de milhões de mãos. Intuição ou maré de sorte não entram na conta: para cada situação existe uma jogada que perde menos do que todas as outras.</p>
+  <p>Confira as três seções nesta ordem:</p>
+  <ol>
+    <li><strong>Pares.</strong> Se suas duas primeiras cartas são iguais, veja se deve dividir.</li>
+    <li><strong>Mãos macias.</strong> Se você tem um ás contado como 11 (A-2 a A-9), use esta seção.</li>
+    <li><strong>Mãos duras.</strong> Todo o resto. “17+” significa 17 ou mais.</li>
+  </ol>
+  <p>Algumas casas têm duas letras. <strong>Ds</strong> significa “dobrar se for permitido, senão parar”; um <strong>D</strong> sozinho significa “dobrar se for permitido, senão pedir”. As casas de surrender funcionam do mesmo jeito: se não houver surrender, use a segunda opção.</p>
+
+  <h2 id="regras">As 10 regras mais importantes</h2>
+  <p>Você não precisa aprender todas as casas de uma vez. Estas dez regras cobrem a maioria das mãos que você vai encontrar:</p>
+  <ol>
+    <li><strong>Divida sempre ases e oitos.</strong> Dois ases podem virar dois 21; 8-8 é 16, a pior mão do jogo. (Sem carta oculta, não contra um ás — veja abaixo.)</li>
+    <li><strong>Nunca divida dezes nem cincos.</strong> 20 quase sempre ganha, e 5-5 é um 10 que você deve dobrar.</li>
+    <li><strong>Com 17 duro ou mais, pare sempre.</strong></li>
+    <li><strong>Com 12–16 contra um 7 ou mais, peça.</strong> Parece errado, mas parar perde mais: o dealer costuma chegar a 17+.</li>
+    <li><strong>Com 12–16 contra 2–6, pare</strong> (exceto 12 contra 2 ou 3, em que você pede). Deixe o dealer estourar.</li>
+    <li><strong>Dobre 11</strong> contra tudo, menos um ás (com S17; com H17, também contra o ás). Sem carta oculta, não contra 10 nem ás.</li>
+    <li><strong>Dobre 10</strong> contra 2 a 9.</li>
+    <li><strong>Dobre 9</strong> contra 3 a 6.</li>
+    <li><strong>Com 18 macio (A-7) contra 9, 10 ou ás, peça.</strong> O erro clássico de jogadores experientes.</li>
+    <li><strong>Nunca faça seguro.</strong> É uma aposta paralela com vantagem da casa de cerca de 7% com vários baralhos.</li>
+  </ol>
+
+  <h2 id="regras-da-mesa">Como as regras da mesa mudam a tabela</h2>
+  <ul>
+    <li><strong>Sem carta oculta (europeia):</strong> o dealer não confere o blackjack, então você perde dobras e divisões para um blackjack do dealer. Não dobre 11 contra 10 ou ás e não divida ases ou oitos contra um ás. É assim que joga a maioria das mesas online e ao vivo — mas confira sempre as regras da sua mesa. Mais em <a href={routes.spain.pt}>regras do blackjack na Espanha</a>.</li>
+    <li><strong>Dealer pede no 17 macio (H17):</strong> dobre 11 contra ás, dobre A-7 contra 2 e A-8 contra 6, e desista de mais mãos (15 e 17 contra ás, 8-8 contra ás). Além disso, aumenta a vantagem da casa em cerca de 0,2%.</li>
+    <li><strong>Dois baralhos:</strong> dobre 9 contra 2 e 11 contra ás, divida 6-6 contra 7 e 7-7 contra 8.</li>
+    <li><strong>Sem dobrar depois de dividir:</strong> divida os pares pequenos (2-2, 3-3, 4-4, 6-6) com menos frequência.</li>
+    <li><strong>Blackjack paga 6:5:</strong> não muda a tabela, mas aumenta a vantagem da casa em cerca de 1,4%. Evite essas mesas.</li>
+  </ul>
+
+  <h2 id="decorar">Como decorar a tabela</h2>
+  <p>Ler a tabela não é o mesmo que sabê-la. Na mesa você tem dois segundos e nenhuma cola. O que funciona é a prática espaçada: algumas mãos por dia, correção imediata e repetições extras nas casas em que você erra.</p>
+  <ol>
+    <li>Comece pelas mãos duras — são a maioria das suas mãos.</li>
+    <li>Acrescente os pares: poucas regras, fáceis de visualizar.</li>
+    <li>Deixe as mãos macias para o final — é nelas que a maioria tropeça.</li>
+    <li>Treine dez minutos por dia e anote em quais casas você erra, não quantas acerta.</li>
+  </ol>
+  <p>É exatamente isso que o app Veintiuno faz: distribui mãos com as regras da sua mesa, corrige você na hora com o motivo, e um mapa de calor mostra em quais casas desta tabela você erra repetidamente.</p>
+</Guide>

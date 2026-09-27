@@ -1,0 +1,53 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const pdfs = [
+  ['las-vegas-s17', '拉斯維加斯（S17）', '莊家軟 17 停牌，可以投降。'],
+  ['las-vegas-h17', '拉斯維加斯（H17）', '莊家軟 17 要牌，可以投降。'],
+  ['european', '歐洲／線上牌桌', '無暗牌，任意兩張牌都能加倍。線上和真人荷官21點常見的規則。'],
+  ['spain', '西班牙賭場', '無暗牌、只能在 9–11 加倍、不能投降。適合在西班牙的賭場使用。'],
+];
+const faq = [
+  { q: '我該下載哪一張策略表？', a: '下載符合你那桌規則的那一張。在拉斯維加斯，看看桌布：如果寫著「dealer hits soft 17」，就用 H17，否則用 S17。如果你玩的是線上或真人荷官牌桌，通常是歐洲規則。在西班牙的賭場，就用西班牙賭場的策略表。' },
+  { q: '可以帶印出來的策略表進賭場嗎？', a: '有些賭場在低注碼的牌桌上允許你看一張印出來的卡，有些則不行；請先問清楚。任何地方都不允許在牌桌上使用手機或其他裝置。' },
+  { q: '這些是免費的嗎？', a: '是的。你可以自由下載、列印和分享。' },
+];
+---
+<Guide
+  lang="zh"
+  route="printable"
+  title="21點策略表 PDF 免費下載（可列印）"
+  h1="21點基本策略表 PDF"
+  description="免費下載可列印的21點基本策略表 PDF：拉斯維加斯 S17 與 H17、歐洲／線上牌桌，以及西班牙賭場規則。每張都是一頁彩色 A4，方便隨身複習。"
+  updated="2026-09-27"
+  readMinutes={2}
+  faq={faq}
+  related={['strategy', 'simulator', 'spain', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>免費下載：</strong>基本策略表 PDF，一頁彩色 A4。請選擇符合你那桌規則的版本——拉斯維加斯的策略表，和沒有暗牌的歐洲規則牌桌並不一樣。</p></div>
+  </div>
+
+  <div class="pdf-grid">
+    {pdfs.map(([slug, name, text]) => (
+      <a class="card pdf-card" href={`/pdf/blackjack-strategy-chart-zh-${slug}.pdf`} download>
+        <span class="pdf-ico">PDF</span>
+        <span><b>{name}</b><small>{text}</small></span>
+      </a>
+    ))}
+  </div>
+
+  <h2 id="how-to-use">怎麼使用</h2>
+  <p>在橫列找到你的牌，在直行找到莊家的明牌。先看你是不是對子，再看你的牌是不是軟牌（有一張算作 11 點的 A），兩者都不是的話，就看硬牌。字母的意思：H 要牌、S 停牌、D 加倍、P 分牌、R 投降。</p>
+  <p>如果你想逐條調整規則，或想知道每一格為什麼這樣打，請使用<a href={routes.strategy.zh}>互動式策略表</a>。想把它背起來，最有效的是有即時回饋的練習：你可以在<a href={routes.simulator.zh}>練習桌</a>免費練。</p>
+</Guide>
+
+<style>
+  .pdf-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
+  .pdf-card { display: flex !important; gap: 14px; align-items: flex-start; }
+  .pdf-ico { flex: none; width: 44px; height: 52px; border-radius: 8px; background: #c8283a; color: #fff; font: 800 12px/52px var(--font); text-align: center; }
+  .pdf-card b { display: block; color: var(--text); font-size: 17px; }
+  .pdf-card small { display: block; color: var(--muted); font-size: 14px; margin-top: 4px; line-height: 1.45; }
+  @media (max-width: 600px) { .pdf-grid { grid-template-columns: 1fr; } }
+</style>

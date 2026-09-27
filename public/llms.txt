@@ -45,6 +45,41 @@ Key facts used across the site:
 - [Règles du blackjack](https://veintiunoapp.com/fr/regles-blackjack/)
 - [Probabilité que le croupier saute](https://veintiunoapp.com/fr/donnees-blackjack/probabilite-croupier-saute/)
 
+## Português (Brasil)
+- [Tabela de estratégia básica (interativa)](https://veintiunoapp.com/pt/tabela-estrategia-blackjack/)
+- [Jogar blackjack grátis, com correção](https://veintiunoapp.com/pt/jogar-blackjack-gratis/)
+- [Curso de blackjack grátis](https://veintiunoapp.com/pt/curso-blackjack/)
+- [Regras do blackjack](https://veintiunoapp.com/pt/regras-blackjack/)
+- [Probabilidade de o dealer estourar](https://veintiunoapp.com/pt/dados-blackjack/probabilidade-dealer-estourar/)
+
+## Italiano
+- [Tabella di strategia di base (interattiva)](https://veintiunoapp.com/it/tabella-strategia-blackjack/)
+- [Giocare a blackjack gratis, con correzione](https://veintiunoapp.com/it/giocare-blackjack-gratis/)
+- [Corso di blackjack gratuito](https://veintiunoapp.com/it/corso-blackjack/)
+- [Regole del blackjack](https://veintiunoapp.com/it/regole-blackjack/)
+- [Vantaggio del banco secondo le regole](https://veintiunoapp.com/it/dati-blackjack/vantaggio-del-banco-regole/)
+
+## Nederlands
+- [Blackjack-strategietabel (interactief)](https://veintiunoapp.com/nl/blackjack-strategie-tabel/)
+- [Gratis blackjack spelen, met correctie](https://veintiunoapp.com/nl/gratis-blackjack-spelen/)
+- [Gratis blackjackcursus](https://veintiunoapp.com/nl/blackjack-cursus/)
+- [Blackjackregels](https://veintiunoapp.com/nl/blackjack-regels/)
+- [Kans dat de dealer kapotgaat](https://veintiunoapp.com/nl/blackjack-data/kans-dealer-bust/)
+
+## 日本語
+- [ベーシックストラテジー表（インタラクティブ）](https://veintiunoapp.com/ja/blackjack-strategy-chart/)
+- [無料でブラックジャックを練習（添削つき）](https://veintiunoapp.com/ja/play-blackjack-free/)
+- [無料ブラックジャック講座](https://veintiunoapp.com/ja/blackjack-course/)
+- [ブラックジャックのルール](https://veintiunoapp.com/ja/blackjack-rules/)
+- [ディーラーがバーストする確率](https://veintiunoapp.com/ja/data/dealer-bust-probability/)
+
+## 繁體中文
+- [21點基本策略表（互動式）](https://veintiunoapp.com/zh-hant/blackjack-strategy-chart/)
+- [免費玩21點（即時糾正）](https://veintiunoapp.com/zh-hant/play-blackjack-free/)
+- [免費21點課程](https://veintiunoapp.com/zh-hant/blackjack-course/)
+- [21點規則](https://veintiunoapp.com/zh-hant/blackjack-rules/)
+- [莊家爆牌機率](https://veintiunoapp.com/zh-hant/data/dealer-bust-probability/)
+
 ## About
 - [About Veintiuno and methodology](https://veintiunoapp.com/en/about/)
 - [App Store](https://apps.apple.com/app/id6813226836)

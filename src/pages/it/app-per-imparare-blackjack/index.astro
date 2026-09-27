@@ -1,0 +1,70 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import AppStoreButton from '../../../components/AppStoreButton.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Esiste un’app per imparare a giocare a blackjack?', a: 'Sì. Veintiuno è un’app per iPhone e Mac che ti insegna la strategia di base: ti distribuisce mani, corregge ogni decisione all’istante e ti spiega il perché. Non si gioca con soldi veri.' },
+  { q: 'Che differenza c’è tra un’app di blackjack e un allenatore di blackjack?', a: 'Una normale app di blackjack è un gioco: giochi con fiches finte, ma non sai mai se hai giocato bene. Un allenatore confronta ogni decisione con la giocata giusta per le regole del tuo tavolo e ripassa con te i tuoi errori. Solo il secondo ti insegna qualcosa.' },
+  { q: 'Veintiuno è gratis?', a: 'Puoi iniziare gratis: i primi tre giorni del corso sono gratuiti. Veintiuno Pro sblocca il resto del corso, il consulente di mani e la mappa di calore dei tuoi errori, con un abbonamento settimanale o annuale.' },
+  { q: 'Si può giocare con soldi veri in Veintiuno?', a: 'No. È uno strumento per imparare: non ci sono soldi veri, né fiches con alcun valore, né collegamenti con casinò o siti di scommesse.' },
+];
+---
+<Guide
+  lang="it"
+  route="app"
+  title="La migliore app per imparare il blackjack (senza soldi)"
+  h1="La migliore app per imparare il blackjack"
+  description="La migliore app per imparare il blackjack non è un gioco da casinò con soldi finti, ma un allenatore che corregge ogni decisione: Veintiuno, per iPhone e Mac."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['course', 'strategy', 'practiceCounting', 'howToPlay']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> non tutte le app di blackjack ti insegnano il blackjack. Le app che simulano un casinò con fiches finte ti fanno giocare, ma non ti dicono se stai giocando bene. Quello che ti fa migliorare è un <strong>allenatore</strong>: un’app che corregge ogni decisione, spiega il perché e ripassa con te i tuoi errori. Veintiuno è esattamente questo.</p></div>
+  </div>
+
+  <h2 id="types">Due tipi di app di blackjack</h2>
+  <table>
+    <thead><tr><th></th><th>Gioco da casinò</th><th>Allenatore</th></tr></thead>
+    <tbody>
+      <tr><td>Cosa fai</td><td>Giochi mani con fiches finte</td><td>Prendi decisioni e vieni corretto</td></tr>
+      <tr><td>Ti dice se hai giocato bene?</td><td>No: solo se hai vinto la mano</td><td>Sì, a ogni decisione</td></tr>
+      <tr><td>Ti spiega il perché?</td><td>No</td><td>Sì</td></tr>
+      <tr><td>Le regole del tuo tavolo</td><td>Quelle che decide il gioco</td><td>Le scegli tu (Las Vegas, europeo/online, Spagna)</td></tr>
+      <tr><td>Analisi degli errori</td><td>No</td><td>Sì</td></tr>
+      <tr><td>A cosa serve</td><td>Divertimento</td><td>Imparare</td></tr>
+    </tbody>
+  </table>
+  <p>Il problema di imparare con un gioco: <strong>il risultato di una mano non ti dice se l’hai giocata bene</strong>. Puoi stare con 16 contro un 10, che è un errore, e vincere perché il banco sballa. Il tuo cervello impara esattamente la lezione sbagliata. Un allenatore separa la decisione dal risultato: ti dice se la giocata era giusta, comunque vada a finire la mano.</p>
+
+  <h2 id="veintiuno">Cosa fa Veintiuno</h2>
+  <div class="shots">
+    <figure><img src="/img/app-correccion-it.webp" alt="Veintiuno corregge una decisione: con 16 contro un 10 la giocata giusta era chiedere carta" width="480" height="1042" loading="lazy" /><figcaption>Correzione immediata, con spiegazione.</figcaption></figure>
+    <figure><img src="/img/app-tabla-it.webp" alt="La tabella della strategia di base in Veintiuno, con le regole dei casinò spagnoli" width="480" height="1042" loading="lazy" /><figcaption>La tabella per il tuo tavolo.</figcaption></figure>
+    <figure><img src="/img/app-progreso-it.webp" alt="Schermata dei progressi di Veintiuno con percentuale di risposte giuste ed errori" width="480" height="1042" loading="lazy" /><figcaption>I tuoi progressi e i tuoi errori.</figcaption></figure>
+  </div>
+  <ul>
+    <li><strong>Un tavolo di allenamento con correzione immediata.</strong> Ogni decisione viene confrontata con la strategia di base per il tuo tavolo e, se sbagli, l’app ti mostra la giocata giusta e il perché.</li>
+    <li><strong>Un corso di 14 giorni.</strong> Un concetto, un esercizio e un quiz al giorno, dalle regole fino al conteggio delle carte.</li>
+    <li><strong>Le regole del tuo tavolo:</strong> Las Vegas S17 e H17, europeo o online, oppure un casinò spagnolo (senza carta coperta).</li>
+    <li><strong>Una mappa di calore dei tuoi errori</strong> sulla tabella di strategia, così ripassi solo quello che sbagli.</li>
+    <li><strong>Un consulente di mani</strong> con il valore atteso di ogni opzione.</li>
+    <li><strong>Il conteggio delle carte con l’Hi-Lo</strong> come modulo avanzato, spiegato senza promesse.</li>
+    <li>Dieci lingue, italiano compreso, suoni delle carte e feedback aptico curati. Per iPhone e Mac.</li>
+  </ul>
+  <p>Non ci sono soldi veri né scommesse: è uno strumento per imparare e non è legato a nessun casinò.</p>
+  <p><AppStoreButton lang="it" campaign="app-page" /></p>
+
+  <h2 id="no-app">E senza app?</h2>
+  <p>Le regole e la strategia puoi impararle gratis su questo sito: ci sono il <a href={routes.course.it}>corso di blackjack</a>, la <a href={routes.strategy.it}>tabella di strategia interattiva</a> e gli <a href={routes.practiceCounting.it}>esercizi per contare le carte</a>. Quello che un sito non può fare è distribuirti centinaia di mani e correggerle una per una. Per questo c’è l’app.</p>
+</Guide>
+
+<style>
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+  .shots figure { margin: 0; }
+  .shots img { border-radius: 22px; border: 1px solid var(--line-strong); display: block; }
+  .shots figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; text-align: center; }
+  @media (max-width: 560px) { .shots { grid-template-columns: repeat(3, 1fr); gap: 8px; } .shots img { border-radius: 12px; } }
+</style>

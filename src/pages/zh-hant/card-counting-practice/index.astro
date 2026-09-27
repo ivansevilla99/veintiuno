@@ -1,0 +1,74 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import DeckCountdown from '../../../components/DeckCountdown.astro';
+import CountDrill from '../../../components/CountDrill.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: '學會算牌要多久？', a: 'Hi-Lo 的牌值一個下午就能學會。要在 30 秒內零失誤地數完一整副牌，通常需要好幾個星期的每日練習。要在真正的牌桌上做到，面對噪音、交談和下注，還需要更長的時間。' },
+  { q: '最好的算牌練習是什麼？', a: '整副牌倒數：把 52 張牌全部過一遍，最後的點數必須是 0。這是所有算牌者的標準練習，因為它同時考驗準確度和速度。' },
+  { q: '有 App 可以練習算牌嗎？', a: '有。Veintiuno 在課程最後有 Hi-Lo 算牌的進階模組：可調整速度的流水數練習，加上真數的說明。這個頁面上也有兩個免費練習，直接在瀏覽器裡就能用。' },
+  { q: '可以在線上賭場練習算牌嗎？', a: '技巧可以練，錢賺不到。軟體運作的線上21點每一手之後都會重新洗牌，所以點數沒有用。頂多只能讓你習慣發牌的速度。' },
+];
+---
+<Guide
+  lang="zh"
+  route="practiceCounting"
+  title="算牌練習：一步一步的練習計畫"
+  h1="怎麼練習算牌"
+  description="用 Hi-Lo 一步一步練習算牌的計畫：牌值、整副牌倒數、成對抵銷、真數換算，以及在牌桌速度下算牌。附兩個免費練習，直接在瀏覽器裡就能開始。"
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['counting', 'countingLegal', 'strategy', 'course']}
+  cta={{ title: '先學策略，再學算牌', text: '在 Veintiuno 裡，Hi-Lo 放在課程的最後，等你熟練基本策略之後才學，因為沒有基本策略，算牌毫無意義。' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>簡短回答：</strong>學會 Hi-Lo 的牌值（2–6 算 +1，7–9 算 0，10 點牌和 A 算 −1），練習<strong>整副牌倒數</strong>，直到能在 30 秒內零失誤完成，學會用<strong>互相抵銷的成對</strong>來算，並換算成<strong>真數</strong>，最後才在有噪音和干擾的環境下練習。最重要的是：先熟練基本策略。</p></div>
+  </div>
+
+  <nav class="toc" aria-label="本篇內容">
+    <b>本篇內容</b>
+    <ol>
+      <li><a href="#before">開始之前</a></li>
+      <li><a href="#step1">第 1 步：不假思索地說出牌值</a></li>
+      <li><a href="#step2">第 2 步：整副牌倒數</a></li>
+      <li><a href="#step3">第 3 步：成對計算</a></li>
+      <li><a href="#step4">第 4 步：真數</a></li>
+      <li><a href="#step5">第 5 步：牌桌速度</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="before">開始之前</h2>
+  <p>只有在你已經能零失誤地打出<a href={routes.strategy.zh}>基本策略</a>時，算牌才有意義。每隔幾手就犯一次策略錯誤，損失就會超過算牌帶給你的全部優勢。如果你在 12 點對 3，或 A-7 對 9 時還會猶豫，就從那裡開始。</p>
+  <p>也要清楚你為什麼要學：算牌是很棒的記憶訓練，也是理解這個遊戲最好的方法，但它不是輕鬆賺錢的捷徑。原因我們在<a href={routes.counting.zh}>21點怎麼算牌</a>裡有說明。</p>
+
+  <h2 id="step1">第 1 步：不假思索地說出牌值</h2>
+  <p>你必須一看到牌就知道它的值，不用在腦中轉換。2 到 6：<strong>+1</strong>。7 到 9：<strong>0</strong>。10、人頭牌和 A：<strong>−1</strong>。用短短的幾組牌練習，直到不再猶豫：</p>
+  <CountDrill lang="zh" />
+
+  <h2 id="step2">第 2 步：整副牌倒數</h2>
+  <p>每個算牌者都會做的經典練習。一副完整的牌裡，大牌和小牌一樣多；所以數完全部 52 張，結果一定是 0。從慢開始，再逐步加快：</p>
+  <ul>
+    <li><strong>目標 1：</strong>零失誤地數到 0，不管速度多慢。</li>
+    <li><strong>目標 2：</strong>在 30 秒內數到 0（大約每張 0.5 秒）。</li>
+    <li><strong>目標 3：</strong>在牌數到一半時停下來，點數仍然正確。</li>
+  </ul>
+  <DeckCountdown lang="zh" />
+
+  <h2 id="step3">第 3 步：成對計算</h2>
+  <p>在牌桌上，牌是兩張或三張一起出現的。算牌者不會一張一張加，而是辨認<strong>互相抵銷的成對</strong>。一張 5 和一張 K 加起來是 0，直接略過。一張 4 和一張 6 一次就是 +2。練習同時看兩張牌，只說出這一對的結果。</p>
+
+  <h2 id="step4">第 4 步：真數</h2>
+  <p>流水數告訴你多出了多少大牌，但沒有告訴你還剩多少牌。所以要除以剩下的牌副數：<strong>真數 = 流水數 ÷ 剩下的牌副數</strong>。練習在腦中算出來：</p>
+  <ul>
+    <li>+8，剩 4 副牌 → <strong>+2</strong></li>
+    <li>+6，剩 1.5 副牌 → <strong>+4</strong></li>
+    <li>−3，剩 3 副牌 → <strong>−1</strong></li>
+  </ul>
+  <p>要估計剩下幾副牌，就看棄牌盒：估到半副牌的精度就夠了。</p>
+
+  <h2 id="step5">第 5 步：牌桌速度</h2>
+  <p>在家裡安靜地數很容易。牌桌上有噪音、交談、籌碼，還有好幾位玩家的牌。熟練前面的步驟之後，試著開著電視、一邊說話一邊練，或看真實牌桌的影片來練。數亂了也沒關係：下一次洗牌後，從零重新開始就好。</p>
+  <div class="callout warn"><p><strong>記住：</strong>在腦中算牌一般不被視為違法，但在牌桌上使用手機或任何裝置則是禁止的。而且賭場如果注意到你，可以請你不要再玩。更多內容請看<a href={routes.countingLegal.zh}>算牌違法嗎？</a></p></div>
+</Guide>

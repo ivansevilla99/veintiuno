@@ -1,0 +1,70 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import AppStoreButton from '../../../components/AppStoreButton.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Is er een app om blackjack te leren spelen?', a: 'Ja. Veintiuno is een app voor iPhone en Mac die je de basisstrategie leert: hij deelt je handen, corrigeert elke beslissing direct en legt uit waarom. Er wordt niet om echt geld gespeeld.' },
+  { q: 'Wat is het verschil tussen een blackjack-app en een blackjacktrainer?', a: 'Een gewone blackjack-app is een spel: je speelt met speelgeldfiches, maar je komt nooit te weten of je goed hebt gespeeld. Een trainer toetst elke beslissing aan de juiste zet voor de regels van jouw tafel en neemt je fouten met je door. Alleen dat laatste leert je iets.' },
+  { q: 'Is Veintiuno gratis?', a: 'Je kunt gratis beginnen: de eerste drie dagen van de cursus zijn gratis. Veintiuno Pro ontgrendelt de rest van de cursus, de handadviseur en de heatmap van je fouten – met een week- of jaarabonnement.' },
+  { q: 'Kun je in Veintiuno om echt geld spelen?', a: 'Nee. Het is een leermiddel: er is geen echt geld, er zijn geen fiches met enige waarde en er is geen koppeling met een casino of gokaanbieder.' },
+];
+---
+<Guide
+  lang="nl"
+  route="app"
+  title="Blackjack leren: de beste app (zonder echt geld)"
+  h1="De beste app om blackjack te leren"
+  description="De beste app om blackjack te leren is geen casinospel met speelgeld, maar een trainer die elke beslissing corrigeert en uitlegt: Veintiuno, voor iPhone en Mac."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['course', 'strategy', 'practiceCounting', 'howToPlay']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> Niet elke blackjack-app leert je blackjack. Apps die een casino met speelgeldfiches nabootsen laten je spelen, maar vertellen je niet of je goed speelt. Wat je verder helpt is een <strong>trainer</strong>: een app die elke beslissing corrigeert, uitlegt waarom en je fouten met je doorneemt. Dat is precies Veintiuno.</p></div>
+  </div>
+
+  <h2 id="types">Twee soorten blackjack-apps</h2>
+  <table>
+    <thead><tr><th></th><th>Casinospel</th><th>Trainer</th></tr></thead>
+    <tbody>
+      <tr><td>Wat je doet</td><td>Handen spelen met speelgeldfiches</td><td>Beslissingen nemen en gecorrigeerd worden</td></tr>
+      <tr><td>Vertelt hij of je goed hebt gespeeld?</td><td>Nee: alleen of je de hand hebt gewonnen</td><td>Ja, bij elke beslissing</td></tr>
+      <tr><td>Legt hij uit waarom?</td><td>Nee</td><td>Ja</td></tr>
+      <tr><td>De regels van jouw tafel</td><td>Wat het spel toevallig gebruikt</td><td>Jij kiest ze (Las Vegas, Europees/online, Spanje)</td></tr>
+      <tr><td>Foutenanalyse</td><td>Nee</td><td>Ja</td></tr>
+      <tr><td>Waar hij goed voor is</td><td>Vermaak</td><td>Leren</td></tr>
+    </tbody>
+  </table>
+  <p>Het probleem met leren via een spel: <strong>de uitkomst van een hand vertelt je niet of je hem goed hebt gespeeld</strong>. Je kunt met 16 tegen een 10 passen – een fout – en winnen omdat de dealer kapotgaat. Je hersenen leren dan precies de verkeerde les. Een trainer scheidt de beslissing van de uitkomst: hij vertelt je of de zet juist was, hoe de hand ook afloopt.</p>
+
+  <h2 id="veintiuno">Wat Veintiuno doet</h2>
+  <div class="shots">
+    <figure><img src="/img/app-correccion-nl.webp" alt="Veintiuno corrigeert een beslissing: met 16 tegen een 10 was kaart vragen de juiste zet" width="480" height="1042" loading="lazy" /><figcaption>Directe correctie, met uitleg.</figcaption></figure>
+    <figure><img src="/img/app-tabla-nl.webp" alt="De strategietabel voor de basisstrategie in Veintiuno, met de regels van Spaanse casino’s" width="480" height="1042" loading="lazy" /><figcaption>De tabel voor jouw tafel.</figcaption></figure>
+    <figure><img src="/img/app-progreso-nl.webp" alt="Voortgangsscherm van Veintiuno met nauwkeurigheid en fouten" width="480" height="1042" loading="lazy" /><figcaption>Je voortgang en je fouten.</figcaption></figure>
+  </div>
+  <ul>
+    <li><strong>Een oefentafel met directe correctie.</strong> Elke beslissing wordt vergeleken met de basisstrategie voor jouw tafel, en als je ernaast zit laat de app je de juiste zet zien en waarom.</li>
+    <li><strong>Een cursus van 14 dagen.</strong> Per dag een concept, een oefening en een quiz – van de regels tot kaarten tellen.</li>
+    <li><strong>De regels van jouw tafel:</strong> Las Vegas S17 en H17, Europees of online, of een Spaans casino (zonder gesloten kaart).</li>
+    <li><strong>Een heatmap van je fouten</strong> op de strategietabel, zodat je alleen herhaalt wat je fout doet.</li>
+    <li><strong>Een handadviseur</strong> met de verwachte waarde van elke optie.</li>
+    <li><strong>Kaarten tellen met Hi-Lo</strong> als module voor gevorderden, uitgelegd zonder beloftes.</li>
+    <li>Tien talen, waaronder Nederlands, zorgvuldig ontworpen kaartgeluiden en haptiek. Voor iPhone en Mac.</li>
+  </ul>
+  <p>Er is geen echt geld en er zijn geen weddenschappen: het is een hulpmiddel om te leren en aan geen enkel casino verbonden.</p>
+  <p><AppStoreButton lang="nl" campaign="app-page" /></p>
+
+  <h2 id="no-app">En zonder app?</h2>
+  <p>De regels en de strategie kun je gratis op deze website leren: er is de <a href={routes.course.nl}>blackjackcursus</a>, de <a href={routes.strategy.nl}>interactieve strategietabel</a> en de <a href={routes.practiceCounting.nl}>oefeningen voor kaarten tellen</a>. Wat een website niet kan: je honderden handen delen en elke hand corrigeren. Daarvoor is de app.</p>
+</Guide>
+
+<style>
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+  .shots figure { margin: 0; }
+  .shots img { border-radius: 22px; border: 1px solid var(--line-strong); display: block; }
+  .shots figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; text-align: center; }
+  @media (max-width: 560px) { .shots { grid-template-columns: repeat(3, 1fr); gap: 8px; } .shots img { border-radius: 12px; } }
+</style>

@@ -1,0 +1,67 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Dá para ganhar sempre no blackjack?', a: 'Não. Nenhum sistema ganha todas as vezes. Com a estratégia básica perfeita, a casa mantém uma vantagem de cerca de 0,5%, então no longo prazo você perde um pouco. Numa sessão curta você pode ganhar ou perder por pura sorte.' },
+  { q: 'O Martingale funciona no blackjack?', a: 'Não. Dobrar a aposta depois de cada derrota não muda a vantagem da casa, só muda a forma como você perde. Você ganha valores pequenos muitas vezes, até que uma sequência ruim acaba com tudo ou bate no limite da mesa.' },
+  { q: 'Qual é a melhor estratégia de blackjack?', a: 'A estratégia básica: a jogada matematicamente ideal para cada mão contra cada carta do dealer, com as regras da sua mesa. É o que mais reduz a vantagem da casa. Sistemas de aposta, sequências e intuição não a melhoram.' },
+  { q: 'Qual é a chance de ganhar uma mão de blackjack?', a: 'Com a estratégia básica você ganha cerca de 42–43% das mãos, empata cerca de 8–9% e perde cerca de 48–49%. Você recupera a maior parte dessa diferença porque o blackjack paga 3 para 2 e porque você dobra e divide nas situações favoráveis.' },
+];
+---
+<Guide
+  lang="pt"
+  route="howToWin"
+  title="Como ganhar no blackjack: o que funciona e o que não"
+  h1="Como ganhar no blackjack: a resposta honesta"
+  description="Dá para ganhar no blackjack? Qual é a vantagem da casa, quanto a estratégia básica a reduz, o que a contagem de cartas rende e quais truques não funcionam."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['strategy', 'counting', 'howToPlay', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Resposta curta:</strong> não existe jeito de ganhar sempre. O que você pode fazer é <strong>perder o mínimo possível</strong>. A estratégia básica perfeita baixa a vantagem da casa para cerca de 0,5%, contra 2% ou mais de quem joga no instinto. A contagem de cartas pode dar uma vantagem pequena, mas é difícil, lenta, e os cassinos reagem contra ela.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="Neste guia">
+    <b>Neste guia</b>
+    <ol>
+      <li><a href="#edge">De onde vem a vantagem da casa</a></li>
+      <li><a href="#works">O que funciona: 5 coisas que reduzem suas perdas</a></li>
+      <li><a href="#doesnt">O que não funciona</a></li>
+      <li><a href="#counting">E a contagem de cartas?</a></li>
+      <li><a href="#mindset">Um jeito saudável de encarar o jogo</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="edge">De onde vem a vantagem da casa</h2>
+  <p>O blackjack parece justo: você e o dealer tiram das mesmas cartas. O problema é a ordem. <strong>Você joga primeiro</strong>, e se estourar, perde, mesmo que o dealer estoure depois. Só essa regra vale cerca de 8% para a casa.</p>
+  <p>Você recupera a maior parte com coisas que o dealer não pode fazer: receber 3 para 2 num blackjack, dobrar, dividir e parar quando quiser. Se fizer tudo isso direito, a vantagem da casa cai para <strong>0,3–0,7%</strong>, dependendo das regras. Se jogar como o dealer (pedindo até 17), ela fica em cerca de 5,5%.</p>
+
+  <h2 id="works">O que funciona: 5 coisas que reduzem suas perdas</h2>
+  <ol>
+    <li><strong>Aprenda a estratégia básica.</strong> É, de longe, o fator mais importante. Use a <a href={routes.strategy.pt}>tabela de estratégia interativa</a> com as regras da sua mesa e treine até não hesitar mais.</li>
+    <li><strong>Jogue só em mesas 3:2.</strong> Um pagamento de 6:5 custa cerca de 1,4 ponto percentual, mais do que todos os seus erros juntos.</li>
+    <li><strong>Recuse o seguro.</strong> É uma aposta paralela com cerca de 7% de vantagem da casa.</li>
+    <li><strong>Leia as regras.</strong> Um dealer que para no 17 macio, poder dobrar depois de dividir e a desistência ajudam você. Menos baralhos é melhor do que mais.</li>
+    <li><strong>Defina um limite antes de sentar</strong> e respeite. As oscilações no blackjack são grandes: mesmo jogando perfeito, você vai ter sequências ruins.</li>
+  </ol>
+
+  <h2 id="doesnt">O que não funciona</h2>
+  <ul>
+    <li><strong>Sistemas de aposta</strong> (Martingale, Paroli, 1-3-2-6…): mudam o tamanho da aposta, não as chances de uma mão. A vantagem da casa vale para cada real que você aposta.</li>
+    <li><strong>Mesas quentes e frias:</strong> as cartas não sabem se você ganhou a última mão.</li>
+    <li><strong>“Nunca estourar” (parar a partir de 12):</strong> parece seguro, mas contra cartas fortes do dealer custa dinheiro.</li>
+    <li><strong>Jogar como o dealer:</strong> uma das piores estratégias que existem.</li>
+    <li><strong>“Sistemas para ganhar” vendidos na internet:</strong> se funcionassem, ninguém os venderia.</li>
+  </ul>
+
+  <h2 id="counting">E a contagem de cartas?</h2>
+  <p>É a única técnica legal que pode dar vantagem ao jogador, e ela é real: as cartas distribuídas não voltam ao sapato. Mas a vantagem é pequena (cerca de 0,5–1%), exige grandes saltos de aposta na hora certa, disciplina de ferro e uma banca grande, e os cassinos embaralham antes ou te mostram a porta assim que percebem. Online não funciona. A história completa está em <a href={routes.counting.pt}>Como contar cartas no blackjack</a>.</p>
+
+  <h2 id="mindset">Um jeito saudável de encarar o jogo</h2>
+  <p>Encare o blackjack como qualquer entretenimento pago: um ingresso de show custa dinheiro e você não espera recebê-lo de volta. A diferença é que no blackjack você decide quanto ele custa, e jogar perfeito mantém esse preço no mínimo.</p>
+  <p>Aprender a jogar bem também é um desafio mental muito gratificante: saber exatamente por que você pede com 12 contra um 2 ou divide oitos contra um 10. É isso que o Veintiuno ensina, sem dinheiro real e sem apostas.</p>
+  <div class="callout warn"><p>Se o jogo está custando mais do que você quer, pare. Você encontra ajuda gratuita na nossa página de <a href={routes.responsible.pt}>jogo responsável</a>.</p></div>
+</Guide>

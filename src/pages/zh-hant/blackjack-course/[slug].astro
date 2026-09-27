@@ -1,0 +1,10 @@
+---
+import CourseLesson from '../../../components/CourseLesson.astro';
+import { courses } from '../../../lib/courses';
+
+export function getStaticPaths() {
+  return courses.zh.map((lesson, i) => ({ params: { slug: lesson.slug }, props: { i } }));
+}
+const { i } = Astro.props as { i: number };
+---
+<CourseLesson lang="zh" lessons={courses.zh} i={i} />

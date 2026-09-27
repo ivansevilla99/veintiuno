@@ -1,0 +1,79 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { dealerTable } from '../../../../lib/ev';
+import { presets } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const ups = [2, 3, 4, 5, 6, 7, 8, 9, 10, 1];
+const upL = (u: number) => (u === 1 ? 'A' : String(u));
+const pct = (x: number) => (x * 100).toFixed(1) + '%';
+const s17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasS17) }));
+const h17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasH17) }));
+const avgBust = s17.reduce((a, r) => a + r.bust * (r.u === 10 ? 4 : 1), 0) / 13;
+
+const faq = [
+  { q: '莊家明牌是哪張時最容易爆牌？', a: '明牌是 6 或 5 時：莊家軟 17 停牌的情況下，大約 42% 的機率會爆牌。明牌是 4 時接近 40%。這就是為什麼 12 到 16 點對 4、5 或 6 要停牌。' },
+  { q: '莊家明牌是哪張時最不容易爆牌？', a: '明牌是 A 時：排除21點（Blackjack）之後，莊家大約只有 17% 的機率會爆牌。明牌是 7、8、9 或 10 時，機率介於 23% 到 26% 之間。' },
+  { q: '莊家軟 17 要牌（H17）時差多少？', a: '明牌是小牌或 A 時，莊家爆牌的機率會稍微高一點，因為他在原本會停牌的情況下繼續要牌；但他也更常停在 18–21 點。整體來說，H17 對你比較不利：莊家優勢大約增加 0.2 個百分點。' },
+];
+---
+<Guide
+  lang="zh"
+  route="dataBust"
+  title="21點莊家爆牌機率（依明牌分列的數據表）"
+  h1="莊家爆牌的頻率：依明牌分列"
+  description="精確數據表：21點莊家依明牌不同，爆牌的頻率有多高，以及最終停在 17 到 21 點各個點數的機率。涵蓋 S17 和 H17 兩種規則，以 6 副牌計算。"
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['hand16v10', 'strategy', 'dataRules', 'data']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>簡單來說：</strong>6 副牌、莊家軟 17 停牌時，莊家爆牌的機率大約是：<strong>明牌 5 或 6 為 42%</strong>、<strong>明牌 4 為 40%</strong>、<strong>明牌 2 或 3 為 35–37%</strong>、<strong>明牌 7 到 10 為 23–26%</strong>，<strong>明牌 A 為 17%</strong>（不計莊家21點）。平均來說，在莊家沒有21點的牌局中，莊家有 {pct(avgBust)} 會爆牌。</p></div>
+  </div>
+
+  <div slot="wide" class="read">
+    <h2 id="s17">莊家軟 17 停牌（S17）</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>明牌</th><th>爆牌</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>拿到21點</th></tr></thead>
+        <tbody>
+          {s17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="h17">莊家軟 17 要牌（H17）</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>明牌</th><th>爆牌</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>拿到21點</th></tr></thead>
+        <tbody>
+          {h17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2 id="method">怎麼看這張表，以及怎麼計算的</h2>
+  <ul>
+    <li>「爆牌」和 17–21 這幾欄加起來是 100%，是<strong>排除莊家21點之後</strong>的機率，也就是你在有暗牌的牌桌上做決定時的實際情況。最後一欄是莊家查看暗牌（peek）之前，拿到21點的機率。</li>
+    <li>用 Veintiuno 引擎精確計算（不是模擬）：6 副牌，移除莊家的明牌，並展開每一張可能的牌。已用每張明牌 150 萬手的獨立模擬交叉驗證，誤差在零點幾個百分點以內。</li>
+    <li>牌副數較少，或把玩家的牌也納入考量時，數值會稍有變動，但排序永遠不變。</li>
+  </ul>
+
+  <h2 id="use">這張表有什麼用</h2>
+  <p>它就是基本策略長成這個樣子的真正原因。12 到 16 點對 4、5 或 6 要停牌，因為在莊家還沒有 17–21 點的情況下，他幾乎有一半的機率會爆牌；對 7 或以上要要牌，因為莊家幾乎總會停在 17 點或以上。最具爭議的情況在<a href={routes.hand16v10.zh}>16 點對 10</a>裡有說明。</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 8px; background: var(--panel); border-radius: 14px; overflow: hidden; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

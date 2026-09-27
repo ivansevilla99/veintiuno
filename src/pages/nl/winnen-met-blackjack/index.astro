@@ -1,0 +1,67 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Kun je bij blackjack altijd winnen?', a: 'Nee. Geen enkel systeem wint elke keer. Met perfecte basisstrategie houdt het huis een voordeel van ongeveer 0,5%, dus op den duur verlies je licht. In een korte sessie kun je door puur geluk winnen of verliezen.' },
+  { q: 'Werkt de martingale bij blackjack?', a: 'Nee. Je inzet na elk verlies verdubbelen verandert niets aan het huisvoordeel – alleen aan hoe je verliest. Je wint vaak kleine bedragen, en dan maakt een reeks pech alles ongedaan of loop je tegen de tafellimiet aan.' },
+  { q: 'Wat is de beste blackjackstrategie?', a: 'De basisstrategie: de wiskundig optimale beslissing voor elke hand tegen elke dealerkaart, volgens de regels van jouw tafel. Die verlaagt het huisvoordeel het meest. Inzetsystemen, reeksen en onderbuikgevoel maken haar niet beter.' },
+  { q: 'Hoe groot is de kans om een blackjackhand te winnen?', a: 'Met basisstrategie win je ongeveer 42–43% van de handen, speel je ongeveer 8–9% gelijk en verlies je ongeveer 48–49%. Het grootste deel van dat verschil haal je terug doordat blackjacks 3 tegen 2 uitbetalen en je in gunstige situaties verdubbelt en splitst.' },
+];
+---
+<Guide
+  lang="nl"
+  route="howToWin"
+  title="Winnen met blackjack: wat werkt en wat niet"
+  h1="Winnen met blackjack: het eerlijke antwoord"
+  description="Kun je winnen met blackjack? Hoe groot het huisvoordeel is, hoeveel de basisstrategie het verlaagt, wat kaarten tellen oplevert en welke trucs niet werken."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['strategy', 'counting', 'howToPlay', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> Er is geen manier om altijd te winnen. Wat je wel kunt doen: <strong>zo weinig mogelijk verliezen</strong>. Perfecte basisstrategie drukt het huisvoordeel tot ongeveer 0,5%, tegenover 2% of meer voor iemand die op gevoel speelt. Kaarten tellen kan een klein voordeel opleveren, maar is moeilijk, traag, en casino’s verweren zich ertegen.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In deze gids">
+    <b>In deze gids</b>
+    <ol>
+      <li><a href="#edge">Waar het huisvoordeel vandaan komt</a></li>
+      <li><a href="#works">Wat werkt: 5 dingen die je verliezen verlagen</a></li>
+      <li><a href="#doesnt">Wat niet werkt</a></li>
+      <li><a href="#counting">En kaarten tellen?</a></li>
+      <li><a href="#mindset">Een gezonde kijk</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="edge">Waar het huisvoordeel vandaan komt</h2>
+  <p>Blackjack lijkt eerlijk – jij en de dealer trekken uit dezelfde kaarten. Het addertje zit in de volgorde. <strong>Jij bent eerst aan de beurt</strong>, en als je kapotgaat verlies je, ook als de dealer daarna ook kapotgaat. Alleen die regel is voor het huis ongeveer 8% waard.</p>
+  <p>Het grootste deel haal je terug met dingen die de dealer niet mag: 3 tegen 2 krijgen voor een blackjack, verdubbelen, splitsen en passen wanneer jij wilt. Doe je dat allemaal goed, dan krimpt het huisvoordeel afhankelijk van de regels tot <strong>0,3–0,7%</strong>. Speel je zoals de dealer (kaart vragen tot 17), dan ligt het rond 5,5%.</p>
+
+  <h2 id="works">Wat werkt: 5 dingen die je verliezen verlagen</h2>
+  <ol>
+    <li><strong>Leer de basisstrategie.</strong> Veruit de belangrijkste factor. Gebruik de <a href={routes.strategy.nl}>interactieve strategietabel</a> voor de regels van jouw tafel en oefen tot je niet meer twijfelt.</li>
+    <li><strong>Speel alleen aan 3:2-tafels.</strong> Een 6:5-uitbetaling kost ongeveer 1,4 procentpunt – meer dan al je fouten bij elkaar.</li>
+    <li><strong>Sla de verzekering over.</strong> Het is een bijweddenschap met ongeveer 7% huisvoordeel.</li>
+    <li><strong>Lees de regels.</strong> Een dealer die past op zachte 17, verdubbelen na splitsen en opgeven helpen je. Minder decks is beter dan meer.</li>
+    <li><strong>Leg een limiet vast voordat je gaat zitten,</strong> en houd je eraan. De schommelingen bij blackjack zijn groot: ook met perfect spel krijg je reeksen pech.</li>
+  </ol>
+
+  <h2 id="doesnt">Wat niet werkt</h2>
+  <ul>
+    <li><strong>Inzetsystemen</strong> (martingale, paroli, 1-3-2-6 …): ze veranderen de hoogte van je inzet, niet de kansen van een hand. Het huisvoordeel geldt voor elke euro die je inzet.</li>
+    <li><strong>Warme en koude tafels:</strong> de kaarten weten niet of je de vorige hand hebt gewonnen.</li>
+    <li><strong>„Nooit kapotgaan” (vanaf 12 passen):</strong> klinkt veilig, maar kost geld tegen sterke dealerkaarten.</li>
+    <li><strong>Spelen zoals de dealer:</strong> een van de slechtste strategieën die er zijn.</li>
+    <li><strong>Online verkochte „winnende systemen”:</strong> als ze werkten, zou niemand ze verkopen.</li>
+  </ul>
+
+  <h2 id="counting">En kaarten tellen?</h2>
+  <p>Het is de enige legale techniek die de speler een voordeel kan geven, en die is echt: gedeelde kaarten gaan niet terug in de schoen. Maar het voordeel is klein (ongeveer 0,5–1%), het vraagt grote inzetsprongen op het juiste moment, ijzeren discipline en een grote bankroll – en casino’s schudden eerder of wijzen je de deur zodra ze het doorhebben. Online werkt het niet. Het hele verhaal lees je in <a href={routes.counting.nl}>Kaarten tellen bij blackjack</a>.</p>
+
+  <h2 id="mindset">Een gezonde kijk</h2>
+  <p>Zie blackjack als elke vorm van betaald vermaak: een concertkaartje kost geld, en je verwacht het niet terug. Het verschil: bij blackjack bepaal je zelf hoeveel het kost – en perfect spel houdt de prijs minimaal.</p>
+  <p>Goed leren spelen is bovendien een echt bevredigende mentale uitdaging: precies weten waarom je met 12 tegen een 2 kaart vraagt of achten tegen een 10 splitst. Dat is precies wat Veintiuno je leert, zonder echt geld en zonder weddenschappen.</p>
+  <div class="callout warn"><p>Als gokken je meer kost dan je wilt, stop dan. Gratis hulp vind je op onze pagina <a href={routes.responsible.nl}>Verantwoord spelen</a>.</p></div>
+</Guide>

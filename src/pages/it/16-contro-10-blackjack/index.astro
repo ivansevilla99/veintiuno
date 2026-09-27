@@ -1,0 +1,53 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Con 16 contro un 10 chiedo carta o sto?', a: 'Chiedi carta, a meno che il tavolo non permetta la resa: in quel caso arrendersi è la scelta migliore. Chiedere carta perde un po’ meno che stare (con 10-6 circa 0,007 puntate per mano), anche se entrambe le opzioni perdono più di metà della puntata.' },
+  { q: 'Perché chiedere carta se con 16 si sballa così spesso?', a: 'Perché stare con 16 vince solo se sballa il banco, e con un 10 scoperto succede solo in circa il 23% dei casi. Se chiedi carta sballi circa 6 volte su 10; quando non sballi, sali a 17–21 e a volte vinci.' },
+  { q: 'E se il mio 16 è fatto di tre o più carte?', a: 'Allora stare di solito è equivalente o leggermente migliore, perché le carte basse che compongono la tua mano non sono più nel mazzo e quelle rimaste tendono a farti sballare. È una delle poche eccezioni che dipendono dalla composizione della mano. Con due carte: chiedi carta.' },
+  { q: 'E 16 contro un 10 quando è una coppia di 8?', a: 'Dividi. La coppia 8-8 contro un 10 si divide ai tavoli con carta coperta, perché due mani che partono da 8 perdono meno di un solo 16. Ai tavoli europei senza carta coperta invece chiedi carta (o ti arrendi, se è permesso).' },
+];
+---
+<Guide
+  lang="it"
+  route="hand16v10"
+  title="16 contro 10 a blackjack: chiedere carta o stare?"
+  h1="16 contro 10: chiedere carta o stare?"
+  description="Cosa fare con 16 contro un 10 del banco a blackjack: chiedere carta, stare o arrendersi? Il valore atteso esatto di ogni opzione e perché chiedere carta vince."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['strategy', 'whenDouble', 'course', 'dataBust']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> con un 16 hard contro un 10 <strong>ti arrendi se il tavolo lo permette; altrimenti chiedi carta</strong>. È la mano più temuta del blackjack perché ogni opzione perde, ma chiedere carta perde un po’ meno che stare. L’eccezione: se il tuo 16 è un 8-8, dividi (ai tavoli con carta coperta).</p></div>
+  </div>
+
+  <h2 id="numbers">I numeri esatti</h2>
+  <p>Ecco quanto vale in media ogni opzione, per unità puntata. Tutti i valori sono negativi: con 16 contro un 10 perdi soldi qualunque cosa tu faccia. La domanda è solo quale opzione perde di meno.</p>
+  <EVTable lang="it" cards={[10, 6]} up={10} tables={['vegasS17', 'europeanOnline', 'doubleDeck']} />
+  <p>Con le regole di Las Vegas la scelta migliore è <strong>arrendersi</strong> (−0,500): ti restituiscono metà della puntata e ti risparmi una mano che perde più di una volta su due. Senza resa, <strong>chiedere carta</strong> (−0,535) batte stare (−0,542).</p>
+  <p>A un tavolo europeo senza carta coperta, come nei casinò spagnoli, le perdite sono un po’ più alte perché il banco può ancora avere blackjack, ma l’ordine non cambia: chiedere carta resta meglio.</p>
+
+  <h2 id="why">Perché chiedere carta anche se sballi così spesso</h2>
+  <p>L’istinto dice: “Con 16 sballo quasi di sicuro, quindi sto.” Ma stare con 16 ti lascia una sola speranza: che sballi il banco. E con un 10 scoperto succede solo in circa il <strong>23%</strong> dei casi (vedi la <a href={routes.dataBust.it}>tabella di quanto spesso sballa il banco</a>). Nel restante 77% il banco arriva a 17 o più e il tuo 16 perde.</p>
+  <p>Se chiedi carta, sballi con un 6, 7, 8, 9 o 10 (circa 6 volte su 10). Ma se arriva un asso, un 2, 3, 4 o 5, sali a 17–21 e hai una vera possibilità di vincere o pareggiare. Queste vincite compensano ampiamente le poche mani in più che perdi sballando.</p>
+  <div class="callout"><p><strong>La differenza è piccola, ed è proprio per questo che se ne discute tanto.</strong> Chiedere carta invece di stare ti fa risparmiare meno di un centesimo di puntata per mano. In una singola mano non te ne accorgi. Su mille mani di 16 contro 10 fanno sette puntate intere.</p></div>
+
+  <h2 id="exceptions">Le eccezioni</h2>
+  <ul>
+    <li><strong>8-8:</strong> dividi. Due mani che partono da 8 perdono parecchio meno di un solo 16. Ai tavoli europei senza carta coperta, con 8-8 contro un 10 si chiede carta (o ci si arrende, se è permesso).</li>
+    <li><strong>Un 16 di tre o più carte</strong> (per esempio 4-5-7): stare diventa equivalente o migliore, perché le carte basse che ti aiuterebbero sono già nella tua mano.</li>
+    <li><strong>Se conti le carte:</strong> da un conteggio reale di 0 in su stai. È la giocata a indice più famosa dell’Hi-Lo: quando restano molte carte alte, chiedendo carta sballi troppo spesso.</li>
+  </ul>
+
+  <h2 id="other">E 16 contro le altre carte scoperte?</h2>
+  <ul>
+    <li><strong>Contro 2–6:</strong> stai. Il banco è debole e sballa spesso.</li>
+    <li><strong>Contro 7 o 8:</strong> chiedi carta.</li>
+    <li><strong>Contro 9 o asso:</strong> arrenditi se puoi; altrimenti chiedi carta.</li>
+  </ul>
+  <p>Trovi tutto nella <a href={routes.strategy.it}>tabella della strategia di base</a>, che puoi adattare alle regole del tuo tavolo.</p>
+</Guide>

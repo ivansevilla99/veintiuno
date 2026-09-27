@@ -1,0 +1,99 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'No blackjack, o ás vale 1 ou 11?', a: 'As duas coisas — o que for melhor para você. Uma mão em que o ás conta como 11 se chama “mão macia” (soft): ás-6 é um 17 macio. Se a próxima carta fosse fazer você estourar, o ás simplesmente passa a valer 1.' },
+  { q: 'O que acontece se eu empatar com o dealer?', a: 'É um empate (push): você recebe a aposta de volta e ninguém ganha. Se os dois tiverem blackjack, também é empate.' },
+  { q: 'Quanto paga um blackjack?', a: 'Numa mesa padrão, o blackjack paga 3 para 2 — R$ 15 para uma aposta de R$ 10. Algumas mesas pagam só 6 para 5 (R$ 12 para R$ 10). Essa pequena mudança multiplica por quatro, mais ou menos, a vantagem da casa, então evite as mesas 6:5.' },
+  { q: 'Quando o dealer é obrigado a pedir carta?', a: 'O dealer não tem escolha: pede com 16 ou menos e para com 17 ou mais. Em algumas mesas ele também pede no 17 macio (ás-6); nesse caso o pano diz “Dealer hits soft 17” ou “H17”.' },
+  { q: 'Blackjack é o mesmo que 21?', a: 'O blackjack é a versão de cassino do jogo de cartas 21. O objetivo é o mesmo, mas no cassino o dealer segue regras fixas e você tem opções extras, como dobrar, dividir e o seguro.' },
+];
+---
+<Guide
+  lang="pt"
+  route="howToPlay"
+  title="Regras do blackjack: valor das cartas, mão e pagamentos"
+  h1="Regras do blackjack explicadas de forma simples"
+  description="As regras do blackjack passo a passo: objetivo, valor das cartas, como se joga uma mão, pedir ou parar, dobrar, dividir, desistir (surrender) e os pagamentos."
+  updated="2026-09-27"
+  readMinutes={8}
+  faq={faq}
+  related={['strategy', 'howToWin', 'counting', 'spain']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Resumindo:</strong> você ganha se terminar mais perto de 21 que o dealer, sem estourar. As figuras valem 10, o ás vale 1 ou 11, e as demais cartas valem o número que mostram. Você decide se pede ou para; o dealer não decide — ele pede até 17.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="Neste guia">
+    <b>Neste guia</b>
+    <ol>
+      <li><a href="#objetivo">O objetivo</a></li>
+      <li><a href="#valor-das-cartas">Valor das cartas</a></li>
+      <li><a href="#como-se-joga">Como se joga uma mão</a></li>
+      <li><a href="#opcoes">Suas opções: pedir, parar, dobrar, dividir, desistir</a></li>
+      <li><a href="#pagamentos">Pagamentos</a></li>
+      <li><a href="#seguro">O seguro (e por que você deve recusá-lo)</a></li>
+      <li><a href="#proximo-passo">Próximo passo: a estratégia básica</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="objetivo">O objetivo</h2>
+  <p>No blackjack você não joga contra os outros jogadores, e sim <strong>contra o dealer</strong>. Você ganha uma mão se o seu total ficar mais perto de 21 que o dele sem passar de 21 — ou se ele estourar e você não.</p>
+  <p>Se você passa de 21, estourou: perde na hora, mesmo que o dealer também estoure depois. Como você joga primeiro, é exatamente dessa regra que nasce a vantagem da casa.</p>
+
+  <h2 id="valor-das-cartas">Valor das cartas</h2>
+  <table>
+    <thead><tr><th>Carta</th><th>Valor</th></tr></thead>
+    <tbody>
+      <tr><td>2 a 9</td><td>O número da carta</td></tr>
+      <tr><td>10, valete, dama, rei</td><td>10</td></tr>
+      <tr><td>Ás</td><td>1 ou 11, o que for melhor para você</td></tr>
+    </tbody>
+  </table>
+  <p>Os naipes não importam. Com quatro tipos de carta que valem 10, quase um terço do baralho vale 10 — isso explica boa parte da estratégia básica.</p>
+  <p>Uma mão em que um ás conta como 11 é uma <strong>mão macia</strong> (soft): ás-6 é um “17 macio”. Você pode pedir sem perigo, porque, se a próxima carta fosse fazer você estourar, o ás passa a valer 1. Todas as outras são <strong>mãos duras</strong> (hard).</p>
+  <p>Um <strong>blackjack</strong> (ou “natural”) é um ás mais uma carta de valor 10 como suas duas primeiras cartas. É a melhor mão e ganha de qualquer outro 21.</p>
+
+  <h2 id="como-se-joga">Como se joga uma mão</h2>
+  <ol>
+    <li><strong>Apostas.</strong> Todos apostam antes da distribuição.</li>
+    <li><strong>Distribuição.</strong> Você recebe duas cartas viradas para cima. O dealer recebe uma virada para cima e, nas regras americanas, uma virada para baixo (a carta oculta, ou “hole card”). Nas mesas europeias ele só recebe a segunda carta depois que todos os jogadores terminam.</li>
+    <li><strong>Blackjacks.</strong> Se o dealer mostra um ás ou um dez, ele confere (com carta oculta) a carta virada para baixo; se tiver blackjack, a mão termina ali. Se você tem blackjack e o dealer não, recebe na hora.</li>
+    <li><strong>Sua vez.</strong> Pedir, parar, dobrar, dividir ou desistir. Você pode pedir quantas vezes quiser, até parar ou estourar.</li>
+    <li><strong>A vez do dealer.</strong> O dealer revela a segunda carta e pede com 16 ou menos; com 17 ou mais, para.</li>
+    <li><strong>Acerto.</strong> Os totais são comparados e as apostas são pagas.</li>
+  </ol>
+
+  <h2 id="opcoes">Suas opções</h2>
+  <h3>Pedir (hit)</h3>
+  <p>Você recebe mais uma carta. Repete isso até parar ou estourar.</p>
+  <h3>Parar (stand)</h3>
+  <p>Você fica com o seu total e encerra a sua vez.</p>
+  <h3>Dobrar (double)</h3>
+  <p>Você dobra a aposta e, em troca, recebe <strong>exatamente mais uma carta</strong>. Vale a pena com um total inicial forte (9, 10 ou 11) contra uma carta fraca do dealer.</p>
+  <h3>Dividir (split)</h3>
+  <p>Se suas duas primeiras cartas são iguais, você as separa em duas mãos e aposta o mesmo valor na segunda. Divida sempre ases e oitos; nunca dezes nem cincos.</p>
+  <h3>Desistir (surrender)</h3>
+  <p>Onde é oferecido, você abandona a mão logo depois da distribuição e recebe metade da aposta de volta. Só compensa em poucas situações muito ruins, como 16 contra um 10 do dealer.</p>
+
+  <h2 id="pagamentos">Pagamentos</h2>
+  <table>
+    <thead><tr><th>Resultado</th><th>Pagamento</th></tr></thead>
+    <tbody>
+      <tr><td>Vitória</td><td>1 para 1 (R$ 10 apostados rendem R$ 10)</td></tr>
+      <tr><td>Blackjack</td><td>3 para 2 (R$ 10 apostados rendem R$ 15)</td></tr>
+      <tr><td>Empate (push)</td><td>A aposta é devolvida</td></tr>
+      <tr><td>Seguro</td><td>2 para 1 sobre a aposta do seguro</td></tr>
+    </tbody>
+  </table>
+  <div class="callout warn"><p><strong>Cuidado com as mesas 6:5.</strong> Se o blackjack paga 6 para 5 em vez de 3 para 2, a vantagem da casa sobe cerca de 1,4 ponto percentual — mais do que com qualquer outra regra isolada.</p></div>
+
+  <h2 id="seguro">O seguro (e por que você deve recusá-lo)</h2>
+  <p>Quando o dealer mostra um ás, oferecem a você o <strong>seguro</strong>: uma aposta paralela, de até metade da sua aposta, de que o dealer tem blackjack. Paga 2 para 1.</p>
+  <p>Parece uma proteção, mas é só mais uma aposta — e uma aposta ruim. Com seis baralhos, a probabilidade de haver um dez embaixo do ás é de cerca de 31%, enquanto o seguro precisaria de mais de 33% só para empatar. A vantagem da casa nessa aposta fica em torno de 7%. A estratégia básica diz: <strong>nunca aceite</strong> — nem o “even money” quando você mesmo tem blackjack.</p>
+
+  <h2 id="proximo-passo">Próximo passo: a estratégia básica</h2>
+  <p>Conhecer as regras é metade do trabalho. A outra metade é saber o que fazer em cada situação: pedir com 12 contra um 3? Dobrar 11 contra um 10? Dividir noves contra um 7? Cada combinação tem uma resposta matematicamente correta, e juntas elas formam a <a href={routes.strategy.pt}>estratégia básica</a>.</p>
+  <p>Quem joga no palpite costuma entregar à casa 2% ou mais. Com a estratégia básica, a vantagem da casa cai para cerca de 0,5%. Isso não faz de você um vencedor, mas é a diferença entre jogar bem e jogar às cegas.</p>
+</Guide>

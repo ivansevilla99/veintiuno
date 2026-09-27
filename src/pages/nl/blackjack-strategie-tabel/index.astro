@@ -1,0 +1,90 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import StrategyChart from '../../../components/StrategyChart.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Garandeert de basisstrategie dat ik win met blackjack?', a: 'Nee. De basisstrategie is de manier van spelen waarmee je op den duur het minst verliest: afhankelijk van de regels verlaagt ze het huisvoordeel tot ongeveer 0,3–0,7%, maar het huis houdt zijn voordeel. Ze maakt elke beslissing juist, niet de winst zeker.' },
+  { q: 'Waarom zijn er verschillende strategietabellen?', a: 'Omdat de beste zet afhangt van de tafelregels: het aantal decks, of de dealer een kaart neemt of past op zachte 17, of je na splitsen mag verdubbelen, of opgeven (surrender) wordt aangeboden en of de dealer op blackjack checkt (hole card). Kies bovenaan je tafel, dan past de tabel zich aan.' },
+  { q: 'Mag ik in het casino een strategiekaart gebruiken?', a: 'Sommige casino’s staan aan tafels met lage inzetten een geprinte kaart toe, andere niet – vraag het vooraf. Een telefoon of ander elektronisch apparaat aan tafel is nergens toegestaan. Beter is het om de tabel vooraf uit je hoofd te leren.' },
+  { q: 'Wat betekent „zacht” (soft) bij blackjack?', a: 'Een zachte hand bevat een aas die als 11 telt. Aas-6 is zachte 17: trek je een tien, dan telt de aas als 1 en heb je harde 17 – met één kaart kun je niet kapotgaan. Daarom verdubbel je en vraag je vaker een kaart met zachte handen.' },
+  { q: 'Wanneer moet ik opgeven (surrender)?', a: 'Alleen als de tafel late surrender aanbiedt. Met standaardregels uit Las Vegas: 16 tegen 9, 10 of aas en 15 tegen 10. Bij opgeven krijg je de helft van je inzet terug – beter dan handen spelen die meer dan de helft van de keren verliezen.' },
+];
+---
+<Guide
+  lang="nl"
+  route="strategy"
+  title="Blackjack strategie tabel (interactief) · Veintiuno"
+  h1="Blackjack strategietabel: de basisstrategie voor jouw tafel"
+  description="Interactieve blackjack strategie tabel: kies je tafelregels (Europees zonder hole card, Vegas S17/H17, twee decks) en tik op een vakje om te zien waarom."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['howToPlay', 'counting', 'howToWin', 'guides']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>Kort gezegd:</strong> zoek je hand in de linkerkolom en de open kaart van de dealer in de bovenste rij. De kleur zegt wat je moet doen: <b style="color:var(--c-hit)">kaart vragen</b>, <b style="color:var(--c-stand)">passen</b>, <b style="color:var(--c-double)">verdubbelen</b>, <b style="color:var(--c-split)">splitsen</b> of <b style="color:var(--c-surrender)">opgeven</b>. Kies eerst je soort tafel – de regels veranderen de tabel. Standaard staan Europese regels zonder hole card ingesteld, zoals ze meestal in Nederlandse en Belgische casino’s gespeeld worden.</p></div>
+  </div>
+
+  <div slot="wide">
+    <StrategyChart lang="nl" preset="europeanOnline" />
+  </div>
+
+  <nav class="toc" aria-label="In deze gids">
+    <b>In deze gids</b>
+    <ol>
+      <li><a href="#lezen">Zo lees je de tabel</a></li>
+      <li><a href="#regels">De 10 belangrijkste regels</a></li>
+      <li><a href="#tafelregels">Hoe de tafelregels de tabel veranderen</a></li>
+      <li><a href="#uit-je-hoofd">Zo leer je hem uit je hoofd</a></li>
+      <li><a href="#faq">Veelgestelde vragen</a></li>
+    </ol>
+  </nav>
+
+  <p class="callout">Liever op papier? <a href={routes.printable.nl}>Download de tabel als pdf</a> – voor Europese, Las Vegas- of Spaanse tafels. Of oefen hem meteen aan onze <a href={routes.simulator.nl}>gratis oefentafel</a>.</p>
+
+  <h2 id="lezen">Zo lees je de tabel</h2>
+  <p>De basisstrategie is de wiskundig beste beslissing voor elke combinatie van <strong>jouw hand</strong> en de <strong>open kaart van de dealer</strong>, bepaald door miljoenen handen te simuleren. Onderbuikgevoel of geluksreeksen spelen geen rol: voor elke situatie is er één zet die minder verliest dan alle andere.</p>
+  <p>Controleer de drie delen in deze volgorde:</p>
+  <ol>
+    <li><strong>Paren.</strong> Zijn je eerste twee kaarten gelijk, kijk dan of je moet splitsen.</li>
+    <li><strong>Zachte handen.</strong> Heb je een aas die als 11 telt (A-2 tot A-9), gebruik dan dit deel.</li>
+    <li><strong>Harde handen.</strong> Al het andere. „17+” betekent 17 of meer.</li>
+  </ol>
+  <p>Sommige vakjes hebben twee letters. <strong>Ds</strong> betekent „verdubbelen als het mag, anders passen”; een enkele <strong>D</strong> betekent „verdubbelen als het mag, anders kaart vragen”. Vakjes voor opgeven werken net zo: wordt surrender niet aangeboden, neem dan de tweede optie.</p>
+
+  <h2 id="regels">De 10 belangrijkste regels</h2>
+  <p>Je hoeft niet alle vakjes tegelijk te leren. Deze tien regels dekken de meeste handen die je ooit tegenkomt:</p>
+  <ol>
+    <li><strong>Azen en achten altijd splitsen.</strong> Van twee azen kun je twee keer 21 maken; 8-8 is 16, de slechtste hand in het spel. (Zonder hole card niet tegen een aas – zie hieronder.)</li>
+    <li><strong>Tienen en vijven nooit splitsen.</strong> 20 wint bijna altijd, en 5-5 is een 10 die je moet verdubbelen.</li>
+    <li><strong>Met harde 17 of meer altijd passen.</strong></li>
+    <li><strong>Met 12–16 tegen een 7 of hoger een kaart vragen.</strong> Het voelt verkeerd, maar passen verliest meer: de dealer komt meestal op 17+.</li>
+    <li><strong>Met 12–16 tegen een 2–6 passen</strong> (behalve 12 tegen 2 of 3, dan vraag je een kaart). Laat de dealer kapotgaan.</li>
+    <li><strong>11 verdubbelen</strong> tegen alles behalve een aas (bij S17; bij H17 ook tegen de aas). Zonder hole card niet tegen 10 of aas.</li>
+    <li><strong>10 verdubbelen</strong> tegen 2 tot en met 9.</li>
+    <li><strong>9 verdubbelen</strong> tegen 3 tot en met 6.</li>
+    <li><strong>Met zachte 18 (A-7) tegen 9, 10 of aas een kaart vragen.</strong> De klassieke fout van ervaren spelers.</li>
+    <li><strong>Nooit verzekering nemen.</strong> Het is een extra inzet met een huisvoordeel van ongeveer 7% bij meerdere decks.</li>
+  </ol>
+
+  <h2 id="tafelregels">Hoe de tafelregels de tabel veranderen</h2>
+  <ul>
+    <li><strong>Zonder hole card (Europees):</strong> de dealer checkt niet op blackjack, dus verdubbelingen en splitsingen verlies je aan een blackjack van de dealer. Verdubbel 11 niet tegen 10 of aas en splits azen of achten niet tegen een aas. Zo wordt er meestal gespeeld in Nederlandse en Belgische casino’s – controleer wel altijd de regels van je tafel. Meer daarover in <a href={routes.spain.nl}>blackjack regels in Spanje</a>.</li>
+    <li><strong>Dealer neemt kaart op zachte 17 (H17):</strong> verdubbel 11 tegen aas, verdubbel A-7 tegen 2 en A-8 tegen 6, en geef meer handen op (15 en 17 tegen aas, 8-8 tegen aas). Bovendien stijgt het huisvoordeel met ongeveer 0,2%.</li>
+    <li><strong>Twee decks:</strong> verdubbel 9 tegen 2 en 11 tegen aas, splits 6-6 tegen 7 en 7-7 tegen 8.</li>
+    <li><strong>Niet verdubbelen na splitsen:</strong> splits kleine paren (2-2, 3-3, 4-4, 6-6) minder vaak.</li>
+    <li><strong>Blackjack betaalt 6:5:</strong> verandert de tabel niet, maar verhoogt het huisvoordeel met ongeveer 1,4%. Mijd zulke tafels.</li>
+  </ul>
+
+  <h2 id="uit-je-hoofd">Zo leer je hem uit je hoofd</h2>
+  <p>De tabel lezen is niet hetzelfde als hem kennen. Aan tafel heb je twee seconden en geen spiekbriefje. Wat werkt, is gespreid oefenen: elke dag een paar handen, directe correctie en extra herhaling van de vakjes waar je naast zit.</p>
+  <ol>
+    <li>Begin met de harde handen – die vormen het grootste deel van je handen.</li>
+    <li>Voeg de paren toe: weinig regels, makkelijk voor te stellen.</li>
+    <li>Bewaar de zachte handen voor het laatst – daar gaan de meeste mensen de mist in.</li>
+    <li>Oefen tien minuten per dag en noteer welke vakjes je mist, niet hoeveel je er goed hebt.</li>
+  </ol>
+  <p>Precies dat doet de app Veintiuno: hij deelt handen uit volgens de regels van jouw tafel, corrigeert je meteen met uitleg, en een heatmap laat zien bij welke vakjes van deze tabel je steeds weer de fout in gaat.</p>
+</Guide>

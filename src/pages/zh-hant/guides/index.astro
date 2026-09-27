@@ -1,0 +1,46 @@
+---
+import Base from '../../../layouts/Base.astro';
+import AppCTA from '../../../components/AppCTA.astro';
+import { routes } from '../../../lib/site';
+const groups = [
+  { title: '從這裡開始', items: [
+    ['course', '免費21點課程', '10 堂附小測驗的短課，從規則到算牌。'],
+    ['simulator', '免費玩21點', '會糾正每個決定的練習桌——不用錢，不用註冊。'],
+    ['howToPlay', '21點規則', '目標、牌值、一手牌的流程和賠率。'],
+  ] },
+  { title: '打得好', items: [
+    ['strategy', '21點基本策略表', '互動式，依你那桌的規則調整，每一格都附上原因。'],
+    ['printable', '策略表 PDF', '可列印的策略表，適用拉斯維加斯、歐洲和西班牙規則的牌桌。'],
+    ['whenDouble', '什麼時候加倍？', '每一種加倍情況，附上期望值。'],
+    ['whenSplit', '什麼時候分牌？', '哪些對子要分，對上莊家哪張牌。'],
+    ['hand16v10', '16 對 10', '最讓人害怕的一手牌，用數字說話。'],
+    ['howToWin', '21點能贏嗎？', '什麼真的能降低莊家優勢，什麼只是噱頭。'],
+    ['spain', '西班牙的21點規則', '沒有暗牌、只能在 9–11 加倍、不能投降：有哪些不同。'],
+    ['app', '學21點最好的 App', '為什麼訓練工具教得會你，而賭場遊戲教不會。'],
+  ] },
+  { title: '進階', items: [
+    ['counting', '算牌', 'Hi-Lo、真數和算牌的現實，附練習。'],
+    ['practiceCounting', '如何練習算牌', '循序漸進的計畫，以及數完一整副牌的練習。'],
+    ['countingLegal', '算牌違法嗎？', '西班牙、墨西哥、阿根廷和美國的法律怎麼說。'],
+  ] },
+  { title: '數據', items: [
+    ['dataBust', '莊家爆牌機率', '依莊家明牌列出的精確表格，S17 與 H17。'],
+    ['dataRules', '各種規則的莊家優勢', '每條牌桌規則讓你付出多少。'],
+  ] },
+] as const;
+---
+<Base lang="zh" route="guides" title="21點指南：規則、策略、技巧與算牌" description="Veintiuno 的所有21點指南：規則、基本策略與策略表、加倍和分牌的時機、西班牙的規則，以及誠實說明的算牌。按順序從入門讀到進階。">
+  <div class="container">
+    <header class="article-head read" style="margin-left:0">
+      <h1>21點指南</h1>
+      <p class="lead">想打好21點需要的一切，按正確的順序排好：從規則到策略，如果你有興趣，再到算牌。</p>
+    </header>
+    {groups.map((g) => (
+      <section>
+        <h2>{g.title}</h2>
+        <div class="grid-2">{g.items.map(([key, title, text]) => <a class="card" href={routes[key].zh}><h3>{title}</h3><p>{text}</p></a>)}</div>
+      </section>
+    ))}
+    <AppCTA lang="zh" campaign="guides" />
+  </div>
+</Base>

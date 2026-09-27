@@ -1,0 +1,56 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes, linkOf } from '../../../lib/site';
+
+const faq = [
+  { q: 'Contare le carte a blackjack è illegale?', a: 'No. Contare le carte a mente non è illegale né in Italia, né in Svizzera, né negli Stati Uniti: usi solo la testa per informazioni che sono scoperte sul tavolo. È vietato usare dispositivi o aiuti esterni, e il casinò può chiederti di smettere di giocare.' },
+  { q: 'Un casinò può cacciarti perché conti le carte?', a: 'In molti posti sì. I casinò possono rifiutarti l’ingresso o escluderti: possono vietarti il blackjack o chiederti di andartene. Un’eccezione nota è il New Jersey (Atlantic City), dove non possono escluderti perché conti, ma il casinò può comunque rimescolare prima o limitarti le puntate.' },
+  { q: 'È vietato usare un’app per contare le carte al casinò?', a: 'Sì, quasi ovunque. Usare il telefono o qualsiasi dispositivo a un tavolo vero per contare le carte o calcolare le giocate viola le regole del casinò, e in posti come il Nevada è addirittura un reato. App come Veintiuno servono per allenarsi a casa.' },
+  { q: 'Cosa fanno i casinò contro chi conta le carte?', a: 'Rimescolano prima (meno penetrazione), usano mescolatrici continue, limitano quanto puoi alzare la puntata, sorvegliano con le telecamere e, dove possono, ti chiedono di smettere di giocare a blackjack.' },
+];
+---
+<Guide
+  lang="it"
+  route="countingLegal"
+  title="Contare le carte è illegale? Italia, Svizzera e USA"
+  h1="Contare le carte è illegale?"
+  description="Contare le carte a blackjack è illegale? Cosa vale in Italia, in Svizzera e negli Stati Uniti, cosa possono fare i casinò e cosa è davvero vietato."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['counting', 'practiceCounting', 'howToWin', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> <strong>no, contare le carte a mente non è illegale.</strong> Sono vietati dispositivi, appunti o complici che fanno segnali. Ma il casinò è un’attività privata: se ti nota, può rimescolare prima, limitarti le puntate o chiederti di smettere di giocare.</p></div>
+  </div>
+
+  <h2 id="why">Perché non è illegale</h2>
+  <p>Contare le carte significa solo ricordare quali carte sono già uscite e trarne delle conclusioni. Non manipoli niente, non vedi carte coperte e non usi aiuti esterni: usi solo le informazioni che il casinò stesso mette scoperte sul tavolo. Vietare di pensare non ha senso.</p>
+  <p>Il limite sta negli <strong>aiuti esterni</strong>: una calcolatrice, un telefono, un’app, un dispositivo nascosto o una squadra che si passa il conteggio con dei segnali. Questo è vietato nei casinò e in alcuni posti è un reato.</p>
+
+  <h2 id="countries">Paese per paese</h2>
+  <table>
+    <thead><tr><th>Paese</th><th>Contare a mente?</th><th>Possono cacciarti?</th></tr></thead>
+    <tbody>
+      <tr><td>Italia</td><td>Non è illegale</td><td>Sì: il casinò può rifiutarti l’ingresso o escluderti; dispositivi e aiuti sono vietati</td></tr>
+      <tr><td>Svizzera</td><td>Non è illegale</td><td>Sì: il casinò può rifiutarti l’ingresso o escluderti; dispositivi e aiuti sono vietati</td></tr>
+      <tr><td>USA (Nevada)</td><td>Non è illegale</td><td>Sì; usare un dispositivo per contare è un reato</td></tr>
+      <tr><td>USA (New Jersey)</td><td>Non è illegale</td><td>Non possono escluderti perché conti, ma il casinò può prendere contromisure</td></tr>
+    </tbody>
+  </table>
+  <p class="muted small">Una panoramica generale, non una consulenza legale. Il regolamento di ogni casinò e le norme del paese, dello stato o del cantone possono stabilire ulteriori condizioni.</p>
+
+  <h2 id="casinos">Cosa fanno i casinò</h2>
+  <ul>
+    <li><strong>Rimescolare prima.</strong> Meno carte escono prima del rimescolamento, meno serve il conteggio.</li>
+    <li><strong>Mescolatrici continue.</strong> Le carte tornano nel sabot dopo ogni mano, quindi contare non serve a niente.</li>
+    <li><strong>Limitare le puntate.</strong> Contare le carte ti dà un vantaggio solo se punti molto di più quando il conteggio è alto; se non puoi alzare la puntata, il vantaggio non c’è.</li>
+    <li><strong>Chiederti di smettere di giocare a blackjack</strong> o di andartene, dove la legge lo consente.</li>
+  </ul>
+
+  <h2 id="online">E online?</h2>
+  <p>Nel blackjack online gestito da software non c’è niente da vietare: il mazzo viene rimescolato a ogni mano, quindi contare non funziona. Nel <a href={linkOf('live', 'it')}>blackjack dal vivo</a> il sabot è vero, ma si rimescola presto e il vantaggio è minimo.</p>
+
+  <h2 id="learn">Se vuoi imparare a contare</h2>
+  <p>È legale ed è un ottimo allenamento per la memoria. Prima padroneggia la <a href={routes.strategy.it}>strategia di base</a>, poi passa a <a href={routes.counting.it}>contare le carte</a> e agli <a href={routes.practiceCounting.it}>esercizi per allenarsi a contare</a>. E tieni presente la realtà: il vantaggio è piccolo e la maggior parte di chi ci prova non ci guadagna. Approfondisci in <a href={routes.responsible.it}>gioco responsabile</a>.</p>
+</Guide>

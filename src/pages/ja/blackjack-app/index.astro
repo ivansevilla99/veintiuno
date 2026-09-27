@@ -1,0 +1,70 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import AppStoreButton from '../../../components/AppStoreButton.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'ブラックジャックのやり方を学べるアプリはありますか？', a: 'はい。VeintiunoはiPhoneとMac向けのアプリで、ベーシックストラテジーを教えるために作られています。ハンドを配り、すべての判断をその場で正し、その理由を説明します。本物のお金は一切使いません。' },
+  { q: 'ブラックジャックのアプリとブラックジャックのトレーナーの違いは？', a: '普通のブラックジャックアプリはゲームです。遊び用のチップでプレイできますが、上手にプレイできたかどうかは教えてくれません。トレーナーは、すべての判断をテーブルのルールに合った正しいプレイと照らし合わせ、ミスを振り返らせてくれます。学べるのは後者だけです。' },
+  { q: 'Veintiunoは無料ですか？', a: '無料で始められます。コースの最初の3日間は無料です。Veintiuno Proでは、コースの残り、ハンドコンサルタント、ミスのヒートマップが利用できるようになります。週額または年額のサブスクリプションです。' },
+  { q: 'Veintiunoで本物のお金を賭けてプレイできますか？', a: 'いいえ。学習用のツールです。本物のお金も、価値のあるチップもなく、カジノやブックメーカーとのつながりも一切ありません。' },
+];
+---
+<Guide
+  lang="ja"
+  route="app"
+  title="ブラックジャックを学ぶ最良のアプリ（お金は使いません）"
+  h1="ブラックジャックを学ぶための最良のアプリ"
+  description="ブラックジャックを学ぶ最良のアプリは、遊び用チップのカジノゲームではなく、すべての判断を正してくれるトレーナーです。iPhoneとMac向けのVeintiunoをご紹介します。"
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['course', 'strategy', 'practiceCounting', 'howToPlay']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>要点：</strong>どんなブラックジャックアプリでもブラックジャックが学べるわけではありません。遊び用チップでカジノを再現するアプリはプレイさせてはくれますが、上手にプレイできているかは教えてくれません。学べるのは<strong>トレーナー</strong>、つまりすべての判断を正し、理由を説明し、ミスを振り返らせてくれるアプリです。それがVeintiunoです。</p></div>
+  </div>
+
+  <h2 id="types">ブラックジャックアプリの2つの種類</h2>
+  <table>
+    <thead><tr><th></th><th>カジノゲーム</th><th>トレーナー</th></tr></thead>
+    <tbody>
+      <tr><td>何をするか</td><td>遊び用チップでハンドをプレイする</td><td>判断をして、正してもらう</td></tr>
+      <tr><td>上手にプレイできたか教えてくれるか</td><td>いいえ：ハンドに勝ったかどうかだけ</td><td>はい、すべての判断で</td></tr>
+      <tr><td>理由を説明してくれるか</td><td>いいえ</td><td>はい</td></tr>
+      <tr><td>テーブルのルール</td><td>ゲームが決めたもの</td><td>自分で選べる（ラスベガス、ヨーロッパ式／オンライン、スペイン）</td></tr>
+      <tr><td>ミスの振り返り</td><td>なし</td><td>あり</td></tr>
+      <tr><td>何のためのものか</td><td>娯楽</td><td>学習</td></tr>
+    </tbody>
+  </table>
+  <p>ゲームで学ぶことの問題は、<strong>ハンドの結果からは、上手にプレイできたかどうかがわからない</strong>ことです。10に対して16でスタンドする（これはミスです）と、ディーラーがバーストして勝つこともあります。すると脳はまさに間違った教訓を学んでしまいます。トレーナーは判断と結果を切り離し、ハンドがどう終わったかに関係なく、そのプレイが正しかったかどうかを教えてくれます。</p>
+
+  <h2 id="veintiuno">Veintiunoでできること</h2>
+  <div class="shots">
+    <figure><img src="/img/app-correccion-ja.webp" alt="Veintiunoが判断を正している画面：10に対する16では、ヒットが正しいプレイでした" width="480" height="1042" loading="lazy" /><figcaption>その場で修正、理由付き。</figcaption></figure>
+    <figure><img src="/img/app-tabla-ja.webp" alt="Veintiunoのベーシックストラテジー表" width="480" height="1042" loading="lazy" /><figcaption>あなたのテーブルに合った表。</figcaption></figure>
+    <figure><img src="/img/app-progreso-ja.webp" alt="正解率とミスを表示するVeintiunoの進捗画面" width="480" height="1042" loading="lazy" /><figcaption>あなたの進捗とミス。</figcaption></figure>
+  </div>
+  <ul>
+    <li><strong>その場で修正してくれる練習テーブル。</strong>あなたのすべての判断をテーブルに合ったベーシックストラテジーと比較し、間違えれば正しいプレイとその理由を示します。</li>
+    <li><strong>14日間のコース。</strong>1日にひとつの概念、ひとつのドリル、ひとつのクイズ。ルールからカードカウンティングまで。</li>
+    <li><strong>あなたのテーブルのルール：</strong>ラスベガスのS17とH17、ヨーロッパ式またはオンライン、スペインのカジノ（ホールカードなし）。</li>
+    <li>ストラテジー表の上に表示される<strong>ミスのヒートマップ</strong>。間違えたところだけを復習できます。</li>
+    <li>各選択肢の期待値を示す<strong>ハンドコンサルタント</strong>。</li>
+    <li>上級モジュールとしての<strong>Hi-Loによるカードカウンティング</strong>。約束はせずに解説します。</li>
+    <li>日本語を含む10の言語、丁寧に作り込んだカードの音と触覚フィードバック。iPhoneとMacに対応。</li>
+  </ul>
+  <p>本物のお金も賭けもありません。学ぶためのツールであり、どのカジノとも結びついていません。</p>
+  <p><AppStoreButton lang="ja" campaign="app-page" /></p>
+
+  <h2 id="no-app">アプリなしで学ぶなら？</h2>
+  <p>ルールと戦略は、このサイトで無料で学べます。<a href={routes.course.ja}>ブラックジャックのコース</a>、<a href={routes.strategy.ja}>インタラクティブなストラテジー表</a>、<a href={routes.practiceCounting.ja}>カードカウンティングの練習</a>があります。ウェブサイトにできないのは、何百ものハンドを配ってその一つひとつを正すことです。そのためにアプリがあります。</p>
+</Guide>
+
+<style>
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+  .shots figure { margin: 0; }
+  .shots img { border-radius: 22px; border: 1px solid var(--line-strong); display: block; }
+  .shots figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; text-align: center; }
+  @media (max-width: 560px) { .shots { grid-template-columns: repeat(3, 1fr); gap: 8px; } .shots img { border-radius: 12px; } }
+</style>

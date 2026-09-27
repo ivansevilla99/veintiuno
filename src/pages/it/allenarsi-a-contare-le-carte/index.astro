@@ -1,0 +1,74 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import DeckCountdown from '../../../components/DeckCountdown.astro';
+import CountDrill from '../../../components/CountDrill.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quanto tempo ci vuole per imparare a contare le carte?', a: 'I valori Hi-Lo li impari in un pomeriggio. Contare un mazzo intero in meno di 30 secondi senza errori richiede di solito diverse settimane di allenamento quotidiano. Riuscirci a un tavolo vero, con rumore, conversazioni e puntate, richiede parecchio di più.' },
+  { q: 'Qual è il miglior esercizio per contare le carte?', a: 'Il conto alla rovescia del mazzo: passi tutte le 52 carte e alla fine il conteggio deve essere 0. È l’esercizio standard di tutti i contatori, perché mette alla prova precisione e velocità insieme.' },
+  { q: 'Esiste un’app per allenarsi a contare le carte?', a: 'Sì. Veintiuno include il conteggio Hi-Lo come modulo avanzato alla fine del corso: un esercizio di conteggio corrente a velocità regolabile più una spiegazione del conteggio reale. In questa pagina trovi anche due esercizi gratuiti che funzionano direttamente nel browser.' },
+  { q: 'Posso allenarmi a contare le carte in un casinò online?', a: 'Puoi allenare la tecnica, non guadagnare soldi. Il blackjack online gestito da software rimescola dopo ogni mano, quindi il conteggio è inutile. Al massimo serve ad abituarti al ritmo.' },
+];
+---
+<Guide
+  lang="it"
+  route="practiceCounting"
+  title="Allenarsi a contare le carte: esercizi passo per passo"
+  h1="Come allenarsi a contare le carte"
+  description="Piano passo per passo per allenarti a contare le carte con l’Hi-Lo: valori, conto alla rovescia del mazzo, coppie, conteggio reale e ritmo. Esercizi gratis."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['counting', 'countingLegal', 'strategy', 'course']}
+  cta={{ title: 'Prima la strategia, poi il conteggio', text: 'In Veintiuno l’Hi-Lo arriva alla fine del corso, quando padroneggi la strategia di base, perché contare senza di essa non serve a niente.' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> impara i valori Hi-Lo (2–6 valgono +1, 7–9 valgono 0, dieci e assi −1), allenati con il <strong>conto alla rovescia del mazzo</strong> finché lo chiudi senza errori in meno di 30 secondi, impara a contare per <strong>coppie che si annullano</strong> e a convertire nel <strong>conteggio reale</strong>, e solo dopo allenati con rumore e distrazioni. Prima di tutto: padroneggia la strategia di base.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In questa guida">
+    <b>In questa guida</b>
+    <ol>
+      <li><a href="#before">Prima di cominciare</a></li>
+      <li><a href="#step1">Passo 1: i valori, senza pensarci</a></li>
+      <li><a href="#step2">Passo 2: il conto alla rovescia del mazzo</a></li>
+      <li><a href="#step3">Passo 3: contare per coppie</a></li>
+      <li><a href="#step4">Passo 4: il conteggio reale</a></li>
+      <li><a href="#step5">Passo 5: il ritmo del tavolo</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="before">Prima di cominciare</h2>
+  <p>Contare le carte ha senso solo se giochi già la <a href={routes.strategy.it}>strategia di base</a> senza errori. Un solo errore di strategia ogni poche mani costa più di tutto il vantaggio che ti dà il conteggio. Se esiti ancora con 12 contro un 3 o con A-7 contro un 9, comincia da lì.</p>
+  <p>E sii chiaro sul perché lo fai: contare è un ottimo allenamento per la memoria e il modo migliore per capire il gioco, ma non è una strada facile verso i soldi. Spieghiamo perché in <a href={routes.counting.it}>Come contare le carte a blackjack</a>.</p>
+
+  <h2 id="step1">Passo 1: i valori, senza pensarci</h2>
+  <p>Devi vedere una carta e conoscerne il valore senza tradurlo nella testa. Da 2 a 6: <strong>+1</strong>. Da 7 a 9: <strong>0</strong>. Dieci, figure e assi: <strong>−1</strong>. Allenati con serie brevi finché non esiti più:</p>
+  <CountDrill lang="it" />
+
+  <h2 id="step2">Passo 2: il conto alla rovescia del mazzo</h2>
+  <p>L’esercizio classico che fa ogni contatore. Un mazzo completo ha tante carte alte quante basse, quindi se le conti tutte e 52 il risultato deve essere 0. Parti piano e aumenta la velocità:</p>
+  <ul>
+    <li><strong>Obiettivo 1:</strong> arrivare a 0 senza errori, a qualsiasi velocità.</li>
+    <li><strong>Obiettivo 2:</strong> arrivare a 0 in meno di 30 secondi (circa 0,5 s per carta).</li>
+    <li><strong>Obiettivo 3:</strong> fermarti a metà mazzo e avere il conteggio giusto.</li>
+  </ul>
+  <DeckCountdown lang="it" />
+
+  <h2 id="step3">Passo 3: contare per coppie</h2>
+  <p>Al tavolo le carte arrivano a due o a tre. I contatori non le sommano una per una: riconoscono le <strong>coppie che si annullano</strong>. Un 5 e un re insieme fanno 0, quindi li ignori. Un 4 e un 6 sono +2 in un colpo solo. Allenati a guardare due carte insieme e a dire solo il risultato della coppia.</p>
+
+  <h2 id="step4">Passo 4: il conteggio reale</h2>
+  <p>Il conteggio corrente ti dice quante carte alte in più restano, ma non quante carte devono ancora uscire. Per questo dividi per i mazzi rimasti: <strong>conteggio reale = conteggio corrente ÷ mazzi rimasti</strong>. Allenati a calcolarlo a mente:</p>
+  <ul>
+    <li>+8 con 4 mazzi rimasti → <strong>+2</strong></li>
+    <li>+6 con 1,5 mazzi rimasti → <strong>+4</strong></li>
+    <li>−3 con 3 mazzi rimasti → <strong>−1</strong></li>
+  </ul>
+  <p>Per stimare i mazzi rimasti guarda il contenitore degli scarti: arrotondare al mezzo mazzo basta.</p>
+
+  <h2 id="step5">Passo 5: il ritmo del tavolo</h2>
+  <p>Contare a casa con calma è facile. Al tavolo ci sono rumore, conversazioni, fiches e carte di più giocatori. Quando padroneggi i passi precedenti, allenati con la TV accesa, mentre parli o con un video di un tavolo vero. Se perdi il conteggio, nessun problema: al rimescolamento successivo riparti da zero.</p>
+  <div class="callout warn"><p><strong>Ricorda:</strong> contare a mente è legale, usare un telefono o qualsiasi dispositivo al tavolo no. E il casinò può chiederti di smettere di giocare se ti nota. Approfondisci in <a href={routes.countingLegal.it}>Contare le carte è illegale?</a></p></div>
+</Guide>

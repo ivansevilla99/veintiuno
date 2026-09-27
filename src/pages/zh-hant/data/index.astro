@@ -1,0 +1,26 @@
+---
+import Base from '../../../layouts/Base.astro';
+import AppCTA from '../../../components/AppCTA.astro';
+import { routes } from '../../../lib/site';
+const items = [
+  [routes.dataBust.zh, '莊家爆牌機率', '依明牌和最終點數（17–21）分列，S17 和 H17 都有。'],
+  [routes.dataRules.zh, '每條21點規則的代價', '6:5、H17、牌副數、投降等規則如何改變莊家優勢。'],
+  [routes.hand16v10.zh, '用數字看 16 點對 10', '要牌、停牌和投降的期望值。'],
+  [routes.whenDouble.zh, '什麼時候加倍：附期望值', '11 點對 A、A-7 對 6，以及其他所有加倍情況。'],
+  [routes.whenSplit.zh, '什麼時候分牌：附期望值', '一對 8 對 10、一對 10 對 6、一對 9 對 7。'],
+];
+---
+<Base lang="zh" route="data" title="21點機率與數據：精確數據表" description="由 Veintiuno 引擎計算的21點精確數據表：莊家爆牌的頻率、不同規則下的莊家優勢，以及最重要打法的期望值。每一頁都列出使用的規則和假設。">
+  <div class="container read">
+    <header class="article-head">
+      <span class="eyebrow">數據</span>
+      <h1>21點機率與數據</h1>
+      <p class="lead">這些數據表使用和 Veintiuno App 相同的引擎計算：精確計算而非模擬，每一頁都列出使用的規則和假設。</p>
+    </header>
+    <div class="grid-2">
+      {items.map(([href, title, text]) => <a class="card" href={href}><h3>{title}</h3><p>{text}</p></a>)}
+    </div>
+    <p class="muted small" style="margin-top:24px">方法：除非另有說明，一律為 6 副牌；移除已看見的牌，並展開每一張可能的牌（Expectimax）。已用數百萬手的獨立模擬驗證。詳情請見<a href={routes.about.zh}>關於 Veintiuno</a>頁面。</p>
+    <AppCTA lang="zh" campaign="data" />
+  </div>
+</Base>

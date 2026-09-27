@@ -1,0 +1,54 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import StrategyChart from '../../../components/StrategyChart.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Wat betekent „zonder hole card”?', a: 'De dealer krijgt bij het delen maar één kaart, open. Zijn tweede kaart trekt hij pas als alle spelers klaar zijn. Levert die een blackjack op, dan wint de dealer ook het extra geld dat je hebt ingezet om te verdubbelen of te splitsen. Bij Amerikaanse regels checkt de dealer eerst op blackjack, en dan eindigt de hand daar.' },
+  { q: 'Kun je in Spaanse casino’s opgeven (surrender)?', a: 'Meestal niet. Een paar tafels en sommige in Spanje gelicentieerde online casino’s bieden het aan; kijk op het regelbordje aan tafel.' },
+  { q: 'Waarom verdubbel je in Spanje 11 niet tegen een 10?', a: 'Zonder hole card kan de dealer nog blackjack hebben. Verdubbel je en heeft hij die, dan verlies je het dubbele. Door dat risico wordt 11 verdubbelen tegen 10 of aas een verliezende zet, dus vraag je gewoon een kaart.' },
+  { q: 'Hoe groot is het huisvoordeel in een Spaans casino?', a: 'Met de gebruikelijke regels (zes decks, dealer past op zachte 17, geen hole card, alleen verdubbelen op 9–11, geen surrender, blackjack betaalt 3:2) en perfecte basisstrategie ongeveer 0,6%.' },
+];
+---
+<Guide lang="nl" route="spain" title="Blackjack regels in Spanje (zonder hole card)" h1="Blackjack regels in Spanje" description="Blackjack in Spaanse casino’s: geen hole card, alleen verdubbelen op 9, 10 of 11, meestal geen surrender. Wat er verandert tegenover Las Vegas, met tabel." updated="2026-09-27" readMinutes={6} faq={faq} related={['strategy', 'howToPlay', 'howToWin', 'counting']} wide>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>Kort gezegd:</strong> Spaanse casino’s spelen <strong>zonder hole card</strong>, staan verdubbelen <strong>alleen toe op 9, 10 of 11</strong> en bieden meestal <strong>geen surrender</strong> aan. Dat verandert een paar belangrijke zetten – je verdubbelt bijvoorbeeld 11 niet tegen een 10 en je splitst achten niet tegen een aas. Let op: het gaat hier om gewone blackjack, niet om het andere spel dat „Spanish 21” heet.</p></div>
+  </div>
+  <div slot="wide" class="read">
+    <h2 id="regels">Gebruikelijke regels in Spanje</h2>
+    <table>
+      <thead><tr><th>Regel</th><th>Spaanse casino’s (gebruikelijk)</th><th>Las Vegas (gebruikelijk)</th></tr></thead>
+      <tbody>
+        <tr><td>Decks</td><td>6 (soms 8)</td><td>6 of 8</td></tr>
+        <tr><td>Hole card van de dealer</td><td><strong>Nee</strong> (tweede kaart komt als laatste)</td><td>Ja, dealer checkt op blackjack</td></tr>
+        <tr><td>Dealer op zachte 17</td><td>Past</td><td>Past of neemt een kaart, afhankelijk van de tafel</td></tr>
+        <tr><td>Verdubbelen</td><td><strong>Alleen op 9, 10 of 11</strong></td><td>Op elke twee kaarten</td></tr>
+        <tr><td>Verdubbelen na splitsen</td><td>Meestal ja</td><td>Meestal ja</td></tr>
+        <tr><td>Opgeven (surrender)</td><td><strong>Meestal nee</strong></td><td>Soms (late surrender)</td></tr>
+        <tr><td>Blackjack betaalt</td><td>3 tegen 2</td><td>3 tegen 2, aan goedkope tafels 6 tegen 5</td></tr>
+      </tbody>
+    </table>
+    <h2 id="tabel">Strategietabel voor Spaanse casino’s</h2>
+  </div>
+  <div slot="wide"><StrategyChart lang="nl" preset="spainCasino" /></div>
+
+  <h2 id="verschillen">Zetten die veranderen ten opzichte van Las Vegas</h2>
+  <p>Twee regels verklaren alles. Ten eerste: <strong>zonder hole card</strong> neemt een blackjack van de dealer alles van tafel, ook verdubbelingen en splitsingen – je wilt dus geen extra geld in het spel hebben tegen een 10 of een aas:</p>
+  <ul>
+    <li><strong>11 tegen 10 of aas:</strong> kaart vragen, niet verdubbelen.</li>
+    <li><strong>A-A tegen aas:</strong> kaart vragen, niet splitsen.</li>
+    <li><strong>8-8 tegen 10 of aas:</strong> kaart vragen (of opgeven, als het wordt aangeboden). In Las Vegas splits je ze altijd.</li>
+  </ul>
+  <p>Ten tweede: <strong>alleen verdubbelen op 9–11</strong> schrapt elke verdubbeling met zachte handen:</p>
+  <ul>
+    <li><strong>A-2 tot A-6:</strong> kaart vragen waar de Vegas-strategie zou verdubbelen.</li>
+    <li><strong>A-7 tegen 3–6:</strong> passen waar de Vegas-strategie zou verdubbelen.</li>
+  </ul>
+  <p>En zonder surrender speel je de gebruikelijke opgeefhanden (16 tegen 9, 10, aas; 15 tegen 10) door een kaart te vragen.</p>
+
+  <h2 id="obo">En OBO-tafels?</h2>
+  <p>Sommige Europese tafels, vooral online, spelen met <strong>OBO</strong> („original bets only”): heeft de dealer blackjack, dan verlies je alleen je oorspronkelijke inzet en krijg je verdubbelingen en splitsingen terug. Daar is de strategie dezelfde als met hole card – zet in de tabel „Dealer checkt op blackjack” aan.</p>
+
+  <h2 id="kosten">Wat het kost</h2>
+  <p>Met de gebruikelijke regels en perfect spel ligt het huisvoordeel rond <strong>0,6%</strong> – iets slechter dan een goed spel met zes decks in Las Vegas (ongeveer 0,4%), vooral door de ontbrekende hole card en de beperking bij verdubbelen, maar veel beter dan welke 6:5-tafel ook. Nieuw in het spel? Begin met de <a href={routes.howToPlay.nl}>blackjack regels</a>.</p>
+</Guide>

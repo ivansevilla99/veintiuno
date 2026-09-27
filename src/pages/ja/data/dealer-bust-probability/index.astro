@@ -1,0 +1,79 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { dealerTable } from '../../../../lib/ev';
+import { presets } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const ups = [2, 3, 4, 5, 6, 7, 8, 9, 10, 1];
+const upL = (u: number) => (u === 1 ? 'エース' : String(u));
+const pct = (x: number) => (x * 100).toFixed(1) + '%';
+const s17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasS17) }));
+const h17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasH17) }));
+const avgBust = s17.reduce((a, r) => a + r.bust * (r.u === 10 ? 4 : 1), 0) / 13;
+
+const faq = [
+  { q: 'ディーラーが最もバーストしやすいアップカードは？', a: '6か5です。ディーラーがソフト17でスタンドする場合、およそ42%の確率でバーストします。4ならほぼ40%です。だからこそ、4、5、6に対しては12〜16でスタンドするのです。' },
+  { q: 'ディーラーが最もバーストしにくいアップカードは？', a: 'エースです。ブラックジャックでないことが確認された後、ディーラーがバーストするのはおよそ17%です。7、8、9、10なら23%から26%の間です。' },
+  { q: 'ディーラーがソフト17でヒットする（H17）と、どれくらい変わりますか？', a: '以前ならスタンドしていた場面でもヒットを続けるため、低いカードやエースの時にディーラーがバーストする確率は少し上がります。しかし18〜21で終わることも増えます。全体としてH17はプレイヤーに不利で、ハウスエッジがおよそ0.2ポイント上がります。' },
+];
+---
+<Guide
+  lang="ja"
+  route="dataBust"
+  title="ブラックジャックのディーラーのバースト確率（正確な表）"
+  h1="アップカード別のディーラーのバースト確率"
+  description="ブラックジャックでディーラーがアップカード別にどれくらいバーストするか、そして17〜21の各最終合計になる確率をまとめた正確な表です。6デッキ、S17とH17の両方に対応しています。"
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['hand16v10', 'strategy', 'dataRules', 'data']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>まとめ：</strong>6デッキでディーラーがソフト17でスタンドする場合、ディーラーがバーストする確率は<strong>5か6でおよそ42%</strong>、<strong>4で40%</strong>、<strong>2か3で35〜37%</strong>、<strong>7〜10で23〜26%</strong>、<strong>エースで17%</strong>です（ディーラーのブラックジャックを除く）。平均すると、ディーラーはブラックジャックでないハンドの{pct(avgBust)}でバーストします。</p></div>
+  </div>
+
+  <div slot="wide" class="read">
+    <h2 id="s17">ディーラーがソフト17でスタンド（S17）</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>アップカード</th><th>バースト</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>ブラックジャック</th></tr></thead>
+        <tbody>
+          {s17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="h17">ディーラーがソフト17でヒット（H17）</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>アップカード</th><th>バースト</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>ブラックジャック</th></tr></thead>
+        <tbody>
+          {h17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2 id="method">表の読み方と計算方法</h2>
+  <ul>
+    <li>「バースト」と17〜21の列を合計すると100%になります。これは<strong>ディーラーのブラックジャックでないことが確認された後</strong>の確率で、ホールカードありのテーブルで判断する時の状況そのものです。最後の列は、ピーク（確認）前にディーラーがブラックジャックである確率です。</li>
+    <li>Veintiunoのエンジンによる正確な計算（シミュレーションではありません）：6デッキ、ディーラーのアップカードを取り除き、起こりうるすべてのカードを最後まで展開しています。アップカードごとに150万ハンドの独立したシミュレーションと照合し、差は零点数ポイントでした。</li>
+    <li>デッキ数が少ない場合や、プレイヤーのカードを考慮した場合は数字がわずかに動きますが、順位が変わることはありません。</li>
+  </ul>
+
+  <h2 id="use">この表をどう使うか</h2>
+  <p>ベーシックストラテジーが今の形になっている理由そのものです。4、5、6に対して12〜16でスタンドするのは、ディーラーがまだ17〜21になっていない時の半分近くでバーストするからです。7以上に対してヒットするのは、ディーラーがほぼ必ず17以上で終わるからです。最も議論になるケースは<a href={routes.hand16v10.ja}>16対10</a>で解説しています。</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 8px; background: var(--panel); border-radius: 14px; overflow: hidden; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

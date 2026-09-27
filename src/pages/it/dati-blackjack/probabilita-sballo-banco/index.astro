@@ -1,0 +1,79 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { dealerTable } from '../../../../lib/ev';
+import { presets } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const ups = [2, 3, 4, 5, 6, 7, 8, 9, 10, 1];
+const upL = (u: number) => (u === 1 ? 'Asso' : String(u));
+const pct = (x: number) => (x * 100).toFixed(1).replace('.', ',') + '%';
+const s17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasS17) }));
+const h17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasH17) }));
+const avgBust = s17.reduce((a, r) => a + r.bust * (r.u === 10 ? 4 : 1), 0) / 13;
+
+const faq = [
+  { q: 'Con quale carta scoperta il banco sballa più spesso?', a: 'Con un 6 o un 5: in circa il 42% dei casi, se il banco sta su soft 17. Con un 4 è poco meno del 40%. Per questo con 12–16 contro un 4, 5 o 6 stai.' },
+  { q: 'Con quale carta scoperta il banco sballa meno spesso?', a: 'Con l’asso: escluso il blackjack, il banco sballa in circa il 17% dei casi. Con un 7, 8, 9 o 10 siamo tra il 23% e il 26%.' },
+  { q: 'Quanto cambia se il banco chiede carta su soft 17 (H17)?', a: 'Con le carte basse e con l’asso il banco sballa un po’ più spesso, perché continua a chiedere carta in situazioni in cui altrimenti starebbe; ma arriva anche più spesso a 18–21. Nel complesso H17 è peggio per te: il vantaggio del banco sale di circa 0,2 punti percentuali.' },
+];
+---
+<Guide
+  lang="it"
+  route="dataBust"
+  title="Probabilità che il banco sballi (tabella esatta)"
+  h1="Quanto spesso sballa il banco, per carta scoperta"
+  description="Tabella esatta: quanto spesso sballa il banco a blackjack per ogni carta scoperta e la probabilità di ogni totale finale da 17 a 21. Regole S17 e H17, 6 mazzi."
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['hand16v10', 'strategy', 'dataRules', 'data']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>In breve:</strong> con 6 mazzi e un banco che sta su soft 17, il banco sballa in circa il <strong>42% dei casi con un 5 o un 6</strong>, il <strong>40% con un 4</strong>, il <strong>35–37% con un 2 o un 3</strong>, il <strong>23–26% con una carta dal 7 al 10</strong> e il <strong>17% con un asso</strong> (esclusi i blackjack del banco). In media il banco sballa nel {pct(avgBust)} delle mani in cui non ha blackjack.</p></div>
+  </div>
+
+  <div slot="wide" class="read">
+    <h2 id="s17">Il banco sta su soft 17 (S17)</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>Carta scoperta</th><th>Sballa</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>Ha blackjack</th></tr></thead>
+        <tbody>
+          {s17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="h17">Il banco chiede carta su soft 17 (H17)</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>Carta scoperta</th><th>Sballa</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>Ha blackjack</th></tr></thead>
+        <tbody>
+          {h17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2 id="method">Come leggere la tabella e come è stata calcolata</h2>
+  <ul>
+    <li>Le colonne “Sballa” e 17–21 sommano al 100% e sono le probabilità <strong>una volta escluso il blackjack del banco</strong>, cioè proprio la situazione in cui decidi a un tavolo con carta coperta. L’ultima colonna è la probabilità che il banco abbia blackjack prima del controllo (peek).</li>
+    <li>Calcolo esatto (non una simulazione) con il motore di Veintiuno: 6 mazzi, si toglie la carta scoperta del banco e si esplora ogni carta possibile. Verificato con una simulazione indipendente di 1,5 milioni di mani per ogni carta scoperta; gli scarti sono di pochi decimi di punto.</li>
+    <li>Con meno mazzi, o tenendo conto delle carte dei giocatori, i valori si spostano leggermente, ma l’ordine non cambia mai.</li>
+  </ul>
+
+  <h2 id="use">A cosa ti serve questa tabella</h2>
+  <p>È la vera ragione per cui la strategia di base è fatta così. Con 12–16 contro un 4, 5 o 6 stai, perché il banco sballa quasi nella metà dei casi in cui non ha già 17–21; contro un 7 o più chiedi carta, perché arriva quasi sempre a 17 o più. Il caso più discusso è spiegato in <a href={routes.hand16v10.it}>16 contro 10</a>.</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 8px; background: var(--panel); border-radius: 14px; overflow: hidden; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

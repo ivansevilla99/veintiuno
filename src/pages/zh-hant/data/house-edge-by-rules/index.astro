@@ -1,0 +1,84 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { houseEdge, presets, defaultRules } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const base = houseEdge(defaultRules);
+const effects: [string, string, number][] = [
+  ['21點（Blackjack）賠 6:5 而不是 3:2', '較差', houseEdge({ ...defaultRules, payout: 'sixToFive' }) - base],
+  ['21點（Blackjack）賠 1:1（even money）', '較差', houseEdge({ ...defaultRules, payout: 'evenMoney' }) - base],
+  ['莊家軟 17 要牌（H17）', '較差', houseEdge({ ...defaultRules, dealerHitsSoft17: true }) - base],
+  ['只能在 10 或 11 點加倍', '較差', houseEdge({ ...defaultRules, doubleRule: 'tenEleven' }) - base],
+  ['分牌後不能加倍', '較差', houseEdge({ ...defaultRules, doubleAfterSplit: false }) - base],
+  ['沒有暗牌（莊家不查看暗牌）', '較差', houseEdge({ ...defaultRules, holeCard: false }) - base],
+  ['只能分牌一次', '較差', houseEdge({ ...defaultRules, maxSplitHands: 2 }) - base],
+  ['只能在 9、10 或 11 點加倍', '較差', houseEdge({ ...defaultRules, doubleRule: 'nineToEleven' }) - base],
+  ['不能投降', '較差', houseEdge({ ...defaultRules, surrender: 'none' }) - base],
+  ['8 副牌而不是 6 副', '較差', houseEdge({ ...defaultRules, decks: 8 }) - base],
+  ['4 副牌而不是 6 副', '較好', houseEdge({ ...defaultRules, decks: 4 }) - base],
+  ['允許一對 A 再分牌', '較好', houseEdge({ ...defaultRules, resplitAces: true }) - base],
+  ['2 副牌而不是 6 副', '較好', houseEdge({ ...defaultRules, decks: 2 }) - base],
+  ['1 副牌而不是 6 副', '較好', houseEdge({ ...defaultRules, decks: 1 }) - base],
+];
+const fmt = (x: number) => (x > 0 ? '+' : '−') + Math.abs(x).toFixed(2) + ' 個百分點';
+const tables: [string, keyof typeof presets][] = [
+  ['拉斯維加斯，6 副牌，S17，可投降', 'vegasS17'],
+  ['拉斯維加斯，6 副牌，H17，可投降', 'vegasH17'],
+  ['歐式／線上，沒有暗牌', 'europeanOnline'],
+  ['西班牙賭場', 'spainCasino'],
+  ['兩副牌（Double deck）', 'doubleDeck'],
+];
+const pct = (x: number) => x.toFixed(2) + '%';
+
+const faq = [
+  { q: '哪一條21點規則對你最不利？', a: '21點（Blackjack）賠 6:5 而不是 3:2。它會讓莊家優勢增加大約 1.4 個百分點，差不多讓你即使打得完美也會輸掉的錢變成四倍。如果一張牌桌賠 6:5，你最好的打法就是換一張桌子。' },
+  { q: '21點的莊家優勢是多少？', a: '用完美的基本策略，依規則不同介於 0.2% 到 0.7% 之間；6 副牌、典型的拉斯維加斯規則大約是 0.4%。憑直覺玩的人，實際上的劣勢會高出許多。' },
+  { q: '牌副數有影響嗎？', a: '有，但比其他規則小。從 6 副變成 8 副大約多付 0.02 個百分點；用 2 副牌大約省下 0.17。21點（Blackjack）的賠率，以及莊家軟 17 是否要牌，重要得多。' },
+];
+---
+<Guide
+  lang="zh"
+  route="dataRules"
+  title="21點莊家優勢：每條規則讓你付出多少"
+  h1="每條21點規則讓你付出多少"
+  description="21點的莊家優勢如何隨牌桌規則改變：賠 6:5、H17、牌副數、投降、分牌後加倍、沒有暗牌等。一張表看懂每條規則讓你多付或少付多少，以及常見牌桌的莊家優勢。"
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['dataBust', 'spain', 'howToWin', 'data']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>簡單來說：</strong>用完美的基本策略，在規則好的 6 副牌牌桌上，莊家大約保留你下注額的 <strong>{pct(base)}</strong>。到目前為止代價最高的規則，是21點（Blackjack）只賠 <strong>6:5</strong>（+1.39 個百分點）；其次是莊家軟 17 要牌（+0.22）。</p></div>
+  </div>
+
+  <h2 id="effects">每條規則的影響</h2>
+  <p>基準條件：6 副牌、莊家軟 17 停牌、任意兩張牌及分牌後都可加倍、可晚投降、有暗牌，21點（Blackjack）賠 3:2。完美策略下的莊家優勢：<strong>{pct(base)}</strong>。每一列顯示只改變這一條規則時，莊家優勢會變化多少。</p>
+  <table class="data-table">
+    <thead><tr><th>規則</th><th>對你</th><th>莊家優勢變化</th></tr></thead>
+    <tbody>
+      {effects.map(([name, dir, d]) => <tr><th scope="row">{name}</th><td>{dir}</td><td class={d > 0 ? 'bad' : 'good'}>{fmt(d)}</td></tr>)}
+    </tbody>
+  </table>
+
+  <h2 id="tables">常見牌桌的莊家優勢</h2>
+  <table class="data-table">
+    <thead><tr><th>牌桌</th><th>莊家優勢</th></tr></thead>
+    <tbody>
+      {tables.map(([name, k]) => <tr><th scope="row">{name}</th><td class="hl">{pct(houseEdge(presets[k]))}</td></tr>)}
+    </tbody>
+  </table>
+  <p>這些數值的前提是你零失誤地打出基本策略。每一個錯誤都會讓你多付出：買保險、12 點對 2 停牌，或一對 8 不分牌，這些很快就會累積成好幾個百分點。所以<a href={routes.strategy.zh}>基本策略表</a>比尋找完美的牌桌更重要。</p>
+
+  <h2 id="source">數字從哪裡來</h2>
+  <p>基準優勢和每條規則的影響，採用的是 Wizard of Odds 規則效果表中常用的近似值，也就是 Veintiuno App 所使用的同一張表。這些影響大致可以相加：同時組合好幾條規則時，結果可能和那個組合的精確計算相差零點零幾個百分點。</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 16px; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); font-weight: 600; }
+  .data-table td.bad { color: var(--wrong); font-weight: 700; }
+  .data-table td.good { color: var(--correct); font-weight: 700; }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

@@ -1,0 +1,99 @@
+---
+import Base from '../../layouts/Base.astro';
+import AppStoreButton from '../../components/AppStoreButton.astro';
+import AppCTA from '../../components/AppCTA.astro';
+import { routes, APP_STORE_URL } from '../../lib/site';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: 'Veintiuno',
+    alternateName: 'Veintiuno',
+    operatingSystem: 'iOS',
+    applicationCategory: 'EducationalApplication',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'TWD' },
+    url: APP_STORE_URL,
+    inLanguage: 'zh-Hant',
+    description: '學習並練習21點基本策略的 App：當場糾正，並說明每一步背後的原因。不用真錢。',
+  },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Veintiuno', url: 'https://veintiunoapp.com/zh-hant/', inLanguage: 'zh-Hant' },
+];
+---
+<Base
+  lang="zh"
+  route="home"
+  title="Veintiuno：21點基本策略訓練 App"
+  description="用正確的方式學21點（Blackjack）：可依牌桌規則調整的互動式基本策略表、清楚的規則與技巧指南，還有一個會糾正你每個決定的 App。不用真錢。"
+  schema={schema}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">不談神話的21點</span>
+        <h1>學會正確地玩21點</h1>
+        <p class="lead">基本策略，一步一步解釋清楚，並依你那桌的規則調整。沒有神奇系統，也不承諾輕鬆賺錢——只有正確的決定，練到變成反射動作為止。</p>
+        <div class="hero-actions">
+          <AppStoreButton lang="zh" campaign="home-hero" />
+          <a class="btn btn-ghost" href={routes.simulator.zh}>免費練習，當場糾正</a>
+        </div>
+        <p class="hero-note">支援 iPhone 與 Mac · 免費開始 · 不用真錢</p>
+      </div>
+      <div class="fan" aria-hidden="true">
+        <div class="pcard"><span class="corner">10<i>♠</i></span><span class="pip">♠</span></div>
+        <div class="pcard"><span class="corner">6<i>♣</i></span><span class="pip">♣</span></div>
+        <div class="pcard red"><span class="corner">Q<i>♥</i></span><span class="pip">♥</span></div>
+        <div class="chip-badge"><b>正確的打法是：要牌</b>16 點對莊家的 10，停牌就會輸：莊家幾乎總是會做到 17 點以上。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>從這裡開始</h2>
+      <p class="lead">三篇指南涵蓋你真正需要的內容。如果你想一步一步來，可以上<a href={routes.course.zh}>免費21點課程</a>：10 堂附小測驗的短課。</p>
+      <div class="grid-3">
+        <a class="card" href={routes.howToPlay.zh}><div class="icon">♠</div><h3>21點規則</h3><p>規則、牌值，以及一手牌從頭到尾怎麼進行，沒有艱澀術語。</p><span class="more">學規則 →</span></a>
+        <a class="card" href={routes.strategy.zh}><div class="icon">▦</div><h3>基本策略表</h3><p>互動式，依你的牌桌調整：拉斯維加斯 S17 或 H17、雙副牌、歐洲規則。點任一格，看看為什麼。</p><span class="more">打開策略表 →</span></a>
+        <a class="card" href={routes.counting.zh}><div class="icon">±</div><h3>算牌</h3><p>Hi-Lo 怎麼運作、它實際上能帶來多少優勢，以及為什麼值得做的人這麼少。誠實說明。</p><span class="more">了解算牌 →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container grid-2" style="align-items:center">
+      <div>
+        <span class="eyebrow">App</span>
+        <h2 style="margin-top:0">看得懂策略表，不等於打得出來</h2>
+        <p>在牌桌上，你只有兩秒鐘做決定。Veintiuno 訓練的正是這個：它發真實的牌局，當場糾正你，並依你那桌的規則，解釋每一步背後的原因。</p>
+        <ul>
+          <li><strong>當場糾正</strong>，並說明每個錯誤的原因。</li>
+          <li><strong>14 天計畫：</strong>每天一個觀念、一個練習和一次測驗。</li>
+          <li><strong>熱度圖</strong>，標出你最常錯的策略表格子。</li>
+          <li><strong>拉斯維加斯、歐洲和西班牙規則</strong>，有暗牌或無暗牌都有。</li>
+          <li><strong>Hi-Lo 算牌</strong>作為進階單元，不誇大。</li>
+        </ul>
+        <AppStoreButton lang="zh" campaign="home-app" />
+      </div>
+      <div class="card">
+        <h3>Veintiuno 不是什麼</h3>
+        <p>它不是賭場，也不是賭博遊戲：沒有真錢、沒有籌碼，也跟任何業者都沒有關係。我們也不會賣你一套「穩贏」的系統，因為那種東西不存在。</p>
+        <p>基本策略能把莊家優勢降到大約 0.5%，但無法消除它。我們在<a href={routes.howToWin.zh}>21點能贏嗎？</a>裡直接說清楚。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>常見問題</h2>
+      <div class="grid-2">
+        <a class="card" href={routes.howToPlay.zh}><h3>21點一手牌怎樣才算贏？</h3><p>比莊家更接近 21 點，而且不爆牌。這裡一步一步說明。</p></a>
+        <a class="card" href={routes.simulator.zh}><h3>哪裡可以免費玩21點？</h3><p>就在這裡：一張不用錢、不用註冊的牌桌，會糾正你的每一步。</p></a>
+        <a class="card" href={routes.strategy.zh}><h3>什麼時候加倍或分牌？</h3><p>A 和 8 一定分，10 和 5 絕不分。其他的都在策略表裡。</p></a>
+        <a class="card" href={routes.counting.zh}><h3>算牌違法嗎？</h3><p>在腦中算牌不違法，但賭場可以請你停止。</p></a>
+        <a class="card" href={routes.howToWin.zh}><h3>長期來說能贏21點嗎？</h3><p>只靠基本策略不行——你只是輸得最少。這裡說明什麼是做得到的。</p></a>
+      </div>
+      <AppCTA lang="zh" campaign="home-bottom" />
+    </div>
+  </section>
+</Base>

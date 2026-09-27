@@ -1,0 +1,74 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import DeckCountdown from '../../../components/DeckCountdown.astro';
+import CountDrill from '../../../components/CountDrill.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quanto tempo leva para aprender a contar cartas?', a: 'Os valores do Hi-Lo você aprende numa tarde. Contar um baralho inteiro sem erros em menos de 30 segundos costuma levar várias semanas de treino diário. Conseguir isso numa mesa de verdade, com barulho, conversa e apostas, leva bem mais.' },
+  { q: 'Qual é o melhor exercício para contar cartas?', a: 'A contagem regressiva do baralho: você passa pelas 52 cartas e no final a contagem tem que dar 0. É o exercício padrão de todo contador, porque testa precisão e velocidade ao mesmo tempo.' },
+  { q: 'Existe um app para treinar contagem de cartas?', a: 'Sim. O Veintiuno inclui a contagem Hi-Lo como módulo avançado no fim do curso: um treino de contagem corrente com velocidade ajustável e uma explicação da contagem real. Nesta página você também encontra dois exercícios gratuitos que funcionam direto no navegador.' },
+  { q: 'Dá para treinar contagem de cartas num cassino online?', a: 'Dá para treinar a técnica, mas não para ganhar dinheiro. O blackjack online com software embaralha depois de cada mão, então a contagem não serve para nada. No máximo, para você se acostumar com o ritmo.' },
+];
+---
+<Guide
+  lang="pt"
+  route="practiceCounting"
+  title="Como treinar contagem de cartas: exercícios"
+  h1="Como treinar a contagem de cartas"
+  description="Plano passo a passo para treinar a contagem de cartas com Hi-Lo: valores, contagem do baralho, pares, contagem real e ritmo de mesa. Exercícios no navegador."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['counting', 'countingLegal', 'strategy', 'course']}
+  cta={{ title: 'Primeiro a estratégia, depois a contagem', text: 'No Veintiuno o Hi-Lo vem no fim do curso, quando você já domina a estratégia básica, porque contar sem ela não adianta.' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Resposta curta:</strong> aprenda os valores do Hi-Lo (2–6 valem +1, 7–9 valem 0, dez e ases valem −1), treine a <strong>contagem regressiva do baralho</strong> até fazê-la sem erros em menos de 30 segundos, aprenda a contar em <strong>pares que se anulam</strong> e a converter para a <strong>contagem real</strong>, e só depois treine com barulho e distrações. Antes de tudo: domine a estratégia básica.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="Neste guia">
+    <b>Neste guia</b>
+    <ol>
+      <li><a href="#before">Antes de começar</a></li>
+      <li><a href="#step1">Passo 1: os valores, sem pensar</a></li>
+      <li><a href="#step2">Passo 2: a contagem regressiva do baralho</a></li>
+      <li><a href="#step3">Passo 3: contar em pares</a></li>
+      <li><a href="#step4">Passo 4: a contagem real</a></li>
+      <li><a href="#step5">Passo 5: ritmo de mesa</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="before">Antes de começar</h2>
+  <p>Contar cartas só faz sentido se você já joga a <a href={routes.strategy.pt}>estratégia básica</a> sem erros. Um único erro de estratégia a cada poucas mãos custa mais do que toda a vantagem que a contagem traz. Se você ainda hesita com 12 contra um 3 ou A-7 contra um 9, comece por aí.</p>
+  <p>E tenha claro por que está fazendo isso: contar é um ótimo treino de memória e a melhor forma de entender o jogo, mas não é um caminho fácil para o dinheiro. Explicamos por quê em <a href={routes.counting.pt}>Como contar cartas no blackjack</a>.</p>
+
+  <h2 id="step1">Passo 1: os valores, sem pensar</h2>
+  <p>Você precisa ver uma carta e saber o valor dela sem traduzir na cabeça. 2 a 6: <strong>+1</strong>. 7 a 9: <strong>0</strong>. Dez, figuras e ases: <strong>−1</strong>. Treine com séries curtas até não hesitar mais:</p>
+  <CountDrill lang="pt" />
+
+  <h2 id="step2">Passo 2: a contagem regressiva do baralho</h2>
+  <p>O exercício clássico que todo contador faz. Um baralho completo tem tantas cartas altas quanto baixas; se você contar as 52, o resultado tem que ser 0. Comece devagar e aumente a velocidade:</p>
+  <ul>
+    <li><strong>Meta 1:</strong> chegar a 0 sem erros, não importa a velocidade.</li>
+    <li><strong>Meta 2:</strong> chegar a 0 em menos de 30 segundos (cerca de 0,5 s por carta).</li>
+    <li><strong>Meta 3:</strong> parar no meio do baralho e ter a contagem certa.</li>
+  </ul>
+  <DeckCountdown lang="pt" />
+
+  <h2 id="step3">Passo 3: contar em pares</h2>
+  <p>Na mesa as cartas chegam de duas em duas ou de três em três. Os contadores não somam uma a uma: reconhecem <strong>pares que se anulam</strong>. Um 5 e um rei juntos dão 0, então você os ignora. Um 4 e um 6 são +2 de uma vez. Treine olhar duas cartas ao mesmo tempo e dizer só o resultado do par.</p>
+
+  <h2 id="step4">Passo 4: a contagem real</h2>
+  <p>A contagem corrente diz quantas cartas altas sobram a mais, mas não quantas cartas ainda vão sair. Para isso você divide pelos baralhos restantes: <strong>contagem real = contagem corrente ÷ baralhos restantes</strong>. Treine fazer essa conta de cabeça:</p>
+  <ul>
+    <li>+8 com 4 baralhos restantes → <strong>+2</strong></li>
+    <li>+6 com 1,5 baralho restante → <strong>+4</strong></li>
+    <li>−3 com 3 baralhos restantes → <strong>−1</strong></li>
+  </ul>
+  <p>Para estimar os baralhos restantes, olhe o descarte: arredondar para o meio baralho mais próximo é suficiente.</p>
+
+  <h2 id="step5">Passo 5: ritmo de mesa</h2>
+  <p>Contar em casa com calma é fácil. Na mesa há barulho, conversa, fichas e cartas de vários jogadores. Quando dominar os passos anteriores, treine com a TV ligada, enquanto conversa, ou com um vídeo de uma mesa de verdade. Se perder a contagem, tudo bem: depois do próximo embaralhamento você recomeça do zero.</p>
+  <div class="callout warn"><p><strong>Lembre-se:</strong> contar de cabeça é legal, mas usar um celular ou qualquer aparelho na mesa não é. E o cassino pode pedir que você pare de jogar se perceber. Veja mais em <a href={routes.countingLegal.pt}>Contar cartas é ilegal?</a></p></div>
+</Guide>

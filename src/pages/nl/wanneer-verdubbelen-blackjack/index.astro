@@ -1,0 +1,71 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Wanneer moet je verdubbelen bij blackjack?', a: 'Met 11 tegen alles behalve een aas; met 10 tegen 2 tot en met 9; met 9 tegen 3 tot en met 6; en als de tafel verdubbelen op elke twee kaarten toestaat, met verschillende zachte handen (A-2 tot A-7) tegen de zwakke open kaarten van de dealer. In Spaanse casino’s mag je alleen verdubbelen op 9, 10 of 11.' },
+  { q: 'Verdubbel je 11 tegen een aas?', a: 'Dat hangt af van de regels. Past de dealer op zachte 17 (S17), dan vraag je een kaart; vraagt de dealer een kaart op zachte 17 (H17), dan verdubbel je. Aan een Europese tafel zonder gesloten kaart vraag je altijd een kaart.' },
+  { q: 'Kun je nog verdubbelen nadat je een kaart hebt gevraagd?', a: 'Nee. Verdubbelen kan alleen op je eerste twee kaarten (of de eerste twee kaarten van een gesplitste hand, als de tafel verdubbelen na splitsen toestaat). Heb je eenmaal een kaart gevraagd, dan kun je alleen nog kaart vragen of passen.' },
+  { q: 'Waarom verdubbel je A-7 tegen een 6?', a: 'Omdat een zachte 18 met één kaart niet kapot kan gaan en een dealer met een open 6 op zijn zwakst is: hij gaat in ongeveer 42% van de gevallen kapot. Door te verdubbelen maak je van dat voordeel dubbel geld.' },
+];
+---
+<Guide
+  lang="nl"
+  route="whenDouble"
+  title="Verdubbelen bij blackjack: wanneer loont het?"
+  h1="Wanneer je moet verdubbelen bij blackjack"
+  description="Wanneer je verdubbelt bij blackjack: 9, 10, 11, zachte handen, tegen welke dealerkaart, wat verandert bij H17 en zonder gesloten kaart. Met verwachte waarden."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenSplit', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> Verdubbel <strong>11</strong> tegen alles behalve een aas, <strong>10</strong> tegen 2–9 en <strong>9</strong> tegen 3–6. Staat de tafel verdubbelen op elke twee kaarten toe, dan verdubbel je ook <strong>A-2 tot A-7</strong> tegen de zwakke open kaarten van de dealer. Verdubbelen betekent meer inzetten als je in het voordeel bent – nooit om verliezen „terug te winnen”.</p></div>
+  </div>
+
+  <h2 id="what">Wat verdubbelen is en waarom het geld oplevert</h2>
+  <p>Bij verdubbelen verdubbel je je inzet en krijg je daarvoor <strong>precies één extra kaart</strong>. Je doet dat bij handen waarmee je al voorstaat: je starttotaal is goed en de dealer is zwak. Met die handen win je vaker dan je verliest – dus met een dubbele inzet vermenigvuldig je een voordeel dat je al hebt.</p>
+  <p>Een voorbeeld met cijfers: 11 tegen een 6. Kaart vragen is gemiddeld +0,34 inzet waard, verdubbelen +0,68. Door te verdubbelen win je niet vaker, maar als je wint krijg je twee keer zoveel.</p>
+  <EVTable lang="nl" cards={[6, 5]} up={6} tables={['vegasS17', 'europeanOnline']} />
+
+  <h2 id="hard">Harde handen</h2>
+  <table>
+    <thead><tr><th>Jouw hand</th><th>Verdubbelen tegen</th><th>Anders …</th></tr></thead>
+    <tbody>
+      <tr><td>11</td><td>2 tot 10 (en aas bij H17)</td><td>kaart vragen</td></tr>
+      <tr><td>10</td><td>2 tot 9</td><td>kaart vragen</td></tr>
+      <tr><td>9</td><td>3 tot 6 (en 2 met één of twee decks)</td><td>kaart vragen</td></tr>
+      <tr><td>8 of minder</td><td>nooit</td><td>kaart vragen</td></tr>
+    </tbody>
+  </table>
+  <p>Het meest omstreden geval is <strong>11 tegen een aas</strong>. Met S17-regels liggen kaart vragen en verdubbelen heel dicht bij elkaar en wint kaart vragen nipt; met H17 haalt verdubbelen het in:</p>
+  <EVTable lang="nl" cards={[6, 5]} up={1} tables={['vegasS17', 'vegasH17', 'europeanOnline']} />
+  <p>Aan een tafel zonder gesloten kaart, zoals in Spaanse casino’s, is verdubbelen tegen een aas duidelijk slechter: heeft de dealer blackjack, dan verlies je de dubbele inzet.</p>
+
+  <h2 id="soft">Zachte handen</h2>
+  <p>Alleen aan tafels die verdubbelen op elke twee kaarten toestaan:</p>
+  <table>
+    <thead><tr><th>Jouw hand</th><th>Verdubbelen tegen</th><th>Anders …</th></tr></thead>
+    <tbody>
+      <tr><td>A-2, A-3</td><td>5 en 6</td><td>kaart vragen</td></tr>
+      <tr><td>A-4, A-5</td><td>4 tot 6</td><td>kaart vragen</td></tr>
+      <tr><td>A-6</td><td>3 tot 6</td><td>kaart vragen</td></tr>
+      <tr><td>A-7</td><td>3 tot 6 (en 2 bij H17)</td><td>passen</td></tr>
+      <tr><td>A-8</td><td>6, alleen bij H17</td><td>passen</td></tr>
+    </tbody>
+  </table>
+  <p>A-7 tegen een 6 is het beste voorbeeld: passen is +0,28 waard, maar verdubbelen +0,38.</p>
+  <EVTable lang="nl" cards={[1, 7]} up={6} tables={['vegasS17']} caption="A-7 tegen 6: passen of verdubbelen" />
+
+  <h2 id="spain">Zonder gesloten kaart en in Spaanse casino’s</h2>
+  <p>Zonder gesloten kaart verdubbel je 11 niet tegen een 10 of een aas. In Spaanse casino’s mag je bovendien alleen verdubbelen op 9, 10 of 11, zodat alle zachte verdubbelingen wegvallen. Alles daarover lees je in <a href={routes.spain.nl}>Blackjackregels in Spanje</a>.</p>
+
+  <h2 id="mistakes">De duurste fouten bij verdubbelen</h2>
+  <ul>
+    <li><strong>11 tegen een 10 niet verdubbelen</strong> aan een tafel met gesloten kaart: je laat ongeveer 0,06 inzet per hand liggen.</li>
+    <li><strong>Verdubbelen om verliezen terug te winnen:</strong> de beslissing hangt af van je hand en de open kaart van de dealer, nooit van hoe je sessie loopt.</li>
+    <li><strong>Verdubbelen met 12 of meer:</strong> met één enkele kaart ga je te vaak kapot.</li>
+  </ul>
+</Guide>

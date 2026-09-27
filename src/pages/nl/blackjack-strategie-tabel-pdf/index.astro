@@ -1,0 +1,53 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const pdfs = [
+  ['europees', 'Europese tafel / online', 'Geen hole card, verdubbelen op elke twee kaarten. Typisch voor online en live dealer blackjack.'],
+  ['las-vegas-s17', 'Las Vegas (S17)', 'Dealer past op zachte 17, opgeven (surrender) toegestaan.'],
+  ['las-vegas-h17', 'Las Vegas (H17)', 'Dealer neemt een kaart op zachte 17, opgeven (surrender) toegestaan.'],
+  ['spanje', 'Spaanse casino’s', 'Geen hole card, alleen verdubbelen op 9–11, geen surrender. De juiste voor een casino in Spanje.'],
+];
+const faq = [
+  { q: 'Welke strategietabel moet ik downloaden?', a: 'De tabel die past bij de regels van je tafel. In Las Vegas kijk je op het laken: staat er „dealer hits soft 17”, neem dan H17, anders S17. Speel je online of aan een live dealer tafel, dan is het meestal de Europese. In een casino in Spanje neem je de tabel voor Spaanse casino’s.' },
+  { q: 'Mag ik een geprinte tabel mee naar het casino nemen?', a: 'Sommige casino’s staan aan tafels met lage inzetten toe dat je op een geprinte kaart kijkt, andere niet; vraag het vooraf. Nergens mag je aan tafel je telefoon of een ander apparaat gebruiken.' },
+  { q: 'Zijn ze gratis?', a: 'Ja. Je mag ze downloaden, printen en delen.' },
+];
+---
+<Guide
+  lang="nl"
+  route="printable"
+  title="Blackjack strategie tabel pdf (gratis)"
+  h1="Blackjack strategietabel als pdf"
+  description="Download de blackjack strategie tabel gratis als pdf om te printen: Europees, Las Vegas S17 en H17, en Spaanse casino’s. Elk op één A4-pagina in kleur."
+  updated="2026-09-27"
+  readMinutes={2}
+  faq={faq}
+  related={['strategy', 'simulator', 'spain', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Gratis download:</strong> de basisstrategie-tabel als pdf, op één A4-pagina in kleur. Kies de tabel die past bij de regels van je tafel – de tabel voor Las Vegas is niet dezelfde als die voor een Europese tafel zonder hole card.</p></div>
+  </div>
+
+  <div class="pdf-grid">
+    {pdfs.map(([slug, name, text]) => (
+      <a class="card pdf-card" href={`/pdf/blackjack-strategie-tabel-${slug}.pdf`} download>
+        <span class="pdf-ico">PDF</span>
+        <span><b>{name}</b><small>{text}</small></span>
+      </a>
+    ))}
+  </div>
+
+  <h2 id="gebruik">Zo gebruik je hem</h2>
+  <p>Zoek je hand in de rijen en de open kaart van de dealer in de kolommen. Kijk eerst of je een paar hebt, dan of je hand zacht is (met een aas die als 11 telt), en als geen van beide zo is, gebruik je de harde handen. De letters: H kaart vragen, S passen, D verdubbelen, P splitsen, R opgeven.</p>
+  <p>Wil je de regels één voor één instellen of zien waarom elk vakje is zoals het is, gebruik dan de <a href={routes.strategy.nl}>interactieve tabel</a>. En om hem uit je hoofd te leren helpt oefenen met directe feedback: dat kan gratis aan de <a href={routes.simulator.nl}>oefentafel</a>.</p>
+</Guide>
+
+<style>
+  .pdf-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
+  .pdf-card { display: flex !important; gap: 14px; align-items: flex-start; }
+  .pdf-ico { flex: none; width: 44px; height: 52px; border-radius: 8px; background: #c8283a; color: #fff; font: 800 12px/52px var(--font); text-align: center; }
+  .pdf-card b { display: block; color: var(--text); font-size: 17px; }
+  .pdf-card small { display: block; color: var(--muted); font-size: 14px; margin-top: 4px; line-height: 1.45; }
+  @media (max-width: 600px) { .pdf-grid { grid-template-columns: 1fr; } }
+</style>

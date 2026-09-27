@@ -1,0 +1,99 @@
+---
+import Base from '../../layouts/Base.astro';
+import AppStoreButton from '../../components/AppStoreButton.astro';
+import AppCTA from '../../components/AppCTA.astro';
+import { routes, APP_STORE_URL } from '../../lib/site';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: 'Veintiuno',
+    alternateName: 'Veintiuno',
+    operatingSystem: 'iOS',
+    applicationCategory: 'EducationalApplication',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'JPY' },
+    url: APP_STORE_URL,
+    inLanguage: 'ja',
+    description: 'ブラックジャックのベーシックストラテジーを学び、練習するためのアプリ。その場で間違いを正し、すべてのプレイの理由を説明します。実際のお金は使いません。',
+  },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Veintiuno', url: 'https://veintiunoapp.com/ja/', inLanguage: 'ja' },
+];
+---
+<Base
+  lang="ja"
+  route="home"
+  title="Veintiuno：ブラックジャックの戦略を学ぶ練習アプリ"
+  description="ブラックジャックを正しく学ぶ：テーブルのルールに合わせて変わるインタラクティブな戦略表、わかりやすいガイド、すべての判断を正してくれるアプリ。実際のお金は使いません。"
+  schema={schema}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">神話抜きのブラックジャック</span>
+        <h1>ブラックジャックを正しくプレイしよう</h1>
+        <p class="lead">ベーシックストラテジーを1手ずつ解説し、あなたのテーブルのルールに合わせます。必勝法も、楽に稼げるという約束もありません。正しい判断を、考えなくてもできるようになるまで練習するだけです。</p>
+        <div class="hero-actions">
+          <AppStoreButton lang="ja" campaign="home-hero" />
+          <a class="btn btn-ghost" href={routes.simulator.ja}>解説付きで無料プレイ</a>
+        </div>
+        <p class="hero-note">iPhoneとMac対応 · 無料で始められます · 実際のお金は使いません</p>
+      </div>
+      <div class="fan" aria-hidden="true">
+        <div class="pcard"><span class="corner">10<i>♠</i></span><span class="pip">♠</span></div>
+        <div class="pcard"><span class="corner">6<i>♣</i></span><span class="pip">♣</span></div>
+        <div class="pcard red"><span class="corner">Q<i>♥</i></span><span class="pip">♥</span></div>
+        <div class="chip-badge"><b>正しいプレイ：ヒット</b>10に対して16でスタンドすると負けます。ディーラーはほぼ確実に17以上を作るからです。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>まずはここから</h2>
+      <p class="lead">本当に必要なことは、3つのガイドにまとまっています。順番に学びたい方は、<a href={routes.course.ja}>無料のブラックジャック講座</a>（小テスト付きの短いレッスン10回）をどうぞ。</p>
+      <div class="grid-3">
+        <a class="card" href={routes.howToPlay.ja}><div class="icon">♠</div><h3>ブラックジャックのルール</h3><p>ルール、カードの数え方、1ハンドの流れを最初から最後まで。専門用語なしで解説します。</p><span class="more">ルールを学ぶ →</span></a>
+        <a class="card" href={routes.strategy.ja}><div class="icon">▦</div><h3>ストラテジー表</h3><p>インタラクティブで、あなたのテーブルに合わせて変わります。ラスベガスのS17やH17、ダブルデック、ヨーロッパ式。マスをタップすると理由が表示されます。</p><span class="more">表を開く →</span></a>
+        <a class="card" href={routes.counting.ja}><div class="icon">±</div><h3>カードカウンティング</h3><p>ハイローの仕組み、実際にどれだけ有利になるか、なぜ割に合う人がごく少ないのか。正直に解説します。</p><span class="more">カウンティングを知る →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container grid-2" style="align-items:center">
+      <div>
+        <span class="eyebrow">アプリ</span>
+        <h2 style="margin-top:0">表を知っていることと、実際にプレイできることは違う</h2>
+        <p>テーブルでは、判断に使える時間は2秒ほどです。Veintiunoが鍛えるのはまさにそこ。実際のハンドを配り、その場で間違いを正し、あなたのテーブルのルールに沿って1手ごとに理由を説明します。</p>
+        <ul>
+          <li><strong>その場で修正</strong>し、間違えるたびに理由を説明。</li>
+          <li><strong>14日間のプラン：</strong>1日に1つの考え方、1つの練習、1つの試験。</li>
+          <li><strong>ヒートマップ</strong>で、よく間違える表のマスがひと目でわかります。</li>
+          <li><strong>ラスベガス、ヨーロッパ、スペインのルール</strong>に対応。ホールカードあり・なしの両方。</li>
+          <li><strong>ハイローのカウンティング</strong>を上級モジュールとして、誇張なしで。</li>
+        </ul>
+        <AppStoreButton lang="ja" campaign="home-app" />
+      </div>
+      <div class="card">
+        <h3>Veintiunoではないもの</h3>
+        <p>カジノでもギャンブルでもありません。実際のお金もチップも使わず、どの事業者ともつながっていません。そして「必ず勝てる」システムを売ることもありません。そんなものは存在しないからです。</p>
+        <p>ベーシックストラテジーはハウスエッジを約0.5%まで下げますが、なくすことはできません。<a href={routes.howToWin.ja}>ブラックジャックで勝てるのか</a>で、はっきりと説明しています。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>よくある質問</h2>
+      <div class="grid-2">
+        <a class="card" href={routes.howToPlay.ja}><h3>ブラックジャックの1ハンドはどうやって勝つ？</h3><p>21を超えずに、ディーラーより21に近づくこと。手順はこちらで。</p></a>
+        <a class="card" href={routes.simulator.ja}><h3>ブラックジャックを無料で練習できる場所は？</h3><p>このサイトです。お金も登録も不要で、すべてのプレイを正してくれるテーブルがあります。</p></a>
+        <a class="card" href={routes.strategy.ja}><h3>ダブルダウンやスプリットはいつする？</h3><p>エースと8は必ずスプリット、10と5は絶対にしない。それ以外は表にあります。</p></a>
+        <a class="card" href={routes.counting.ja}><h3>カードカウンティングは違法？</h3><p>頭の中で数えるのは違法ではありませんが、カジノからやめるよう求められることはあります。</p></a>
+        <a class="card" href={routes.howToWin.ja}><h3>ブラックジャックで長期的に勝てる？</h3><p>ベーシックストラテジーだけでは勝てません。損を最小限にするだけです。何が可能なのかはこちらで。</p></a>
+      </div>
+      <AppCTA lang="ja" campaign="home-bottom" />
+    </div>
+  </section>
+</Base>

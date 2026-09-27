@@ -1,0 +1,59 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import Simulator from '../../../components/Simulator.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Posso giocare a blackjack gratis e senza registrazione?', a: 'Sì. Questo tavolo funziona nel tuo browser: senza registrazione, senza download e senza soldi veri. La tua percentuale di decisioni corrette viene salvata solo nel tuo browser.' },
+  { q: 'Cosa cambia rispetto alla modalità gratuita di un casinò online?', a: 'Le modalità gratuite dei casinò servono a portarti a giocare con soldi veri, e non ti dicono mai se hai giocato bene una mano. Questo tavolo non ha né soldi né puntate e confronta ogni decisione con la giocata corretta per le regole che scegli.' },
+  { q: 'Con quali regole si gioca a questo tavolo?', a: 'Con quelle che scegli tu: Las Vegas con il banco che sta o chiede carta sul 17 soft, europeo/online o casinò spagnolo (senza carta coperta, raddoppio solo su 9–11, niente resa). Sempre 6 mazzi; si rimescola quando sono stati distribuiti tre quarti del sabot.' },
+  { q: 'Perché mi corregge anche se ho vinto la mano?', a: 'Perché il risultato di una mano dipende dalla fortuna, la decisione no. Puoi stare con 16 contro un 10 e vincere perché il banco sballa, ma nel lungo periodo quella giocata perde più che chiedere carta. La correzione ti insegna la decisione giusta, non il risultato.' },
+];
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Tavolo di allenamento di blackjack gratis con correzione immediata',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web',
+  inLanguage: 'it',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: 0, priceCurrency: 'EUR' },
+  url: 'https://veintiunoapp.com/it/giocare-blackjack-gratis/',
+}];
+---
+<Guide
+  lang="it"
+  route="simulator"
+  title="Blackjack gratis: gioca senza registrazione"
+  h1="Gioca a blackjack gratis"
+  description="Gioca a blackjack gratis nel browser, senza registrazione né soldi veri. Ogni decisione è verificata con la strategia di base, regole europee o di Las Vegas."
+  updated="2026-09-27"
+  faq={faq}
+  related={['strategy', 'course', 'hand16v10', 'app']}
+  extraSchema={schema}
+  wide
+>
+  <div slot="top">
+    <p class="lead" style="margin-top:0">Un tavolo di allenamento <strong>gratis, senza registrazione e senza soldi veri</strong>. Dopo ogni decisione ti dice se era la giocata giusta e perché, secondo la strategia di base per le regole del tavolo che scegli.</p>
+  </div>
+
+  <div slot="wide" style="max-width:820px">
+    <Simulator lang="it" />
+  </div>
+
+  <h2 id="come-funziona">Come funziona</h2>
+  <ul>
+    <li><strong>Scegli il tuo tavolo:</strong> Las Vegas (S17 o H17), europeo/online o casinò spagnolo. La strategia corretta cambia con le regole.</li>
+    <li><strong>Distribuisci e decidi:</strong> chiedi carta, stai, raddoppi, dividi o ti arrendi. Sono attive solo le opzioni che il tavolo consente in quel momento.</li>
+    <li><strong>Guarda il feedback:</strong> verde se hai scelto bene; rosso, con la giocata corretta e la spiegazione, se no.</li>
+    <li>Al computer puoi giocare con la tastiera: <kbd>C</kbd> carta, <kbd>S</kbd> stai, <kbd>R</kbd> raddoppia, <kbd>D</kbd> dividi, <kbd>A</kbd> arrenditi e <kbd>Spazio</kbd> per distribuire.</li>
+  </ul>
+
+  <h2 id="perche">Perché allenarsi con il feedback</h2>
+  <p>Senza feedback impari il contrario di quello che dovresti: una giocata sbagliata che per caso vince ti resta in testa come «quella giusta». Qui ogni decisione viene confrontata con la <a href={routes.strategy.it}>strategia di base</a>, la giocata che nel lungo periodo perde di meno, e scopri perché.</p>
+  <p>Quando prendi più del 95% delle decisioni giuste, giochi meglio della stragrande maggioranza delle persone che si siedono a un tavolo di blackjack. Se continui a sbagliare le stesse mani, segui il <a href={routes.course.it}>corso gratis</a> o leggi la guida sul <a href={routes.hand16v10.it}>16 contro 10</a>.</p>
+
+  <h2 id="senza-soldi">Senza soldi, senza casinò</h2>
+  <p>Questo tavolo non ha puntate né fiches, non rimanda a nessun casinò e non salva niente fuori dal tuo browser. Serve per imparare. Se il gioco d’azzardo ti costa più di quanto vorresti, trovi aiuto nella nostra pagina sul <a href={routes.responsible.it}>gioco responsabile</a>.</p>
+</Guide>

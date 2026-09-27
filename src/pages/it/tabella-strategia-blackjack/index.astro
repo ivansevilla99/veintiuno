@@ -1,0 +1,90 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import StrategyChart from '../../../components/StrategyChart.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'La strategia di base garantisce di vincere a blackjack?', a: 'No. La strategia di base è il modo di giocare con cui perdi di meno nel lungo periodo: riduce il vantaggio del banco a circa lo 0,3–0,7% a seconda delle regole, ma il banco mantiene il vantaggio. Rende corretta ogni decisione, non sicura la vincita.' },
+  { q: 'Perché esistono tabelle di strategia diverse?', a: 'Perché la giocata migliore dipende dalle regole del tavolo: numero di mazzi, se il banco chiede carta o sta sul 17 soft, se puoi raddoppiare dopo aver diviso, se è prevista la resa e se il banco controlla il blackjack (carta coperta). Scegli il tuo tavolo qui sopra e la tabella si adatta.' },
+  { q: 'Posso usare una tabella di strategia al casinò?', a: 'Alcuni casinò tollerano una tabella stampata ai tavoli con puntate basse, altri no: chiedi prima. Il telefono o altri dispositivi elettronici al tavolo non sono ammessi da nessuna parte. Meglio impararla a memoria prima.' },
+  { q: 'Cosa significa «soft» nel blackjack?', a: 'Una mano soft contiene un asso che conta 11. Asso-6 è un 17 soft: se prendi un dieci, l’asso conta 1 e hai un 17 hard; con una sola carta non puoi sballare. Per questo con le mani soft si raddoppia e si chiede carta più spesso.' },
+  { q: 'Quando conviene arrendersi (resa)?', a: 'Solo se il tavolo offre la resa tardiva (late surrender). Con le regole standard di Las Vegas: 16 contro 9, 10 o asso e 15 contro 10. Con la resa ti restituiscono metà della puntata: meglio che giocare mani che perdono più della metà delle volte.' },
+];
+---
+<Guide
+  lang="it"
+  route="strategy"
+  title="Tabella blackjack: strategia di base interattiva"
+  h1="Tabella di strategia del blackjack: la strategia di base per il tuo tavolo"
+  description="Tabella di strategia del blackjack interattiva: scegli le regole del tuo tavolo (europeo senza carta coperta, Las Vegas S17/H17, due mazzi) e tocca una casella."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['howToPlay', 'counting', 'howToWin', 'guides']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>In breve:</strong> cerca la tua mano nella colonna di sinistra e la carta scoperta del banco nella riga in alto. Il colore ti dice cosa fare: <b style="color:var(--c-hit)">chiedere carta</b>, <b style="color:var(--c-stand)">stare</b>, <b style="color:var(--c-double)">raddoppiare</b>, <b style="color:var(--c-split)">dividere</b> o <b style="color:var(--c-surrender)">arrenderti</b>. Prima scegli il tipo di tavolo: le regole cambiano la tabella. Di partenza trovi le regole europee senza carta coperta, quelle che di solito si giocano nei casinò europei.</p></div>
+  </div>
+
+  <div slot="wide">
+    <StrategyChart lang="it" preset="europeanOnline" />
+  </div>
+
+  <nav class="toc" aria-label="In questa guida">
+    <b>In questa guida</b>
+    <ol>
+      <li><a href="#leggere">Come leggere la tabella</a></li>
+      <li><a href="#regole">Le 10 regole più importanti</a></li>
+      <li><a href="#regole-tavolo">Come le regole del tavolo cambiano la tabella</a></li>
+      <li><a href="#memorizzare">Come impararla a memoria</a></li>
+      <li><a href="#faq">Domande frequenti</a></li>
+    </ol>
+  </nav>
+
+  <p class="callout">Preferisci la carta? <a href={routes.printable.it}>Scarica la tabella in PDF</a>, per tavoli europei, di Las Vegas o spagnoli. Oppure allenala subito al nostro <a href={routes.simulator.it}>tavolo di allenamento gratis</a>.</p>
+
+  <h2 id="leggere">Come leggere la tabella</h2>
+  <p>La strategia di base è la decisione matematicamente migliore per ogni combinazione della <strong>tua mano</strong> e della <strong>carta scoperta del banco</strong>, ricavata simulando milioni di mani. Istinto e serie fortunate non c’entrano: per ogni situazione c’è una giocata che perde meno di tutte le altre.</p>
+  <p>Controlla le tre sezioni in quest’ordine:</p>
+  <ol>
+    <li><strong>Coppie.</strong> Se le tue prime due carte sono uguali, guarda se devi dividerle.</li>
+    <li><strong>Mani soft.</strong> Se hai un asso che conta 11 (da A-2 ad A-9), usa questa sezione.</li>
+    <li><strong>Mani hard.</strong> Tutto il resto. «17+» significa 17 o più.</li>
+  </ol>
+  <p>Alcune caselle hanno due lettere. <strong>Ds</strong> significa «raddoppia se è consentito, altrimenti stai»; una <strong>D</strong> semplice significa «raddoppia se è consentito, altrimenti chiedi carta». Le caselle della resa funzionano allo stesso modo: se la resa non è prevista, scegli la seconda opzione.</p>
+
+  <h2 id="regole">Le 10 regole più importanti</h2>
+  <p>Non devi imparare tutte le caselle in una volta. Queste dieci regole coprono la maggior parte delle mani che ti capiteranno:</p>
+  <ol>
+    <li><strong>Dividi sempre assi e otto.</strong> Due assi possono diventare due 21; 8-8 fa 16, la mano peggiore del gioco. (Senza carta coperta non contro un asso: vedi sotto.)</li>
+    <li><strong>Non dividere mai dieci e cinque.</strong> Il 20 vince quasi sempre, e 5-5 è un 10 da raddoppiare.</li>
+    <li><strong>Con 17 hard o più stai sempre.</strong></li>
+    <li><strong>Con 12–16 contro un 7 o più chiedi carta.</strong> Sembra sbagliato, ma stare perde di più: il banco arriva quasi sempre a 17+.</li>
+    <li><strong>Con 12–16 contro 2–6 stai</strong> (tranne 12 contro 2 o 3, dove chiedi carta). Lascia che sia il banco a sballare.</li>
+    <li><strong>Raddoppia l’11</strong> contro tutto tranne l’asso (con S17; con H17 anche contro l’asso). Senza carta coperta non contro 10 o asso.</li>
+    <li><strong>Raddoppia il 10</strong> contro le carte dal 2 al 9.</li>
+    <li><strong>Raddoppia il 9</strong> contro le carte dal 3 al 6.</li>
+    <li><strong>Con 18 soft (A-7) contro 9, 10 o asso chiedi carta.</strong> L’errore classico dei giocatori esperti.</li>
+    <li><strong>Non prendere mai l’assicurazione.</strong> È una scommessa laterale con un vantaggio del banco di circa il 7% con più mazzi.</li>
+  </ol>
+
+  <h2 id="regole-tavolo">Come le regole del tavolo cambiano la tabella</h2>
+  <ul>
+    <li><strong>Senza carta coperta (europeo):</strong> il banco non controlla il blackjack, quindi perdi raddoppi e divisioni contro un blackjack del banco. Non raddoppiare l’11 contro 10 o asso e non dividere assi o otto contro un asso. È il modo in cui si gioca di solito nei casinò europei, ma controlla sempre le regole del tuo tavolo. Di più in <a href={routes.spain.it}>regole del blackjack in Spagna</a>.</li>
+    <li><strong>Il banco chiede carta sul 17 soft (H17):</strong> raddoppia l’11 contro l’asso, raddoppia A-7 contro 2 e A-8 contro 6 e arrenditi con più mani (15 e 17 contro asso, 8-8 contro asso). Inoltre il vantaggio del banco sale di circa lo 0,2%.</li>
+    <li><strong>Due mazzi:</strong> raddoppia il 9 contro 2 e l’11 contro l’asso, dividi 6-6 contro 7 e 7-7 contro 8.</li>
+    <li><strong>Niente raddoppio dopo la divisione:</strong> dividi meno spesso le coppie basse (2-2, 3-3, 4-4, 6-6).</li>
+    <li><strong>Il blackjack paga 6:5:</strong> non cambia la tabella, ma alza il vantaggio del banco di circa l’1,4%. Evita questi tavoli.</li>
+  </ul>
+
+  <h2 id="memorizzare">Come impararla a memoria</h2>
+  <p>Leggere la tabella non è come saperla. Al tavolo hai due secondi e nessun foglietto. Quello che funziona è l’allenamento distribuito nel tempo: poche mani ogni giorno, correzione immediata e ripetizioni in più sulle caselle che sbagli.</p>
+  <ol>
+    <li>Inizia dalle mani hard: sono la maggior parte delle tue mani.</li>
+    <li>Aggiungi le coppie: poche regole, facili da visualizzare.</li>
+    <li>Lascia le mani soft per ultime: è lì che sbaglia quasi tutti.</li>
+    <li>Allenati dieci minuti al giorno e annota quali caselle sbagli, non quante ne indovini.</li>
+  </ol>
+  <p>È esattamente quello che fa l’app Veintiuno: distribuisce mani secondo le regole del tuo tavolo, ti corregge subito spiegandoti il perché, e una mappa di calore ti mostra in quali caselle di questa tabella continui a sbagliare.</p>
+</Guide>

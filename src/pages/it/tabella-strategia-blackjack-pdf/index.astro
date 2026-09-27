@@ -1,0 +1,53 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const pdfs = [
+  ['europea', 'Tavolo europeo / online', 'Senza carta coperta, raddoppio con qualsiasi coppia di carte. Tipico del blackjack online e con croupier dal vivo.'],
+  ['las-vegas-s17', 'Las Vegas (S17)', 'Il banco sta sul 17 soft, resa consentita.'],
+  ['las-vegas-h17', 'Las Vegas (H17)', 'Il banco chiede carta sul 17 soft, resa consentita.'],
+  ['spagna', 'Casinò spagnoli', 'Senza carta coperta, raddoppio solo su 9–11, niente resa. Quella giusta per un casinò in Spagna.'],
+];
+const faq = [
+  { q: 'Quale tabella di strategia devo scaricare?', a: 'Quella che corrisponde alle regole del tuo tavolo. A Las Vegas guarda il tappeto: se c’è scritto «dealer hits soft 17», prendi la H17, altrimenti la S17. Se giochi online o a un tavolo con croupier dal vivo, di solito è quella europea. In un casinò in Spagna, la tabella per i casinò spagnoli.' },
+  { q: 'Posso portare una tabella stampata al casinò?', a: 'Alcuni casinò permettono di consultare una tabella stampata ai tavoli con puntate basse, altri no; chiedi prima. Da nessuna parte è consentito usare il telefono o un altro dispositivo al tavolo.' },
+  { q: 'Sono gratis?', a: 'Sì. Puoi scaricarle, stamparle e condividerle.' },
+];
+---
+<Guide
+  lang="it"
+  route="printable"
+  title="Tabella strategia blackjack PDF gratis"
+  h1="Tabella di strategia del blackjack in PDF"
+  description="Scarica gratis la tabella di strategia del blackjack in PDF da stampare: europea, Las Vegas S17 e H17 e casinò spagnoli. Ognuna su una pagina A4 a colori."
+  updated="2026-09-27"
+  readMinutes={2}
+  faq={faq}
+  related={['strategy', 'simulator', 'spain', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Download gratuito:</strong> la tabella della strategia di base in PDF, su una pagina A4 a colori. Scegli quella che corrisponde alle regole del tuo tavolo: la tabella per Las Vegas non è la stessa di un tavolo europeo senza carta coperta.</p></div>
+  </div>
+
+  <div class="pdf-grid">
+    {pdfs.map(([slug, name, text]) => (
+      <a class="card pdf-card" href={`/pdf/tabella-strategia-blackjack-${slug}.pdf`} download>
+        <span class="pdf-ico">PDF</span>
+        <span><b>{name}</b><small>{text}</small></span>
+      </a>
+    ))}
+  </div>
+
+  <h2 id="come-usarla">Come usarla</h2>
+  <p>Cerca la tua mano nelle righe e la carta scoperta del banco nelle colonne. Prima controlla se hai una coppia, poi se la tua mano è soft (con un asso che conta 11) e, se non è nessuna delle due, usa le mani hard. Le lettere: H carta, S stare, D raddoppiare, P dividere, R resa.</p>
+  <p>Se vuoi regolare le regole una per una o vedere perché ogni casella è così, usa la <a href={routes.strategy.it}>tabella interattiva</a>. E per impararla a memoria aiuta allenarsi con un feedback immediato: puoi farlo gratis al <a href={routes.simulator.it}>tavolo di allenamento</a>.</p>
+</Guide>
+
+<style>
+  .pdf-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
+  .pdf-card { display: flex !important; gap: 14px; align-items: flex-start; }
+  .pdf-ico { flex: none; width: 44px; height: 52px; border-radius: 8px; background: #c8283a; color: #fff; font: 800 12px/52px var(--font); text-align: center; }
+  .pdf-card b { display: block; color: var(--text); font-size: 17px; }
+  .pdf-card small { display: block; color: var(--muted); font-size: 14px; margin-top: 4px; line-height: 1.45; }
+  @media (max-width: 600px) { .pdf-grid { grid-template-columns: 1fr; } }
+</style>

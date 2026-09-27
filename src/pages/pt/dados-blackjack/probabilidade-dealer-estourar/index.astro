@@ -1,0 +1,79 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { dealerTable } from '../../../../lib/ev';
+import { presets } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const ups = [2, 3, 4, 5, 6, 7, 8, 9, 10, 1];
+const upL = (u: number) => (u === 1 ? 'Ás' : String(u));
+const pct = (x: number) => (x * 100).toFixed(1).replace('.', ',') + '%';
+const s17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasS17) }));
+const h17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasH17) }));
+const avgBust = s17.reduce((a, r) => a + r.bust * (r.u === 10 ? 4 : 1), 0) / 13;
+
+const faq = [
+  { q: 'Com qual carta à mostra o dealer estoura mais?', a: 'Com um 6 ou um 5: em cerca de 42% das vezes, se o dealer para no 17 macio. Com um 4, em quase 40%. Por isso você para com 12 a 16 contra um 4, 5 ou 6.' },
+  { q: 'Com qual carta à mostra o dealer estoura menos?', a: 'Com o ás: descartado o blackjack, o dealer estoura em cerca de 17% das vezes. Com um 7, 8, 9 ou 10, o valor fica entre 23% e 26%.' },
+  { q: 'Quanto muda se o dealer pede no 17 macio (H17)?', a: 'Com cartas baixas e com um ás o dealer estoura um pouco mais, porque continua pedindo em situações em que antes pararia; mas também termina mais vezes em 18–21. No saldo, o H17 é pior para você: a vantagem da casa sobe cerca de 0,2 ponto percentual.' },
+];
+---
+<Guide
+  lang="pt"
+  route="dataBust"
+  title="Probabilidade de o dealer estourar (tabela)"
+  h1="Quantas vezes o dealer estoura, por carta à mostra"
+  description="Tabela exata: quantas vezes o dealer estoura no blackjack segundo a carta à mostra e a probabilidade de cada total final de 17 a 21. Com S17, H17 e 6 baralhos."
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['hand16v10', 'strategy', 'dataRules', 'data']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>Em resumo:</strong> com 6 baralhos e um dealer que para no 17 macio, o dealer estoura em cerca de <strong>42% das vezes com um 5 ou 6</strong>, <strong>40% com um 4</strong>, <strong>35–37% com um 2 ou 3</strong>, <strong>23–26% com um 7 a 10</strong> e <strong>17% com um ás</strong> (sem contar os blackjacks do dealer). Em média, o dealer estoura em {pct(avgBust)} das mãos em que não tem blackjack.</p></div>
+  </div>
+
+  <div slot="wide" class="read">
+    <h2 id="s17">Dealer para no 17 macio (S17)</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>Carta à mostra</th><th>Estoura</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>Tem blackjack</th></tr></thead>
+        <tbody>
+          {s17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="h17">Dealer pede no 17 macio (H17)</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>Carta à mostra</th><th>Estoura</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>Tem blackjack</th></tr></thead>
+        <tbody>
+          {h17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2 id="method">Como ler a tabela e como foi calculada</h2>
+  <ul>
+    <li>As colunas “Estoura” e 17–21 somam 100% e são as probabilidades <strong>depois de descartado um blackjack do dealer</strong>, ou seja, exatamente a situação em que você decide numa mesa com carta oculta. A última coluna é a probabilidade de blackjack do dealer antes da espiada (peek).</li>
+    <li>Cálculo exato (não simulação) com o motor do Veintiuno: 6 baralhos, a carta à mostra do dealer é retirada e cada carta possível é jogada até o fim. Conferido com uma simulação independente de 1,5 milhão de mãos por carta à mostra; as diferenças ficam em poucos décimos de ponto.</li>
+    <li>Com menos baralhos, ou levando em conta as cartas dos jogadores, os valores mudam um pouco, mas a ordem nunca muda.</li>
+  </ul>
+
+  <h2 id="use">O que fazer com esta tabela</h2>
+  <p>Ela é o verdadeiro motivo de a estratégia básica ser como é. Com 12 a 16 contra um 4, 5 ou 6 você para, porque o dealer estoura em quase metade das vezes em que ainda não tem 17–21; contra um 7 ou mais você pede, porque ele quase sempre chega a 17 ou mais. O caso mais discutido é explicado em <a href={routes.hand16v10.pt}>16 contra 10</a>.</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 8px; background: var(--panel); border-radius: 14px; overflow: hidden; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

@@ -1,0 +1,67 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Si può vincere sempre a blackjack?', a: 'No. Nessun sistema vince ogni volta. Con una strategia di base perfetta il banco conserva un vantaggio di circa lo 0,5%, quindi nel lungo periodo perdi un po’. In una sessione breve puoi vincere o perdere per pura fortuna.' },
+  { q: 'La Martingala funziona a blackjack?', a: 'No. Raddoppiare la puntata dopo ogni perdita non cambia il vantaggio del banco, cambia solo il modo in cui perdi. Vinci spesso piccole somme, poi una serie negativa cancella tutto o ti fa sbattere contro il limite del tavolo.' },
+  { q: 'Qual è la migliore strategia per il blackjack?', a: 'La strategia di base: la giocata matematicamente ottimale per ogni mano contro ogni carta del banco, con le regole del tuo tavolo. È ciò che riduce di più il vantaggio del banco. Sistemi di puntata, serie e sensazioni non la migliorano.' },
+  { q: 'Che probabilità hai di vincere una mano di blackjack?', a: 'Con la strategia di base vinci circa il 42–43% delle mani, pareggi circa l’8–9% e perdi circa il 48–49%. Recuperi gran parte della differenza perché il blackjack paga 3 a 2 e perché raddoppi e dividi nelle situazioni favorevoli.' },
+];
+---
+<Guide
+  lang="it"
+  route="howToWin"
+  title="Come vincere a blackjack: cosa funziona e cosa no"
+  h1="Come vincere a blackjack: la risposta onesta"
+  description="Si può vincere a blackjack? Quanto vale il vantaggio del banco, quanto lo riduce la strategia di base, cosa dà il conteggio delle carte e i trucchi inutili."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['strategy', 'counting', 'howToPlay', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> non esiste un modo per vincere sempre. Quello che puoi fare è <strong>perdere il meno possibile</strong>. Una strategia di base perfetta porta il vantaggio del banco a circa lo 0,5%, contro il 2% o più di chi gioca a sensazione. Contare le carte può dare un piccolo vantaggio, ma è difficile, lento, e i casinò si difendono.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In questa guida">
+    <b>In questa guida</b>
+    <ol>
+      <li><a href="#edge">Da dove viene il vantaggio del banco</a></li>
+      <li><a href="#works">Cosa funziona: 5 cose che riducono le perdite</a></li>
+      <li><a href="#doesnt">Cosa non funziona</a></li>
+      <li><a href="#counting">E il conteggio delle carte?</a></li>
+      <li><a href="#mindset">Un approccio sano</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="edge">Da dove viene il vantaggio del banco</h2>
+  <p>Il blackjack sembra equo: tu e il banco pescate dalle stesse carte. Il trucco sta nell’ordine. <strong>Giochi per primo</strong>, e se sballi perdi, anche se poi sballa anche il banco. Questa sola regola vale per il banco circa l’8%.</p>
+  <p>Gran parte la recuperi grazie a cose che il banco non può fare: incassare 3 a 2 con un blackjack, raddoppiare, dividere e stare quando vuoi tu. Se fai tutto questo bene, il vantaggio del banco scende, a seconda delle regole, allo <strong>0,3–0,7%</strong>. Se giochi come il banco (chiedere carta fino a 17), è di circa il 5,5%.</p>
+
+  <h2 id="works">Cosa funziona: 5 cose che riducono le perdite</h2>
+  <ol>
+    <li><strong>Impara la strategia di base.</strong> È di gran lunga il fattore più importante. Usa la <a href={routes.strategy.it}>tabella di strategia interattiva</a> con le regole del tuo tavolo e allenati finché non esiti più.</li>
+    <li><strong>Gioca solo ai tavoli che pagano 3:2.</strong> Un pagamento 6:5 costa circa 1,4 punti percentuali, più di tutti i tuoi errori messi insieme.</li>
+    <li><strong>Lascia perdere l’assicurazione.</strong> È una scommessa laterale con circa il 7% di vantaggio del banco.</li>
+    <li><strong>Leggi le regole.</strong> Un banco che sta su soft 17, il raddoppio dopo la divisione e la resa ti aiutano. Meno mazzi è meglio di più mazzi.</li>
+    <li><strong>Fissa un limite prima di sederti</strong> e rispettalo. Le oscillazioni nel blackjack sono grandi: anche giocando alla perfezione avrai serie negative.</li>
+  </ol>
+
+  <h2 id="doesnt">Cosa non funziona</h2>
+  <ul>
+    <li><strong>Sistemi di puntata</strong> (Martingala, Paroli, 1-3-2-6…): cambiano quanto punti, non le probabilità di una mano. Il vantaggio del banco vale su ogni euro che punti.</li>
+    <li><strong>Tavoli caldi e freddi:</strong> le carte non sanno se hai vinto la mano precedente.</li>
+    <li><strong>“Non sballare mai” (stare da 12 in su):</strong> sembra prudente, ma contro le carte forti del banco costa soldi.</li>
+    <li><strong>Giocare come il banco:</strong> una delle peggiori strategie in assoluto.</li>
+    <li><strong>I “sistemi vincenti” venduti su internet:</strong> se funzionassero, nessuno li venderebbe.</li>
+  </ul>
+
+  <h2 id="counting">E il conteggio delle carte?</h2>
+  <p>È l’unica tecnica legale che può dare un vantaggio al giocatore, ed è reale: le carte uscite non tornano nel sabot. Ma il vantaggio è piccolo (circa lo 0,5–1%), richiede forti salti di puntata al momento giusto, una disciplina di ferro e un bankroll molto grande, e i casinò rimescolano prima o ti mostrano la porta appena se ne accorgono. Online non funziona. Tutta la storia è in <a href={routes.counting.it}>Come contare le carte a blackjack</a>.</p>
+
+  <h2 id="mindset">Un approccio sano</h2>
+  <p>Considera il blackjack come qualsiasi intrattenimento a pagamento: un biglietto per un concerto costa soldi e non ti aspetti di riaverli. La differenza è che nel blackjack decidi tu quanto costa, e giocare alla perfezione tiene il prezzo al minimo.</p>
+  <p>Imparare a giocare bene è anche una sfida mentale davvero appagante: sapere esattamente perché chiedi carta con 12 contro un 2 o dividi gli 8 contro un 10. È proprio questo che ti insegna Veintiuno, senza soldi veri e senza scommesse.</p>
+  <div class="callout warn"><p>Se il gioco ti costa più di quanto vorresti, fermati. Trovi aiuto gratuito nella nostra pagina sul <a href={routes.responsible.it}>gioco responsabile</a>.</p></div>
+</Guide>

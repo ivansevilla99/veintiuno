@@ -1,0 +1,54 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import StrategyChart from '../../../components/StrategyChart.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: '「沒有暗牌」是什麼意思？', a: '發牌時莊家只拿一張明牌。第二張牌要等所有玩家都行動完才抽。如果湊成 Blackjack，莊家連你為了加倍或分牌多押的錢也一起贏走。在美式規則下，莊家會先檢查是否有 Blackjack，有的話這一手就到此結束。' },
+  { q: '西班牙的賭場可以投降嗎？', a: '通常不行。少數牌桌和部分持有西班牙牌照的線上賭場有提供；請看牌桌上的規則牌。' },
+  { q: '為什麼在西班牙 11 點對 10 不加倍？', a: '沒有暗牌時，莊家仍可能有 Blackjack。如果你加倍而他剛好有，你會輸兩倍。這個風險讓 11 點對 10 或 A 加倍變成虧損的打法，所以直接要牌就好。' },
+  { q: '西班牙賭場的莊家優勢是多少？', a: '以典型規則（六副牌、莊家軟 17 停牌、無暗牌、只能在 9–11 加倍、不能投降、Blackjack 賠 3:2）加上完美的基本策略，大約是 0.6%。' },
+];
+---
+<Guide lang="zh" route="spain" title="西班牙的21點規則（無暗牌）與策略表" h1="西班牙的21點規則" description="西班牙賭場的21點（Blackjack）：沒有暗牌、只能在 9、10 或 11 點加倍，通常不能投降。和拉斯維加斯規則相比有哪些打法不同，附完整策略表。" updated="2026-09-27" readMinutes={6} faq={faq} related={['strategy', 'howToPlay', 'howToWin', 'counting']} wide>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>簡單來說：</strong>西班牙的賭場<strong>沒有暗牌</strong>，<strong>只能在 9、10 或 11 點加倍</strong>，而且通常<strong>不能投降</strong>。這會改變好幾個重要的打法——例如 11 點對 10 不加倍，8-8 對 A 不分牌。注意：這裡談的是一般的21點，不是另一種叫「Spanish 21」的遊戲。</p></div>
+  </div>
+  <div slot="wide" class="read">
+    <h2 id="rules">西班牙的典型規則</h2>
+    <table>
+      <thead><tr><th>規則</th><th>西班牙賭場（典型）</th><th>拉斯維加斯（典型）</th></tr></thead>
+      <tbody>
+        <tr><td>副數</td><td>6（有時 8）</td><td>6 或 8</td></tr>
+        <tr><td>莊家暗牌</td><td><strong>沒有</strong>（第二張牌最後才發）</td><td>有，莊家先檢查 Blackjack</td></tr>
+        <tr><td>莊家軟 17</td><td>停牌</td><td>停牌或要牌，視牌桌而定</td></tr>
+        <tr><td>加倍</td><td><strong>只能在 9、10 或 11 點</strong></td><td>任意兩張牌</td></tr>
+        <tr><td>分牌後加倍</td><td>通常可以</td><td>通常可以</td></tr>
+        <tr><td>投降</td><td><strong>通常不行</strong></td><td>有時可以（後投降）</td></tr>
+        <tr><td>Blackjack 賠率</td><td>3 比 2</td><td>3 比 2，較差的牌桌 6 比 5</td></tr>
+      </tbody>
+    </table>
+    <h2 id="chart">西班牙賭場的策略表</h2>
+  </div>
+  <div slot="wide"><StrategyChart lang="zh" preset="spainCasino" /></div>
+
+  <h2 id="differences">和拉斯維加斯不同的打法</h2>
+  <p>兩條規則就能解釋一切。第一，<strong>沒有暗牌</strong>時，莊家的 Blackjack 會把桌上的一切收走，包括加倍和分牌的注碼——所以你不會想在對上 10 或 A 時多押錢：</p>
+  <ul>
+    <li><strong>11 點對 10 或 A：</strong>要牌，不加倍。</li>
+    <li><strong>A-A 對 A：</strong>要牌，不分牌。</li>
+    <li><strong>8-8 對 10 或 A：</strong>要牌（有投降的話就投降）。在拉斯維加斯則一律分牌。</li>
+  </ul>
+  <p>第二，<strong>只能在 9–11 點加倍</strong>，讓所有軟牌的加倍都消失了：</p>
+  <ul>
+    <li><strong>A-2 到 A-6：</strong>在拉斯維加斯策略會加倍的地方，改成要牌。</li>
+    <li><strong>A-7 對 3–6：</strong>在拉斯維加斯策略會加倍的地方，改成停牌。</li>
+  </ul>
+  <p>而不能投降時，平常要投降的牌（16 點對 9、10、A；15 點對 10）都改成要牌。</p>
+
+  <h2 id="obo">那 OBO 牌桌呢？</h2>
+  <p>有些歐洲牌桌，尤其是線上的，採用 <strong>OBO</strong>（「original bets only」，只輸原始注碼）：如果莊家有 Blackjack，你只輸掉原本的注碼，加倍和分牌多押的錢會退還。這種牌桌的策略和有暗牌時相同——在策略表中打開「莊家先檢查 Blackjack」即可。</p>
+
+  <h2 id="cost">要付出多少代價</h2>
+  <p>以典型規則加上完美打法，莊家優勢大約是 <strong>0.6%</strong>——比拉斯維加斯一場好的六副牌遊戲（約 0.4%）稍差，主要是因為沒有暗牌和加倍的限制，但比任何 6:5 的牌桌都好得多。剛開始玩？先從<a href={routes.howToPlay.zh}>21點規則</a>看起。</p>
+</Guide>

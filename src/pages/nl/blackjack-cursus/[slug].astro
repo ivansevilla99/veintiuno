@@ -1,0 +1,10 @@
+---
+import CourseLesson from '../../../components/CourseLesson.astro';
+import { courses } from '../../../lib/courses';
+
+export function getStaticPaths() {
+  return courses.nl.map((lesson, i) => ({ params: { slug: lesson.slug }, props: { i } }));
+}
+const { i } = Astro.props as { i: number };
+---
+<CourseLesson lang="nl" lessons={courses.nl} i={i} />

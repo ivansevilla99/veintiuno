@@ -1,0 +1,56 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes, linkOf } from '../../../lib/site';
+
+const faq = [
+  { q: 'Is kaarten tellen bij blackjack illegaal?', a: 'Nee. Kaarten tellen in je hoofd is niet illegaal, niet in Nederland en België en ook niet in de VS: je gebruikt alleen je hoofd voor informatie die open op tafel ligt. Verboden is het gebruik van apparaten of hulp van anderen, en het casino kan je vragen te stoppen met spelen.' },
+  { q: 'Kan een casino je eruit zetten omdat je kaarten telt?', a: 'Op veel plaatsen wel. Casino’s kunnen je de toegang weigeren of je uitsluiten: ze kunnen je van blackjack weren of je vragen te vertrekken. Een bekende uitzondering is New Jersey (Atlantic City), waar je niet mag worden geweerd omdat je telt – het casino kan wel eerder schudden of je inzetten beperken.' },
+  { q: 'Is het verboden om in het casino een app te gebruiken om kaarten te tellen?', a: 'Ja, bijna overal. Wie aan een echte tafel een telefoon of ander apparaat gebruikt om kaarten te tellen of beslissingen te berekenen, overtreedt de casinoregels, en op plaatsen als Nevada is het zelfs een misdrijf. Apps zoals Veintiuno zijn bedoeld om thuis te oefenen.' },
+  { q: 'Wat doen casino’s tegen kaartentellers?', a: 'Ze schudden eerder (minder penetratie), gebruiken continue schudmachines, beperken hoeveel je je inzet mag verhogen, houden je in de gaten met camera’s en vragen je – waar ze dat mogen – te stoppen met blackjack.' },
+];
+---
+<Guide
+  lang="nl"
+  route="countingLegal"
+  title="Is kaarten tellen illegaal? Nederland, België en VS"
+  h1="Is kaarten tellen illegaal?"
+  description="Is kaarten tellen bij blackjack illegaal? Wat er geldt in Nederland, België en de VS, wat casino’s mogen doen en wat echt verboden is. Geen juridisch advies."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['counting', 'practiceCounting', 'howToWin', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> <strong>Nee, kaarten tellen in je hoofd is niet illegaal.</strong> Verboden zijn apparaten, aantekeningen of partners die signalen geven. Maar een casino bepaalt zelf wie er speelt: val je op, dan kan het eerder schudden, je inzetten beperken of je vragen te stoppen met spelen.</p></div>
+  </div>
+
+  <h2 id="why">Waarom het niet illegaal is</h2>
+  <p>Kaarten tellen betekent alleen onthouden welke kaarten al gevallen zijn en daar conclusies uit trekken. Je manipuleert niets, je ziet geen verborgen kaarten en je gebruikt geen hulp van buitenaf: je gebruikt alleen de informatie die het casino zelf open op tafel legt. Nadenken kun je niet zinnig verbieden.</p>
+  <p>De grens ligt bij <strong>hulp van buitenaf</strong>: een rekenmachine, een telefoon, een app, een verborgen apparaat of een team dat elkaar de count met signalen doorgeeft. Dat is in casino’s verboden en op sommige plaatsen een misdrijf.</p>
+
+  <h2 id="countries">Per land</h2>
+  <table>
+    <thead><tr><th>Land</th><th>Tellen in je hoofd?</th><th>Mag je eruit gezet worden?</th></tr></thead>
+    <tbody>
+      <tr><td>Nederland</td><td>Niet illegaal</td><td>Ja: het casino kan je de toegang weigeren of je uitsluiten; apparaten en hulpmiddelen zijn verboden</td></tr>
+      <tr><td>België</td><td>Niet illegaal</td><td>Ja: het casino kan je de toegang weigeren of je uitsluiten; apparaten en hulpmiddelen zijn verboden</td></tr>
+      <tr><td>VS (Nevada)</td><td>Niet illegaal</td><td>Ja; een apparaat gebruiken om te tellen is een misdrijf</td></tr>
+      <tr><td>VS (New Jersey)</td><td>Niet illegaal</td><td>Je mag niet worden geweerd omdat je telt, maar het casino kan tegenmaatregelen nemen</td></tr>
+    </tbody>
+  </table>
+  <p class="muted small">Een algemeen overzicht, geen juridisch advies. Het huisreglement van elk casino en de regels van het betreffende land of de betreffende staat kunnen extra voorwaarden stellen.</p>
+
+  <h2 id="casinos">Wat casino’s doen</h2>
+  <ul>
+    <li><strong>Eerder schudden.</strong> Hoe minder kaarten er vóór het schudden worden gedeeld, hoe minder de count oplevert.</li>
+    <li><strong>Continue schudmachines.</strong> De kaarten gaan na elke hand terug in de schoen, dus tellen levert niets op.</li>
+    <li><strong>Inzetten beperken.</strong> Kaarten tellen geeft je alleen een voordeel als je bij een hoge count flink meer inzet; mag je niet verhogen, dan is er geen voordeel.</li>
+    <li><strong>Je vragen te stoppen met blackjack</strong> of te vertrekken, waar de wet dat toestaat.</li>
+  </ul>
+
+  <h2 id="online">En online?</h2>
+  <p>Bij online blackjack met software valt er niets te verbieden: het deck wordt elke hand opnieuw geschud, dus tellen werkt niet. Bij <a href={linkOf('live', 'nl')}>live blackjack</a> is de schoen echt, maar er wordt vroeg geschud en het voordeel is piepklein.</p>
+
+  <h2 id="learn">Als je wilt leren tellen</h2>
+  <p>Het is legaal en een geweldige geheugentraining. Beheers eerst de <a href={routes.strategy.nl}>basisstrategie</a>, ga dan verder met <a href={routes.counting.nl}>kaarten tellen</a> en de <a href={routes.practiceCounting.nl}>oefeningen voor kaarten tellen</a>. En houd de realiteit voor ogen: het voordeel is klein, en de meeste mensen die het proberen verdienen er geen geld mee. Meer daarover in <a href={routes.responsible.nl}>verantwoord spelen</a>.</p>
+</Guide>

@@ -1,0 +1,84 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { houseEdge, presets, defaultRules } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const base = houseEdge(defaultRules);
+const effects: [string, string, number][] = [
+  ['Il blackjack paga 6:5 invece di 3:2', 'Peggio', houseEdge({ ...defaultRules, payout: 'sixToFive' }) - base],
+  ['Il blackjack paga 1:1 (even money)', 'Peggio', houseEdge({ ...defaultRules, payout: 'evenMoney' }) - base],
+  ['Il banco chiede carta su soft 17 (H17)', 'Peggio', houseEdge({ ...defaultRules, dealerHitsSoft17: true }) - base],
+  ['Raddoppio solo con 10 o 11', 'Peggio', houseEdge({ ...defaultRules, doubleRule: 'tenEleven' }) - base],
+  ['Niente raddoppio dopo la divisione', 'Peggio', houseEdge({ ...defaultRules, doubleAfterSplit: false }) - base],
+  ['Senza carta coperta (il banco non controlla)', 'Peggio', houseEdge({ ...defaultRules, holeCard: false }) - base],
+  ['Si divide una sola volta', 'Peggio', houseEdge({ ...defaultRules, maxSplitHands: 2 }) - base],
+  ['Raddoppio solo con 9, 10 o 11', 'Peggio', houseEdge({ ...defaultRules, doubleRule: 'nineToEleven' }) - base],
+  ['Niente resa', 'Peggio', houseEdge({ ...defaultRules, surrender: 'none' }) - base],
+  ['8 mazzi invece di 6', 'Peggio', houseEdge({ ...defaultRules, decks: 8 }) - base],
+  ['4 mazzi invece di 6', 'Meglio', houseEdge({ ...defaultRules, decks: 4 }) - base],
+  ['Si possono ridividere gli assi', 'Meglio', houseEdge({ ...defaultRules, resplitAces: true }) - base],
+  ['2 mazzi invece di 6', 'Meglio', houseEdge({ ...defaultRules, decks: 2 }) - base],
+  ['1 mazzo invece di 6', 'Meglio', houseEdge({ ...defaultRules, decks: 1 }) - base],
+];
+const fmt = (x: number) => (x > 0 ? '+' : '−') + Math.abs(x).toFixed(2).replace('.', ',') + ' punti';
+const tables: [string, keyof typeof presets][] = [
+  ['Las Vegas, 6 mazzi, S17, resa', 'vegasS17'],
+  ['Las Vegas, 6 mazzi, H17, resa', 'vegasH17'],
+  ['Europeo / online, senza carta coperta', 'europeanOnline'],
+  ['Casinò in Spagna', 'spainCasino'],
+  ['Double deck (2 mazzi)', 'doubleDeck'],
+];
+const pct = (x: number) => x.toFixed(2).replace('.', ',') + '%';
+
+const faq = [
+  { q: 'Qual è la regola del blackjack peggiore per te?', a: 'Che il blackjack paghi 6:5 invece di 3:2. Aumenta il vantaggio del banco di circa 1,4 punti percentuali, quindi più o meno quadruplica quello che perdi anche giocando alla perfezione. Se un tavolo paga 6:5, la tua mossa migliore è cercarne un altro.' },
+  { q: 'Qual è il vantaggio del banco nel blackjack?', a: 'Con una strategia di base perfetta, tra lo 0,2% e lo 0,7% a seconda delle regole; con 6 mazzi e le regole tipiche di Las Vegas, circa lo 0,4%. Chi gioca a sensazione ha uno svantaggio reale molto più alto.' },
+  { q: 'Il numero di mazzi conta?', a: 'Sì, ma meno di altre regole. Passare da 6 a 8 mazzi costa circa 0,02 punti; con 2 mazzi risparmi circa 0,17. Il pagamento del blackjack e il fatto che il banco chieda carta su soft 17 contano molto di più.' },
+];
+---
+<Guide
+  lang="it"
+  route="dataRules"
+  title="Vantaggio del banco nel blackjack: regola per regola"
+  h1="Quanto ti costa ogni regola del blackjack"
+  description="Il vantaggio del banco nel blackjack in base alle regole del tavolo: pagamento 6:5, H17, numero di mazzi, resa, raddoppio dopo la divisione e carta coperta."
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['dataBust', 'spain', 'howToWin', 'data']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> con una strategia di base perfetta, a un tavolo con 6 mazzi e buone regole il banco trattiene circa il <strong>{pct(base)}</strong> di quello che punti. La regola di gran lunga più costosa è un blackjack pagato solo <strong>6:5</strong> (+1,39 punti); poi viene il banco che chiede carta su soft 17 (+0,22).</p></div>
+  </div>
+
+  <h2 id="effects">L’effetto di ogni regola</h2>
+  <p>Punto di partenza: 6 mazzi, il banco sta su soft 17, raddoppio su due carte qualsiasi e dopo la divisione, resa tardiva, carta coperta, e il blackjack paga 3:2. Vantaggio del banco con strategia perfetta: <strong>{pct(base)}</strong>. Ogni riga mostra quanto cambia se modifichi solo quella regola.</p>
+  <table class="data-table">
+    <thead><tr><th>Regola</th><th>Per te</th><th>Variazione del vantaggio del banco</th></tr></thead>
+    <tbody>
+      {effects.map(([name, dir, d]) => <tr><th scope="row">{name}</th><td>{dir}</td><td class={d > 0 ? 'bad' : 'good'}>{fmt(d)}</td></tr>)}
+    </tbody>
+  </table>
+
+  <h2 id="tables">Il vantaggio del banco ai tavoli tipici</h2>
+  <table class="data-table">
+    <thead><tr><th>Tavolo</th><th>Vantaggio del banco</th></tr></thead>
+    <tbody>
+      {tables.map(([name, k]) => <tr><th scope="row">{name}</th><td class="hl">{pct(houseEdge(presets[k]))}</td></tr>)}
+    </tbody>
+  </table>
+  <p>Questi valori presuppongono che tu giochi la strategia di base senza errori. Ogni errore ti costa in più: prendere l’assicurazione, stare con 12 contro un 2 o non dividere gli 8 si somma rapidamente fino a diversi punti. Per questo la <a href={routes.strategy.it}>tabella di strategia</a> conta più della ricerca del tavolo perfetto.</p>
+
+  <h2 id="source">Da dove vengono i numeri</h2>
+  <p>Il vantaggio di base e l’effetto di ogni regola sono le approssimazioni abituali della tabella degli effetti delle regole di Wizard of Odds, la stessa che usa l’app Veintiuno. Gli effetti si sommano in modo approssimato: se combini più regole, il risultato può scostarsi di qualche centesimo dal calcolo esatto per quella combinazione precisa.</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 16px; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); font-weight: 600; }
+  .data-table td.bad { color: var(--wrong); font-weight: 700; }
+  .data-table td.good { color: var(--correct); font-weight: 700; }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

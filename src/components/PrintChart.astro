@@ -3,7 +3,7 @@ import { packs } from '../i18n';
 // Black-on-white strategy chart for printing / PDF. Same data as the interactive chart.
 import { strategyTable, presets, houseEdge, upcards, hardKeys, softKeys, pairKeys, type HandKey, type Play } from '../lib/strategy';
 import { keyLabel } from '../lib/chartRender';
-interface Props { preset: keyof typeof presets; title: string; rulesText: string; lang?: 'es' | 'en' | 'de' | 'fr' }
+interface Props { preset: keyof typeof presets; title: string; rulesText: string; lang?: import('../lib/site').Lang }
 const { preset, title, rulesText, lang = 'es' } = Astro.props;
 const P = ({
   es: { groups: ['Totales duros', 'Totales blandos', 'Parejas'], edge: (x: number) => `Ventaja de la casa con estrategia perfecta: ${x.toFixed(2).replace('.', ',')} %`, foot: 'Filas: tu mano · Columnas: carta visible del crupier · Nunca tomes el seguro · veintiunoapp.com — tabla interactiva, curso y mesa de práctica gratis',

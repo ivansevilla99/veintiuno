@@ -1,0 +1,27 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { routes, MAIL, linkOf } from '../../../lib/site';
+---
+<Base lang="nl" route="about" title="Over Veintiuno: zo ontstaan onze strategietabellen" description="Veintiuno is een app om blackjack te leren van onafhankelijk ontwikkelaar Iván Sevilla. Hoe we tabellen berekenen, onze bronnen en waarom geen casino.">
+  <div class="container legal">
+    <div class="read prose">
+      <h1>Over Veintiuno</h1>
+      <p class="lead">Veintiuno (Spaans voor „eenentwintig”) is een app waarmee je blackjack goed leert spelen, gemaakt in Spanje door onafhankelijk ontwikkelaar Iván Sevilla.</p>
+      <h2>Waarom hij bestaat</h2>
+      <p>Veel van wat er online over blackjack wordt geschreven, komt van sites die geld krijgen om je naar een casino te sturen. Daarom vind je overal „trucs om te winnen” en nauwelijks eerlijke uitleg. Veintiuno doet het omgekeerde: de app laat je de juiste beslissing zien en legt uit waarom – zonder echt geld en zonder iets anders te verkopen dan de app zelf.</p>
+      <h2>Waar de tabellen vandaan komen</h2>
+      <p>De basisstrategie is geen kwestie van mening: het is de zet met de beste verwachte waarde voor elke combinatie van hand, kaart van de dealer en regels. Onze tabellen gaan uit van de standaardtabel voor zes decks en nemen de wijzigingen over die elke regel met zich meebrengt (aantal decks, soft 17, hole card, verdubbelen na splitsen, beperkingen bij verdubbelen en surrender).</p>
+      <p>Ze worden getoetst aan de standaardbronnen: het oorspronkelijke werk van Baldwin, Cantey, Maisel en McDermott uit 1956, <em>Beat the Dealer</em> van Edward Thorp, de analyse van Peter Griffin en de tabellen en rekenmodules van Wizard of Odds en BlackjackInfo. De cijfers voor het huisvoordeel zijn benaderingen op basis van de regeltabellen van Wizard of Odds.</p>
+      <p>De tabel op deze website draait op precies dezelfde engine als de app, dus ze komen altijd overeen.</p>
+      <h2>Wat we niet doen</h2>
+      <ul>
+        <li>Geen affiliatelinks naar casino’s of goksites, geen bonussen, geen reviews van aanbieders.</li>
+        <li>Geen belofte dat je geld wint. Blackjack heeft een huisvoordeel, en dat zeggen we ook.</li>
+        <li>In de app wordt niet met echt geld gespeeld.</li>
+      </ul>
+      <h2>Contact</h2>
+      <p>Heb je een fout gevonden in een tabel of uitleg? Schrijf naar <a href={`mailto:${MAIL}`}>{MAIL}</a>. We bekijken het en passen het, als je gelijk hebt, aan op de website en in de app.</p>
+      <p><a href={routes.responsible.nl}>Verantwoord spelen</a> · <a href={linkOf('privacy', 'nl')}>Privacy</a> · <a href={linkOf('terms', 'nl')}>Voorwaarden</a></p>
+    </div>
+  </div>
+</Base>

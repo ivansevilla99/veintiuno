@@ -1,0 +1,54 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import StrategyChart from '../../../components/StrategyChart.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'O que significa “sem carta oculta”?', a: 'Na distribuição, o dealer recebe só uma carta, virada para cima. A segunda carta ele tira só quando todos os jogadores terminam. Se ela der blackjack, o dealer também ganha o dinheiro extra que você apostou para dobrar ou dividir. Nas regras americanas, o dealer confere o blackjack primeiro e a mão termina ali.' },
+  { q: 'Nos cassinos espanhóis dá para desistir (surrender)?', a: 'Na maioria das vezes, não. Algumas poucas mesas e alguns cassinos online licenciados na Espanha oferecem; olhe a placa de regras da mesa.' },
+  { q: 'Por que na Espanha não se dobra 11 contra um 10?', a: 'Sem carta oculta, o dealer ainda pode ter blackjack. Se você dobra e ele tem, você perde o dobro. Esse risco transforma dobrar 11 contra 10 ou ás numa jogada perdedora, então você simplesmente pede.' },
+  { q: 'Qual é a vantagem da casa num cassino espanhol?', a: 'Com as regras típicas (seis baralhos, dealer para no 17 macio, sem carta oculta, dobrar só com 9–11, sem surrender, blackjack paga 3:2) e estratégia básica perfeita, cerca de 0,6%.' },
+];
+---
+<Guide lang="pt" route="spain" title="Regras do blackjack na Espanha (sem carta oculta)" h1="Regras do blackjack na Espanha" description="Blackjack nos cassinos espanhóis: sem carta oculta, dobrar só com 9, 10 ou 11 e, em geral, sem surrender. O que muda em relação a Las Vegas, com a tabela." updated="2026-09-27" readMinutes={6} faq={faq} related={['strategy', 'howToPlay', 'howToWin', 'counting']} wide>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>Resumindo:</strong> os cassinos espanhóis jogam <strong>sem carta oculta</strong>, só permitem dobrar <strong>com 9, 10 ou 11</strong> e em geral <strong>não oferecem surrender</strong>. Isso muda várias jogadas importantes — por exemplo, você não dobra 11 contra um 10 nem divide oitos contra um ás. Atenção: estamos falando do blackjack normal, não do outro jogo chamado “Spanish 21”.</p></div>
+  </div>
+  <div slot="wide" class="read">
+    <h2 id="regras">Regras típicas na Espanha</h2>
+    <table>
+      <thead><tr><th>Regra</th><th>Cassinos espanhóis (típico)</th><th>Las Vegas (típico)</th></tr></thead>
+      <tbody>
+        <tr><td>Baralhos</td><td>6 (às vezes 8)</td><td>6 ou 8</td></tr>
+        <tr><td>Carta oculta do dealer</td><td><strong>Não</strong> (a segunda carta vem no final)</td><td>Sim, o dealer confere o blackjack</td></tr>
+        <tr><td>Dealer no 17 macio</td><td>Para</td><td>Para ou pede, conforme a mesa</td></tr>
+        <tr><td>Dobrar</td><td><strong>Só com 9, 10 ou 11</strong></td><td>Com quaisquer duas cartas</td></tr>
+        <tr><td>Dobrar depois de dividir</td><td>Em geral, sim</td><td>Em geral, sim</td></tr>
+        <tr><td>Surrender</td><td><strong>Em geral, não</strong></td><td>Às vezes (late surrender)</td></tr>
+        <tr><td>Blackjack paga</td><td>3 para 2</td><td>3 para 2; nas mesas baratas, 6 para 5</td></tr>
+      </tbody>
+    </table>
+    <h2 id="tabela">Tabela de estratégia para cassinos espanhóis</h2>
+  </div>
+  <div slot="wide"><StrategyChart lang="pt" preset="spainCasino" /></div>
+
+  <h2 id="diferencas">Jogadas que mudam em relação a Las Vegas</h2>
+  <p>Duas regras explicam tudo. Primeira: <strong>sem carta oculta</strong>, um blackjack do dealer leva tudo o que está na mesa, inclusive dobras e divisões — então você não quer dinheiro extra em jogo contra um 10 ou um ás:</p>
+  <ul>
+    <li><strong>11 contra 10 ou ás:</strong> pedir, não dobrar.</li>
+    <li><strong>A-A contra ás:</strong> pedir, não dividir.</li>
+    <li><strong>8-8 contra 10 ou ás:</strong> pedir (ou desistir, se houver surrender). Em Las Vegas você sempre divide.</li>
+  </ul>
+  <p>Segunda: <strong>dobrar só com 9–11</strong> elimina todas as dobras com mãos macias:</p>
+  <ul>
+    <li><strong>A-2 a A-6:</strong> pedir onde a estratégia de Vegas dobraria.</li>
+    <li><strong>A-7 contra 3–6:</strong> parar onde a estratégia de Vegas dobraria.</li>
+  </ul>
+  <p>E, sem surrender, as mãos típicas de surrender (16 contra 9, 10, ás; 15 contra 10) se jogam pedindo.</p>
+
+  <h2 id="obo">E as mesas OBO?</h2>
+  <p>Algumas mesas europeias, sobretudo online, jogam com <strong>OBO</strong> (“original bets only”): se o dealer tem blackjack, você perde só a aposta original e recebe de volta as dobras e divisões. Nelas a estratégia é a mesma de uma mesa com carta oculta — ative na tabela a opção “Dealer confere o blackjack”.</p>
+
+  <h2 id="custo">Quanto custa</h2>
+  <p>Com as regras típicas e jogo perfeito, a vantagem da casa fica em cerca de <strong>0,6%</strong> — um pouco pior que um bom jogo de seis baralhos em Las Vegas (cerca de 0,4%), sobretudo pela falta de carta oculta e pela restrição para dobrar, mas muito melhor que qualquer mesa 6:5. Está começando agora? Comece pelas <a href={routes.howToPlay.pt}>regras do blackjack</a>.</p>
+</Guide>

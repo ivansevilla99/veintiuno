@@ -1,0 +1,91 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import CountDrill from '../../../components/CountDrill.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Contare le carte è illegale?', a: 'Contare le carte a mente non è illegale: stai solo facendo attenzione. È vietato usare dispositivi, appunti o segnali con dei complici. I casinò però sono attività private: in molti posti (Nevada compreso) possono chiederti di smettere di giocare a blackjack o di andartene.' },
+  { q: 'Contare le carte funziona online?', a: 'Non nel blackjack online normale: il software rimescola dopo ogni mano, quindi non c’è niente da contare. I tavoli con croupier dal vivo usano un sabot vero, ma di solito lo rimescolano quando ne resta ancora metà o più, e il vantaggio rimasto è quasi nullo.' },
+  { q: 'Quanto si guadagna contando le carte?', a: 'Meno di quanto si pensi. Un contatore disciplinato con buone regole può avere un vantaggio di circa lo 0,5–1% sul totale puntato, con oscillazioni enormi: puoi perdere per settimane prima che il vantaggio si veda. Per questo pochissimi riescono a farlo rendere.' },
+  { q: 'Cos’è il conteggio reale (true count)?', a: 'Il conteggio corrente diviso per il numero di mazzi ancora da distribuire. Un conteggio corrente di +6 con tre mazzi rimasti dà un conteggio reale di +2. È il conteggio reale a dirti se le carte rimaste ti favoriscono.' },
+  { q: 'Devo prima conoscere la strategia di base?', a: 'Sì. Contare senza una strategia di base solida non serve a niente: gli errori di strategia costano più di quanto il conteggio faccia guadagnare. Prima la tabella, poi il conteggio.' },
+];
+---
+<Guide
+  lang="it"
+  route="counting"
+  title="Contare le carte a blackjack: il sistema Hi-Lo"
+  h1="Come contare le carte a blackjack"
+  description="Impara a contare le carte con l’Hi-Lo: conteggio corrente, conteggio reale, il vantaggio che dà davvero, se è legale e perché online non funziona. Con esercizio"
+  updated="2026-09-27"
+  readMinutes={9}
+  faq={faq}
+  related={['strategy', 'howToWin', 'howToPlay', 'guides']}
+  cta={{ title: 'Prima la strategia, poi il conteggio', text: 'Veintiuno ti allena sulla strategia di base finché smetti di sbagliare, poi ti insegna l’Hi-Lo come modulo avanzato, con un esercizio di conteggio corrente alla velocità che scegli tu.' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> contare le carte significa tenere una somma progressiva delle carte uscite per capire quando il mazzo rimasto è ricco di carte alte, che favoriscono il giocatore. Nell’Hi-Lo le carte dal 2 al 6 valgono +1, i dieci e gli assi −1. È legale, ma il vantaggio è piccolo, richiede vera disciplina e online non funziona.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In questa guida">
+    <b>In questa guida</b>
+    <ol>
+      <li><a href="#why">Perché il conteggio funziona</a></li>
+      <li><a href="#hi-lo">Il sistema Hi-Lo passo per passo</a></li>
+      <li><a href="#true">Il conteggio reale</a></li>
+      <li><a href="#use">Cosa fare con il conteggio</a></li>
+      <li><a href="#reality">Con i piedi per terra: cosa rende</a></li>
+      <li><a href="#legal">È legale?</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="why">Perché il conteggio funziona</h2>
+  <p>A differenza della roulette, il blackjack ha memoria: le carte uscite non tornano nel sabot fino al prossimo rimescolamento, quindi quelle rimaste cambiano da una mano all’altra.</p>
+  <p>Quando le carte rimaste sono <strong>ricche di dieci e assi</strong>, ne beneficia il giocatore: più blackjack (pagati 3 a 2), raddoppi migliori e un banco che deve chiedere carta su 16 e sballa più spesso. Quando sono <strong>ricche di carte basse</strong>, succede il contrario. Contare significa semplicemente seguire questo equilibrio.</p>
+
+  <h2 id="hi-lo">Il sistema Hi-Lo passo per passo</h2>
+  <p>L’Hi-Lo è il sistema più diffuso perché è semplice e quasi efficace quanto quelli complicati. Ogni carta che vedi ha un valore:</p>
+  <table>
+    <thead><tr><th>Carte</th><th>Valore Hi-Lo</th></tr></thead>
+    <tbody>
+      <tr><td>2, 3, 4, 5, 6</td><td>+1</td></tr>
+      <tr><td>7, 8, 9</td><td>0</td></tr>
+      <tr><td>10, J, Q, K, A</td><td>−1</td></tr>
+    </tbody>
+  </table>
+  <p>Dopo il rimescolamento parti da 0 e sommi il valore di <strong>ogni</strong> carta che vedi: le tue, quelle degli altri giocatori e quelle del banco. Quel numero è il <strong>conteggio corrente</strong>. Un conteggio positivo significa che sono uscite più carte basse, quindi ne restano più alte.</p>
+  <p>Esempio: 5, K, 3, 9, 2, A → +1 −1 +1 0 +1 −1 = <strong>+1</strong>.</p>
+  <p>Trucco da esperti: elimina le coppie. Un 5 e un re insieme fanno 0, quindi puoi saltarli e contare più in fretta.</p>
+
+  <CountDrill lang="it" />
+
+  <h2 id="true">Il conteggio reale</h2>
+  <p>Un conteggio corrente di +6 significa tutt’altra cosa con un mazzo rimasto che con cinque. Per questo lo converti nel <strong>conteggio reale</strong> (true count): il conteggio corrente diviso per i mazzi rimasti.</p>
+  <ul>
+    <li>Conteggio corrente +6, tre mazzi rimasti → conteggio reale <strong>+2</strong>.</li>
+    <li>Conteggio corrente +6, un mazzo rimasto → conteggio reale <strong>+6</strong>.</li>
+  </ul>
+  <p>I mazzi rimasti li stimi guardando il contenitore degli scarti. Arrotondare al mezzo mazzo basta e avanza.</p>
+
+  <h2 id="use">Cosa fare con il conteggio</h2>
+  <ol>
+    <li><strong>Adattare la puntata.</strong> È qui che nasce quasi tutto il vantaggio. Con un conteggio reale di +1 o meno punti il minimo; da +2 in su aumenti la puntata un po’ alla volta. Come regola pratica, ogni punto di conteggio reale sposta il vantaggio di circa mezzo punto percentuale a tuo favore.</li>
+    <li><strong>Deviare dalla strategia di base.</strong> Con conteggi molto alti o molto bassi alcune giocate cambiano. La più famosa è l’assicurazione, che diventa corretta da un conteggio reale di +3. Queste deviazioni si chiamano giocate a indice; le 18 più preziose sono le “Illustrious 18”.</li>
+  </ol>
+
+  <h2 id="reality">Con i piedi per terra: cosa rende</h2>
+  <p>Qui la maggior parte delle guide esagera. La versione onesta:</p>
+  <ul>
+    <li><strong>Il vantaggio è piccolo.</strong> Con buone regole e una penetrazione profonda, un contatore esperto arriva forse a circa lo 0,5–1% del totale puntato.</li>
+    <li><strong>Le oscillazioni sono enormi.</strong> Con quel vantaggio puoi perdere per settimane. Per reggere serve un bankroll molto grande.</li>
+    <li><strong>I casinò si difendono.</strong> Rimescolano prima, ti limitano la forbice di puntata o ti chiedono di andartene.</li>
+    <li><strong>Online non funziona.</strong> Il blackjack RNG rimescola a ogni mano, e nei sabot dal vivo si taglia troppo presto perché serva a qualcosa.</li>
+    <li><strong>Le mescolatrici continue</strong> rimettono le carte dopo ogni mano: contro di loro contare è inutile.</li>
+  </ul>
+  <p>Contare le carte è un’abilità mentale affascinante e il modo migliore per capire davvero il gioco. Non è una strada facile verso i soldi, e chi ti dice il contrario vuole venderti qualcosa.</p>
+
+  <h2 id="legal">È legale?</h2>
+  <p>Contare <strong>a mente</strong> è legale: nessuno può vietarti di pensare. Gli aiuti invece no: telefoni, appunti, dispositivi o segnali con dei complici.</p>
+  <p>Ai casinò però non deve per forza piacere. Nella maggior parte degli ordinamenti possono rifiutarti come cliente: chiederti di smettere di giocare a blackjack o di andartene. (Il New Jersey è un’eccezione nota: lì i casinò non possono escludere i contatori, ma possono comunque rimescolare prima o limitare le puntate.) In pratica, di solito prima rimescolano prima o ti limitano la puntata. Approfondisci in <a href={routes.countingLegal.it}>Contare le carte è illegale?</a></p>
+  <p>Prima di contare, padroneggia la <a href={routes.strategy.it}>strategia di base</a>: ogni errore di strategia costa più di quanto il conteggio ti restituisca.</p>
+</Guide>

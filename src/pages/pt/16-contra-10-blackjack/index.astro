@@ -1,0 +1,53 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Pedir ou parar com 16 contra um 10?', a: 'Pedir, a menos que a mesa permita desistir: aí desistir é o melhor. Pedir perde um pouco menos do que parar (com 10-6, cerca de 0,007 aposta por mão), embora as duas opções percam mais da metade da sua aposta.' },
+  { q: 'Por que pedir, se com 16 você estoura tanto?', a: 'Porque parar com 16 só ganha se o dealer estourar, e com um 10 à mostra isso só acontece em cerca de 23% das vezes. Se você pede, estoura mais ou menos 6 em cada 10 vezes; se não estoura, melhora para 17–21 e às vezes ganha.' },
+  { q: 'E se o meu 16 tiver três cartas ou mais?', a: 'Aí parar costuma ser igual ou um pouco melhor, porque as cartas pequenas que formam a sua mão já não estão no baralho e as cartas que restam fazem você estourar com mais facilidade. É uma das poucas exceções que dependem da composição da mão. Com duas cartas: pedir.' },
+  { q: 'E 16 contra um 10 quando é um par de oitos?', a: 'Dividir. O 8-8 contra um 10 se divide nas mesas com carta oculta, porque duas mãos que começam com 8 perdem menos do que um 16. Nas mesas europeias sem carta oculta você pede (ou desiste, se for permitido).' },
+];
+---
+<Guide
+  lang="pt"
+  route="hand16v10"
+  title="16 contra 10 no blackjack: pedir ou parar?"
+  h1="16 contra 10: pedir ou parar?"
+  description="O que fazer com 16 contra um 10 do dealer no blackjack: pedir, parar ou desistir? O valor esperado exato de cada opção e por que pedir é melhor do que parar."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['strategy', 'whenDouble', 'course', 'dataBust']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Resposta curta:</strong> com um 16 duro contra um 10, <strong>desista se a mesa permitir; se não, peça</strong>. É a mão mais temida do blackjack porque todas as opções perdem, mas pedir perde um pouco menos do que parar. A exceção: se o seu 16 for um 8-8, divida (nas mesas com carta oculta).</p></div>
+  </div>
+
+  <h2 id="numbers">Os números exatos</h2>
+  <p>Quanto vale cada opção em média, por unidade apostada. Todos os valores são negativos: com 16 contra um 10 você perde dinheiro faça o que fizer. A pergunta é só qual opção perde menos.</p>
+  <EVTable lang="pt" cards={[10, 6]} up={10} tables={['vegasS17', 'europeanOnline', 'doubleDeck']} />
+  <p>Com as regras de Las Vegas, <strong>desistir</strong> (−0,500) é o melhor: você recebe de volta metade da aposta e se livra de uma mão que perde mais de uma vez a cada duas. Sem desistência, <strong>pedir</strong> (−0,535) ganha de parar (−0,542).</p>
+  <p>Numa mesa de estilo europeu sem carta oculta, como nas regras europeias/online, as perdas são um pouco maiores porque o dealer ainda pode ter blackjack, mas a ordem não muda: pedir continua sendo melhor.</p>
+
+  <h2 id="why">Por que pedir, mesmo estourando tanto</h2>
+  <p>A intuição diz: “Com 16 eu estouro quase com certeza, então paro.” Mas parar com 16 só te dá uma coisa: esperar que o dealer estoure. E com um 10 à mostra isso só acontece em cerca de <strong>23%</strong> das vezes (veja a <a href={routes.dataBust.pt}>tabela de quantas vezes o dealer estoura</a>). Nos outros 77% o dealer chega a 17 ou mais, e o seu 16 perde.</p>
+  <p>Se você pede, estoura com um 6, 7, 8, 9 ou 10 (mais ou menos 6 em cada 10 vezes). Mas se vier um ás, 2, 3, 4 ou 5, você melhora para 17–21 e tem uma chance real de ganhar ou empatar. Esses ganhos mais do que compensam as poucas mãos a mais que você perde por estourar.</p>
+  <div class="callout"><p><strong>A diferença é pequena, e é exatamente por isso que se discute tanto.</strong> Pedir em vez de parar economiza menos de um centésimo de aposta por mão. Numa mão isolada você nem percebe. Ao longo de mil mãos de 16 contra 10, isso soma sete apostas inteiras.</p></div>
+
+  <h2 id="exceptions">As exceções</h2>
+  <ul>
+    <li><strong>8-8:</strong> dividir. Duas mãos que começam com 8 perdem bem menos do que um 16. Nas mesas europeias sem carta oculta, 8-8 contra um 10 é pedir (ou desistir, se for permitido).</li>
+    <li><strong>Um 16 com três cartas ou mais</strong> (por exemplo, 4-5-7): parar passa a ser igual ou melhor, porque as cartas baixas que ajudariam você já estão na sua mão.</li>
+    <li><strong>Se você conta cartas:</strong> a partir de contagem real 0, você para. É a jogada de índice mais famosa do Hi-Lo: quando restam muitas cartas altas, você estoura demais ao pedir.</li>
+  </ul>
+
+  <h2 id="other">E 16 contra outras cartas à mostra?</h2>
+  <ul>
+    <li><strong>Contra 2 a 6:</strong> parar. O dealer está fraco e estoura com frequência.</li>
+    <li><strong>Contra 7 ou 8:</strong> pedir.</li>
+    <li><strong>Contra 9 ou ás:</strong> desistir se puder; se não, pedir.</li>
+  </ul>
+  <p>Está tudo na <a href={routes.strategy.pt}>tabela de estratégia básica</a>, que você pode ajustar às regras da sua mesa.</p>
+</Guide>

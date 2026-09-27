@@ -1,0 +1,71 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quando conviene raddoppiare a blackjack?', a: 'Con 11 contro tutto tranne l’asso; con 10 contro 2–9; con 9 contro 3–6; e, se il tavolo permette di raddoppiare su due carte qualsiasi, con varie mani soft (da A-2 ad A-7) contro le carte scoperte deboli del banco. Nei casinò spagnoli puoi raddoppiare solo con 9, 10 o 11.' },
+  { q: 'Si raddoppia 11 contro un asso?', a: 'Dipende dalle regole. Se il banco sta su soft 17 (S17) chiedi carta; se il banco chiede carta su soft 17 (H17) raddoppi. A un tavolo europeo senza carta coperta chiedi sempre carta.' },
+  { q: 'Si può raddoppiare dopo aver chiesto carta?', a: 'No. Puoi raddoppiare solo sulle prime due carte (o sulle prime due carte di una mano divisa, se il tavolo permette il raddoppio dopo la divisione). Una volta chiesta carta, puoi solo chiedere ancora o stare.' },
+  { q: 'Perché si raddoppia A-7 contro un 6?', a: 'Perché un soft 18 non può sballare con una carta e un banco con il 6 scoperto è al suo punto più debole: sballa in circa il 42% dei casi. Raddoppiando trasformi questo vantaggio in soldi doppi.' },
+];
+---
+<Guide
+  lang="it"
+  route="whenDouble"
+  title="Quando raddoppiare a blackjack: la guida completa"
+  h1="Quando raddoppiare a blackjack"
+  description="Quando raddoppiare a blackjack: 9, 10, 11 e mani soft, contro quali carte del banco, cosa cambia con H17 e senza carta coperta. Con i valori attesi."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenSplit', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> raddoppia <strong>11</strong> contro tutto tranne l’asso, <strong>10</strong> contro 2–9 e <strong>9</strong> contro 3–6. Se il tavolo permette di raddoppiare su due carte qualsiasi, raddoppia anche <strong>da A-2 ad A-7</strong> contro le carte scoperte deboli del banco. Raddoppiare significa puntare di più quando sei in vantaggio, mai per “recuperare” le perdite.</p></div>
+  </div>
+
+  <h2 id="what">Cos’è il raddoppio e perché fa guadagnare</h2>
+  <p>Quando raddoppi, raddoppi la puntata e ricevi in cambio <strong>una sola carta in più</strong>. Lo fai con le mani in cui sei già in vantaggio: il tuo totale di partenza è buono e il banco è debole. Con queste mani vinci più spesso di quanto perdi, quindi con la puntata doppia moltiplichi un vantaggio che hai già.</p>
+  <p>Un esempio con i numeri: 11 contro un 6. Chiedere carta vale in media +0,34 puntate, raddoppiare +0,68. Raddoppiare non ti fa vincere più spesso, ma quando vinci incassi il doppio.</p>
+  <EVTable lang="it" cards={[6, 5]} up={6} tables={['vegasS17', 'europeanOnline']} />
+
+  <h2 id="hard">Mani hard</h2>
+  <table>
+    <thead><tr><th>La tua mano</th><th>Raddoppia contro</th><th>Altrimenti…</th></tr></thead>
+    <tbody>
+      <tr><td>11</td><td>da 2 a 10 (e asso con H17)</td><td>chiedi carta</td></tr>
+      <tr><td>10</td><td>da 2 a 9</td><td>chiedi carta</td></tr>
+      <tr><td>9</td><td>da 3 a 6 (e 2 con uno o due mazzi)</td><td>chiedi carta</td></tr>
+      <tr><td>8 o meno</td><td>mai</td><td>chiedi carta</td></tr>
+    </tbody>
+  </table>
+  <p>Il caso più discusso è <strong>11 contro un asso</strong>. Con le regole S17 chiedere carta e raddoppiare sono vicinissimi, e chiedere carta vince di poco; con H17 il raddoppio passa davanti:</p>
+  <EVTable lang="it" cards={[6, 5]} up={1} tables={['vegasS17', 'vegasH17', 'europeanOnline']} />
+  <p>A un tavolo senza carta coperta, come nei casinò spagnoli, raddoppiare contro un asso è chiaramente peggio: se il banco ha blackjack, perdi la puntata doppia.</p>
+
+  <h2 id="soft">Mani soft</h2>
+  <p>Solo ai tavoli che permettono di raddoppiare su due carte qualsiasi:</p>
+  <table>
+    <thead><tr><th>La tua mano</th><th>Raddoppia contro</th><th>Altrimenti…</th></tr></thead>
+    <tbody>
+      <tr><td>A-2, A-3</td><td>5 e 6</td><td>chiedi carta</td></tr>
+      <tr><td>A-4, A-5</td><td>da 4 a 6</td><td>chiedi carta</td></tr>
+      <tr><td>A-6</td><td>da 3 a 6</td><td>chiedi carta</td></tr>
+      <tr><td>A-7</td><td>da 3 a 6 (e 2 con H17)</td><td>stai</td></tr>
+      <tr><td>A-8</td><td>6, solo con H17</td><td>stai</td></tr>
+    </tbody>
+  </table>
+  <p>A-7 contro un 6 è l’esempio migliore: stare vale +0,28, ma raddoppiare vale +0,38.</p>
+  <EVTable lang="it" cards={[1, 7]} up={6} tables={['vegasS17']} caption="A-7 contro 6: stare o raddoppiare" />
+
+  <h2 id="spain">Senza carta coperta e nei casinò spagnoli</h2>
+  <p>Senza carta coperta non raddoppi 11 contro un 10 o un asso. Nei casinò spagnoli puoi inoltre raddoppiare solo con 9, 10 o 11, quindi tutti i raddoppi soft spariscono. Trovi tutto in <a href={routes.spain.it}>Regole del blackjack in Spagna</a>.</p>
+
+  <h2 id="mistakes">Gli errori di raddoppio più costosi</h2>
+  <ul>
+    <li><strong>Non raddoppiare 11 contro un 10</strong> a un tavolo con carta coperta: rinunci a circa 0,06 puntate per mano.</li>
+    <li><strong>Raddoppiare per recuperare le perdite:</strong> la decisione dipende dalla tua mano e dalla carta scoperta del banco, mai da come sta andando la sessione.</li>
+    <li><strong>Raddoppiare con 12 o più:</strong> con una sola carta sballi troppo spesso.</li>
+  </ul>
+</Guide>

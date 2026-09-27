@@ -1,0 +1,58 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Welke paren splits je bij blackjack altijd?', a: 'Azen en achten, tegen elke open kaart van de dealer, aan tafels met gesloten kaart. Aan Europese tafels zonder gesloten kaart zijn er twee uitzonderingen: splits geen azen tegen een aas en geen achten tegen een 10 of een aas.' },
+  { q: 'Moet je tienen splitsen?', a: 'Nooit. Zelfs tegen een 6, de slechtste open kaart van de dealer, is een 20 bij passen +0,70 inzet waard en bij splitsen +0,57. Wie ze splitst, ruilt een bijna gewonnen hand in voor twee onzekere.' },
+  { q: 'Moet je vijven splitsen?', a: 'Nee. 5-5 is een 10, een van de beste handen om te verdubbelen. Splits je, dan heb je twee handen die met een 5 beginnen – en dat zijn slechte handen.' },
+  { q: 'En negens tegen een 7?', a: 'Passen. 9-9 is 18, en tegen een 7 eindigt de dealer vaak op 17: je 18 wint. Passen is +0,40 waard, splitsen +0,37.' },
+];
+---
+<Guide
+  lang="nl"
+  route="whenSplit"
+  title="Splitsen bij blackjack: welke paren? (tabel)"
+  h1="Wanneer je moet splitsen bij blackjack"
+  description="Welke paren je splitst bij blackjack en tegen welke dealerkaart: azen, achten, negens, zevens, zessen, tweeën, drieën – en waarom nooit tienen of vijven."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenDouble', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> Splits altijd <strong>azen en achten</strong>; splits nooit <strong>tienen of vijven</strong>. Negens tegen 2–9 behalve 7. Zevens, tweeën en drieën tegen 2–7. Zessen tegen 2–6. Vieren alleen tegen 5 en 6, als je na splitsen mag verdubbelen.</p></div>
+  </div>
+
+  <h2 id="chart">De tabel voor het splitsen van paren</h2>
+  <table>
+    <thead><tr><th>Paar</th><th>Splitsen tegen</th><th>Anders …</th></tr></thead>
+    <tbody>
+      <tr><td>A-A</td><td>alle</td><td>—</td></tr>
+      <tr><td>8-8</td><td>alle</td><td>—</td></tr>
+      <tr><td>10-10</td><td>nooit</td><td>passen</td></tr>
+      <tr><td>9-9</td><td>2 tot 6, 8 en 9</td><td>passen (tegen 7, 10 en aas)</td></tr>
+      <tr><td>7-7</td><td>2 tot 7</td><td>kaart vragen</td></tr>
+      <tr><td>6-6</td><td>2 tot 6</td><td>kaart vragen</td></tr>
+      <tr><td>5-5</td><td>nooit</td><td>verdubbelen tegen 2–9</td></tr>
+      <tr><td>4-4</td><td>5 en 6 (met verdubbelen na splitsen)</td><td>kaart vragen</td></tr>
+      <tr><td>2-2, 3-3</td><td>2 tot 7</td><td>kaart vragen</td></tr>
+    </tbody>
+  </table>
+  <p>Dit is de tabel voor 6 decks waarbij verdubbelen na splitsen is toegestaan. Staat je tafel geen verdubbelen na splitsen toe, dan vraag je een kaart met 2-2 en 3-3 tegen 2 en 3, en met 4-4 en 6-6 tegen 2. In de <a href={routes.strategy.nl}>interactieve strategietabel</a> zie je dat als je die regel omzet.</p>
+
+  <h2 id="aces-eights">Waarom altijd azen en achten</h2>
+  <p><strong>Twee azen</strong> zijn samen 2 of 12 waard, een middelmatige hand. Gesplitst begint elke aas op 11, en elke tien maakt er 21 van. <strong>Twee achten</strong> zijn 16, de slechtste hand in het spel. Gesplitst begint elke acht op 8. Zelfs tegen een 10 verlies je met splitsen flink minder dan wanneer je de 16 speelt:</p>
+  <EVTable lang="nl" cards={[8, 8]} up={10} tables={['vegasS17', 'vegasH17', 'europeanOnline']} />
+  <p>Aan een tafel zonder gesloten kaart, zoals in Spaanse casino’s, ligt het anders: splits je tegen een 10, dan stel je twee inzetten bloot aan een mogelijke blackjack van de dealer, en dan wordt het slechter dan kaart vragen.</p>
+
+  <h2 id="never">Waarom nooit tienen of vijven</h2>
+  <p>Een 20 is bijna onverslaanbaar. Zelfs als de dealer een 6 laat zien, zijn zwakste open kaart, is passen met 20 veel meer waard dan splitsen:</p>
+  <EVTable lang="nl" cards={[10, 10]} up={6} tables={['vegasS17']} caption="10-10 tegen 6: passen of splitsen" />
+  <p>Met <strong>5-5</strong> is het net zo: dat is een 10, een perfecte hand om te verdubbelen. Splits je hem, dan heb je twee handen die met een 5 beginnen.</p>
+
+  <h2 id="depends">Paren die afhangen van de open kaart van de dealer</h2>
+  <p>De overige paren (2-2, 3-3, 6-6, 7-7, 9-9) splits je als de dealer zwak is, want twee inzetten tegen een dealer die vaak kapotgaat zijn meer waard dan één middelmatige hand. Het bijzondere geval is <strong>9-9 tegen een 7</strong>: je past, omdat een dealer met een open 7 vaak op 17 eindigt en je 18 hem verslaat.</p>
+  <EVTable lang="nl" cards={[9, 9]} up={7} tables={['vegasS17']} caption="9-9 tegen 7: passen of splitsen" />
+</Guide>

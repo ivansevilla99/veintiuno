@@ -1,0 +1,54 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import StrategyChart from '../../../components/StrategyChart.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Cosa significa «senza carta coperta»?', a: 'Il banco riceve una sola carta nella distribuzione, scoperta. La seconda la pesca solo quando tutti i giocatori hanno finito. Se fa blackjack, il banco vince anche i soldi in più che hai puntato per raddoppiare o dividere. Con le regole americane il banco controlla prima il blackjack e la mano finisce lì.' },
+  { q: 'Nei casinò spagnoli ci si può arrendere (resa)?', a: 'Di solito no. Pochi tavoli e alcuni casinò online con licenza in Spagna la offrono; guarda il cartello con le regole sul tavolo.' },
+  { q: 'Perché in Spagna non si raddoppia l’11 contro un 10?', a: 'Senza carta coperta il banco può ancora avere blackjack. Se raddoppi e ce l’ha, perdi il doppio. Questo rischio rende il raddoppio dell’11 contro 10 o asso una giocata in perdita, quindi chiedi semplicemente carta.' },
+  { q: 'Qual è il vantaggio del banco in un casinò spagnolo?', a: 'Con le regole tipiche (sei mazzi, il banco sta sul 17 soft, senza carta coperta, raddoppio solo su 9–11, niente resa, il blackjack paga 3:2) e una strategia di base perfetta, circa lo 0,6%.' },
+];
+---
+<Guide lang="it" route="spain" title="Regole del blackjack in Spagna (senza carta coperta)" h1="Regole del blackjack in Spagna" description="Il blackjack nei casinò spagnoli: senza carta coperta, raddoppio solo su 9, 10 o 11, di solito niente resa. Cosa cambia rispetto a Las Vegas, con la tabella." updated="2026-09-27" readMinutes={6} faq={faq} related={['strategy', 'howToPlay', 'howToWin', 'counting']} wide>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>In breve:</strong> i casinò spagnoli giocano <strong>senza carta coperta</strong>, permettono di raddoppiare <strong>solo con 9, 10 o 11</strong> e di solito <strong>non offrono la resa</strong>. Questo cambia diverse giocate importanti: per esempio non raddoppi l’11 contro un 10 e non dividi gli otto contro un asso. Nota: parliamo del blackjack normale, non dell’altro gioco chiamato «Spanish 21».</p></div>
+  </div>
+  <div slot="wide" class="read">
+    <h2 id="regole">Le regole tipiche in Spagna</h2>
+    <table>
+      <thead><tr><th>Regola</th><th>Casinò spagnoli (tipico)</th><th>Las Vegas (tipico)</th></tr></thead>
+      <tbody>
+        <tr><td>Mazzi</td><td>6 (a volte 8)</td><td>6 o 8</td></tr>
+        <tr><td>Carta coperta del banco</td><td><strong>No</strong> (la seconda carta arriva alla fine)</td><td>Sì, il banco controlla il blackjack</td></tr>
+        <tr><td>Banco sul 17 soft</td><td>Sta</td><td>Sta o chiede carta, a seconda del tavolo</td></tr>
+        <tr><td>Raddoppio</td><td><strong>Solo con 9, 10 o 11</strong></td><td>Con qualsiasi coppia di carte</td></tr>
+        <tr><td>Raddoppio dopo la divisione</td><td>Di solito sì</td><td>Di solito sì</td></tr>
+        <tr><td>Resa</td><td><strong>Di solito no</strong></td><td>A volte (resa tardiva)</td></tr>
+        <tr><td>Il blackjack paga</td><td>3 a 2</td><td>3 a 2, ai tavoli economici 6 a 5</td></tr>
+      </tbody>
+    </table>
+    <h2 id="tabella">Tabella di strategia per i casinò spagnoli</h2>
+  </div>
+  <div slot="wide"><StrategyChart lang="it" preset="spainCasino" /></div>
+
+  <h2 id="differenze">Le giocate che cambiano rispetto a Las Vegas</h2>
+  <p>Due regole spiegano tutto. La prima: <strong>senza carta coperta</strong> un blackjack del banco si prende tutto quello che c’è sul tavolo, raddoppi e divisioni compresi, quindi non vuoi avere soldi in più in gioco contro un 10 o un asso:</p>
+  <ul>
+    <li><strong>11 contro 10 o asso:</strong> chiedi carta, non raddoppiare.</li>
+    <li><strong>A-A contro asso:</strong> chiedi carta, non dividere.</li>
+    <li><strong>8-8 contro 10 o asso:</strong> chiedi carta (o arrenditi, se è prevista). A Las Vegas li dividi sempre.</li>
+  </ul>
+  <p>La seconda: il <strong>raddoppio solo su 9–11</strong> elimina tutti i raddoppi con le mani soft:</p>
+  <ul>
+    <li><strong>Da A-2 ad A-6:</strong> chiedi carta dove la strategia di Las Vegas raddoppierebbe.</li>
+    <li><strong>A-7 contro 3–6:</strong> stai dove la strategia di Las Vegas raddoppierebbe.</li>
+  </ul>
+  <p>E senza resa, le mani in cui di solito ci si arrende (16 contro 9, 10, asso; 15 contro 10) si giocano chiedendo carta.</p>
+
+  <h2 id="obo">E i tavoli OBO?</h2>
+  <p>Alcuni tavoli europei, soprattutto online, giocano con la regola <strong>OBO</strong> («original bets only»): se il banco ha blackjack perdi solo la puntata iniziale e ti restituiscono raddoppi e divisioni. Lì la strategia è la stessa che con la carta coperta: nella tabella attiva «Il banco controlla il blackjack».</p>
+
+  <h2 id="costo">Quanto costa</h2>
+  <p>Con le regole tipiche e un gioco perfetto il vantaggio del banco è di circa lo <strong>0,6%</strong>: un po’ peggio di un buon gioco a sei mazzi a Las Vegas (circa 0,4%), soprattutto per la mancanza della carta coperta e il limite al raddoppio, ma molto meglio di qualsiasi tavolo 6:5. Sei alle prime armi? Parti dalle <a href={routes.howToPlay.it}>regole del blackjack</a>.</p>
+</Guide>

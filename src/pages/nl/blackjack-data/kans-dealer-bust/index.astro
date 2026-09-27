@@ -1,0 +1,79 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { dealerTable } from '../../../../lib/ev';
+import { presets } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const ups = [2, 3, 4, 5, 6, 7, 8, 9, 10, 1];
+const upL = (u: number) => (u === 1 ? 'Aas' : String(u));
+const pct = (x: number) => (x * 100).toFixed(1).replace('.', ',') + '%';
+const s17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasS17) }));
+const h17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasH17) }));
+const avgBust = s17.reduce((a, r) => a + r.bust * (r.u === 10 ? 4 : 1), 0) / 13;
+
+const faq = [
+  { q: 'Bij welke open kaart gaat de dealer het vaakst kapot?', a: 'Bij een 6 of een 5: in ongeveer 42% van de gevallen, als de dealer past op zachte 17. Bij een 4 is het net geen 40%. Daarom pas je met 12 tot 16 tegen een 4, 5 of 6.' },
+  { q: 'Bij welke open kaart gaat de dealer het minst vaak kapot?', a: 'Bij een aas: als blackjack is uitgesloten, gaat de dealer in ongeveer 17% van de gevallen kapot. Bij een 7, 8, 9 of 10 ligt het tussen 23% en 26%.' },
+  { q: 'Hoeveel verandert er als de dealer een kaart vraagt op zachte 17 (H17)?', a: 'Met lage kaarten en met een aas gaat de dealer iets vaker kapot, omdat hij doorgaat in situaties waarin hij anders zou passen; maar hij eindigt ook vaker op 18–21. Per saldo is H17 slechter voor jou: het huisvoordeel stijgt met ongeveer 0,2 procentpunt.' },
+];
+---
+<Guide
+  lang="nl"
+  route="dataBust"
+  title="Kans dat de dealer kapotgaat bij blackjack (tabel)"
+  h1="Hoe vaak de dealer kapotgaat – per open kaart"
+  description="Exacte tabel: hoe vaak de dealer bij blackjack kapotgaat per open kaart en hoe waarschijnlijk elk eindtotaal van 17 tot 21 is. Voor S17 en H17 met 6 decks."
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['hand16v10', 'strategy', 'dataRules', 'data']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>In het kort:</strong> met 6 decks en een dealer die past op zachte 17, gaat de dealer kapot in ongeveer <strong>42% van de gevallen bij een 5 of 6</strong>, <strong>40% bij een 4</strong>, <strong>35–37% bij een 2 of 3</strong>, <strong>23–26% bij een 7 tot 10</strong> en <strong>17% bij een aas</strong> (blackjacks van de dealer niet meegeteld). Gemiddeld gaat de dealer kapot in {pct(avgBust)} van de handen waarin hij geen blackjack heeft.</p></div>
+  </div>
+
+  <div slot="wide" class="read">
+    <h2 id="s17">Dealer past op zachte 17 (S17)</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>Open kaart</th><th>Kapot</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>Heeft blackjack</th></tr></thead>
+        <tbody>
+          {s17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="h17">Dealer vraagt een kaart op zachte 17 (H17)</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>Open kaart</th><th>Kapot</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>Heeft blackjack</th></tr></thead>
+        <tbody>
+          {h17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2 id="method">Zo lees je de tabel – en zo is er gerekend</h2>
+  <ul>
+    <li>De kolommen „Kapot” en 17–21 tellen samen op tot 100% en zijn de kansen <strong>nadat een blackjack van de dealer is uitgesloten</strong> – precies de situatie waarin jij aan een tafel met gesloten kaart beslist. De laatste kolom is de kans op een blackjack van de dealer vóór het controleren (peek).</li>
+    <li>Exacte berekening (geen simulatie) met de engine van Veintiuno: 6 decks, de open kaart van de dealer wordt verwijderd en elke mogelijke kaart wordt doorgerekend. Gecontroleerd met een onafhankelijke simulatie van 1,5 miljoen handen per open kaart; de afwijkingen liggen op enkele tienden van een punt.</li>
+    <li>Met minder decks of als je de kaarten van de spelers meerekent, verschuiven de waarden licht, maar de volgorde verandert nooit.</li>
+  </ul>
+
+  <h2 id="use">Wat je met deze tabel doet</h2>
+  <p>Ze is de eigenlijke reden waarom de basisstrategie eruitziet zoals ze eruitziet. Met 12 tot 16 tegen een 4, 5 of 6 pas je, omdat de dealer bijna de helft van de keren kapotgaat dat hij niet al 17–21 heeft; tegen een 7 of hoger vraag je een kaart, omdat hij bijna altijd op 17 of meer eindigt. Het meest omstreden geval wordt uitgelegd in <a href={routes.hand16v10.nl}>16 tegen 10</a>.</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 8px; background: var(--panel); border-radius: 14px; overflow: hidden; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

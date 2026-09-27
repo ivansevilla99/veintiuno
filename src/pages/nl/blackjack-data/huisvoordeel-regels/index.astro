@@ -1,0 +1,84 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { houseEdge, presets, defaultRules } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const base = houseEdge(defaultRules);
+const effects: [string, string, number][] = [
+  ['Blackjack betaalt 6:5 in plaats van 3:2', 'Slechter', houseEdge({ ...defaultRules, payout: 'sixToFive' }) - base],
+  ['Blackjack betaalt 1:1 (even money)', 'Slechter', houseEdge({ ...defaultRules, payout: 'evenMoney' }) - base],
+  ['Dealer vraagt kaart op zachte 17 (H17)', 'Slechter', houseEdge({ ...defaultRules, dealerHitsSoft17: true }) - base],
+  ['Verdubbelen alleen op 10 of 11', 'Slechter', houseEdge({ ...defaultRules, doubleRule: 'tenEleven' }) - base],
+  ['Geen verdubbelen na splitsen', 'Slechter', houseEdge({ ...defaultRules, doubleAfterSplit: false }) - base],
+  ['Geen gesloten kaart (dealer controleert niet)', 'Slechter', houseEdge({ ...defaultRules, holeCard: false }) - base],
+  ['Maar één keer splitsen', 'Slechter', houseEdge({ ...defaultRules, maxSplitHands: 2 }) - base],
+  ['Verdubbelen alleen op 9, 10 of 11', 'Slechter', houseEdge({ ...defaultRules, doubleRule: 'nineToEleven' }) - base],
+  ['Geen opgeven', 'Slechter', houseEdge({ ...defaultRules, surrender: 'none' }) - base],
+  ['8 decks in plaats van 6', 'Slechter', houseEdge({ ...defaultRules, decks: 8 }) - base],
+  ['4 decks in plaats van 6', 'Beter', houseEdge({ ...defaultRules, decks: 4 }) - base],
+  ['Azen opnieuw splitsen toegestaan', 'Beter', houseEdge({ ...defaultRules, resplitAces: true }) - base],
+  ['2 decks in plaats van 6', 'Beter', houseEdge({ ...defaultRules, decks: 2 }) - base],
+  ['1 deck in plaats van 6', 'Beter', houseEdge({ ...defaultRules, decks: 1 }) - base],
+];
+const fmt = (x: number) => (x > 0 ? '+' : '−') + Math.abs(x).toFixed(2).replace('.', ',') + ' punt';
+const tables: [string, keyof typeof presets][] = [
+  ['Las Vegas, 6 decks, S17, opgeven', 'vegasS17'],
+  ['Las Vegas, 6 decks, H17, opgeven', 'vegasH17'],
+  ['Europees / online, zonder gesloten kaart', 'europeanOnline'],
+  ['Casino in Spanje', 'spainCasino'],
+  ['Double deck (2 decks)', 'doubleDeck'],
+];
+const pct = (x: number) => x.toFixed(2).replace('.', ',') + '%';
+
+const faq = [
+  { q: 'Welke blackjackregel is het slechtst voor jou?', a: 'Als blackjack 6:5 betaalt in plaats van 3:2. Dat verhoogt het huisvoordeel met ongeveer 1,4 procentpunt en verviervoudigt daarmee grofweg wat je verliest, zelfs met perfect spel. Betaalt een tafel 6:5, dan is je beste zet een andere tafel zoeken.' },
+  { q: 'Hoe groot is het huisvoordeel bij blackjack?', a: 'Met perfecte basisstrategie tussen 0,2% en 0,7%, afhankelijk van de regels; met 6 decks en gangbare Las Vegas-regels ongeveer 0,4%. Wie op gevoel speelt, heeft een flink groter werkelijk nadeel.' },
+  { q: 'Maakt het aantal decks uit?', a: 'Ja, maar minder dan andere regels. Van 6 naar 8 decks kost ongeveer 0,02 punt; met 2 decks bespaar je ongeveer 0,17. De uitbetaling voor blackjack en of de dealer een kaart vraagt op zachte 17 zijn veel belangrijker.' },
+];
+---
+<Guide
+  lang="nl"
+  route="dataRules"
+  title="Huisvoordeel bij blackjack: wat elke regel kost"
+  h1="Wat elke blackjackregel je kost"
+  description="Huisvoordeel bij blackjack per tafelregel: 6:5-uitbetaling, H17, aantal decks, opgeven, verdubbelen na splitsen, geen gesloten kaart. Wat elke regel je kost."
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['dataBust', 'spain', 'howToWin', 'data']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In het kort:</strong> met perfecte basisstrategie houdt het huis aan een tafel met 6 decks en goede regels ongeveer <strong>{pct(base)}</strong> van je inzetten. Veruit de duurste regel is een blackjack die maar <strong>6:5</strong> betaalt (+1,39 punt); daarna komt de dealer die een kaart vraagt op zachte 17 (+0,22).</p></div>
+  </div>
+
+  <h2 id="effects">Het effect van elke regel</h2>
+  <p>Uitgangspunt: 6 decks, de dealer past op zachte 17, verdubbelen op elke twee kaarten en na splitsen, late surrender (opgeven), gesloten kaart, en blackjack betaalt 3:2. Huisvoordeel met perfecte strategie: <strong>{pct(base)}</strong>. Elke rij laat zien hoeveel er verandert als je alleen die ene regel aanpast.</p>
+  <table class="data-table">
+    <thead><tr><th>Regel</th><th>Voor jou</th><th>Verandering huisvoordeel</th></tr></thead>
+    <tbody>
+      {effects.map(([name, dir, d]) => <tr><th scope="row">{name}</th><td>{dir}</td><td class={d > 0 ? 'bad' : 'good'}>{fmt(d)}</td></tr>)}
+    </tbody>
+  </table>
+
+  <h2 id="tables">Huisvoordeel aan gangbare tafels</h2>
+  <table class="data-table">
+    <thead><tr><th>Tafel</th><th>Huisvoordeel</th></tr></thead>
+    <tbody>
+      {tables.map(([name, k]) => <tr><th scope="row">{name}</th><td class="hl">{pct(houseEdge(presets[k]))}</td></tr>)}
+    </tbody>
+  </table>
+  <p>Deze waarden gaan ervan uit dat je de basisstrategie foutloos speelt. Elke fout kost je extra: verzekering nemen, met 12 tegen een 2 passen of achten niet splitsen – dat loopt snel op tot meerdere punten. Daarom is de <a href={routes.strategy.nl}>strategietabel</a> belangrijker dan zoeken naar de perfecte tafel.</p>
+
+  <h2 id="source">Waar de cijfers vandaan komen</h2>
+  <p>Het basisvoordeel en het effect van elke regel zijn de gangbare benaderingen uit de tabel met regeleffecten van Wizard of Odds – dezelfde die de Veintiuno-app gebruikt. De effecten tellen bij benadering op: combineer je meerdere regels, dan kan de uitkomst een paar honderdsten afwijken van de exacte berekening voor precies die combinatie.</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 16px; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); font-weight: 600; }
+  .data-table td.bad { color: var(--wrong); font-weight: 700; }
+  .data-table td.good { color: var(--correct); font-weight: 700; }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

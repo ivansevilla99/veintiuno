@@ -1,0 +1,53 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const pdfs = [
+  ['las-vegas-s17', 'ラスベガス（S17）', 'ディーラーはソフト17でスタンド、サレンダーあり。'],
+  ['las-vegas-h17', 'ラスベガス（H17）', 'ディーラーはソフト17でヒット、サレンダーあり。'],
+  ['european', 'ヨーロッパ／オンライン', 'ホールカードなし、最初の2枚ならいつでもダブルダウン可。オンラインやライブディーラーのブラックジャックで一般的です。'],
+  ['spain', 'スペインのカジノ', 'ホールカードなし、ダブルダウンは9〜11のみ、サレンダーなし。スペインのカジノで遊ぶならこれです。'],
+];
+const faq = [
+  { q: 'どのストラテジー表をダウンロードすればいい？', a: 'あなたのテーブルのルールに合ったものです。ラスベガスならテーブルの表示を見てください。「dealer hits soft 17」と書かれていればH17、なければS17です。オンラインやライブディーラーのテーブルなら、たいていはヨーロッパ式です。スペインのカジノなら、スペインのカジノ用の表を使います。' },
+  { q: '印刷した表をカジノに持ち込んでもいい？', a: '低額のテーブルで印刷したカードを見ることを認めるカジノもあれば、認めないカジノもあります。事前に確認しましょう。テーブルでスマートフォンなどの機器を使うことは、どこでも認められていません。' },
+  { q: '無料ですか？', a: 'はい。ダウンロード、印刷、共有は自由です。' },
+];
+---
+<Guide
+  lang="ja"
+  route="printable"
+  title="ブラックジャック戦略表のPDF（無料・印刷用）"
+  h1="ブラックジャックのストラテジー表をPDFで"
+  description="ブラックジャックのベーシックストラテジー表を無料PDFでダウンロード。ラスベガスS17・H17、ヨーロッパ／オンライン、スペインのカジノのルール別に、それぞれカラーのA4用紙1枚にまとめました。"
+  updated="2026-09-27"
+  readMinutes={2}
+  faq={faq}
+  related={['strategy', 'simulator', 'spain', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>無料ダウンロード：</strong>ベーシックストラテジー表のPDFを、カラーのA4用紙1枚で。テーブルのルールに合ったものを選んでください。ラスベガスの表と、ホールカードなしのヨーロッパ式テーブルの表は同じではありません。</p></div>
+  </div>
+
+  <div class="pdf-grid">
+    {pdfs.map(([slug, name, text]) => (
+      <a class="card pdf-card" href={`/pdf/blackjack-strategy-chart-ja-${slug}.pdf`} download>
+        <span class="pdf-ico">PDF</span>
+        <span><b>{name}</b><small>{text}</small></span>
+      </a>
+    ))}
+  </div>
+
+  <h2 id="how">使い方</h2>
+  <p>行であなたのハンドを、列でディーラーのアップカードを探します。まずペアかどうかを確認し、次にソフトハンド（11として数えているエースがある）かどうかを確認し、どちらでもなければハードハンドを見ます。記号の意味：Hはヒット、Sはスタンド、Dはダブルダウン、Pはスプリット、Rはサレンダーです。</p>
+  <p>ルールを細かく設定したい、各マスがなぜそうなるのかを知りたいという方は、<a href={routes.strategy.ja}>インタラクティブな表</a>を使ってください。覚えるには、その場でフィードバックをもらいながら練習するのが効果的です。<a href={routes.simulator.ja}>練習用テーブル</a>なら無料でできます。</p>
+</Guide>
+
+<style>
+  .pdf-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
+  .pdf-card { display: flex !important; gap: 14px; align-items: flex-start; }
+  .pdf-ico { flex: none; width: 44px; height: 52px; border-radius: 8px; background: #c8283a; color: #fff; font: 800 12px/52px var(--font); text-align: center; }
+  .pdf-card b { display: block; color: var(--text); font-size: 17px; }
+  .pdf-card small { display: block; color: var(--muted); font-size: 14px; margin-top: 4px; line-height: 1.45; }
+  @media (max-width: 600px) { .pdf-grid { grid-template-columns: 1fr; } }
+</style>

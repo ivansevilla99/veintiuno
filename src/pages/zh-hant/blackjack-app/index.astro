@@ -1,0 +1,70 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import AppStoreButton from '../../../components/AppStoreButton.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: '有 App 可以學玩21點嗎？', a: '有。Veintiuno 是一款 iPhone 和 Mac 的 App，教你21點的基本策略：它會發牌給你，即時糾正你的每一個決定，並告訴你原因。全程不涉及真錢。' },
+  { q: '21點 App 和21點訓練器有什麼不同？', a: '一般的21點 App 是遊戲：你用虛擬籌碼玩，卻永遠不知道自己打得好不好。訓練器會把你的每一個決定，和你那張牌桌規則下的正確打法做比對，並和你一起檢討錯誤。只有後者真的能教會你。' },
+  { q: 'Veintiuno 是免費的嗎？', a: '你可以免費開始：課程的前三天是免費的。Veintiuno Pro 會解鎖其餘的課程、手牌顧問和你的錯誤熱點圖，提供週訂閱或年訂閱。' },
+  { q: '可以在 Veintiuno 裡玩真錢嗎？', a: '不行。它是一個學習工具：沒有真錢、沒有任何有價值的籌碼，也和任何賭場或博彩業者都沒有關係。' },
+];
+---
+<Guide
+  lang="zh"
+  route="app"
+  title="學21點最好的 App（不用真錢）"
+  h1="學21點最好的 App"
+  description="學21點最好的 App 不是用虛擬籌碼玩的賭場遊戲，而是一個會糾正你每一個決定、並告訴你原因的訓練器：Veintiuno，適用於 iPhone 和 Mac，不涉及真錢。"
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['course', 'strategy', 'practiceCounting', 'howToPlay']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>簡短回答：</strong>不是每個21點 App 都能教你21點。模擬賭場、用虛擬籌碼玩的 App 讓你玩，卻不會告訴你打得好不好。真正能讓你進步的是<strong>訓練器</strong>：一個會糾正你每一個決定、解釋原因，並和你一起檢討錯誤的 App。Veintiuno 就是這樣的 App。</p></div>
+  </div>
+
+  <h2 id="types">兩種21點 App</h2>
+  <table>
+    <thead><tr><th></th><th>賭場遊戲</th><th>訓練器</th></tr></thead>
+    <tbody>
+      <tr><td>你在做什麼</td><td>用虛擬籌碼玩牌</td><td>做決定並得到糾正</td></tr>
+      <tr><td>會告訴你打得好不好嗎？</td><td>不會：只告訴你這手有沒有贏</td><td>會，每一個決定都會</td></tr>
+      <tr><td>會解釋原因嗎？</td><td>不會</td><td>會</td></tr>
+      <tr><td>你那張牌桌的規則</td><td>遊戲給什麼就是什麼</td><td>由你選擇（拉斯維加斯、歐式／線上、西班牙）</td></tr>
+      <tr><td>錯誤分析</td><td>沒有</td><td>有</td></tr>
+      <tr><td>適合用來</td><td>娛樂</td><td>學習</td></tr>
+    </tbody>
+  </table>
+  <p>用遊戲來學的問題在於：<strong>一手牌的結果並不能告訴你打得好不好</strong>。你可能 16 點對 10 停牌（這是錯的），卻因為莊家爆牌而贏了。你的大腦學到的正好是錯誤的一課。訓練器會把決定和結果分開：不管這手牌結果如何，它都會告訴你這個打法對不對。</p>
+
+  <h2 id="veintiuno">Veintiuno 能做什麼</h2>
+  <div class="shots">
+    <figure><img src="/img/app-correccion-zh.webp" alt="Veintiuno 糾正一個決定：16 點對 10，正確打法是要牌" width="480" height="1042" loading="lazy" /><figcaption>即時糾正，並說明原因。</figcaption></figure>
+    <figure><img src="/img/app-tabla-zh.webp" alt="Veintiuno 裡西班牙賭場規則的基本策略表" width="480" height="1042" loading="lazy" /><figcaption>適用你那張牌桌的策略表。</figcaption></figure>
+    <figure><img src="/img/app-progreso-zh.webp" alt="Veintiuno 的進度畫面，顯示正確率和錯誤" width="480" height="1042" loading="lazy" /><figcaption>你的進度和你的錯誤。</figcaption></figure>
+  </div>
+  <ul>
+    <li><strong>即時糾正的練習牌桌。</strong>每一個決定都會和你那張牌桌的基本策略做比對，打錯時，App 會告訴你正確的打法和原因。</li>
+    <li><strong>14 天課程。</strong>每天一個觀念、一個練習和一個小測驗，從規則一路到算牌。</li>
+    <li><strong>你那張牌桌的規則：</strong>拉斯維加斯 S17 和 H17、歐式或線上，或西班牙賭場（沒有暗牌）。</li>
+    <li><strong>策略表上的錯誤熱點圖</strong>，讓你只重複練習自己打錯的地方。</li>
+    <li><strong>手牌顧問</strong>，列出每個選項的期望值。</li>
+    <li><strong>Hi-Lo 算牌</strong>進階模組，誠實說明，不做任何承諾，附可調整速度的流水數練習。</li>
+    <li>十種語言，包括繁體中文，還有精心設計的發牌音效和觸覺回饋。適用於 iPhone 和 Mac。</li>
+  </ul>
+  <p>沒有真錢，也沒有下注：它是一個學習工具，和任何賭場都沒有關係。</p>
+  <p><AppStoreButton lang="zh" campaign="app-page" /></p>
+
+  <h2 id="no-app">不用 App 呢？</h2>
+  <p>規則和策略，你可以在這個網站上免費學：有<a href={routes.course.zh}>21點課程</a>、<a href={routes.strategy.zh}>互動式基本策略表</a>和<a href={routes.practiceCounting.zh}>算牌練習</a>。網站做不到的是：發幾百手牌給你，並糾正每一手。這就是 App 的用處。</p>
+</Guide>
+
+<style>
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+  .shots figure { margin: 0; }
+  .shots img { border-radius: 22px; border: 1px solid var(--line-strong); display: block; }
+  .shots figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; text-align: center; }
+  @media (max-width: 560px) { .shots { grid-template-columns: repeat(3, 1fr); gap: 8px; } .shots img { border-radius: 12px; } }
+</style>

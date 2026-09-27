@@ -1,0 +1,84 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { houseEdge, presets, defaultRules } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const base = houseEdge(defaultRules);
+const effects: [string, string, number][] = [
+  ['ブラックジャックの配当が3:2ではなく6:5', '不利', houseEdge({ ...defaultRules, payout: 'sixToFive' }) - base],
+  ['ブラックジャックの配当が1:1（イーブンマネー）', '不利', houseEdge({ ...defaultRules, payout: 'evenMoney' }) - base],
+  ['ディーラーがソフト17でヒット（H17）', '不利', houseEdge({ ...defaultRules, dealerHitsSoft17: true }) - base],
+  ['ダブルダウンは10か11のみ', '不利', houseEdge({ ...defaultRules, doubleRule: 'tenEleven' }) - base],
+  ['スプリット後のダブルダウン不可', '不利', houseEdge({ ...defaultRules, doubleAfterSplit: false }) - base],
+  ['ホールカードなし（ディーラーがピークしない）', '不利', houseEdge({ ...defaultRules, holeCard: false }) - base],
+  ['スプリットは1回のみ', '不利', houseEdge({ ...defaultRules, maxSplitHands: 2 }) - base],
+  ['ダブルダウンは9、10、11のみ', '不利', houseEdge({ ...defaultRules, doubleRule: 'nineToEleven' }) - base],
+  ['サレンダーなし', '不利', houseEdge({ ...defaultRules, surrender: 'none' }) - base],
+  ['6デッキではなく8デッキ', '不利', houseEdge({ ...defaultRules, decks: 8 }) - base],
+  ['6デッキではなく4デッキ', '有利', houseEdge({ ...defaultRules, decks: 4 }) - base],
+  ['エースの再スプリット可', '有利', houseEdge({ ...defaultRules, resplitAces: true }) - base],
+  ['6デッキではなく2デッキ', '有利', houseEdge({ ...defaultRules, decks: 2 }) - base],
+  ['6デッキではなく1デッキ', '有利', houseEdge({ ...defaultRules, decks: 1 }) - base],
+];
+const fmt = (x: number) => (x > 0 ? '+' : '−') + Math.abs(x).toFixed(2) + 'ポイント';
+const tables: [string, keyof typeof presets][] = [
+  ['ラスベガス、6デッキ、S17、サレンダーあり', 'vegasS17'],
+  ['ラスベガス、6デッキ、H17、サレンダーあり', 'vegasH17'],
+  ['ヨーロッパ式／オンライン、ホールカードなし', 'europeanOnline'],
+  ['スペインのカジノ', 'spainCasino'],
+  ['ダブルデッキ（2デッキ）', 'doubleDeck'],
+];
+const pct = (x: number) => x.toFixed(2) + '%';
+
+const faq = [
+  { q: 'プレイヤーにとって最も不利なブラックジャックのルールは？', a: 'ブラックジャックの配当が3:2ではなく6:5であることです。ハウスエッジがおよそ1.4ポイント上がり、完璧にプレイしても失う額がおよそ4倍になります。6:5のテーブルなら、最善の手は別のテーブルを探すことです。' },
+  { q: 'ブラックジャックのハウスエッジはどれくらいですか？', a: '完璧なベーシックストラテジーなら、ルールに応じて0.2%から0.7%の間です。6デッキで典型的なラスベガスのルールなら、およそ0.4%です。勘でプレイすれば、実際のハウスエッジはずっと大きくなります。' },
+  { q: 'デッキ数は影響しますか？', a: 'はい、ただし他のルールほどではありません。6デッキから8デッキになるとおよそ0.02ポイントのコスト、2デッキに減らせばおよそ0.17ポイント得をします。ブラックジャックの配当や、ディーラーがソフト17でヒットするかどうかの方がはるかに重要です。' },
+];
+---
+<Guide
+  lang="ja"
+  route="dataRules"
+  title="ルール別のブラックジャックのハウスエッジ：各ルールのコスト"
+  h1="ブラックジャックの各ルールのコスト"
+  description="テーブルのルール別に見たブラックジャックのハウスエッジ。6:5の配当、H17、デッキ数、サレンダー、スプリット後のダブルダウン、ホールカードなしのルールが、それぞれどれだけのコストになるかを示します。"
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['dataBust', 'spain', 'howToWin', 'data']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>まとめ：</strong>完璧なベーシックストラテジーでも、良いルールの6デッキのテーブルでは、賭け金のおよそ<strong>{pct(base)}</strong>をハウスが取ります。圧倒的にコストが大きいのはブラックジャックの配当が<strong>6:5</strong>になるルール（+1.39ポイント）で、次がディーラーのソフト17でのヒット（+0.22）です。</p></div>
+  </div>
+
+  <h2 id="effects">各ルールの影響</h2>
+  <p>基準：6デッキ、ディーラーはソフト17でスタンド、どの2枚でもスプリット後でもダブルダウン可、レイトサレンダーあり、ホールカードあり、ブラックジャックの配当は3:2。完璧な戦略でのハウスエッジは<strong>{pct(base)}</strong>です。各行は、そのルールひとつだけを変えた場合にどれだけ変わるかを示しています。</p>
+  <table class="data-table">
+    <thead><tr><th>ルール</th><th>あなたにとって</th><th>ハウスエッジの変化</th></tr></thead>
+    <tbody>
+      {effects.map(([name, dir, d]) => <tr><th scope="row">{name}</th><td>{dir}</td><td class={d > 0 ? 'bad' : 'good'}>{fmt(d)}</td></tr>)}
+    </tbody>
+  </table>
+
+  <h2 id="tables">代表的なテーブルのハウスエッジ</h2>
+  <table class="data-table">
+    <thead><tr><th>テーブル</th><th>ハウスエッジ</th></tr></thead>
+    <tbody>
+      {tables.map(([name, k]) => <tr><th scope="row">{name}</th><td class="hl">{pct(houseEdge(presets[k]))}</td></tr>)}
+    </tbody>
+  </table>
+  <p>これらの数字は、ベーシックストラテジーをミスなくプレイした場合のものです。ミスをするたびにコストは増えます。インシュランスをかける、2に対して12でスタンドする、8のペアをスプリットしない、といったミスは簡単に数ポイントに積み上がります。だからこそ、完璧なテーブルを探すより<a href={routes.strategy.ja}>ストラテジー表</a>の方が大切なのです。</p>
+
+  <h2 id="source">数字の出どころ</h2>
+  <p>基準のハウスエッジと各ルールの影響は、Wizard of Oddsのルール効果表による標準的な近似値で、Veintiunoアプリが使っているものと同じです。影響はおおよそ足し算で合算できますが、複数のルールを組み合わせると、その組み合わせを正確に計算した値と100分の数ポイントずれることがあります。</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 16px; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); font-weight: 600; }
+  .data-table td.bad { color: var(--wrong); font-weight: 700; }
+  .data-table td.good { color: var(--correct); font-weight: 700; }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

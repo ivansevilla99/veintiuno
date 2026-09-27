@@ -1,0 +1,58 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quali coppie si dividono sempre a blackjack?', a: 'Assi e 8, contro qualsiasi carta scoperta del banco, ai tavoli con carta coperta. Ai tavoli europei senza carta coperta ci sono due eccezioni: non dividere gli assi contro un asso e non dividere gli 8 contro un 10 o un asso.' },
+  { q: 'Bisogna dividere i 10?', a: 'Mai. Anche contro un 6, la peggior carta scoperta del banco, un 20 vale +0,70 puntate se stai e +0,57 se dividi. Chi li divide scambia una mano quasi vinta con due mani incerte.' },
+  { q: 'Bisogna dividere i 5?', a: 'No. 5-5 è un 10, una delle migliori mani per raddoppiare. Se dividi, ti ritrovi con due mani che partono da 5, e sono mani cattive.' },
+  { q: 'E i 9 contro un 7?', a: 'Stai. 9-9 fa 18, e contro un 7 il banco finisce spesso a 17: il tuo 18 vince. Stare vale +0,40, dividere +0,37.' },
+];
+---
+<Guide
+  lang="it"
+  route="whenSplit"
+  title="Quando dividere a blackjack: quali coppie (tabella)"
+  h1="Quando dividere a blackjack"
+  description="Quali coppie dividere a blackjack e contro quale carta del banco: assi, 8, 9, 7, 6, 2 e 3, e perché non si dividono mai i 10 né i 5. Con tabella e valori."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenDouble', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> dividi sempre <strong>assi e 8</strong>; non dividere mai <strong>10 o 5</strong>. I 9 contro 2–9 tranne il 7. I 7, i 2 e i 3 contro 2–7. I 6 contro 2–6. I 4 solo contro 5 e 6, se puoi raddoppiare dopo la divisione.</p></div>
+  </div>
+
+  <h2 id="chart">La tabella per dividere le coppie</h2>
+  <table>
+    <thead><tr><th>Coppia</th><th>Dividi contro</th><th>Altrimenti…</th></tr></thead>
+    <tbody>
+      <tr><td>A-A</td><td>tutte</td><td>—</td></tr>
+      <tr><td>8-8</td><td>tutte</td><td>—</td></tr>
+      <tr><td>10-10</td><td>mai</td><td>stai</td></tr>
+      <tr><td>9-9</td><td>da 2 a 6, 8 e 9</td><td>stai (contro 7, 10 e asso)</td></tr>
+      <tr><td>7-7</td><td>da 2 a 7</td><td>chiedi carta</td></tr>
+      <tr><td>6-6</td><td>da 2 a 6</td><td>chiedi carta</td></tr>
+      <tr><td>5-5</td><td>mai</td><td>raddoppia contro 2–9</td></tr>
+      <tr><td>4-4</td><td>5 e 6 (con raddoppio dopo la divisione)</td><td>chiedi carta</td></tr>
+      <tr><td>2-2, 3-3</td><td>da 2 a 7</td><td>chiedi carta</td></tr>
+    </tbody>
+  </table>
+  <p>Questa è la tabella per 6 mazzi con raddoppio dopo la divisione consentito. Se il tuo tavolo non permette di raddoppiare dopo la divisione, con 2-2 e 3-3 chiedi carta contro 2 e 3, e con 4-4 e 6-6 contro 2. Nella <a href={routes.strategy.it}>tabella di strategia interattiva</a> lo vedi cambiando questa regola.</p>
+
+  <h2 id="aces-eights">Perché sempre assi e 8</h2>
+  <p><strong>Due assi</strong> insieme valgono 2 o 12, una mano mediocre. Divisi, ognuno parte da 11, e qualsiasi dieci lo trasforma in 21. <strong>Due 8</strong> fanno 16, la peggior mano del gioco. Divisi, ognuno parte da 8. Anche contro un 10, dividendo perdi parecchio meno che giocando il 16:</p>
+  <EVTable lang="it" cards={[8, 8]} up={10} tables={['vegasS17', 'vegasH17', 'europeanOnline']} />
+  <p>A un tavolo senza carta coperta, come nei casinò spagnoli, le cose cambiano: dividendo contro un 10 esponi due puntate a un possibile blackjack del banco, e diventa peggio che chiedere carta.</p>
+
+  <h2 id="never">Perché mai i 10 né i 5</h2>
+  <p>Un 20 è quasi imbattibile. Anche quando il banco mostra un 6, la sua carta scoperta più debole, stare con 20 vale molto più che dividere:</p>
+  <EVTable lang="it" cards={[10, 10]} up={6} tables={['vegasS17']} caption="10-10 contro 6: stare o dividere" />
+  <p>Lo stesso vale per <strong>5-5</strong>: è un 10, una mano perfetta per raddoppiare. Se lo dividi, ti ritrovi con due mani che partono da 5.</p>
+
+  <h2 id="depends">Le coppie che dipendono dalla carta scoperta del banco</h2>
+  <p>Le altre coppie (2-2, 3-3, 6-6, 7-7, 9-9) le dividi quando il banco è debole, perché due puntate contro un banco che sballa spesso valgono più di una mano mediocre. Il caso particolare è <strong>9-9 contro un 7</strong>: stai, perché un banco con il 7 scoperto finisce spesso a 17 e il tuo 18 lo batte.</p>
+  <EVTable lang="it" cards={[9, 9]} up={7} tables={['vegasS17']} caption="9-9 contro 7: stare o dividere" />
+</Guide>

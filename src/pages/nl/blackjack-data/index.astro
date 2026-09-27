@@ -1,0 +1,26 @@
+---
+import Base from '../../../layouts/Base.astro';
+import AppCTA from '../../../components/AppCTA.astro';
+import { routes } from '../../../lib/site';
+const items = [
+  [routes.dataBust.nl, 'Kans dat de dealer kapotgaat', 'Per open kaart en per eindtotaal (17–21), voor S17 en H17.'],
+  [routes.dataRules.nl, 'Wat elke blackjackregel kost', 'Hoe 6:5, H17, het aantal decks, opgeven en meer het huisvoordeel veranderen.'],
+  [routes.hand16v10.nl, '16 tegen 10 in cijfers', 'De verwachte waarde van kaart vragen, passen en opgeven.'],
+  [routes.whenDouble.nl, 'Wanneer verdubbelen – met verwachte waarden', '11 tegen aas, A-7 tegen 6 en elke andere verdubbeling.'],
+  [routes.whenSplit.nl, 'Wanneer splitsen – met verwachte waarden', 'Achten tegen 10, tienen tegen 6, negens tegen 7.'],
+];
+---
+<Base lang="nl" route="data" title="Blackjack-kansen: exacte tabellen en data" description="Exacte blackjacktabellen uit de Veintiuno-engine: hoe vaak de dealer kapotgaat, het huisvoordeel per regel en de verwachte waarden van de belangrijkste zetten.">
+  <div class="container read">
+    <header class="article-head">
+      <span class="eyebrow">Data</span>
+      <h1>Blackjack-kansen en data</h1>
+      <p class="lead">Tabellen berekend met dezelfde engine die de Veintiuno-app gebruikt: exacte berekening in plaats van simulatie, en op elke pagina staan de regels en aannames erbij.</p>
+    </header>
+    <div class="grid-2">
+      {items.map(([href, title, text]) => <a class="card" href={href}><h3>{title}</h3><p>{text}</p></a>)}
+    </div>
+    <p class="muted small" style="margin-top:24px">Methode: 6 decks, tenzij anders vermeld; de zichtbare kaarten worden verwijderd en elke mogelijke kaart wordt doorgerekend (expectimax). Gevalideerd met een onafhankelijke simulatie van miljoenen handen. Details op de pagina <a href={routes.about.nl}>Over Veintiuno</a>.</p>
+    <AppCTA lang="nl" campaign="data" />
+  </div>
+</Base>

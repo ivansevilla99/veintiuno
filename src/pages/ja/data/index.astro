@@ -1,0 +1,26 @@
+---
+import Base from '../../../layouts/Base.astro';
+import AppCTA from '../../../components/AppCTA.astro';
+import { routes } from '../../../lib/site';
+const items = [
+  [routes.dataBust.ja, 'ディーラーのバースト確率', 'アップカード別と最終合計（17〜21）別、S17とH17の両方。'],
+  [routes.dataRules.ja, 'ブラックジャックの各ルールのコスト', '6:5、H17、デッキ数、サレンダーなどがハウスエッジをどう変えるか。'],
+  [routes.hand16v10.ja, '数字で見る16対10', 'ヒット、スタンド、サレンダーそれぞれの期待値。'],
+  [routes.whenDouble.ja, 'ダブルダウンすべき時を期待値で', 'エースに対する11、6に対するA-7、その他すべてのダブルダウン。'],
+  [routes.whenSplit.ja, 'スプリットすべき時を期待値で', '10に対する8のペア、6に対する10のペア、7に対する9のペア。'],
+];
+---
+<Base lang="ja" route="data" title="ブラックジャックの確率とデータ：正確な表" description="Veintiunoのエンジンで計算したブラックジャックの正確な確率表。ディーラーのバースト確率、テーブルのルール別のハウスエッジ、重要なプレイの期待値をまとめています。">
+  <div class="container read">
+    <header class="article-head">
+      <span class="eyebrow">データ</span>
+      <h1>ブラックジャックの確率とデータ</h1>
+      <p class="lead">Veintiunoアプリと同じエンジンで計算した表です。シミュレーションではなく正確な計算で、各ページにルールと前提条件を明記しています。</p>
+    </header>
+    <div class="grid-2">
+      {items.map(([href, title, text]) => <a class="card" href={href}><h3>{title}</h3><p>{text}</p></a>)}
+    </div>
+    <p class="muted small" style="margin-top:24px">計算方法：特に記載がない限り6デッキ。見えているカードを取り除き、起こりうるすべてのカードを最後まで展開して計算しています（エクスペクティマックス）。何百万ハンドもの独立したシミュレーションで検証済みです。詳しくは<a href={routes.about.ja}>Veintiunoについて</a>のページをご覧ください。</p>
+    <AppCTA lang="ja" campaign="data" />
+  </div>
+</Base>

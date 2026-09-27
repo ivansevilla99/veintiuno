@@ -1,0 +1,26 @@
+---
+import Base from '../../../layouts/Base.astro';
+import AppCTA from '../../../components/AppCTA.astro';
+import { routes } from '../../../lib/site';
+const items = [
+  [routes.dataBust.it, 'Probabilità che il banco sballi', 'Per carta scoperta e per totale finale (17–21), con S17 e H17.'],
+  [routes.dataRules.it, 'Quanto costa ogni regola del blackjack', 'Come 6:5, H17, numero di mazzi, resa e altro cambiano il vantaggio del banco.'],
+  [routes.hand16v10.it, '16 contro 10 in numeri', 'Il valore atteso di chiedere carta, stare e arrendersi.'],
+  [routes.whenDouble.it, 'Quando raddoppiare, con i valori attesi', '11 contro asso, A-7 contro 6 e tutti gli altri raddoppi.'],
+  [routes.whenSplit.it, 'Quando dividere, con i valori attesi', '8 contro 10, 10 contro 6, 9 contro 7.'],
+];
+---
+<Base lang="it" route="data" title="Probabilità del blackjack: tabelle esatte" description="Tabelle esatte del blackjack dal motore di Veintiuno: quanto spesso sballa il banco, vantaggio del banco secondo le regole e valori attesi delle giocate chiave.">
+  <div class="container read">
+    <header class="article-head">
+      <span class="eyebrow">Dati</span>
+      <h1>Probabilità e dati del blackjack</h1>
+      <p class="lead">Tabelle calcolate con lo stesso motore che usa l’app Veintiuno: calcolo esatto invece di simulazione, e ogni pagina indica le regole e le ipotesi usate.</p>
+    </header>
+    <div class="grid-2">
+      {items.map(([href, title, text]) => <a class="card" href={href}><h3>{title}</h3><p>{text}</p></a>)}
+    </div>
+    <p class="muted small" style="margin-top:24px">Metodo: 6 mazzi, salvo indicazione diversa; le carte visibili vengono tolte e si esplora ogni carta possibile (expectimax). Convalidato con una simulazione indipendente di milioni di mani. Dettagli nella pagina <a href={routes.about.it}>Chi siamo</a>.</p>
+    <AppCTA lang="it" campaign="data" />
+  </div>
+</Base>

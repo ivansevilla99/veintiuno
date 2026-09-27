@@ -1,0 +1,58 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quais pares sempre se dividem no blackjack?', a: 'Ases e oitos, contra qualquer carta à mostra do dealer, nas mesas com carta oculta. Nas mesas europeias sem carta oculta há duas exceções: não dividir ases contra um ás nem oitos contra um 10 ou um ás.' },
+  { q: 'Deve-se dividir dez?', a: 'Nunca. Mesmo contra um 6, a pior carta à mostra do dealer, um 20 vale +0,70 aposta se você parar e +0,57 se dividir. Quem divide troca uma mão quase ganha por duas incertas.' },
+  { q: 'Deve-se dividir cincos?', a: 'Não. 5-5 é um 10, uma das melhores mãos para dobrar. Se dividir, você fica com duas mãos que começam com um 5, e essas são mãos ruins.' },
+  { q: 'E noves contra um 7?', a: 'Parar. 9-9 soma 18, e contra um 7 o dealer costuma terminar em 17: o seu 18 ganha. Parar vale +0,40; dividir, +0,37.' },
+];
+---
+<Guide
+  lang="pt"
+  route="whenSplit"
+  title="Quando dividir no blackjack: quais pares (tabela)"
+  h1="Quando dividir no blackjack"
+  description="Quais pares dividir no blackjack e contra qual carta do dealer: ases, oitos, noves, setes, seis, dois e três, e por que você nunca deve dividir dez nem cincos."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenDouble', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Resposta curta:</strong> divida sempre <strong>ases e oitos</strong>; nunca divida <strong>dez nem cincos</strong>. Noves contra 2–9, menos o 7. Setes, dois e três contra 2–7. Seis contra 2–6. Quatros só contra 5 e 6, se você puder dobrar depois de dividir.</p></div>
+  </div>
+
+  <h2 id="chart">A tabela para dividir pares</h2>
+  <table>
+    <thead><tr><th>Par</th><th>Dividir contra</th><th>Se não…</th></tr></thead>
+    <tbody>
+      <tr><td>A-A</td><td>todas</td><td>—</td></tr>
+      <tr><td>8-8</td><td>todas</td><td>—</td></tr>
+      <tr><td>10-10</td><td>nunca</td><td>parar</td></tr>
+      <tr><td>9-9</td><td>2 a 6, 8 e 9</td><td>parar (contra 7, 10 e ás)</td></tr>
+      <tr><td>7-7</td><td>2 a 7</td><td>pedir</td></tr>
+      <tr><td>6-6</td><td>2 a 6</td><td>pedir</td></tr>
+      <tr><td>5-5</td><td>nunca</td><td>dobrar contra 2–9</td></tr>
+      <tr><td>4-4</td><td>5 e 6 (dobrando depois de dividir)</td><td>pedir</td></tr>
+      <tr><td>2-2, 3-3</td><td>2 a 7</td><td>pedir</td></tr>
+    </tbody>
+  </table>
+  <p>Esta é a tabela para 6 baralhos com dobra depois de dividir permitida. Se a sua mesa não permite dobrar depois de dividir, você pede com 2-2 e 3-3 contra 2 e 3, e com 4-4 e 6-6 contra 2. Na <a href={routes.strategy.pt}>tabela de estratégia interativa</a> você vê isso ao mudar essa regra.</p>
+
+  <h2 id="aces-eights">Por que sempre ases e oitos</h2>
+  <p><strong>Dois ases</strong> juntos valem 2 ou 12, uma mão medíocre. Divididos, cada um começa com 11, e qualquer carta de valor dez faz 21. <strong>Dois oitos</strong> somam 16, a pior mão do jogo. Divididos, cada um começa com 8. Mesmo contra um 10, você perde bem menos dividindo do que jogando o 16:</p>
+  <EVTable lang="pt" cards={[8, 8]} up={10} tables={['vegasS17', 'vegasH17', 'europeanOnline']} />
+  <p>Numa mesa sem carta oculta, como nas regras europeias/online, a coisa muda: se você divide contra um 10, expõe duas apostas a um possível blackjack do dealer, e isso fica pior do que pedir.</p>
+
+  <h2 id="never">Por que nunca dez nem cincos</h2>
+  <p>Um 20 é quase imbatível. Mesmo quando o dealer mostra um 6, sua carta mais fraca, parar com 20 vale muito mais do que dividir:</p>
+  <EVTable lang="pt" cards={[10, 10]} up={6} tables={['vegasS17']} caption="10-10 contra 6: parar ou dividir" />
+  <p>Com <strong>5-5</strong> é parecido: é um 10, uma mão perfeita para dobrar. Se você a divide, fica com duas mãos que começam com um 5.</p>
+
+  <h2 id="depends">Pares que dependem da carta à mostra do dealer</h2>
+  <p>Os outros pares (2-2, 3-3, 6-6, 7-7, 9-9) você divide quando o dealer está fraco, porque duas apostas contra um dealer que estoura com frequência valem mais do que uma mão medíocre. O caso especial é <strong>9-9 contra um 7</strong>: você para, porque um dealer com 7 à mostra costuma terminar em 17 e o seu 18 ganha dele.</p>
+  <EVTable lang="pt" cards={[9, 9]} up={7} tables={['vegasS17']} caption="9-9 contra 7: parar ou dividir" />
+</Guide>

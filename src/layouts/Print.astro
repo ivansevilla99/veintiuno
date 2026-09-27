@@ -1,9 +1,10 @@
 ---
-interface Props { title: string; lang?: 'es' | 'en' | 'de' | 'fr' }
+import { htmlLangOf, type Lang } from '../lib/site';
+interface Props { title: string; lang?: Lang }
 const { title, lang = 'es' } = Astro.props;
 ---
 <!doctype html>
-<html lang={lang}>
+<html lang={htmlLangOf(lang)}>
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />

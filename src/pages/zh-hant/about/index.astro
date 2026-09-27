@@ -1,0 +1,27 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { routes, MAIL, linkOf } from '../../../lib/site';
+---
+<Base lang="zh" route="about" title="關於 Veintiuno：我們的21點策略表怎麼來的" description="Veintiuno 是由獨立開發者 Iván Sevilla 製作的21點學習 App。這裡說明我們如何計算策略表、參考了哪些資料來源，以及為什麼跟賭場沒有任何關係。">
+  <div class="container legal">
+    <div class="read prose">
+      <h1>關於 Veintiuno</h1>
+      <p class="lead">Veintiuno（西班牙文的「二十一」）是一款教你正確玩21點的 App，由西班牙的獨立開發者 Iván Sevilla 製作。</p>
+      <h2>為什麼會有它</h2>
+      <p>網路上很多關於21點的文章，都來自靠把你送進賭場來賺錢的網站。所以到處都是「必勝技巧」，誠實的說明卻少之又少。Veintiuno 反過來做：App 告訴你正確的決定，並解釋原因——不用真錢，除了 App 本身之外也不賣你任何東西。</p>
+      <h2>策略表從哪裡來</h2>
+      <p>基本策略不是見仁見智的問題：它是每一種手牌、莊家明牌和規則組合下，期望值最高的打法。我們的策略表以六副牌的標準策略表為基礎，再套用每條規則帶來的變化（副數、軟 17、暗牌、分牌後加倍、加倍限制和投降）。</p>
+      <p>我們用標準資料來源來驗證：Baldwin、Cantey、Maisel 和 McDermott 在 1956 年發表的原始論文、Edward Thorp 的 <em>Beat the Dealer</em>、Peter Griffin 的分析，以及 Wizard of Odds 和 BlackjackInfo 的表格與計算器。莊家優勢的數值，是根據 Wizard of Odds 的規則表估算的近似值。</p>
+      <p>這個網站上的策略表，和 App 使用的是完全相同的引擎，所以兩者永遠一致。</p>
+      <h2>我們不做的事</h2>
+      <ul>
+        <li>沒有賭場或博彩業者的聯盟行銷連結，沒有紅利優惠，也不評測業者。</li>
+        <li>不承諾你會贏錢。21點有莊家優勢，我們也會老實說。</li>
+        <li>App 裡不涉及任何真錢。</li>
+      </ul>
+      <h2>聯絡我們</h2>
+      <p>發現策略表或說明有錯？請寫信到 <a href={`mailto:${MAIL}`}>{MAIL}</a>。我們會檢查，如果你是對的，就會同時修正網站和 App。</p>
+      <p><a href={routes.responsible.zh}>負責任博彩</a> · <a href={linkOf('privacy', 'zh')}>隱私權（英文）</a> · <a href={linkOf('terms', 'zh')}>使用條款（英文）</a></p>
+    </div>
+  </div>
+</Base>

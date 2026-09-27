@@ -1,0 +1,84 @@
+---
+import Guide from '../../../../layouts/Guide.astro';
+import { houseEdge, presets, defaultRules } from '../../../../lib/strategy';
+import { routes } from '../../../../lib/site';
+
+const base = houseEdge(defaultRules);
+const effects: [string, string, number][] = [
+  ['Blackjack paga 6:5 em vez de 3:2', 'Pior', houseEdge({ ...defaultRules, payout: 'sixToFive' }) - base],
+  ['Blackjack paga 1:1 (even money)', 'Pior', houseEdge({ ...defaultRules, payout: 'evenMoney' }) - base],
+  ['Dealer pede no 17 macio (H17)', 'Pior', houseEdge({ ...defaultRules, dealerHitsSoft17: true }) - base],
+  ['Dobrar só com 10 ou 11', 'Pior', houseEdge({ ...defaultRules, doubleRule: 'tenEleven' }) - base],
+  ['Sem dobrar depois de dividir', 'Pior', houseEdge({ ...defaultRules, doubleAfterSplit: false }) - base],
+  ['Sem carta oculta (o dealer não espia)', 'Pior', houseEdge({ ...defaultRules, holeCard: false }) - base],
+  ['Dividir só uma vez', 'Pior', houseEdge({ ...defaultRules, maxSplitHands: 2 }) - base],
+  ['Dobrar só com 9, 10 ou 11', 'Pior', houseEdge({ ...defaultRules, doubleRule: 'nineToEleven' }) - base],
+  ['Sem desistência', 'Pior', houseEdge({ ...defaultRules, surrender: 'none' }) - base],
+  ['8 baralhos em vez de 6', 'Pior', houseEdge({ ...defaultRules, decks: 8 }) - base],
+  ['4 baralhos em vez de 6', 'Melhor', houseEdge({ ...defaultRules, decks: 4 }) - base],
+  ['Pode redividir ases', 'Melhor', houseEdge({ ...defaultRules, resplitAces: true }) - base],
+  ['2 baralhos em vez de 6', 'Melhor', houseEdge({ ...defaultRules, decks: 2 }) - base],
+  ['1 baralho em vez de 6', 'Melhor', houseEdge({ ...defaultRules, decks: 1 }) - base],
+];
+const fmt = (x: number) => (x > 0 ? '+' : '−') + Math.abs(x).toFixed(2).replace('.', ',') + ' p.p.';
+const tables: [string, keyof typeof presets][] = [
+  ['Las Vegas, 6 baralhos, S17, desistência', 'vegasS17'],
+  ['Las Vegas, 6 baralhos, H17, desistência', 'vegasH17'],
+  ['Europeia / online, sem carta oculta', 'europeanOnline'],
+  ['Cassino na Espanha', 'spainCasino'],
+  ['Double deck (2 baralhos)', 'doubleDeck'],
+];
+const pct = (x: number) => x.toFixed(2).replace('.', ',') + '%';
+
+const faq = [
+  { q: 'Qual regra do blackjack é a pior para você?', a: 'Quando o blackjack paga 6:5 em vez de 3:2. Isso aumenta a vantagem da casa em cerca de 1,4 ponto percentual e, com isso, multiplica mais ou menos por quatro o que você perde mesmo jogando perfeito. Se uma mesa paga 6:5, a sua melhor jogada é procurar outra.' },
+  { q: 'Qual é a vantagem da casa no blackjack?', a: 'Com a estratégia básica perfeita, entre 0,2% e 0,7%, dependendo das regras; com 6 baralhos e regras típicas de Las Vegas, cerca de 0,4%. Quem joga no instinto enfrenta uma desvantagem real bem maior.' },
+  { q: 'O número de baralhos faz diferença?', a: 'Sim, mas menos do que outras regras. Passar de 6 para 8 baralhos custa cerca de 0,02 ponto; com 2 baralhos você economiza cerca de 0,17. O pagamento do blackjack e se o dealer pede no 17 macio importam muito mais.' },
+];
+---
+<Guide
+  lang="pt"
+  route="dataRules"
+  title="Vantagem da casa no blackjack: o custo de cada regra"
+  h1="Quanto custa cada regra do blackjack"
+  description="Vantagem da casa no blackjack segundo as regras: pagamento 6:5, H17, número de baralhos, desistência, dobrar após dividir e sem carta oculta. Custo de cada uma."
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['dataBust', 'spain', 'howToWin', 'data']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Em resumo:</strong> com a estratégia básica perfeita, numa mesa de 6 baralhos com boas regras a casa fica com cerca de <strong>{pct(base)}</strong> das suas apostas. A regra mais cara, de longe, é o blackjack que paga só <strong>6:5</strong> (+1,39 ponto); depois vem o dealer que pede no 17 macio (+0,22).</p></div>
+  </div>
+
+  <h2 id="effects">O efeito de cada regra</h2>
+  <p>Ponto de partida: 6 baralhos, o dealer para no 17 macio, dobrar com quaisquer duas cartas e depois de dividir, desistência tardia, carta oculta e blackjack pagando 3:2. Vantagem da casa com estratégia perfeita: <strong>{pct(base)}</strong>. Cada linha mostra quanto ela muda se você altera só aquela regra.</p>
+  <table class="data-table">
+    <thead><tr><th>Regra</th><th>Para você</th><th>Mudança na vantagem da casa</th></tr></thead>
+    <tbody>
+      {effects.map(([name, dir, d]) => <tr><th scope="row">{name}</th><td>{dir}</td><td class={d > 0 ? 'bad' : 'good'}>{fmt(d)}</td></tr>)}
+    </tbody>
+  </table>
+
+  <h2 id="tables">Vantagem da casa em mesas típicas</h2>
+  <table class="data-table">
+    <thead><tr><th>Mesa</th><th>Vantagem da casa</th></tr></thead>
+    <tbody>
+      {tables.map(([name, k]) => <tr><th scope="row">{name}</th><td class="hl">{pct(houseEdge(presets[k]))}</td></tr>)}
+    </tbody>
+  </table>
+  <p>Esses valores pressupõem que você joga a estratégia básica sem erros. Cada erro custa a mais: aceitar o seguro, parar com 12 contra um 2 ou não dividir oitos, e isso soma vários pontos rapidinho. Por isso a <a href={routes.strategy.pt}>tabela de estratégia</a> importa mais do que procurar a mesa perfeita.</p>
+
+  <h2 id="source">De onde vêm os números</h2>
+  <p>A vantagem base e o efeito de cada regra são as aproximações habituais da tabela de efeitos de regras do Wizard of Odds, a mesma que o app Veintiuno usa. Os efeitos se somam de forma aproximada: se você combinar várias regras, o resultado pode diferir em alguns centésimos do cálculo exato para aquela combinação.</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 16px; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); font-weight: 600; }
+  .data-table td.bad { color: var(--wrong); font-weight: 700; }
+  .data-table td.good { color: var(--correct); font-weight: 700; }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

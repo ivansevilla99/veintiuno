@@ -1,0 +1,71 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: '21點什麼時候該加倍？', a: '11 點對 A 以外的所有牌；10 點對 2 到 9；9 點對 3 到 6；如果牌桌允許任意兩張牌加倍，幾手軟牌（A-2 到 A-7）對莊家弱勢的明牌也要加倍。在西班牙的賭場，只能在 9、10 或 11 點時加倍。' },
+  { q: '11 點對 A 要加倍嗎？', a: '看規則而定。如果莊家軟 17 停牌（S17），就要牌；如果莊家軟 17 要牌（H17），就加倍。在沒有暗牌的歐式牌桌上，一律要牌。' },
+  { q: '要牌之後還能加倍嗎？', a: '不能。加倍只能在你的前兩張牌時使用（如果牌桌允許分牌後加倍，也可以在分牌後那手的前兩張牌時使用）。一旦要過牌，你就只能繼續要牌或停牌。' },
+  { q: '為什麼 A-7 對 6 要加倍？', a: '因為軟 18 多拿一張牌不會爆牌，而莊家明牌是 6 時最弱：大約 42% 的機率會爆牌。加倍就是把這個優勢變成雙倍的錢。' },
+];
+---
+<Guide
+  lang="zh"
+  route="whenDouble"
+  title="21點什麼時候加倍？完整加倍規則"
+  h1="21點什麼時候該加倍"
+  description="21點什麼時候該加倍：9、10、11 點和軟牌分別對上哪些莊家明牌要加倍，以及遇到 H17 規則和沒有暗牌時會有什麼變化。附每個選項的期望值。"
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenSplit', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>簡短回答：</strong><strong>11 點</strong>對 A 以外的所有牌加倍，<strong>10 點</strong>對 2–9 加倍，<strong>9 點</strong>對 3–6 加倍。如果牌桌允許任意兩張牌加倍，<strong>A-2 到 A-7</strong> 對莊家弱勢的明牌也要加倍。加倍的意思是在你佔優勢時多下注，絕不是為了「把輸的贏回來」。</p></div>
+  </div>
+
+  <h2 id="what">加倍是什麼，為什麼能賺錢</h2>
+  <p>加倍就是把注碼翻倍，換來<strong>剛好再一張牌</strong>。你會在本來就領先的牌上這樣做：你的起始點數好，而莊家很弱。在這些牌上，你贏的次數比輸的多，所以用雙倍注碼，就是把你已經擁有的優勢放大。</p>
+  <p>用數字舉個例子：11 點對 6。要牌平均價值 +0.34 注，加倍則是 +0.68。加倍不會讓你贏得更頻繁，但贏的時候你會拿到兩倍的錢。</p>
+  <EVTable lang="zh" cards={[6, 5]} up={6} tables={['vegasS17', 'europeanOnline']} />
+
+  <h2 id="hard">硬牌</h2>
+  <table>
+    <thead><tr><th>你的手牌</th><th>對這些牌加倍</th><th>否則……</th></tr></thead>
+    <tbody>
+      <tr><td>11</td><td>2 到 10（H17 時也包括 A）</td><td>要牌</td></tr>
+      <tr><td>10</td><td>2 到 9</td><td>要牌</td></tr>
+      <tr><td>9</td><td>3 到 6（一副或兩副牌時也包括 2）</td><td>要牌</td></tr>
+      <tr><td>8 或以下</td><td>永遠不加倍</td><td>要牌</td></tr>
+    </tbody>
+  </table>
+  <p>最具爭議的情況是 <strong>11 點對 A</strong>。在 S17 規則下，要牌和加倍非常接近，要牌險勝；在 H17 規則下，加倍就超前了：</p>
+  <EVTable lang="zh" cards={[6, 5]} up={1} tables={['vegasS17', 'vegasH17', 'europeanOnline']} />
+  <p>在沒有暗牌的牌桌上，對 A 加倍明顯比較差：如果莊家是21點（Blackjack），你會輸掉雙倍的注碼。</p>
+
+  <h2 id="soft">軟牌</h2>
+  <p>只適用於允許任意兩張牌加倍的牌桌：</p>
+  <table>
+    <thead><tr><th>你的手牌</th><th>對這些牌加倍</th><th>否則……</th></tr></thead>
+    <tbody>
+      <tr><td>A-2、A-3</td><td>5 和 6</td><td>要牌</td></tr>
+      <tr><td>A-4、A-5</td><td>4 到 6</td><td>要牌</td></tr>
+      <tr><td>A-6</td><td>3 到 6</td><td>要牌</td></tr>
+      <tr><td>A-7</td><td>3 到 6（H17 時也包括 2）</td><td>停牌</td></tr>
+      <tr><td>A-8</td><td>6，僅限 H17</td><td>停牌</td></tr>
+    </tbody>
+  </table>
+  <p>A-7 對 6 是最好的例子：停牌價值 +0.28，加倍卻是 +0.38。</p>
+  <EVTable lang="zh" cards={[1, 7]} up={6} tables={['vegasS17']} caption="A-7 對 6：停牌還是加倍" />
+
+  <h2 id="spain">沒有暗牌時，以及在西班牙的賭場</h2>
+  <p>沒有暗牌時，11 點對 10 或 A 不加倍。在西班牙的賭場，另外還規定只能在 9、10 或 11 點時加倍，所以所有軟牌加倍都不存在。完整內容請看<a href={routes.spain.zh}>西班牙的21點規則</a>。</p>
+
+  <h2 id="mistakes">加倍時代價最高的錯誤</h2>
+  <ul>
+    <li><strong>在有暗牌的牌桌上，11 點對 10 不加倍：</strong>每手大約白白損失 0.06 注。</li>
+    <li><strong>為了把輸的贏回來而加倍：</strong>這個決定取決於你的手牌和莊家的明牌，永遠不取決於你這一局的輸贏狀況。</li>
+    <li><strong>12 點或以上加倍：</strong>只拿一張牌，爆牌的機率太高。</li>
+  </ul>
+</Guide>

@@ -1,0 +1,90 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import StrategyChart from '../../../components/StrategyChart.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: '用基本策略就保證能贏21點嗎？', a: '不能。基本策略是長期輸得最少的打法：依規則不同，它能把莊家優勢降到大約 0.3–0.7%，但優勢仍然在莊家那邊。它讓每個決定都正確，而不是保證你贏錢。' },
+  { q: '為什麼會有不同的策略表？', a: '因為最佳打法取決於牌桌規則：副數、莊家在軟 17 要牌還是停牌、分牌後能不能加倍、有沒有投降，以及莊家會不會先檢查 Blackjack（暗牌）。在上方選擇你的牌桌，策略表就會跟著更新。' },
+  { q: '在賭場可以看策略卡嗎？', a: '有些賭場在低注碼的牌桌上允許你看一張印出來的卡，有些則不行——請先問清楚。任何地方都不允許在牌桌上使用手機或其他電子裝置。更好的做法是事先把策略表背熟。' },
+  { q: '21點的「軟」是什麼意思？', a: '軟牌是指手上有一張算作 11 點的 A。A-6 是軟 17：如果你要牌拿到 10，A 就改算 1 點，你有硬 17——一張牌不會讓你爆牌。所以軟牌更常加倍和要牌。' },
+  { q: '什麼時候該投降？', a: '只有在牌桌提供後投降（late surrender）時。以標準拉斯維加斯規則來說：16 點對 9、10 或 A，以及 15 點對 10。投降能拿回一半注碼，比打一手輸面超過一半的牌好。' },
+];
+---
+<Guide
+  lang="zh"
+  route="strategy"
+  title="21點基本策略表（互動式）· Veintiuno"
+  h1="21點基本策略表：適合你那桌的打法"
+  description="互動式21點基本策略表：選擇你的牌桌規則（拉斯維加斯 S17／H17、雙副牌、無暗牌的歐洲規則），點任一格就能看到為什麼這樣打才正確。免費使用。"
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['howToPlay', 'counting', 'howToWin', 'guides']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>簡單來說：</strong>在左欄找到你的牌，在最上排找到莊家的明牌。顏色告訴你該怎麼做：<b style="color:var(--c-hit)">要牌</b>、<b style="color:var(--c-stand)">停牌</b>、<b style="color:var(--c-double)">加倍</b>、<b style="color:var(--c-split)">分牌</b>或<b style="color:var(--c-surrender)">投降</b>。先選擇你的牌桌類型——規則會改變策略表。預設是拉斯維加斯規則（莊家軟 17 停牌）；如果你玩的是沒有暗牌的歐洲規則或線上牌桌，請切換到「歐洲／線上」。</p></div>
+  </div>
+
+  <div slot="wide">
+    <StrategyChart lang="zh" preset="vegasS17" />
+  </div>
+
+  <nav class="toc" aria-label="本篇內容">
+    <b>本篇內容</b>
+    <ol>
+      <li><a href="#reading">怎麼看策略表</a></li>
+      <li><a href="#rules">最重要的 10 條規則</a></li>
+      <li><a href="#table-rules">牌桌規則如何改變策略表</a></li>
+      <li><a href="#memorize">怎麼背起來</a></li>
+      <li><a href="#faq">常見問題</a></li>
+    </ol>
+  </nav>
+
+  <p class="callout">想要紙本？<a href={routes.printable.zh}>下載策略表 PDF</a>，有拉斯維加斯、歐洲和西班牙規則的版本。或者現在就到我們的<a href={routes.simulator.zh}>免費練習桌</a>練習。</p>
+
+  <h2 id="reading">怎麼看策略表</h2>
+  <p>基本策略是針對<strong>你的手牌</strong>和<strong>莊家明牌</strong>的每一種組合，在數學上最好的決定，是模擬數百萬手牌算出來的。它不管直覺或手氣：每一種情況，都有一個比其他選擇輸得更少的打法。</p>
+  <p>依照這個順序查看三個區塊：</p>
+  <ol>
+    <li><strong>對子。</strong>如果前兩張牌一樣，看看是否該分牌。</li>
+    <li><strong>軟牌。</strong>如果你有一張算作 11 點的 A（A-2 到 A-9），看這個區塊。</li>
+    <li><strong>硬牌。</strong>其他所有情況。「17+」代表 17 點以上。</li>
+  </ol>
+  <p>有些格子有兩個字母。<strong>Ds</strong> 代表「能加倍就加倍，否則停牌」；單獨一個 <strong>D</strong> 代表「能加倍就加倍，否則要牌」。投降的格子也是一樣：如果不能投降，就採用第二個選項。</p>
+
+  <h2 id="rules">最重要的 10 條規則</h2>
+  <p>你不需要一次背下每一格。這十條規則涵蓋了你會遇到的大部分牌：</p>
+  <ol>
+    <li><strong>A 和 8 一定分。</strong>兩張 A 可以變成兩個 21 點；8-8 是 16 點，整個遊戲裡最糟的一手牌。（沒有暗牌時，對 A 不分——見下文。）</li>
+    <li><strong>10 和 5 絕不分。</strong>20 點幾乎總是會贏，而 5-5 是應該加倍的 10 點。</li>
+    <li><strong>硬 17 以上一律停牌。</strong></li>
+    <li><strong>12–16 點對 7 以上要牌。</strong>感覺不對，但停牌輸得更多：莊家通常會做到 17 點以上。</li>
+    <li><strong>12–16 點對 2–6 停牌</strong>（12 點對 2 或 3 除外，這時要牌）。讓莊家自己爆牌。</li>
+    <li><strong>11 點加倍</strong>，對 A 以外的所有牌（S17 時；H17 時對 A 也加倍）。沒有暗牌時，對 10 或 A 不加倍。</li>
+    <li><strong>10 點加倍</strong>，對 2 到 9。</li>
+    <li><strong>9 點加倍</strong>，對 3 到 6。</li>
+    <li><strong>軟 18（A-7）對 9、10 或 A 要牌。</strong>這是老手最典型的錯誤。</li>
+    <li><strong>永遠不買保險。</strong>它是一個邊注，多副牌時莊家優勢約 7%。</li>
+  </ol>
+
+  <h2 id="table-rules">牌桌規則如何改變策略表</h2>
+  <ul>
+    <li><strong>莊家軟 17 要牌（H17）：</strong>11 點對 A 加倍，A-7 對 2 和 A-8 對 6 加倍，並多投降幾種牌（15 和 17 點對 A、8-8 對 A）。它也讓莊家優勢增加約 0.2%。</li>
+    <li><strong>雙副牌：</strong>9 點對 2 和 11 點對 A 加倍，6-6 對 7 和 7-7 對 8 分牌。</li>
+    <li><strong>沒有暗牌（歐洲規則）：</strong>莊家不會先檢查 Blackjack，所以莊家拿到 Blackjack 時，你加倍和分牌的注碼也會輸掉。11 點對 10 或 A 不加倍，A 或 8 對 A 不分。很多線上牌桌也是這樣——一定要先確認你那桌的規則。詳見<a href={routes.spain.zh}>西班牙的21點規則</a>。</li>
+    <li><strong>分牌後不能加倍：</strong>小對子（2-2、3-3、4-4、6-6）少分一點。</li>
+    <li><strong>Blackjack 賠 6:5：</strong>不會改變策略表，但莊家優勢會增加約 1.4%。避開這種牌桌。</li>
+  </ul>
+
+  <h2 id="memorize">怎麼背起來</h2>
+  <p>看得懂策略表，不等於真的會。在牌桌上你只有兩秒鐘，也沒有小抄。有效的方法是分散練習：每天打幾手、當場糾正，並針對你答錯的格子多加複習。</p>
+  <ol>
+    <li>從硬牌開始——你拿到的牌大多是硬牌。</li>
+    <li>接著加入對子：規則少，容易記。</li>
+    <li>軟牌留到最後——大多數人都在這裡出錯。</li>
+    <li>每天練習十分鐘，記下你答錯了哪些格子，而不是答對了幾格。</li>
+  </ol>
+  <p>這正是 Veintiuno App 在做的事：它依你那桌的規則發牌，當場糾正並說明原因，而熱度圖會顯示你在這張策略表上反覆出錯的格子。</p>
+</Guide>

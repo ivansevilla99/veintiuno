@@ -1,0 +1,91 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import CountDrill from '../../../components/CountDrill.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Contar cartas é ilegal?', a: 'Contar cartas de cabeça não é ilegal: você só está prestando atenção. O que é proibido são aparelhos, anotações ou sinais combinados com parceiros. Mas os cassinos podem se reservar o direito de admissão: em muitos lugares (inclusive Nevada) podem pedir que você pare de jogar blackjack ou que vá embora.' },
+  { q: 'A contagem de cartas funciona online?', a: 'No blackjack online comum, não: o software embaralha depois de cada mão, então não há nada para contar. As mesas com dealer ao vivo usam um sapato de verdade, mas costumam embaralhar quando ainda resta metade ou mais, o que deixa pouquíssima vantagem.' },
+  { q: 'Quanto dá para ganhar contando cartas?', a: 'Menos do que a maioria imagina. Um contador disciplinado, com boas regras, pode ter uma vantagem de cerca de 0,5–1% sobre o total apostado, com oscilações enormes: você pode perder durante semanas antes de a vantagem aparecer. Por isso vale a pena para pouquíssima gente.' },
+  { q: 'O que é a contagem real (true count)?', a: 'É a contagem corrente dividida pelo número de baralhos que ainda faltam distribuir. Uma contagem corrente de +6 com três baralhos restantes dá uma contagem real de +2. A contagem real diz se as cartas que restam estão a seu favor.' },
+  { q: 'Preciso saber a estratégia básica antes?', a: 'Sim. Contar sem dominar a estratégia básica não adianta: os erros de estratégia custam mais do que a contagem rende. Primeiro a tabela, depois a contagem.' },
+];
+---
+<Guide
+  lang="pt"
+  route="counting"
+  title="Como contar cartas no blackjack: o sistema Hi-Lo"
+  h1="Como contar cartas no blackjack"
+  description="Contagem de cartas com o sistema Hi-Lo: contagem corrente, contagem real, a vantagem que ela dá, se é legal e por que não dá certo online. Com treino."
+  updated="2026-09-27"
+  readMinutes={9}
+  faq={faq}
+  related={['strategy', 'howToWin', 'howToPlay', 'guides']}
+  cta={{ title: 'Primeiro a estratégia, depois a contagem', text: 'O Veintiuno treina a estratégia básica até você parar de errar e depois ensina o Hi-Lo como módulo avançado, com um treino de contagem corrente no seu ritmo.' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Resposta curta:</strong> contar cartas é manter uma soma corrente das cartas que já saíram para saber quando o que resta do baralho está cheio de cartas altas, que favorecem o jogador. No Hi-Lo, 2–6 valem +1 e os dez e ases valem −1. É legal, mas a vantagem é pequena, exige disciplina de verdade e não funciona online.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="Neste guia">
+    <b>Neste guia</b>
+    <ol>
+      <li><a href="#why">Por que a contagem funciona</a></li>
+      <li><a href="#hi-lo">O sistema Hi-Lo passo a passo</a></li>
+      <li><a href="#true">A contagem real</a></li>
+      <li><a href="#use">O que fazer com a contagem</a></li>
+      <li><a href="#reality">Choque de realidade: o que ela rende</a></li>
+      <li><a href="#legal">É legal?</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="why">Por que a contagem funciona</h2>
+  <p>Ao contrário da roleta, o blackjack tem memória: as cartas distribuídas só voltam ao sapato no próximo embaralhamento, então o que resta muda de mão para mão.</p>
+  <p>Quando as cartas restantes estão <strong>cheias de dez e ases</strong>, o jogador sai ganhando: mais blackjacks (que pagam 3 para 2), dobras melhores e um dealer que é obrigado a pedir com 16 e estoura mais vezes. Quando estão <strong>cheias de cartas baixas</strong>, acontece o contrário. Contar é simplesmente acompanhar esse equilíbrio.</p>
+
+  <h2 id="hi-lo">O sistema Hi-Lo passo a passo</h2>
+  <p>O Hi-Lo é o sistema mais popular porque é simples e quase tão eficaz quanto sistemas complicados. Cada carta que você vê recebe um valor:</p>
+  <table>
+    <thead><tr><th>Cartas</th><th>Valor Hi-Lo</th></tr></thead>
+    <tbody>
+      <tr><td>2, 3, 4, 5, 6</td><td>+1</td></tr>
+      <tr><td>7, 8, 9</td><td>0</td></tr>
+      <tr><td>10, J, Q, K, A</td><td>−1</td></tr>
+    </tbody>
+  </table>
+  <p>Depois do embaralhamento você começa do 0 e soma o valor de <strong>cada</strong> carta que vê: as suas, as dos outros jogadores e as do dealer. Esse número é a <strong>contagem corrente</strong>. Uma contagem positiva significa que saíram mais cartas baixas, então restam mais cartas altas.</p>
+  <p>Exemplo: 5, K, 3, 9, 2, A → +1 −1 +1 0 +1 −1 = <strong>+1</strong>.</p>
+  <p>Dica de profissional: cancele pares. Um 5 e um rei juntos dão 0, então você pode pular os dois e contar mais rápido.</p>
+
+  <CountDrill lang="pt" />
+
+  <h2 id="true">A contagem real</h2>
+  <p>Uma contagem corrente de +6 significa uma coisa com um baralho restante e outra bem diferente com cinco. Por isso você a converte em <strong>contagem real</strong> (true count): a contagem corrente dividida pelos baralhos restantes.</p>
+  <ul>
+    <li>Contagem corrente +6, três baralhos restantes → contagem real <strong>+2</strong>.</li>
+    <li>Contagem corrente +6, um baralho restante → contagem real <strong>+6</strong>.</li>
+  </ul>
+  <p>Você estima os baralhos restantes dando uma olhada no descarte. Arredondar para o meio baralho mais próximo é mais do que suficiente.</p>
+
+  <h2 id="use">O que fazer com a contagem</h2>
+  <ol>
+    <li><strong>Ajustar as apostas.</strong> É daqui que vem quase toda a vantagem. Com contagem real de +1 ou menos, aposte o mínimo; a partir de +2, aumente a aposta aos poucos. Como regra geral, cada ponto de contagem real move a vantagem cerca de meio por cento a seu favor.</li>
+    <li><strong>Desviar da estratégia básica.</strong> Com contagens muito altas ou muito baixas, algumas jogadas mudam. A mais conhecida é o seguro, que passa a ser correto a partir de contagem real +3. Esses desvios se chamam jogadas de índice; as 18 mais valiosas são as “Illustrious 18”.</li>
+  </ol>
+
+  <h2 id="reality">Choque de realidade: o que ela rende</h2>
+  <p>É aqui que a maioria dos guias exagera. A versão honesta:</p>
+  <ul>
+    <li><strong>A vantagem é pequena.</strong> Com boas regras e boa penetração, um contador treinado chega talvez a cerca de 0,5–1% do total apostado.</li>
+    <li><strong>As oscilações são enormes.</strong> Com essa vantagem você pode perder durante semanas. Para aguentar, precisa de uma banca grande.</li>
+    <li><strong>Os cassinos reagem.</strong> Embaralham antes, limitam a variação das suas apostas ou pedem que você vá embora.</li>
+    <li><strong>Online não funciona.</strong> O blackjack com RNG embaralha a cada mão, e nos sapatos com dealer ao vivo o corte é cedo demais para render alguma coisa.</li>
+    <li><strong>As embaralhadoras contínuas</strong> devolvem as cartas depois de cada mão, e contra elas a contagem é inútil.</li>
+  </ul>
+  <p>Contar cartas é uma habilidade mental fascinante e a melhor forma de entender o jogo de verdade. Não é um caminho fácil para o dinheiro, e quem diz o contrário está querendo te vender alguma coisa.</p>
+
+  <h2 id="legal">É legal?</h2>
+  <p>Contar <strong>de cabeça</strong> é legal: ninguém pode proibir você de pensar. Usar ajuda externa não é: celulares, anotações, aparelhos ou sinais com cúmplices.</p>
+  <p>Mas os cassinos não são obrigados a gostar. Na maioria das jurisdições podem recusar você com base no direito de admissão: pedir que você pare de jogar blackjack ou que vá embora. (Nova Jersey é uma exceção conhecida: lá os cassinos não podem excluir contadores, mas podem embaralhar antes ou limitar as apostas.) Na prática, o mais comum é que primeiro embaralhem antes ou limitem sua aposta. Veja mais em <a href={routes.countingLegal.pt}>Contar cartas é ilegal?</a></p>
+  <p>Antes de contar, domine a <a href={routes.strategy.pt}>estratégia básica</a>: cada erro de estratégia custa mais do que a contagem devolve.</p>
+</Guide>

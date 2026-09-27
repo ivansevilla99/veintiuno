@@ -1,0 +1,99 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Nel blackjack l’asso vale 1 o 11?', a: 'Tutte e due, a seconda di cosa ti conviene. Una mano in cui l’asso conta 11 si chiama «mano soft»: asso-6 è un 17 soft. Se con la carta successiva sballeresti, l’asso conta semplicemente 1.' },
+  { q: 'Cosa succede in caso di pareggio con il banco?', a: 'È un pareggio (push): riprendi la tua puntata e nessuno vince. Anche se avete entrambi blackjack è un pareggio.' },
+  { q: 'Quanto paga un blackjack?', a: 'A un tavolo standard il blackjack paga 3 a 2: 15 € con una puntata di 10 €. Alcuni tavoli pagano solo 6 a 5 (12 € su 10 €). Questa piccola modifica quadruplica più o meno il vantaggio del banco, quindi evita i tavoli 6:5.' },
+  { q: 'Quando deve chiedere carta il banco?', a: 'Il banco non ha scelta: chiede carta con 16 o meno e sta con 17 o più. Ad alcuni tavoli chiede carta anche sul 17 soft (asso-6); in quel caso sul tappeto trovi scritto «Dealer hits soft 17» o «H17».' },
+  { q: 'Il blackjack è lo stesso del 21?', a: 'Il blackjack è la versione da casinò del gioco di carte del «21». L’obiettivo è lo stesso, ma al casinò il banco segue regole fisse e tu hai opzioni in più come raddoppiare, dividere e l’assicurazione.' },
+];
+---
+<Guide
+  lang="it"
+  route="howToPlay"
+  title="Regole del blackjack: valore delle carte e pagamenti"
+  h1="Regole del blackjack spiegate in modo semplice"
+  description="Le regole del blackjack passo dopo passo: obiettivo, valore delle carte, come si gioca una mano, chiedere carta o stare, raddoppio, divisione, resa e pagamenti."
+  updated="2026-09-27"
+  readMinutes={8}
+  faq={faq}
+  related={['strategy', 'howToWin', 'counting', 'spain']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> vinci se arrivi più vicino a 21 del banco senza sballare. Le figure valgono 10, gli assi 1 o 11 e tutte le altre carte il loro valore. Sei tu a decidere se chiedere carta o stare; il banco non decide: chiede carta fino a 17.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In questa guida">
+    <b>In questa guida</b>
+    <ol>
+      <li><a href="#obiettivo">L’obiettivo</a></li>
+      <li><a href="#valore-carte">Il valore delle carte</a></li>
+      <li><a href="#mano">Come si gioca una mano</a></li>
+      <li><a href="#opzioni">Le tue opzioni: carta, stare, raddoppiare, dividere, resa</a></li>
+      <li><a href="#pagamenti">I pagamenti</a></li>
+      <li><a href="#assicurazione">L’assicurazione (e perché lasciarla stare)</a></li>
+      <li><a href="#prossimo-passo">Il passo successivo: la strategia di base</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="obiettivo">L’obiettivo</h2>
+  <p>A blackjack non giochi contro gli altri giocatori, ma <strong>contro il banco</strong>. Vinci una mano se il tuo totale è più vicino a 21 del suo senza superare 21, oppure se il banco sballa e tu no.</p>
+  <p>Se superi 21, hai sballato: perdi subito, anche se dopo sballa anche il banco. Dato che giochi per primo, è proprio da questa regola che nasce il vantaggio del banco.</p>
+
+  <h2 id="valore-carte">Il valore delle carte</h2>
+  <table>
+    <thead><tr><th>Carta</th><th>Valore</th></tr></thead>
+    <tbody>
+      <tr><td>Dal 2 al 9</td><td>Il suo valore</td></tr>
+      <tr><td>10, jack, donna, re</td><td>10</td></tr>
+      <tr><td>Asso</td><td>1 o 11, come ti conviene</td></tr>
+    </tbody>
+  </table>
+  <p>I semi non contano. Con quattro valori che valgono 10, quasi un terzo del mazzo vale 10: questo spiega buona parte della strategia di base.</p>
+  <p>Una mano in cui un asso conta 11 è una <strong>mano soft</strong>: asso-6 è un «17 soft». Puoi chiedere carta senza rischi, perché se con la carta successiva sballeresti, l’asso conta 1. Tutte le altre mani sono <strong>mani hard</strong>.</p>
+  <p>Un <strong>blackjack</strong> (o «natural») è un asso più una carta da 10 come prime due carte. È la mano migliore e batte qualsiasi altro 21.</p>
+
+  <h2 id="mano">Come si gioca una mano</h2>
+  <ol>
+    <li><strong>Puntate.</strong> Tutti puntano prima della distribuzione.</li>
+    <li><strong>Distribuzione.</strong> Ricevi due carte scoperte. Il banco riceve una carta scoperta e, con le regole americane, una coperta (la «hole card»). Ai tavoli europei riceve la seconda carta solo dopo che tutti i giocatori hanno finito.</li>
+    <li><strong>Blackjack.</strong> Se il banco mostra un asso o un dieci, (con la carta coperta) controlla sotto la sua carta coperta; se ha blackjack, la mano finisce lì. Se hai blackjack e il banco no, vieni pagato subito.</li>
+    <li><strong>Il tuo turno.</strong> Chiedi carta, stai, raddoppi, dividi o ti arrendi. Puoi chiedere carta quante volte vuoi, finché stai o sballi.</li>
+    <li><strong>Il turno del banco.</strong> Il banco scopre la seconda carta e chiede carta con 16 o meno; con 17 o più sta.</li>
+    <li><strong>Pagamento.</strong> Si confrontano i totali e si pagano le puntate.</li>
+  </ol>
+
+  <h2 id="opzioni">Le tue opzioni</h2>
+  <h3>Chiedere carta (hit)</h3>
+  <p>Prendi un’altra carta. Lo ripeti finché decidi di stare o sballi.</p>
+  <h3>Stare (stand)</h3>
+  <p>Tieni il tuo totale e chiudi il tuo turno.</p>
+  <h3>Raddoppiare (double)</h3>
+  <p>Raddoppi la puntata e in cambio ricevi <strong>una sola carta in più</strong>. Conviene con un totale iniziale forte (9, 10 o 11) contro una carta debole del banco.</p>
+  <h3>Dividere (split)</h3>
+  <p>Se le tue prime due carte sono uguali, le separi in due mani e punti la stessa somma sulla seconda. Assi e otto si dividono sempre, dieci e cinque mai.</p>
+  <h3>Arrendersi (surrender)</h3>
+  <p>Dove è prevista, abbandoni la mano subito dopo la distribuzione e ti restituiscono metà della puntata. Conviene solo in poche situazioni molto sfavorevoli, per esempio 16 contro un 10 del banco.</p>
+
+  <h2 id="pagamenti">I pagamenti</h2>
+  <table>
+    <thead><tr><th>Risultato</th><th>Paga</th></tr></thead>
+    <tbody>
+      <tr><td>Vincita</td><td>1 a 1 (con 10 € puntati vinci 10 €)</td></tr>
+      <tr><td>Blackjack</td><td>3 a 2 (con 10 € puntati vinci 15 €)</td></tr>
+      <tr><td>Pareggio (push)</td><td>Ti restituiscono la puntata</td></tr>
+      <tr><td>Assicurazione</td><td>2 a 1 sulla puntata dell’assicurazione</td></tr>
+    </tbody>
+  </table>
+  <div class="callout warn"><p><strong>Attenzione ai tavoli 6:5.</strong> Se il blackjack paga 6 a 5 invece di 3 a 2, il vantaggio del banco sale di circa 1,4 punti percentuali: più di qualsiasi altra singola regola.</p></div>
+
+  <h2 id="assicurazione">L’assicurazione (e perché lasciarla stare)</h2>
+  <p>Quando il banco mostra un asso ti offrono l’<strong>assicurazione</strong>: una scommessa laterale, fino a metà della tua puntata, sul fatto che il banco abbia blackjack. Paga 2 a 1.</p>
+  <p>Sembra una protezione, ma è solo un’altra scommessa, e pure cattiva. Con sei mazzi la probabilità di un dieci sotto l’asso è di circa il 31%, mentre all’assicurazione servirebbe più del 33% solo per andare in pari. Il vantaggio del banco su questa scommessa è di circa il 7%. La strategia di base dice: <strong>non prenderla mai</strong>, nemmeno come «even money» quando hai tu blackjack.</p>
+
+  <h2 id="prossimo-passo">Il passo successivo: la strategia di base</h2>
+  <p>Conoscere le regole è metà del lavoro. L’altra metà è sapere cosa fare in ogni situazione: chiedere carta con 12 contro un 3? Raddoppiare l’11 contro un 10? Dividere i 9 contro un 7? Ogni combinazione ha una risposta matematicamente corretta, e tutte insieme formano la <a href={routes.strategy.it}>strategia di base</a>.</p>
+  <p>Chi gioca a sensazione di solito regala al banco il 2% o più. Con la strategia di base il vantaggio del banco scende a circa lo 0,5%. Non ti rende un vincente, ma è la differenza tra giocare bene e giocare alla cieca.</p>
+</Guide>

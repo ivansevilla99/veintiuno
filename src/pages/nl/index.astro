@@ -1,0 +1,99 @@
+---
+import Base from '../../layouts/Base.astro';
+import AppStoreButton from '../../components/AppStoreButton.astro';
+import AppCTA from '../../components/AppCTA.astro';
+import { routes, APP_STORE_URL } from '../../lib/site';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: 'Veintiuno',
+    alternateName: 'Veintiuno',
+    operatingSystem: 'iOS',
+    applicationCategory: 'EducationalApplication',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+    url: APP_STORE_URL,
+    inLanguage: 'nl',
+    description: 'Een app om de basisstrategie van blackjack te leren en te oefenen, met directe correctie en de reden achter elke zet. Zonder echt geld.',
+  },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Veintiuno', url: 'https://veintiunoapp.com/nl/', inLanguage: 'nl' },
+];
+---
+<Base
+  lang="nl"
+  route="home"
+  title="Veintiuno: blackjack-trainer en basisstrategie"
+  description="Leer blackjack goed spelen: een interactieve strategietabel voor elke regelvariant, heldere gidsen en een app die elke beslissing corrigeert. Zonder echt geld."
+  schema={schema}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Blackjack zonder mythes</span>
+        <h1>Leer blackjack goed spelen</h1>
+        <p class="lead">De basisstrategie, zet voor zet uitgelegd en aangepast aan de regels van jouw tafel. Geen wondersystemen, geen beloftes van makkelijk geld – alleen de juiste beslissingen, tot ze vanzelf gaan.</p>
+        <div class="hero-actions">
+          <AppStoreButton lang="nl" campaign="home-hero" />
+          <a class="btn btn-ghost" href={routes.simulator.nl}>Gratis spelen met correctie</a>
+        </div>
+        <p class="hero-note">Voor iPhone en Mac · Gratis om te beginnen · Zonder echt geld</p>
+      </div>
+      <div class="fan" aria-hidden="true">
+        <div class="pcard"><span class="corner">10<i>♠</i></span><span class="pip">♠</span></div>
+        <div class="pcard"><span class="corner">6<i>♣</i></span><span class="pip">♣</span></div>
+        <div class="pcard red"><span class="corner">V<i>♥</i></span><span class="pip">♥</span></div>
+        <div class="chip-badge"><b>De juiste zet was: kaart vragen</b>Met 16 tegen een 10 verlies je als je past: de dealer komt bijna altijd op 17 of meer.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Begin hier</h2>
+      <p class="lead">Drie gidsen dekken wat je echt nodig hebt. Ga je liever stap voor stap, volg dan de <a href={routes.course.nl}>gratis blackjack cursus</a>: 10 korte lessen met quiz.</p>
+      <div class="grid-3">
+        <a class="card" href={routes.howToPlay.nl}><div class="icon">♠</div><h3>Blackjack regels</h3><p>De regels, de kaartwaarden en hoe een hand van begin tot eind verloopt, zonder vakjargon.</p><span class="more">Regels leren →</span></a>
+        <a class="card" href={routes.strategy.nl}><div class="icon">▦</div><h3>Strategietabel</h3><p>Interactief en afgestemd op jouw tafel: Vegas S17 of H17, twee decks, Europees. Tik op een vakje om te zien waarom.</p><span class="more">Tabel openen →</span></a>
+        <a class="card" href={routes.counting.nl}><div class="icon">±</div><h3>Kaarten tellen</h3><p>Hoe Hi-Lo werkt, welk voordeel het echt geeft en waarom het voor zo weinig mensen loont. Eerlijk uitgelegd.</p><span class="more">Tellen begrijpen →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container grid-2" style="align-items:center">
+      <div>
+        <span class="eyebrow">De app</span>
+        <h2 style="margin-top:0">De tabel kennen is niet hetzelfde als hem spelen</h2>
+        <p>Aan tafel heb je twee seconden om te beslissen. Precies dat traint Veintiuno: de app deelt echte handen uit, corrigeert je meteen en legt de reden achter elke zet uit – volgens de regels van jouw tafel.</p>
+        <ul>
+          <li><strong>Directe correctie</strong> met de reden achter elke fout.</li>
+          <li><strong>Een plan van 14 dagen:</strong> één concept, één oefening en één toets per dag.</li>
+          <li><strong>Een heatmap</strong> van de tabelvakjes waar je het vaakst de fout in gaat.</li>
+          <li><strong>Regels uit Vegas, Europa en Spanje</strong>, met of zonder hole card.</li>
+          <li><strong>Hi-Lo-tellen</strong> als module voor gevorderden, zonder hype.</li>
+        </ul>
+        <AppStoreButton lang="nl" campaign="home-app" />
+      </div>
+      <div class="card">
+        <h3>Wat Veintiuno niet is</h3>
+        <p>Geen casino en geen gokspel: geen echt geld, geen fiches, geen band met welke aanbieder dan ook. En we verkopen je geen systeem waarmee je „altijd wint”, want zoiets bestaat niet.</p>
+        <p>De basisstrategie verlaagt het huisvoordeel tot ongeveer 0,5%, maar haalt het niet weg. We leggen het zonder omwegen uit in <a href={routes.howToWin.nl}>winnen met blackjack</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Veelgestelde vragen</h2>
+      <div class="grid-2">
+        <a class="card" href={routes.howToPlay.nl}><h3>Hoe win je een hand blackjack?</h3><p>Dichter bij 21 komen dan de dealer, zonder kapot te gaan. Stap voor stap uitgelegd.</p></a>
+        <a class="card" href={routes.simulator.nl}><h3>Waar kan ik gratis blackjack spelen?</h3><p>Hier: een tafel zonder geld en zonder account, die elke zet corrigeert.</p></a>
+        <a class="card" href={routes.strategy.nl}><h3>Wanneer verdubbelen of splitsen?</h3><p>Azen en achten altijd splitsen, tienen en vijven nooit. De rest staat in de tabel.</p></a>
+        <a class="card" href={routes.counting.nl}><h3>Is kaarten tellen illegaal?</h3><p>Uit je hoofd tellen is niet illegaal, maar casino’s kunnen je vragen ermee te stoppen.</p></a>
+        <a class="card" href={routes.howToWin.nl}><h3>Kun je blackjack op den duur verslaan?</h3><p>Met alleen de basisstrategie niet – je verliest zo weinig mogelijk. Hier lees je wat wel kan.</p></a>
+      </div>
+      <AppCTA lang="nl" campaign="home-bottom" />
+    </div>
+  </section>
+</Base>

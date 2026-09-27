@@ -1,0 +1,91 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import CountDrill from '../../../components/CountDrill.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Is kaarten tellen illegaal?', a: 'Kaarten tellen in je hoofd is niet illegaal – je let gewoon goed op. Verboden zijn apparaten, aantekeningen of signalen met partners. Casino’s hebben wel het recht om zelf te bepalen wie er speelt: op veel plaatsen (ook in Nevada) kunnen ze je vragen te stoppen met blackjack of te vertrekken.' },
+  { q: 'Werkt kaarten tellen online?', a: 'Bij gewone online blackjack niet: de software schudt na elke hand opnieuw, dus er valt niets te tellen. Livedealertafels gebruiken een echte schoen, maar die wordt meestal geschud als er nog de helft of meer over is – dan blijft er nauwelijks voordeel over.' },
+  { q: 'Hoeveel kun je verdienen met kaarten tellen?', a: 'Minder dan de meeste mensen denken. Een gedisciplineerde teller heeft bij goede regels misschien een voordeel van ongeveer 0,5–1% op de totale inzet, met enorme schommelingen – je kunt wekenlang verliezen voordat het voordeel zich laat zien. Daarom is het voor weinig mensen de moeite waard.' },
+  { q: 'Wat is de true count?', a: 'De running count gedeeld door het aantal decks dat nog gedeeld moet worden. Een running count van +6 met drie resterende decks geeft een true count van +2. De true count laat zien of de resterende kaarten in jouw voordeel zijn.' },
+  { q: 'Moet ik eerst de basisstrategie kennen?', a: 'Ja. Tellen zonder vaste basisstrategie is zinloos: strategiefouten kosten meer dan de count oplevert. Eerst de tabel, dan het tellen.' },
+];
+---
+<Guide
+  lang="nl"
+  route="counting"
+  title="Kaarten tellen bij blackjack: Hi-Lo uitgelegd"
+  h1="Kaarten tellen bij blackjack"
+  description="Kaarten tellen met Hi-Lo: running count, true count, welk voordeel het echt oplevert, of het legaal is en waarom het online niet werkt. Met oefening."
+  updated="2026-09-27"
+  readMinutes={9}
+  faq={faq}
+  related={['strategy', 'howToWin', 'howToPlay', 'guides']}
+  cta={{ title: 'Eerst de strategie, dan het tellen', text: 'Veintiuno traint de basisstrategie tot je geen fouten meer maakt en leert je daarna Hi-Lo als module voor gevorderden – met een running-count-oefening op jouw tempo.' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> Bij kaarten tellen houd je een lopende som bij van de gedeelde kaarten, zodat je ziet wanneer de rest van het deck rijk is aan hoge kaarten – want die zijn gunstig voor de speler. Bij Hi-Lo tellen 2–6 als +1, tienen en azen als −1. Het is legaal, maar het voordeel is klein, het vraagt echte discipline en online werkt het niet.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="In deze gids">
+    <b>In deze gids</b>
+    <ol>
+      <li><a href="#why">Waarom tellen werkt</a></li>
+      <li><a href="#hi-lo">Het Hi-Lo-systeem stap voor stap</a></li>
+      <li><a href="#true">De true count</a></li>
+      <li><a href="#use">Wat je met de count doet</a></li>
+      <li><a href="#reality">Realiteitscheck: wat het oplevert</a></li>
+      <li><a href="#legal">Is het legaal?</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="why">Waarom tellen werkt</h2>
+  <p>Anders dan roulette heeft blackjack een geheugen: gedeelde kaarten gaan pas bij het volgende schudmoment terug in de schoen, dus de rest verandert van hand tot hand.</p>
+  <p>Zijn de resterende kaarten <strong>rijk aan tienen en azen</strong>, dan profiteert de speler: meer blackjacks (die 3 tegen 2 uitbetalen), betere verdubbelingen en een dealer die op 16 moet kaart vragen en vaker kapotgaat. Zijn ze <strong>rijk aan lage kaarten</strong>, dan gebeurt het omgekeerde. Tellen houdt simpelweg dit evenwicht bij.</p>
+
+  <h2 id="hi-lo">Het Hi-Lo-systeem stap voor stap</h2>
+  <p>Hi-Lo is het populairste systeem, omdat het eenvoudig is en bijna net zo effectief als ingewikkelde systemen. Elke kaart die je ziet krijgt een waarde:</p>
+  <table>
+    <thead><tr><th>Kaarten</th><th>Hi-Lo-waarde</th></tr></thead>
+    <tbody>
+      <tr><td>2, 3, 4, 5, 6</td><td>+1</td></tr>
+      <tr><td>7, 8, 9</td><td>0</td></tr>
+      <tr><td>10, B, V, H, A</td><td>−1</td></tr>
+    </tbody>
+  </table>
+  <p>Na het schudden begin je bij 0 en tel je de waarde op van <strong>elke</strong> kaart die je ziet – die van jou, van de andere spelers en van de dealer. Dat getal is de <strong>running count</strong>. Een positieve count betekent dat er meer lage kaarten zijn gevallen, dus dat er meer hoge overblijven.</p>
+  <p>Voorbeeld: 5, H, 3, 9, 2, A → +1 −1 +1 0 +1 −1 = <strong>+1</strong>.</p>
+  <p>Tip: paren wegstrepen. Een 5 en een heer zijn samen 0, dus die kun je overslaan en zo sneller tellen.</p>
+
+  <CountDrill lang="nl" />
+
+  <h2 id="true">De true count</h2>
+  <p>Een running count van +6 betekent met één resterend deck iets heel anders dan met vijf. Daarom reken je hem om naar de <strong>true count</strong>: running count gedeeld door de resterende decks.</p>
+  <ul>
+    <li>Running count +6, drie decks over → true count <strong>+2</strong>.</li>
+    <li>Running count +6, één deck over → true count <strong>+6</strong>.</li>
+  </ul>
+  <p>De resterende decks schat je met een blik op de discardhouder. Afronden op een half deck is ruim voldoende.</p>
+
+  <h2 id="use">Wat je met de count doet</h2>
+  <ol>
+    <li><strong>Je inzet aanpassen.</strong> Hier zit bijna het hele voordeel. Bij een true count van +1 of lager zet je het minimum in; vanaf +2 verhoog je je inzet stapsgewijs. Als vuistregel verschuift elk punt true count het voordeel ongeveer een halve procent in jouw richting.</li>
+    <li><strong>Afwijken van de basisstrategie.</strong> Bij zeer hoge of lage counts veranderen sommige beslissingen. De bekendste is de verzekering, die vanaf een true count van +3 de juiste keuze wordt. Deze afwijkingen heten indexspelen; de 18 waardevolste zijn de „Illustrious 18”.</li>
+  </ol>
+
+  <h2 id="reality">Realiteitscheck: wat het oplevert</h2>
+  <p>Hier overdrijven de meeste gidsen. De eerlijke versie:</p>
+  <ul>
+    <li><strong>Het voordeel is klein.</strong> Met goede regels en een diepe penetratie komt een geoefende teller misschien op ongeveer 0,5–1% van de totale inzet.</li>
+    <li><strong>De schommelingen zijn enorm.</strong> Met dit voordeel kun je wekenlang verliezen. Om dat vol te houden heb je een grote bankroll nodig.</li>
+    <li><strong>Casino’s verweren zich.</strong> Ze schudden eerder, beperken je inzetspreiding of vragen je te vertrekken.</li>
+    <li><strong>Online werkt het niet.</strong> RNG-blackjack schudt elke hand opnieuw, en bij livedealerschoenen wordt te vroeg afgesneden om er iets aan te hebben.</li>
+    <li><strong>Continue schudmachines</strong> stoppen de kaarten na elke hand terug – daartegen is tellen nutteloos.</li>
+  </ul>
+  <p>Kaarten tellen is een fascinerende mentale vaardigheid en de beste manier om het spel echt te begrijpen. Een makkelijke manier om geld te verdienen is het niet, en wie iets anders beweert, wil je iets verkopen.</p>
+
+  <h2 id="legal">Is het legaal?</h2>
+  <p>Tellen <strong>in je hoofd</strong> is legaal – niemand kan je verbieden na te denken. Hulpmiddelen zijn dat niet: telefoons, aantekeningen, apparaten of signalen met handlangers.</p>
+  <p>Casino’s hoeven het echter niet leuk te vinden. In de meeste rechtsgebieden mogen ze je de toegang weigeren: je vragen te stoppen met blackjack of te vertrekken. (New Jersey is een bekende uitzondering: daar mogen casino’s tellers niet weren, maar wel eerder schudden of inzetten beperken.) In de praktijk wordt meestal eerst eerder geschud of je inzet beperkt. Meer daarover in <a href={routes.countingLegal.nl}>Is kaarten tellen illegaal?</a></p>
+  <p>Beheers eerst de <a href={routes.strategy.nl}>basisstrategie</a> voordat je gaat tellen – elke strategiefout kost meer dan de count terugverdient.</p>
+</Guide>

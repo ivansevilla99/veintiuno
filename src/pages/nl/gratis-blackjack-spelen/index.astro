@@ -1,0 +1,59 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import Simulator from '../../../components/Simulator.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Kan ik gratis blackjack spelen zonder account?', a: 'Ja. Deze tafel draait in je browser: zonder account, zonder download en zonder echt geld. Je score wordt alleen in je eigen browser bewaard.' },
+  { q: 'Wat is het verschil met de gratis modus van een online casino?', a: 'De gratis modi van casino’s zijn bedoeld om je met echt geld te laten spelen, en ze vertellen je nooit of je een hand goed hebt gespeeld. Deze tafel heeft geen geld en geen inzetten, en toetst elke beslissing aan de juiste zet voor de regels die jij kiest.' },
+  { q: 'Met welke regels speelt de tafel?', a: 'Met de regels die jij kiest: Las Vegas met een dealer die past of een kaart neemt op zachte 17, Europees/online of Spaans casino (geen hole card, alleen verdubbelen op 9–11, geen surrender). Altijd 6 decks; er wordt opnieuw geschud zodra driekwart van de schoen gedeeld is.' },
+  { q: 'Waarom word ik gecorrigeerd terwijl ik de hand heb gewonnen?', a: 'Omdat de uitkomst van een hand van geluk afhangt, maar de beslissing niet. Je kunt met 16 tegen een 10 passen en winnen omdat de dealer kapotgaat – op den duur verliest die zet toch meer dan een kaart vragen. De correctie leert je de juiste beslissing, niet het resultaat.' },
+];
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Gratis blackjack-oefentafel met directe correctie',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Web',
+  inLanguage: 'nl',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: 0, priceCurrency: 'EUR' },
+  url: 'https://veintiunoapp.com/nl/gratis-blackjack-spelen/',
+}];
+---
+<Guide
+  lang="nl"
+  route="simulator"
+  title="Gratis blackjack spelen – zonder account"
+  h1="Gratis blackjack spelen"
+  description="Speel gratis blackjack in je browser, zonder account en zonder echt geld. Elke beslissing wordt getoetst aan de basisstrategie voor Europese of Vegas-regels."
+  updated="2026-09-27"
+  faq={faq}
+  related={['strategy', 'course', 'hand16v10', 'app']}
+  extraSchema={schema}
+  wide
+>
+  <div slot="top">
+    <p class="lead" style="margin-top:0">Een oefentafel, <strong>gratis, zonder account en zonder echt geld</strong>. Na elke beslissing zegt hij of het de juiste zet was en waarom – volgens de basisstrategie voor de tafelregels die jij kiest.</p>
+  </div>
+
+  <div slot="wide" style="max-width:820px">
+    <Simulator lang="nl" />
+  </div>
+
+  <h2 id="zo-werkt-het">Zo werkt het</h2>
+  <ul>
+    <li><strong>Kies je tafel:</strong> Las Vegas (S17 of H17), Europees/online of Spaans casino. De juiste strategie verandert met de regels.</li>
+    <li><strong>Delen en beslissen:</strong> kaart vragen, passen, verdubbelen, splitsen of opgeven. Alleen de opties die de tafel op dat moment toestaat zijn actief.</li>
+    <li><strong>Bekijk de feedback:</strong> groen als je goed zat; rood met de juiste zet en de uitleg als dat niet zo was.</li>
+    <li>Op de computer kun je met het toetsenbord spelen: <kbd>K</kbd> kaart vragen, <kbd>P</kbd> passen, <kbd>V</kbd> verdubbelen, <kbd>S</kbd> splitsen, <kbd>O</kbd> opgeven en <kbd>Spatie</kbd> om te delen.</li>
+  </ul>
+
+  <h2 id="waarom">Waarom oefenen met feedback</h2>
+  <p>Zonder feedback leer je het tegenovergestelde van wat je zou moeten leren: een slechte zet die toevallig wint, blijft hangen als „de juiste”. Hier wordt elke beslissing vergeleken met de <a href={routes.strategy.nl}>basisstrategie</a> – de zet die op lange termijn het minst verliest – en hoor je waarom.</p>
+  <p>Zodra je meer dan 95% van je beslissingen goed neemt, speel je beter dan de overgrote meerderheid van de mensen die aan een blackjacktafel gaan zitten. Mis je steeds dezelfde handen, volg dan de <a href={routes.course.nl}>gratis cursus</a> of lees de gids over <a href={routes.hand16v10.nl}>16 tegen 10</a>.</p>
+
+  <h2 id="zonder-geld">Zonder geld, zonder casino’s</h2>
+  <p>Deze tafel heeft geen inzetten en geen fiches, linkt naar geen enkel casino en bewaart niets buiten je browser. Hij is er om te leren. Kost gokken je meer dan je wilt, dan vind je hulp op onze pagina over <a href={routes.responsible.nl}>verantwoord spelen</a>.</p>
+</Guide>
