@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { routes, ui, APP_ID, campaignURL, type Lang, type RouteKey } from '../lib/site';
+import { routes, ui, APP_ID, campaignURL, pathOf, type Lang, type RouteKey } from '../lib/site';
 
 interface Props {
   lang: Lang;
@@ -19,13 +19,13 @@ interface Props {
 const { lang, title, description, route, path, image = '/og.png', type = 'website', schema = [], noindex = false } = Astro.props;
 const t = ui[lang];
 const site = Astro.site!;
-const selfPath = route ? routes[route][lang] : (path ?? Astro.url.pathname);
+const selfPath = (route && pathOf(route, lang)) || path || Astro.url.pathname;
 const canonical = new URL(selfPath, site).href;
-const alternates = route
-  ? (Object.entries(routes[route]) as [Lang, string][]).map(([l, p]) => ({ lang: l, href: new URL(p, site).href }))
-  : [];
+const langPaths = route ? (Object.entries(routes[route]) as [Lang, string][]) : [];
+// hreflang only makes sense when the page exists in more than one language.
+const alternates = langPaths.length > 1 ? langPaths.map(([l, p]) => ({ lang: l, href: new URL(p, site).href })) : [];
 const otherLang: Lang = lang === 'es' ? 'en' : 'es';
-const otherHref = route ? routes[route][otherLang] : routes.home[otherLang];
+const otherHref = (route && pathOf(route, otherLang)) || routes.home[otherLang];
 const home = routes.home[lang];
 
 const orgSchema = {
@@ -74,7 +74,7 @@ const orgSchema = {
       </a>
       <nav class="main-nav" aria-label={lang === 'es' ? 'Principal' : 'Main'}>
         {t.nav.map(([key, label]) => (
-          <a href={routes[key][lang]} aria-current={route === key ? 'page' : undefined}>{label}</a>
+          <a href={pathOf(key, lang)} aria-current={route === key ? 'page' : undefined}>{label}</a>
         ))}
       </nav>
       <div class="header-actions">
@@ -96,8 +96,10 @@ const orgSchema = {
           <p class="muted small">{t.responsible}</p>
         </div>
         <nav class="footer-links" aria-label={lang === 'es' ? 'Legal' : 'Legal'}>
-          {t.nav.map(([key, label]) => <a href={routes[key][lang]}>{label}</a>)}
-          {t.legal.map(([key, label]) => <a href={routes[key][lang]}>{label}</a>)}
+          {t.nav.map(([key, label]) => <a href={pathOf(key, lang)}>{label}</a>)}
+          {lang === 'es' && <a href={routes.course.es}>Curso gratis</a>}
+          {lang === 'es' && <a href={routes.data.es}>Datos y probabilidades</a>}
+          {t.legal.map(([key, label]) => <a href={pathOf(key, lang)}>{label}</a>)}
         </nav>
       </div>
       <p class="muted small">© {new Date().getFullYear()} Veintiuno · Iván Sevilla</p>

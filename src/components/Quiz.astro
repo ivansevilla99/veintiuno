@@ -1,0 +1,56 @@
+---
+export interface QuizQuestion { q: string; options: string[]; answer: number; why: string }
+interface Props { questions: QuizQuestion[]; title?: string }
+const { questions, title = 'Comprueba lo que has aprendido' } = Astro.props;
+---
+<section class="quiz card" data-quiz>
+  <h3>{title}</h3>
+  {questions.map((qq, i) => (
+    <fieldset class="quiz-q" data-answer={qq.answer}>
+      <legend>{i + 1}. {qq.q}</legend>
+      <div class="quiz-opts">
+        {qq.options.map((o, j) => <button type="button" data-i={j}>{o}</button>)}
+      </div>
+      <p class="quiz-why" hidden set:html={qq.why} />
+    </fieldset>
+  ))}
+  <p class="quiz-score muted small" data-score></p>
+</section>
+
+<style>
+  .quiz { margin: 32px 0; }
+  .quiz-q { border: 0; padding: 0; margin: 20px 0 0; }
+  .quiz-q legend { font-weight: 700; color: var(--text); margin-bottom: 10px; padding: 0; }
+  .quiz-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .quiz-opts button { font: inherit; font-size: 15px; padding: 9px 14px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--panel-2); color: var(--text); cursor: pointer; }
+  .quiz-opts button:hover:not(:disabled) { border-color: var(--gold); }
+  .quiz-opts button.ok { background: rgba(92, 214, 140, 0.18); border-color: var(--correct); color: var(--correct); }
+  .quiz-opts button.ko { background: rgba(242, 97, 92, 0.15); border-color: var(--wrong); color: var(--wrong); }
+  .quiz-opts button:disabled { cursor: default; }
+  .quiz-why { margin: 10px 0 0; font-size: 15px; color: var(--text-2); }
+  .quiz-score { margin-top: 18px; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-quiz]').forEach((quiz) => {
+    const qs = [...quiz.querySelectorAll<HTMLElement>('.quiz-q')];
+    let answered = 0, right = 0;
+    qs.forEach((q) => {
+      const answer = Number(q.dataset.answer);
+      const buttons = [...q.querySelectorAll<HTMLButtonElement>('button')];
+      buttons.forEach((b) =>
+        b.addEventListener('click', () => {
+          const i = Number(b.dataset.i);
+          buttons.forEach((x) => (x.disabled = true));
+          buttons[answer].classList.add('ok');
+          if (i !== answer) b.classList.add('ko'); else right++;
+          answered++;
+          q.querySelector<HTMLElement>('.quiz-why')!.hidden = false;
+          if (answered === qs.length) {
+            quiz.querySelector<HTMLElement>('[data-score]')!.textContent = `${right} de ${qs.length} correctas.`;
+          }
+        }),
+      );
+    });
+  });
+</script>

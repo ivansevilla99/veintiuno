@@ -1,0 +1,79 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { dealerTable } from '../../../lib/ev';
+import { presets } from '../../../lib/strategy';
+import { routes } from '../../../lib/site';
+
+const ups = [2, 3, 4, 5, 6, 7, 8, 9, 10, 1];
+const upL = (u: number) => (u === 1 ? 'As' : String(u));
+const pct = (x: number) => (x * 100).toFixed(1).replace('.', ',') + ' %';
+const s17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasS17) }));
+const h17 = ups.map((u) => ({ u, ...dealerTable(u, presets.vegasH17) }));
+const avgBust = s17.reduce((a, r) => a + r.bust * (r.u === 10 ? 4 : 1), 0) / 13;
+
+const faq = [
+  { q: '¿Con qué carta se pasa más el crupier?', a: 'Con un 6 y un 5: alrededor del 42 % de las veces cuando el crupier se planta con 17 blando. Con 4, cerca del 40 %. Por eso con 12 a 16 te plantas contra 4, 5 y 6.' },
+  { q: '¿Con qué carta se pasa menos?', a: 'Con un as: una vez descartado el blackjack, se pasa alrededor del 17 % de las veces. Con 7, 8, 9 y 10, entre el 23 % y el 26 %.' },
+  { q: '¿Cuánto cambia si el crupier pide con 17 blando (H17)?', a: 'Se pasa algo más con cartas bajas y con el as, porque sigue pidiendo en situaciones en las que antes se plantaba; pero también termina más a menudo con 18–21. En conjunto, H17 es peor para el jugador: sube la ventaja de la casa en torno a 0,2 puntos.' },
+];
+---
+<Guide
+  lang="es"
+  route="dataBust"
+  title="Probabilidad de que el crupier se pase en blackjack (tabla exacta)"
+  h1="Probabilidad de que el crupier se pase, por carta visible"
+  description="Tabla exacta de la probabilidad de que el crupier se pase en el blackjack según su carta visible, y de cada total final (17 a 21), con S17 y H17 y 6 barajas."
+  updated="2026-09-27"
+  readMinutes={4}
+  faq={faq}
+  related={['hand16v10', 'strategy', 'dataRules', 'data']}
+  wide
+>
+  <div slot="top" class="read">
+    <div class="tldr"><p><strong>En resumen:</strong> con 6 barajas y el crupier plantándose en 17 blando, el crupier se pasa alrededor del <strong>42 % con un 5 o un 6</strong>, el <strong>40 % con un 4</strong>, el <strong>35–37 % con 2 o 3</strong>, el <strong>23–26 % con 7 a 10</strong> y el <strong>17 % con un as</strong> (descontando sus blackjacks). En promedio, se pasa un {pct(avgBust)} de las manos en las que no tiene blackjack.</p></div>
+  </div>
+
+  <div slot="wide" class="read">
+    <h2 id="s17">Crupier se planta con 17 blando (S17)</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>Carta visible</th><th>Se pasa</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>Tiene blackjack</th></tr></thead>
+        <tbody>
+          {s17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="h17">Crupier pide con 17 blando (H17)</h2>
+    <div class="chart-scroll">
+      <table class="data-table">
+        <thead><tr><th>Carta visible</th><th>Se pasa</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>Tiene blackjack</th></tr></thead>
+        <tbody>
+          {h17.map((r) => (
+            <tr><th scope="row">{upL(r.u)}</th><td class="hl">{pct(r.bust)}</td>{r.standing.map((x) => <td>{pct(x)}</td>)}<td>{r.pBlackjack ? pct(r.pBlackjack) : '—'}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2 id="como">Cómo leer y cómo se ha calculado</h2>
+  <ul>
+    <li>Las columnas «Se pasa» y 17–21 suman 100 % y son las probabilidades <strong>una vez descartado que el crupier tenga blackjack</strong>, que es la situación en la que tú decides en una mesa con carta oculta. La última columna es la probabilidad de blackjack antes de mirar.</li>
+    <li>Cálculo exacto (no simulación) con el motor de Veintiuno: 6 barajas, se retira la carta visible del crupier y se recorren todas las cartas posibles. Lo hemos contrastado con una simulación independiente de 1,5 millones de manos por carta, con diferencias de décimas.</li>
+    <li>Con menos barajas o con las cartas de los jugadores ya vistas, las cifras cambian ligeramente, pero nunca el orden.</li>
+  </ul>
+
+  <h2 id="uso">Qué hacer con esta tabla</h2>
+  <p>Es la razón de ser de la estrategia básica. Con 12 a 16 contra 4, 5 o 6 te plantas porque el crupier se pasa cerca de la mitad de las veces que no tiene 17–21; contra 7 o más pides porque casi siempre acabará con 17 o más. El caso más discutido lo tienes explicado en <a href={routes.hand16v10.es}>16 contra 10</a>.</p>
+</Guide>
+
+<style is:global>
+  .data-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; margin: 8px 0 8px; background: var(--panel); border-radius: 14px; overflow: hidden; }
+  .data-table th, .data-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  .data-table thead th { color: var(--muted); font-size: 13px; }
+  .data-table th[scope='row'], .data-table thead th:first-child { text-align: left; color: var(--text); }
+  .data-table td.hl { color: var(--gold); font-weight: 800; }
+</style>

@@ -1,0 +1,70 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import AppStoreButton from '../../components/AppStoreButton.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Hay alguna app para aprender a jugar al blackjack?', a: 'Sí. Veintiuno es una app para iPhone y Mac pensada para aprender la estrategia básica: te reparte manos, te corrige cada decisión al momento y te explica por qué. No se juega con dinero real.' },
+  { q: '¿Qué diferencia hay entre una app de blackjack y un entrenador?', a: 'Una app de blackjack normal es un juego: te deja jugar con fichas ficticias, pero no te dice si has jugado bien. Un entrenador te corrige cada decisión con la jugada correcta para las reglas de tu mesa y repasa tus errores. Solo el segundo te enseña.' },
+  { q: '¿Veintiuno es gratis?', a: 'Se puede empezar gratis: los tres primeros días del curso son gratuitos. Veintiuno Pro desbloquea el resto del curso, el consultor de manos y el mapa de calor de tus errores, con suscripción semanal o anual.' },
+  { q: '¿Se puede jugar con dinero real en Veintiuno?', a: 'No. Es una herramienta educativa: no hay dinero real, ni fichas con valor, ni relación con ningún casino o casa de apuestas.' },
+];
+---
+<Guide
+  lang="es"
+  route="app"
+  title="La mejor app para aprender blackjack (sin dinero real)"
+  h1="La mejor app para aprender a jugar al blackjack"
+  description="Qué app usar para aprender blackjack de verdad: la diferencia entre un juego de casino con fichas ficticias y un entrenador que corrige cada jugada. Veintiuno, para iPhone y Mac."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['course', 'strategy', 'practiceCounting', 'howToPlay']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> para aprender blackjack no sirve cualquier app de blackjack. Las que simulan un casino con fichas ficticias te dejan jugar, pero no te dicen si lo haces bien. Lo que enseña es un <strong>entrenador</strong>: una app que te corrige cada decisión, te explica por qué y repasa tus errores. Eso es Veintiuno.</p></div>
+  </div>
+
+  <h2 id="tipos">Dos tipos de apps de blackjack</h2>
+  <table>
+    <thead><tr><th></th><th>Juego de casino</th><th>Entrenador</th></tr></thead>
+    <tbody>
+      <tr><td>Qué haces</td><td>Juegas manos con fichas ficticias</td><td>Tomas decisiones y te corrigen</td></tr>
+      <tr><td>¿Te dice si has jugado bien?</td><td>No: solo si has ganado la mano</td><td>Sí, en cada decisión</td></tr>
+      <tr><td>¿Explica por qué?</td><td>No</td><td>Sí</td></tr>
+      <tr><td>Reglas de tu mesa</td><td>Las del juego</td><td>Las eliges tú (España, Las Vegas, online)</td></tr>
+      <tr><td>Repaso de errores</td><td>No</td><td>Sí</td></tr>
+      <tr><td>Para qué sirve</td><td>Entretenerte</td><td>Aprender</td></tr>
+    </tbody>
+  </table>
+  <p>El problema de aprender con un juego es que <strong>el resultado de una mano no te dice si has jugado bien</strong>. Puedes plantarte con 16 contra un 10, que es un error, y ganar porque el crupier se pasa. Tu cerebro aprende justo lo contrario de lo que debería. Un entrenador separa la decisión del resultado: te dice si la jugada era correcta, salga como salga la mano.</p>
+
+  <h2 id="veintiuno">Qué hace Veintiuno</h2>
+  <div class="shots">
+    <figure><img src="/img/app-correccion.webp" alt="Veintiuno corrigiendo una jugada: con 16 contra un 10, la jugada era pedir" width="480" height="1042" loading="lazy" /><figcaption>Corrección al momento, con el porqué.</figcaption></figure>
+    <figure><img src="/img/app-tabla.webp" alt="Tabla de estrategia básica de Veintiuno para las reglas de un casino español" width="480" height="1042" loading="lazy" /><figcaption>La tabla de tu mesa.</figcaption></figure>
+    <figure><img src="/img/app-progreso.webp" alt="Pantalla de progreso de Veintiuno con la precisión y los errores" width="480" height="1042" loading="lazy" /><figcaption>Tu progreso y tus errores.</figcaption></figure>
+  </div>
+  <ul>
+    <li><strong>Mesa de práctica con corrección inmediata.</strong> Cada decisión que tomas se compara con la estrategia básica de tu mesa, y si fallas te dice la jugada correcta y por qué.</li>
+    <li><strong>Curso de 14 días.</strong> Un concepto, un ejercicio y un examen al día, de las reglas al conteo.</li>
+    <li><strong>Reglas de tu mesa:</strong> casino en España (sin carta oculta), Las Vegas S17 y H17, europea u online.</li>
+    <li><strong>Mapa de calor de tus errores</strong> sobre la tabla de estrategia, para repasar solo lo que fallas.</li>
+    <li><strong>Consultor de manos</strong> con el valor esperado de cada opción.</li>
+    <li><strong>Conteo Hi-Lo</strong> como módulo avanzado, explicado sin promesas.</li>
+    <li>Diez idiomas, sonido de cartas cuidado y vibración. Para iPhone y Mac.</li>
+  </ul>
+  <p>No hay dinero real ni apuestas: es una herramienta para aprender, y no está vinculada a ningún casino.</p>
+  <p><AppStoreButton lang="es" campaign="app-page" /></p>
+
+  <h2 id="sin-app">¿Y sin app?</h2>
+  <p>Puedes aprender las reglas y la estrategia gratis en esta web: tienes el <a href={routes.course.es}>curso de blackjack</a>, la <a href={routes.strategy.es}>tabla interactiva</a> y ejercicios de <a href={routes.practiceCounting.es}>conteo</a>. Lo que una web no puede hacer es repartirte cientos de manos y corregirte cada una: para eso está la app.</p>
+</Guide>
+
+<style>
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+  .shots figure { margin: 0; }
+  .shots img { border-radius: 22px; border: 1px solid var(--line-strong); display: block; }
+  .shots figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; text-align: center; }
+  @media (max-width: 560px) { .shots { grid-template-columns: repeat(3, 1fr); gap: 8px; } .shots img { border-radius: 12px; } }
+</style>

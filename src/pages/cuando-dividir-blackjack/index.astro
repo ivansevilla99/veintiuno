@@ -1,0 +1,58 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import EVTable from '../../components/EVTable.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Qué parejas se dividen siempre en el blackjack?', a: 'Ases y ochos, contra cualquier carta del crupier, en las mesas con carta oculta. En mesa europea sin carta oculta hay dos excepciones: no se dividen ases contra un as ni ochos contra un 10 o un as.' },
+  { q: '¿Se dividen los dieces?', a: 'Nunca. Incluso contra un 6, la peor carta del crupier, un 20 vale +0,70 apuestas plantándote y +0,57 dividiendo. Separarlos es cambiar una mano casi ganada por dos manos inciertas.' },
+  { q: '¿Se dividen los cincos?', a: 'No. 5-5 es un 10, una de las mejores manos para doblar. Dividirlos te deja dos manos que empiezan en 5, que son malas.' },
+  { q: '¿Qué pasa con los nueves contra un 7?', a: 'Te plantas. 9-9 es 18, y contra un 7 el crupier suele acabar en 17: tu 18 gana. Plantarse vale +0,40; dividir, +0,37.' },
+];
+---
+<Guide
+  lang="es"
+  route="whenSplit"
+  title="Cuándo dividir en el blackjack: qué parejas separar (tabla)"
+  h1="Cuándo dividir en el blackjack"
+  description="Qué parejas dividir en el blackjack y contra qué carta del crupier: ases, ochos, nueves, sietes, seises, doses y treses, y por qué nunca dieces ni cincos. Con números exactos."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenDouble', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> divide siempre <strong>ases y ochos</strong>; nunca <strong>dieces ni cincos</strong>. Nueves, contra 2–9 salvo el 7. Sietes, doses y treses, contra 2–7. Seises, contra 2–6. Cuatros, solo contra 5 y 6 si puedes doblar tras dividir.</p></div>
+  </div>
+
+  <h2 id="tabla">La tabla de parejas</h2>
+  <table>
+    <thead><tr><th>Pareja</th><th>Divide contra</th><th>Si no, …</th></tr></thead>
+    <tbody>
+      <tr><td>A-A</td><td>todas</td><td>—</td></tr>
+      <tr><td>8-8</td><td>todas</td><td>—</td></tr>
+      <tr><td>10-10</td><td>nunca</td><td>plántate</td></tr>
+      <tr><td>9-9</td><td>2 a 6, 8 y 9</td><td>plántate (contra 7, 10 y as)</td></tr>
+      <tr><td>7-7</td><td>2 a 7</td><td>pide</td></tr>
+      <tr><td>6-6</td><td>2 a 6</td><td>pide</td></tr>
+      <tr><td>5-5</td><td>nunca</td><td>dobla contra 2–9</td></tr>
+      <tr><td>4-4</td><td>5 y 6 (con doblar tras dividir)</td><td>pide</td></tr>
+      <tr><td>2-2, 3-3</td><td>2 a 7</td><td>pide</td></tr>
+    </tbody>
+  </table>
+  <p>Es la tabla de 6 barajas con doblar tras dividir. Si tu mesa no deja doblar tras dividir, 2-2 y 3-3 contra 2 y 3, 4-4 y 6-6 contra 2 se piden. Lo puedes ver en la <a href={routes.strategy.es}>tabla interactiva</a> cambiando esa regla.</p>
+
+  <h2 id="ases-ochos">Por qué ases y ochos siempre</h2>
+  <p><strong>Dos ases</strong> juntos valen 2 o 12, una mano mediocre. Separados, cada uno empieza en 11 y cualquier 10 lo convierte en 21. <strong>Dos ochos</strong> suman 16, la peor mano del juego. Separados, cada uno empieza en 8. Incluso contra un 10, dividir pierde bastante menos que jugar el 16:</p>
+  <EVTable cards={[8, 8]} up={10} tables={['vegasS17', 'spainCasino']} />
+  <p>En la mesa española la cosa cambia: sin carta oculta, dividir contra un 10 expone dos apuestas a un blackjack del crupier, y pasa a ser peor que pedir.</p>
+
+  <h2 id="nunca">Por qué nunca dieces ni cincos</h2>
+  <p>Un 20 es casi imbatible. Aunque el crupier enseñe un 6, su carta más débil, plantarte con 20 vale mucho más que dividir:</p>
+  <EVTable cards={[10, 10]} up={6} tables={['vegasS17']} caption="10-10 contra 6: plantarse o dividir" />
+  <p>Con <strong>5-5</strong> pasa algo parecido: es un 10, una mano perfecta para doblar. Dividirla te deja dos manos que empiezan en 5.</p>
+
+  <h2 id="dudosas">Las parejas que dependen del crupier</h2>
+  <p>El resto de parejas (2-2, 3-3, 6-6, 7-7, 9-9) se dividen cuando el crupier está débil, porque dos apuestas contra un crupier que se pasa a menudo valen más que una mano mediocre. El caso curioso es <strong>9-9 contra 7</strong>: te plantas, porque el crupier con un 7 termina muchas veces en 17, y tu 18 le gana.</p>
+  <EVTable cards={[9, 9]} up={7} tables={['vegasS17']} caption="9-9 contra 7: plantarse o dividir" />
+</Guide>

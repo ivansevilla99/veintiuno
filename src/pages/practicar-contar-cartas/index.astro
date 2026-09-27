@@ -1,0 +1,74 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import DeckCountdown from '../../components/DeckCountdown.astro';
+import CountDrill from '../../components/CountDrill.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Cuánto se tarda en aprender a contar cartas?', a: 'Aprender los valores del Hi-Lo lleva una tarde. Contar una baraja entera sin errores en menos de 30 segundos suele llevar varias semanas de práctica diaria. Hacerlo en una mesa real, con ruido, conversación y apuestas, bastante más.' },
+  { q: '¿Cuál es el mejor ejercicio para practicar el conteo?', a: 'La cuenta atrás de la baraja: pasas las 52 cartas y al final la cuenta debe dar 0. Es el ejercicio estándar de todos los contadores porque mide a la vez precisión y velocidad.' },
+  { q: '¿Hay alguna app para practicar el conteo de cartas?', a: 'Sí. Veintiuno incluye el conteo Hi-Lo como módulo avanzado, al final de su curso: un ejercicio de cuenta con la velocidad ajustable y la explicación de la cuenta verdadera. En esta página tienes además dos ejercicios gratuitos en el navegador.' },
+  { q: '¿Puedo practicar contando cartas en un casino online?', a: 'Practicar la mecánica, sí; ganar dinero, no. El blackjack online por software baraja después de cada mano, así que la cuenta no sirve para nada. Úsalo, como mucho, para acostumbrarte al ritmo.' },
+];
+---
+<Guide
+  lang="es"
+  route="practiceCounting"
+  title="Cómo practicar el conteo de cartas en blackjack (ejercicios)"
+  h1="Cómo practicar el conteo de cartas"
+  description="Plan paso a paso para practicar el conteo de cartas Hi-Lo: valores, cuenta atrás de la baraja, parejas que se anulan, cuenta verdadera y ritmo de mesa. Con ejercicios gratis en el navegador."
+  updated="2026-09-27"
+  readMinutes={7}
+  faq={faq}
+  related={['counting', 'strategy', 'course', 'howToWin']}
+  cta={{ title: 'Primero la estrategia, después el conteo', text: 'En Veintiuno el Hi-Lo llega al final del curso, cuando ya dominas la estrategia básica, porque contar sin ella no sirve de nada.' }}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> aprende los valores del Hi-Lo (2–6 suman 1, 7–9 nada, 10 y as restan 1), practica la <strong>cuenta atrás de la baraja</strong> hasta hacerla sin errores en menos de 30 segundos, aprende a contar por <strong>parejas que se anulan</strong> y a convertir a <strong>cuenta verdadera</strong>, y solo al final practica con ruido y distracciones. Antes de nada, domina la estrategia básica.</p></div>
+  </div>
+
+  <nav class="toc" aria-label="En esta guía">
+    <b>En esta guía</b>
+    <ol>
+      <li><a href="#antes">Antes de empezar</a></li>
+      <li><a href="#paso1">Paso 1: los valores, sin pensar</a></li>
+      <li><a href="#paso2">Paso 2: la cuenta atrás de la baraja</a></li>
+      <li><a href="#paso3">Paso 3: contar por parejas</a></li>
+      <li><a href="#paso4">Paso 4: la cuenta verdadera</a></li>
+      <li><a href="#paso5">Paso 5: ritmo de mesa</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="antes">Antes de empezar</h2>
+  <p>Contar cartas solo tiene sentido si ya juegas la <a href={routes.strategy.es}>estrategia básica</a> sin errores. Un solo fallo de estrategia cada pocas manos cuesta más que toda la ventaja que da el conteo. Si todavía dudas con 12 contra un 3 o con A-7 contra un 9, empieza por ahí.</p>
+  <p>Y ten claro para qué lo haces: contar es un ejercicio mental excelente y la mejor forma de entender el juego, pero no es una manera fácil de ganar dinero. Lo explicamos en <a href={routes.counting.es}>cómo contar cartas</a>.</p>
+
+  <h2 id="paso1">Paso 1: los valores, sin pensar</h2>
+  <p>Tienes que ver una carta y saber su valor sin traducirlo mentalmente. Del 2 al 6, <strong>+1</strong>. Del 7 al 9, <strong>0</strong>. Dieces, figuras y ases, <strong>−1</strong>. Practica con series cortas hasta que no dudes:</p>
+  <CountDrill lang="es" />
+
+  <h2 id="paso2">Paso 2: la cuenta atrás de la baraja</h2>
+  <p>El ejercicio clásico de todos los contadores. Una baraja completa tiene tantas cartas altas como bajas, así que si cuentas las 52, el resultado tiene que ser 0. Empieza lento y ve subiendo:</p>
+  <ul>
+    <li><strong>Objetivo 1:</strong> terminar en 0 sin errores, a cualquier velocidad.</li>
+    <li><strong>Objetivo 2:</strong> terminar en 0 en menos de 30 segundos (unas 0,5 s por carta).</li>
+    <li><strong>Objetivo 3:</strong> parar a mitad de baraja y acertar la cuenta.</li>
+  </ul>
+  <DeckCountdown />
+
+  <h2 id="paso3">Paso 3: contar por parejas</h2>
+  <p>En la mesa las cartas salen de dos en dos o de tres en tres. Los contadores no suman carta a carta: reconocen <strong>parejas que se anulan</strong>. Un 5 y un rey suman 0, así que se ignoran. Un 4 y un 6 son +2 de golpe. Practica mirando dos cartas a la vez y diciendo solo el resultado de la pareja.</p>
+
+  <h2 id="paso4">Paso 4: la cuenta verdadera</h2>
+  <p>La cuenta corriente te dice cuántas cartas altas «sobran», pero no cuántas quedan por salir. Para eso se divide por las barajas que quedan: <strong>cuenta verdadera = cuenta corriente ÷ barajas restantes</strong>. Practica calculándola de cabeza:</p>
+  <ul>
+    <li>+8 con 4 barajas por salir → <strong>+2</strong></li>
+    <li>+6 con 1,5 barajas → <strong>+4</strong></li>
+    <li>−3 con 3 barajas → <strong>−1</strong></li>
+  </ul>
+  <p>Para estimar las barajas que quedan, mira la bandeja de descartes: con redondear a media baraja es suficiente.</p>
+
+  <h2 id="paso5">Paso 5: ritmo de mesa</h2>
+  <p>Contar en casa en silencio es fácil. En una mesa hay ruido, conversación, fichas y cartas de varios jugadores. Cuando domines los pasos anteriores, practica con la televisión puesta, hablando mientras cuentas o con un vídeo de una mesa real. Si pierdes la cuenta, no pasa nada: se empieza de cero en el siguiente barajado.</p>
+  <div class="callout warn"><p><strong>Recuerda:</strong> contar de memoria es legal, pero usar el móvil o cualquier dispositivo en la mesa no. Y el casino puede pedirte que dejes de jugar si te detecta.</p></div>
+</Guide>

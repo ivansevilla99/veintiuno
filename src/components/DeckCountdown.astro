@@ -1,0 +1,79 @@
+---
+---
+<div class="deck-cd card" data-deck>
+  <h3>Ejercicio: cuenta una baraja entera</h3>
+  <p class="muted small">Salen las 52 cartas una a una. Lleva la cuenta Hi-Lo. Puedes parar cuando quieras y comprobar tu cuenta; si llegas al final, debe dar 0.</p>
+  <div class="dc-row">
+    <label>Velocidad
+      <select data-speed>
+        <option value="1200">Lenta (1,2 s)</option>
+        <option value="800" selected>Media (0,8 s)</option>
+        <option value="500">Rápida (0,5 s)</option>
+        <option value="300">Casino (0,3 s)</option>
+      </select>
+    </label>
+    <button type="button" class="btn btn-gold" data-start>Empezar</button>
+    <button type="button" class="btn btn-ghost" data-stop disabled>Parar y comprobar</button>
+  </div>
+  <div class="dc-stage"><span class="dc-card" data-card aria-live="off">?</span><span class="muted small" data-left></span></div>
+  <form class="dc-row" data-form hidden>
+    <label>Tu cuenta <input type="number" step="1" inputmode="numeric" data-answer required /></label>
+    <button type="submit" class="btn btn-ghost">Comprobar</button>
+  </form>
+  <p class="dc-result" data-result hidden></p>
+</div>
+
+<style>
+  .deck-cd { margin: 28px 0; }
+  .dc-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 12px; }
+  .dc-row label { display: flex; gap: 8px; align-items: center; color: var(--text-2); flex-wrap: wrap; }
+  .dc-row select, .dc-row input { font: inherit; font-size: 16px; padding: 9px 12px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--panel-2); color: var(--text); }
+  .dc-row input { width: 90px; }
+  .dc-stage { display: flex; align-items: center; gap: 16px; margin: 18px 0 4px; }
+  .dc-card { width: 84px; height: 118px; border-radius: 12px; background: var(--card); color: var(--card-ink); display: grid; place-items: center; font: 800 30px/1 var(--font-display); box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+  .dc-card.red { color: var(--red); }
+  .dc-result { font-weight: 700; margin: 12px 0 0; }
+  .dc-result.ok { color: var(--correct); }
+  .dc-result.ko { color: var(--wrong); }
+</style>
+
+<script>
+  const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  const suits = ['♠', '♥', '♦', '♣'];
+  const hilo = (r: string) => (['2', '3', '4', '5', '6'].includes(r) ? 1 : ['7', '8', '9'].includes(r) ? 0 : -1);
+  document.querySelectorAll<HTMLElement>('[data-deck]').forEach((root) => {
+    const q = <T extends HTMLElement>(s: string) => root.querySelector<T>(s)!;
+    const card = q<HTMLElement>('[data-card]'), left = q<HTMLElement>('[data-left]');
+    const start = q<HTMLButtonElement>('[data-start]'), stop = q<HTMLButtonElement>('[data-stop]');
+    const form = q<HTMLFormElement>('[data-form]'), answer = q<HTMLInputElement>('[data-answer]'), result = q<HTMLElement>('[data-result]');
+    let timer = 0, count = 0, shown = 0;
+    const finish = () => {
+      clearInterval(timer);
+      stop.disabled = true; start.disabled = false; start.textContent = 'Otra baraja';
+      form.hidden = false; answer.value = ''; answer.focus();
+    };
+    start.addEventListener('click', () => {
+      const deck = suits.flatMap((s) => ranks.map((r) => [r, s]));
+      for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; }
+      count = 0; shown = 0; result.hidden = true; form.hidden = true;
+      start.disabled = true; stop.disabled = false;
+      const speed = Number(q<HTMLSelectElement>('[data-speed]').value);
+      timer = window.setInterval(() => {
+        if (shown === deck.length) return finish();
+        const [r, s] = deck[shown++];
+        count += hilo(r);
+        card.textContent = r + s;
+        card.classList.toggle('red', s === '♥' || s === '♦');
+        left.textContent = `${deck.length - shown} cartas por salir`;
+      }, speed);
+    });
+    stop.addEventListener('click', finish);
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const ok = Number(answer.value) === count;
+      result.hidden = false;
+      result.className = `dc-result ${ok ? 'ok' : 'ko'}`;
+      result.textContent = ok ? `¡Correcto! Cuenta ${count > 0 ? '+' : ''}${count} tras ${shown} cartas.` : `La cuenta era ${count > 0 ? '+' : ''}${count} tras ${shown} cartas.`;
+    });
+  });
+</script>

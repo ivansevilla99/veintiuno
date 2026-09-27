@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import AppCTA from '../../components/AppCTA.astro';
+import { routes } from '../../lib/site';
+const items = [
+  [routes.dataBust.es, 'Probabilidad de que el crupier se pase', 'Por carta visible y por total final (17–21), con S17 y H17.'],
+  [routes.dataRules.es, 'Cuánto cuesta cada regla del blackjack', 'El efecto de 6 a 5, H17, barajas, rendición y más en la ventaja de la casa.'],
+  [routes.hand16v10.es, '16 contra 10, en números', 'El valor esperado de pedir, plantarse y rendirse.'],
+  [routes.whenDouble.es, 'Cuándo doblar, con valores esperados', '11 contra as, A-7 contra 6 y el resto de dobladas.'],
+  [routes.whenSplit.es, 'Cuándo dividir, con valores esperados', 'Ochos contra 10, dieces contra 6, nueves contra 7.'],
+];
+---
+<Base lang="es" route="data" title="Datos y probabilidades del blackjack · Veintiuno" description="Tablas exactas del blackjack calculadas con el motor de Veintiuno: probabilidad de que el crupier se pase, ventaja de la casa según las reglas y valor esperado de las jugadas clave.">
+  <div class="container read">
+    <header class="article-head">
+      <span class="eyebrow">Datos</span>
+      <h1>Datos y probabilidades del blackjack</h1>
+      <p class="lead">Tablas calculadas con el mismo motor que usa la app de Veintiuno: cálculo exacto, no simulación, con las reglas y supuestos explicados en cada página.</p>
+    </header>
+    <div class="grid-2">
+      {items.map(([href, title, text]) => <a class="card" href={href}><h3>{title}</h3><p>{text}</p></a>)}
+    </div>
+    <p class="muted small" style="margin-top:24px">Metodología: 6 barajas salvo que se indique; se retiran las cartas visibles y se recorren todas las cartas posibles (expectimax). Validado contra una simulación independiente de millones de manos. Detalles en <a href={routes.about.es}>sobre Veintiuno</a>.</p>
+    <AppCTA lang="es" campaign="data" />
+  </div>
+</Base>

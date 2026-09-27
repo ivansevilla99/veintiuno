@@ -27,9 +27,22 @@ export const routes = {
   privacy: { es: '/privacidad/', en: '/en/privacy/' },
   terms: { es: '/terminos/', en: '/en/terms/' },
   support: { es: '/soporte/', en: '/en/support/' },
-} as const;
+  // Spanish-only for now: the English versions come after Search Console shows what works.
+  course: { es: '/curso-blackjack/' },
+  hand16v10: { es: '/16-contra-10-blackjack/' },
+  whenDouble: { es: '/cuando-doblar-blackjack/' },
+  whenSplit: { es: '/cuando-dividir-blackjack/' },
+  practiceCounting: { es: '/practicar-contar-cartas/' },
+  app: { es: '/app-aprender-blackjack/' },
+  dataBust: { es: '/datos/probabilidad-crupier-se-pase/' },
+  dataRules: { es: '/datos/ventaja-casa-reglas-blackjack/' },
+  data: { es: '/datos/' },
+} as const satisfies Record<string, { es: string; en?: string }>;
 
 export type RouteKey = keyof typeof routes;
+
+/** Path of a page in a language, or undefined when that version doesn't exist yet. */
+export const pathOf = (key: RouteKey, lang: Lang): string | undefined => (routes[key] as { es: string; en?: string })[lang];
 
 export const ui = {
   es: {

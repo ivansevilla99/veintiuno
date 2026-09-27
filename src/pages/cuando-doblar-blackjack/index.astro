@@ -1,0 +1,71 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import EVTable from '../../components/EVTable.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Cuándo hay que doblar en el blackjack?', a: 'Con 11 contra cualquier carta salvo el as; con 10 contra 2 a 9; con 9 contra 3 a 6; y, si la mesa deja doblar cualquier mano, con varias manos blandas (A-2 a A-7) contra las cartas débiles del crupier. En España solo se dobla con 9, 10 u 11.' },
+  { q: '¿Se dobla 11 contra un as?', a: 'Depende de las reglas. Si el crupier se planta con 17 blando (S17), se pide; si pide con 17 blando (H17), se dobla. En mesa europea sin carta oculta, se pide siempre.' },
+  { q: '¿Se puede doblar después de pedir carta?', a: 'No. Doblar solo se puede con las dos primeras cartas (o las dos primeras de una mano dividida, si la mesa permite doblar tras dividir). Si ya has pedido, solo puedes pedir o plantarte.' },
+  { q: '¿Por qué se dobla con A-7 contra un 6?', a: 'Porque 18 blando no se puede pasar con una carta y el crupier con un 6 está en su peor momento: se pasa alrededor del 42 % de las veces. Doblar convierte esa ventaja en el doble de dinero.' },
+];
+---
+<Guide
+  lang="es"
+  route="whenDouble"
+  title="Cuándo doblar en el blackjack: todas las manos (con números)"
+  h1="Cuándo doblar en el blackjack"
+  description="Cuándo doblar en el blackjack: con 9, 10, 11 y manos blandas, contra qué cartas del crupier, qué cambia en España y en mesas H17, con el valor esperado de cada caso."
+  updated="2026-09-27"
+  readMinutes={6}
+  faq={faq}
+  related={['whenSplit', 'strategy', 'hand16v10', 'course']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> dobla con <strong>11</strong> contra todo menos el as, con <strong>10</strong> contra 2–9 y con <strong>9</strong> contra 3–6. Si la mesa deja doblar cualquier mano, dobla también <strong>A-2 a A-7</strong> contra las cartas débiles del crupier. Doblar es apostar más cuando tienes ventaja: nunca para «recuperar».</p></div>
+  </div>
+
+  <h2 id="que-es">Qué es doblar y por qué gana dinero</h2>
+  <p>Doblar es duplicar tu apuesta a cambio de recibir <strong>una sola carta más</strong>. Se hace en las manos en las que ya vas por delante: tu total de partida es bueno y el crupier está débil. En esas manos ganas más veces de las que pierdes, así que apostar el doble multiplica una ventaja que ya tienes.</p>
+  <p>Un ejemplo con números: 11 contra un 6. Pedir vale de media +0,34 apuestas; doblar, +0,68. Doblar no te hace ganar más veces, pero cuando ganas, cobras el doble.</p>
+  <EVTable cards={[6, 5]} up={6} tables={['vegasS17', 'spainCasino']} />
+
+  <h2 id="duras">Manos duras</h2>
+  <table>
+    <thead><tr><th>Tu mano</th><th>Dobla contra</th><th>Si no, …</th></tr></thead>
+    <tbody>
+      <tr><td>11</td><td>2 a 10 (y as con H17)</td><td>pide</td></tr>
+      <tr><td>10</td><td>2 a 9</td><td>pide</td></tr>
+      <tr><td>9</td><td>3 a 6 (y 2 con una o dos barajas)</td><td>pide</td></tr>
+      <tr><td>8 o menos</td><td>nunca</td><td>pide</td></tr>
+    </tbody>
+  </table>
+  <p>El caso más discutido es <strong>11 contra un as</strong>. Con reglas S17 pedir y doblar están muy cerca, y pedir gana por poco; con H17, doblar pasa por delante:</p>
+  <EVTable cards={[6, 5]} up={1} tables={['vegasS17', 'vegasH17', 'spainCasino']} />
+  <p>En la mesa española, sin carta oculta, doblar contra el as es claramente peor: si el crupier tiene blackjack pierdes el doble.</p>
+
+  <h2 id="blandas">Manos blandas</h2>
+  <p>Solo en mesas que dejan doblar cualquier par de cartas:</p>
+  <table>
+    <thead><tr><th>Tu mano</th><th>Dobla contra</th><th>Si no, …</th></tr></thead>
+    <tbody>
+      <tr><td>A-2, A-3</td><td>5 y 6</td><td>pide</td></tr>
+      <tr><td>A-4, A-5</td><td>4 a 6</td><td>pide</td></tr>
+      <tr><td>A-6</td><td>3 a 6</td><td>pide</td></tr>
+      <tr><td>A-7</td><td>3 a 6 (y 2 con H17)</td><td>plántate</td></tr>
+      <tr><td>A-8</td><td>6 solo con H17</td><td>plántate</td></tr>
+    </tbody>
+  </table>
+  <p>A-7 contra 6 es el mejor ejemplo: plantarte vale +0,28, pero doblar vale +0,38.</p>
+  <EVTable cards={[1, 7]} up={6} tables={['vegasS17']} caption="A-7 contra 6: plantarse o doblar" />
+
+  <h2 id="espana">En los casinos de España</h2>
+  <p>Solo se puede doblar con 9, 10 u 11, así que todas las dobladas blandas desaparecen, y sin carta oculta no se dobla 11 contra 10 ni contra as. Lo tienes todo en <a href={routes.spain.es}>reglas del blackjack en España</a>.</p>
+
+  <h2 id="errores">Los errores más caros al doblar</h2>
+  <ul>
+    <li><strong>No doblar 11 contra 10</strong> en una mesa con carta oculta: dejas de ganar unas 6 centésimas por mano.</li>
+    <li><strong>Doblar para recuperar</strong> después de perder: la decisión depende de tu mano y la del crupier, nunca de cómo va la sesión.</li>
+    <li><strong>Doblar 12 o más:</strong> te pasas demasiado a menudo con una sola carta.</li>
+  </ul>
+</Guide>

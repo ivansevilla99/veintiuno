@@ -1,0 +1,59 @@
+---
+import { evaluate, type ActionName } from '../lib/ev';
+import { presets } from '../lib/strategy';
+
+interface Props {
+  cards: [number, number];
+  up: number;
+  tables?: (keyof typeof presets)[];
+  caption?: string;
+}
+const { cards, up, tables = ['vegasS17', 'spainCasino'], caption } = Astro.props;
+const names: Record<string, string> = {
+  vegasS17: 'Las Vegas (S17, rendición)',
+  vegasH17: 'Las Vegas (H17, rendición)',
+  spainCasino: 'Casino en España (sin carta oculta)',
+  europeanOnline: 'Europea / online',
+  doubleDeck: 'Dos barajas',
+};
+const label: Record<ActionName, string> = { hit: 'Pedir', stand: 'Plantarse', double: 'Doblar', split: 'Dividir', surrender: 'Rendirse' };
+const order: ActionName[] = ['stand', 'hit', 'double', 'split', 'surrender'];
+const rows = tables.map((k) => ({ name: names[k], ...evaluate(cards, up, presets[k]) }));
+const fmt = (x: number) => (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(3).replace('.', ',');
+const cardName = (c: number) => (c === 1 ? 'A' : String(c));
+---
+<figure class="ev-table">
+  <figcaption>{caption ?? `Valor esperado de cada opción: ${cardName(cards[0])}-${cardName(cards[1])} contra ${cardName(up)}`}</figcaption>
+  <div class="chart-scroll">
+    <table>
+      <thead><tr><th>Mesa</th>{order.map((a) => <th>{label[a]}</th>)}</tr></thead>
+      <tbody>
+        {rows.map((r) => {
+          const vals = order.map((a) => r.ev[a]).filter((v): v is number => v !== undefined);
+          const best = Math.max(...vals);
+          return (
+            <tr>
+              <th scope="row">{r.name}</th>
+              {order.map((a) => {
+                const v = r.ev[a];
+                return <td class={v !== undefined && v === best ? 'best' : ''}>{v === undefined ? '—' : fmt(v)}</td>;
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+  <p class="ev-note">Unidades de apuesta por mano (−0,500 = pierdes media apuesta de media). En verde, la mejor opción. «—»: no se puede en esa mesa. Calculado con el motor de Veintiuno (6 barajas, salvo en «Dos barajas»), retirando las cartas visibles.</p>
+</figure>
+
+<style>
+  .ev-table { margin: 24px 0; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+  .ev-table figcaption { font-weight: 700; color: var(--text); margin-bottom: 10px; font-family: var(--font-display); }
+  .ev-table table { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+  .ev-table th, .ev-table td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  .ev-table th[scope='row'], .ev-table thead th:first-child { text-align: left; white-space: normal; color: var(--text-2); font-weight: 600; }
+  .ev-table thead th { color: var(--muted); font-size: 13px; }
+  .ev-table td.best { color: var(--correct); font-weight: 800; }
+  .ev-note { font-size: 13px; color: var(--muted); margin: 10px 0 0; }
+</style>

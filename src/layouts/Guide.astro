@@ -1,7 +1,7 @@
 ---
 import Base from './Base.astro';
 import AppCTA from '../components/AppCTA.astro';
-import { routes, ui, type Lang, type RouteKey } from '../lib/site';
+import { routes, ui, pathOf, type Lang, type RouteKey } from '../lib/site';
 
 export interface Faq { q: string; a: string }
 interface Props {
@@ -20,7 +20,7 @@ interface Props {
 const { lang, route, title, h1, description, updated, readMinutes, faq = [], related = [], cta, wide = false } = Astro.props;
 const t = ui[lang];
 const site = Astro.site!;
-const url = new URL(routes[route][lang], site).href;
+const url = new URL(pathOf(route, lang)!, site).href;
 const date = new Date(updated);
 const dateLabel = date.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -64,6 +64,15 @@ const relatedLabels: Record<string, Record<Lang, [string, string]>> = {
   spain: { es: ['Blackjack en los casinos de España', 'Sin carta oculta y doblando solo con 9, 10 u 11: qué cambia.'], en: ['Blackjack rules in Spain', 'No hole card, doubling on 9–11 only: what changes.'] },
   about: { es: ['Sobre Veintiuno', 'Quién hay detrás y de dónde salen las tablas.'], en: ['About Veintiuno', 'Who’s behind it and where the charts come from.'] },
   responsible: { es: ['Juego responsable', 'Señales de alerta y dónde pedir ayuda.'], en: ['Responsible gambling', 'Warning signs and where to get help.'] },
+  course: { es: ['Curso de blackjack gratis', '10 lecciones cortas, de las reglas al conteo, con ejercicios.'], en: ['', ''] },
+  hand16v10: { es: ['16 contra 10: ¿pedir o plantarse?', 'La mano más temida, con los números exactos.'], en: ['', ''] },
+  whenDouble: { es: ['Cuándo doblar en el blackjack', 'Todas las manos en las que doblar gana dinero.'], en: ['', ''] },
+  whenSplit: { es: ['Cuándo dividir en el blackjack', 'Qué parejas separar y contra qué carta.'], en: ['', ''] },
+  practiceCounting: { es: ['Cómo practicar el conteo de cartas', 'Un plan de ejercicios de menos a más.'], en: ['', ''] },
+  app: { es: ['La mejor app para aprender blackjack', 'Qué tipo de app te enseña de verdad.'], en: ['', ''] },
+  dataBust: { es: ['Probabilidad de que el crupier se pase', 'Tabla exacta por carta visible, S17 y H17.'], en: ['', ''] },
+  dataRules: { es: ['Cuánto cuesta cada regla', 'La ventaja de la casa según las reglas de la mesa.'], en: ['', ''] },
+  data: { es: ['Datos y probabilidades', 'Todas las tablas calculadas con el motor de Veintiuno.'], en: ['', ''] },
 };
 ---
 <Base lang={lang} route={route} title={title} description={description} type="article" schema={schema}>
@@ -99,7 +108,7 @@ const relatedLabels: Record<string, Record<Lang, [string, string]>> = {
           <h2>{t.related}</h2>
           <div class="grid-2">
             {related.map((r) => (
-              <a class="card" href={routes[r][lang]}>
+              <a class="card" href={pathOf(r, lang)}>
                 <h3>{relatedLabels[r][lang][0]}</h3>
                 <p>{relatedLabels[r][lang][1]}</p>
               </a>

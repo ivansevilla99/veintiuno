@@ -1,0 +1,53 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import EVTable from '../../components/EVTable.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Con 16 contra un 10 se pide o se planta?', a: 'Se pide, salvo que la mesa permita rendirse: entonces lo mejor es rendirse. Pedir pierde un poco menos que plantarse (unas 0,7 centésimas de apuesta por mano con 10-6), aunque las dos opciones pierden más de la mitad de lo apostado.' },
+  { q: '¿Por qué pedir si con 16 me paso tan a menudo?', a: 'Porque plantarte con 16 solo gana si el crupier se pasa, y con un 10 visible se pasa solo alrededor del 23 % de las veces. Pidiendo te pasas unas 6 de cada 10 veces, pero cuando no te pasas mejoras a 17–21 y a veces ganas.' },
+  { q: '¿Y si mi 16 tiene tres cartas o más?', a: 'Entonces plantarse suele ser igual o ligeramente mejor, porque las cartas pequeñas que forman tu mano ya no están en la baraja y las que quedan te pasan con más facilidad. Es una de las pocas excepciones de «estrategia por composición». Con dos cartas, pide.' },
+  { q: '¿Y 16 contra un 10 si es una pareja de ochos?', a: 'Divide. 8-8 contra 10 se divide en las mesas con carta oculta, porque dos manos que empiezan en 8 pierden menos que un 16. En mesa europea sin carta oculta se pide (o te rindes, si se puede).' },
+];
+---
+<Guide
+  lang="es"
+  route="hand16v10"
+  title="16 contra 10 en blackjack: ¿pedir o plantarse? (con números)"
+  h1="16 contra 10: ¿pedir o plantarse?"
+  description="Qué hacer con 16 contra un 10 en el blackjack: pedir, plantarse o rendirse. Con el valor esperado exacto de cada opción, por qué pedir es mejor y las excepciones."
+  updated="2026-09-27"
+  readMinutes={5}
+  faq={faq}
+  related={['strategy', 'whenDouble', 'course', 'dataBust']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Respuesta corta:</strong> con 16 duro contra un 10, <strong>ríndete si la mesa lo permite; si no, pide</strong>. Es la mano más temida del blackjack porque todas las opciones pierden, pero pedir pierde un poco menos que plantarse. La excepción: si tu 16 es 8-8, divide (en mesas con carta oculta).</p></div>
+  </div>
+
+  <h2 id="numeros">Los números exactos</h2>
+  <p>Esto es lo que vale de media cada opción, por cada unidad apostada. Todas son negativas: con 16 contra 10 vas a perder dinero hagas lo que hagas. La pregunta es cuál pierde menos.</p>
+  <EVTable cards={[10, 6]} up={10} tables={['vegasS17', 'spainCasino', 'doubleDeck']} />
+  <p>Con reglas de Las Vegas, <strong>rendirse</strong> (−0,500) es lo mejor: recuperas media apuesta y te ahorras jugar una mano que pierde más de la mitad de las veces. Sin rendición, <strong>pedir</strong> (−0,535) gana a plantarse (−0,542).</p>
+  <p>En un casino español, sin carta oculta, las pérdidas son algo mayores porque el crupier todavía puede tener blackjack, pero el orden no cambia: pedir sigue siendo mejor.</p>
+
+  <h2 id="por-que">Por qué pedir, si te pasas tanto</h2>
+  <p>La intuición dice «con 16 me paso casi seguro, mejor me planto». Pero plantarte con 16 solo sirve para una cosa: esperar a que se pase el crupier. Y con un 10 a la vista, el crupier se pasa solo alrededor del <strong>23 %</strong> de las veces (lo tienes en la <a href={routes.dataBust.es}>tabla de probabilidades del crupier</a>). El otro 77 % termina con 17 o más, y tu 16 pierde.</p>
+  <p>Si pides, te pasas cuando sale un 6, 7, 8, 9 o 10 (unas 6 de cada 10 veces). Pero cuando sale un as, un 2, 3, 4 o 5, mejoras a 17–21 y tienes opciones reales de ganar o empatar. Esas victorias compensan de sobra el pequeño extra de manos perdidas por pasarte.</p>
+  <div class="callout"><p><strong>La diferencia es pequeña, y por eso se discute tanto.</strong> Pedir en lugar de plantarte te ahorra menos de una centésima de apuesta por mano. En una sola mano no se nota. En mil manos de 16 contra 10, son siete apuestas enteras.</p></div>
+
+  <h2 id="excepciones">Las excepciones</h2>
+  <ul>
+    <li><strong>8-8:</strong> divide. Dos manos que empiezan en 8 pierden bastante menos que un 16. En mesa europea sin carta oculta, 8-8 contra 10 se pide (o te rindes, si se puede).</li>
+    <li><strong>16 de tres o más cartas</strong> (por ejemplo 4-5-7): plantarse pasa a ser igual o mejor, porque las cartas bajas que te ayudarían ya están en tu mano.</li>
+    <li><strong>Contando cartas:</strong> con la cuenta verdadera en 0 o positiva, plántate. Es el índice más famoso del sistema Hi-Lo: cuando quedan muchas cartas altas, pedir te pasa demasiado.</li>
+  </ul>
+
+  <h2 id="resto">¿Y 16 contra otras cartas?</h2>
+  <ul>
+    <li><strong>Contra 2 a 6:</strong> plántate. El crupier está débil y se pasará a menudo.</li>
+    <li><strong>Contra 7 u 8:</strong> pide.</li>
+    <li><strong>Contra 9 o as:</strong> ríndete si se puede; si no, pide.</li>
+  </ul>
+  <p>Lo tienes todo en la <a href={routes.strategy.es}>tabla de estrategia básica</a>, ajustable a las reglas de tu mesa.</p>
+</Guide>

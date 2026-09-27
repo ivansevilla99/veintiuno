@@ -76,7 +76,7 @@ strong { color: var(--text); }
 .main-nav a { color: var(--text-2); text-decoration: none; font-size: 15px; padding: 8px 12px; border-radius: 999px; }
 .main-nav a:hover, .main-nav a[aria-current='page'] { color: var(--text); background: rgba(255, 255, 255, 0.06); }
 .header-actions { margin-left: auto; display: flex; align-items: center; gap: 12px; }
-.header-actions .btn { white-space: nowrap; }
+.header-actions .btn { white-space: nowrap; gap: 0; }
 @media (max-width: 420px) { .header-actions .btn .long { display: none; } .brand span { font-size: 17px; } }
 .lang { color: var(--muted); text-decoration: none; font-size: 14px; }
 .lang:hover { color: var(--text); }
