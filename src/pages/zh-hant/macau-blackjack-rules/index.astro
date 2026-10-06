@@ -1,0 +1,64 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: '澳門的21點規則有什麼特別？', a: '最大的特點是早投降：在莊家還不能翻出 Blackjack 之前就能投降（對 2 到 10，不能對 A）。加上 6 副牌、莊家軟 17 停牌、任意兩張可加倍、分牌後可加倍、Blackjack 賠 3:2，莊家優勢大約只有 0.16%。' },
+  { q: '澳門的牌桌沒有暗牌，加倍或分牌遇到莊家 Blackjack 會全輸嗎？', a: '一般不會。典型的澳門規則是「只輸原注」：莊家拿到 Blackjack 時，你加倍或分牌多下的注碼會退還，所以策略上和莊家會先查看的牌桌一樣。' },
+  { q: '早投降要怎麼用？', a: '對莊家 10 時，硬牌 14、15、16 都投降，包括 7-7 和 8-8。對 A 不能投降。其他情況照莊家先查看暗牌的標準策略表打。' },
+  { q: '台灣和香港有合法的21點嗎？', a: '台灣、香港和中國大陸都沒有合法賭場，所以這些地方的玩家通常會去澳門。不管在哪裡玩，請遵守當地法律，只用輸得起的錢。' },
+];
+---
+<Guide
+  lang="zh"
+  route="macau"
+  title="澳門21點規則與策略：早投降怎麼用"
+  h1="澳門21點規則：早投降與正確的打法"
+  description="澳門21點的典型規則：6 副牌、莊家軟 17 停牌、早投降、只輸原注。莊家優勢約 0.16%，是全世界最好的規則之一。附早投降的完整打法。"
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['surrender', 'strategy', 'live', 'dataRules']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>簡短回答：</strong>澳門典型的21點規則是 6 副牌、莊家軟 17 停牌、Blackjack 賠 3:2，而且有<strong>早投降</strong>（對莊家 2 到 10，不能對 A）。用正確的策略，莊家優勢大約只有 <strong>0.16%</strong>，是全世界最好的規則之一。最重要的調整：<strong>對莊家 10，硬牌 14、15、16 都投降</strong>，包括 7-7 和 8-8。</p></div>
+  </div>
+
+  <h2 id="rules">澳門典型的規則</h2>
+  <p>以下是根據公開的實地記錄（例如 Wizard of Odds）整理的典型規則。每家賭場、每張牌桌可能不同，坐下前請一定先看清楚規則。</p>
+  <table>
+    <thead><tr><th>規則</th><th>澳門典型</th><th>參考牌桌</th></tr></thead>
+    <tbody>
+      <tr><td>副數</td><td>6 副</td><td>6 副</td></tr>
+      <tr><td>莊家軟 17</td><td>停牌</td><td>停牌</td></tr>
+      <tr><td>暗牌</td><td>沒有暗牌，但只輸原注</td><td>莊家先查看</td></tr>
+      <tr><td>投降</td><td><strong>早投降</strong>（對 2–10，不能對 A）</td><td>晚投降</td></tr>
+      <tr><td>加倍</td><td>任意兩張，分牌後可加倍</td><td>任意兩張，分牌後可加倍</td></tr>
+      <tr><td>分牌</td><td>最多分成 4 手</td><td>—</td></tr>
+      <tr><td>Blackjack 賠率</td><td>3:2</td><td>3:2</td></tr>
+      <tr><td>莊家優勢（約）</td><td><strong>0.16%</strong></td><td>0.36%</td></tr>
+    </tbody>
+  </table>
+  <p>新加坡、巴拿馬、多明尼加和坎昆也能找到類似的規則。</p>
+
+  <h2 id="original-bets">「只輸原注」是什麼意思</h2>
+  <p>澳門的莊家不會先拿暗牌查看。但如果莊家最後拿到 Blackjack，你只會輸掉<strong>原本的注碼</strong>：加倍或分牌多下的錢會退還給你。所以在策略上，它和莊家會先查看的牌桌一樣——你可以放心照標準策略加倍和分牌。</p>
+  <p>這和<a href={routes.spain.zh}>西班牙</a>或很多<a href={routes.live.zh}>真人線上牌桌</a>不同，那些地方莊家拿到 Blackjack 時，加倍和分牌的注碼也會一起輸掉，所以策略要更保守。</p>
+
+  <h2 id="early-surrender">早投降：為什麼這麼有價值</h2>
+  <p>一般的晚投降，要等莊家確認沒有 Blackjack 之後才能投降，大約只值 0.07 個百分點。早投降則是在莊家的 Blackjack 出現之前就能放棄，連那些本來會整手輸掉的情況都能只輸半注。這就是澳門的莊家優勢能低到約 0.16% 的主要原因。</p>
+  <p>對莊家 10 時，早投降的打法：</p>
+  <ul>
+    <li><strong>硬牌 14、15、16：投降</strong>，包括 <strong>7-7 和 8-8</strong>。</li>
+    <li>對 A：不能投降，照一般策略打。</li>
+    <li>其他情況：照莊家會先查看暗牌的標準策略表打。</li>
+  </ul>
+  <p>想了解晚投降和早投降的完整差異，請看<a href={routes.surrender.zh}>21點什麼時候投降</a>。</p>
+
+  <h2 id="players">給台灣和香港玩家</h2>
+  <p>台灣、香港和中國大陸都沒有合法賭場，所以想在賭場玩21點的人，通常會去澳門。我們不評論個別賭場，因為規則會變，而且不同牌桌也不一樣。你能做的是：坐下前看清楚規則，確認 Blackjack 賠 <strong>3:2</strong>（不是 <a href={routes.payout65.zh}>6:5</a>），問清楚能不能投降。</p>
+
+  <h2 id="practice">出發前怎麼練習</h2>
+  <p>Veintiuno App 有一張「澳門／亞洲」牌桌，使用這套規則和對應的策略表，會在你每一次打錯時馬上糾正並說明原因。你也可以先在<a href={routes.strategy.zh}>互動式基本策略表</a>上查看，或在<a href={routes.simulator.zh}>免費練習桌</a>熱身。</p>
+  <div class="callout"><p><strong>誠實的提醒：</strong>就算規則這麼好，莊家長期仍然有優勢，沒有任何策略能保證贏錢。事先設好預算，只用你輸得起的錢玩，請看<a href={routes.responsible.zh}>負責任博彩</a>。</p></div>
+</Guide>

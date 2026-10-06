@@ -1,0 +1,72 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Qué significa que el blackjack pague 6:5?', a: 'Que cuando te sale blackjack (as y una carta de valor 10 en las dos primeras cartas) cobras 6 por cada 5 apostados en lugar de 3 por cada 2. Con una apuesta de 10, cobras 12 en vez de 15.' },
+  { q: '¿Cuánto sube la ventaja de la casa en una mesa 6:5?', a: 'Alrededor de 1,39 puntos. En una mesa de referencia (6 barajas, el crupier se planta con 17 blando, rendición) pasa de un 0,36 % aproximado a un 1,75 % aproximado. Es la regla individual que más te cuesta.' },
+  { q: '¿Cambia la estrategia básica en una mesa que paga 6:5?', a: 'Casi nada. El coste está en lo que cobras por el blackjack, no en tus decisiones. Juegas igual; simplemente pierdes más a la larga.' },
+  { q: '¿Cómo sé si una mesa paga 3:2 o 6:5?', a: 'Míralo en el tapete: suele poner «Blackjack pays 3 to 2» o «Blackjack pays 6 to 5». Si no lo ves, pregunta al crupier antes de sentarte.' },
+];
+---
+<Guide
+  lang="es"
+  route="payout65"
+  title="Blackjack 6:5 vs 3:2: cuánto te cuesta de verdad"
+  h1="Blackjack 6:5 frente a 3:2: la diferencia, con números"
+  description="Blackjack que paga 6:5 o 3:2: qué significa, cuánto sube la ventaja de la casa (unos 1,39 puntos) y por qué conviene leer el tapete antes de sentarte."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['dataRules', 'mistakes', 'insurance', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Respuesta corta:</strong> en una mesa 3:2 un blackjack con apuesta de 10 te paga <strong>15</strong>; en una 6:5, solo <strong>12</strong>. Esa diferencia sube la ventaja de la casa en unos <strong>1,39 puntos</strong> (de un 0,36 % aproximado a un 1,75 % aproximado en la mesa de referencia). Es la peor regla individual que te puedes encontrar: <strong>elige siempre 3:2</strong>.</p></div>
+  </div>
+
+  <h2 id="que-es">Qué significa 3:2 y 6:5</h2>
+  <p>El blackjack «natural» es un as más una carta de valor 10 en tus dos primeras cartas. Es la mejor mano del juego y tiene un pago especial. Ese pago se escribe como una proporción:</p>
+  <ul>
+    <li><strong>3:2</strong> (tres a dos): cobras 3 por cada 2 apostados. Apuestas 10, ganas 15.</li>
+    <li><strong>6:5</strong> (seis a cinco): cobras 6 por cada 5 apostados. Apuestas 10, ganas 12.</li>
+  </ul>
+  <p>Leído rápido, «6:5» parece más que «3:2» porque los números son más grandes. No te dejes engañar: 6 entre 5 es 1,2; 3 entre 2 es 1,5. En cada blackjack cobras <strong>0,3 apuestas menos</strong>.</p>
+
+  <h2 id="cuanto-cuesta">Cuánto te cuesta de verdad</h2>
+  <p>Te sale blackjack más o menos en el <strong>4,75 %</strong> de las manos, una de cada 21. Parece poco, pero cada una de esas manos paga menos, y eso se nota en la ventaja de la casa.</p>
+  <table>
+    <thead><tr><th>Regla de la mesa</th><th>Coste aproximado (puntos de ventaja de la casa)</th></tr></thead>
+    <tbody>
+      <tr><td>Blackjack paga 6:5 en vez de 3:2</td><td>+1,39</td></tr>
+      <tr><td>Blackjack paga 1:1 (dinero par)</td><td>+2,27</td></tr>
+      <tr><td>El crupier pide con 17 blando (H17)</td><td>+0,22</td></tr>
+      <tr><td>Sin carta oculta</td><td>+0,11</td></tr>
+      <tr><td>Doblar solo con 9, 10 u 11</td><td>+0,09</td></tr>
+      <tr><td>Sin rendición</td><td>+0,07</td></tr>
+    </tbody>
+  </table>
+  <p>Fíjate en la escala: el pago 6:5 cuesta más que todas las demás reglas malas de la lista juntas (salvo el 1:1, que es peor todavía). Tienes el resto de reglas en <a href={routes.dataRules.es}>cuánto cuesta cada regla</a>.</p>
+
+  <h2 id="ejemplo">Un ejemplo con dinero</h2>
+  <p>Imagina una sesión de 100 manos a 10 por mano. Has apostado 1.000 en total. En una mesa 6:5 pierdes de media unos <strong>14 más</strong> que en la misma mesa con 3:2 (el 1,39 % de 1.000). No es una cantidad que notes en una tarde, porque la suerte la tapa, pero se acumula sesión tras sesión.</p>
+  <table>
+    <thead><tr><th></th><th>Mesa 3:2</th><th>Mesa 6:5</th></tr></thead>
+    <tbody>
+      <tr><td>Pago de un blackjack con apuesta de 10</td><td>15</td><td>12</td></tr>
+      <tr><td>Ventaja de la casa (mesa de referencia)</td><td>≈ 0,36 %</td><td>≈ 1,75 %</td></tr>
+      <tr><td>Pérdida esperada en 1.000 apostados</td><td>≈ 3,6</td><td>≈ 17,5</td></tr>
+    </tbody>
+  </table>
+  <div class="callout"><p><strong>Ojo con la palabra «esperada».</strong> Son medias a largo plazo, no lo que pasará en tu próxima sesión. Ninguna estrategia convierte el blackjack en una forma de ganar dinero: lo único que haces eligiendo bien la mesa es perder menos.</p></div>
+
+  <h2 id="donde">Dónde se encuentran mesas 6:5</h2>
+  <p>Sobre todo en las mesas de apuesta mínima baja del Strip de Las Vegas, en los juegos de una sola baraja de Las Vegas (que se anuncian como «mejores» precisamente por la baraja única) y en mesas baratas de cruceros. Según encuestas de 2026, aproximadamente la mitad de los casinos del Strip todavía ofrecen 3:2 en alguna mesa, normalmente con mínimos más altos.</p>
+  <p>La regla práctica es sencilla: <strong>lee el tapete</strong>. Suele llevar impreso «Blackjack pays 3 to 2» o «Blackjack pays 6 to 5». Si una mesa de una baraja paga 6:5, la baraja única no compensa ni de lejos lo que pierdes en el pago.</p>
+
+  <h2 id="estrategia">¿Hay que jugar distinto en una mesa 6:5?</h2>
+  <p>Prácticamente no. La <a href={routes.strategy.es}>estrategia básica</a> apenas cambia, porque el pago del blackjack no depende de tus decisiones: te sale o no te sale. Sigues doblando, dividiendo y plantándote igual. La diferencia está en lo que cobras, así que la única decisión que de verdad importa es <strong>sentarte en otra mesa</strong>.</p>
+  <p>Si quieres repasar la tabla para que las decisiones te salgan solas, puedes practicar en la <a href={routes.simulator.es}>mesa gratuita</a> o con la app Veintiuno, que te corrige cada jugada y te explica el porqué. Sin dinero real.</p>
+
+  <h2 id="responsable">Antes de jugar con dinero</h2>
+  <p>Elegir una mesa 3:2 reduce lo que pierdes, pero la casa sigue teniendo ventaja. Fija un presupuesto que puedas permitirte perder y respétalo. Si el juego deja de ser un entretenimiento, tienes recursos en <a href={routes.responsible.es}>juego responsable</a>.</p>
+</Guide>

@@ -1,0 +1,69 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'What is the biggest mistake in blackjack?', a: 'Not using basic strategy at all. Playing “never bust” (standing on any 12 or more) gives the house an edge of about 4%, and mimicking the dealer about 5.5%, compared with roughly 0.4% for correct basic strategy.' },
+  { q: 'Do bad players at the table hurt my odds?', a: 'No. Other players’ decisions change which cards you get in a particular hand, but they don’t change your expected value. Over time they help you exactly as often as they hurt you.' },
+  { q: 'Can a betting system like the martingale beat blackjack?', a: 'No. Betting systems don’t change the house edge. They only change the variance and your risk of ruin, often making a big loss more likely.' },
+  { q: 'Is standing on 16 against a 10 a big mistake?', a: 'It’s a mistake, but a small one: hitting and standing differ by less than 1% of your bet. The costly errors are not using basic strategy, taking insurance and playing 6:5 tables.' },
+];
+---
+<Guide
+  lang="en"
+  route="mistakes"
+  title="Common Blackjack Mistakes (and What They Cost)"
+  h1="The most common blackjack mistakes and what they cost"
+  description="The most common blackjack mistakes, ranked by cost: playing never-bust, insurance, 6:5 tables, standing on soft 17, bad splits and betting-system myths."
+  updated="2026-10-06"
+  readMinutes={6}
+  faq={faq}
+  related={['insurance', 'payout65', 'softHands', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> the costliest blackjack mistake is <strong>not using basic strategy</strong>. Playing “never bust” gives the house about a 4% edge instead of about 0.4%. After that come <strong>taking insurance</strong> (about −7.4% on that bet), <strong>playing 6:5 tables</strong> (+1.39 points) and a handful of misplayed hands: standing on 12–16 against strong cards, standing on soft 17 and splitting the wrong pairs.</p></div>
+  </div>
+
+  <h2 id="ranking">The mistakes, ranked by cost</h2>
+  <p>These are approximate figures from published analyses (such as Wizard of Odds), on a standard multi-deck table. They show why some mistakes matter far more than others.</p>
+  <table>
+    <thead><tr><th>Mistake</th><th>Approximate cost</th></tr></thead>
+    <tbody>
+      <tr><td>Mimicking the dealer (hit to 17, never double or split)</td><td>house edge about 5.5%</td></tr>
+      <tr><td>Playing “never bust” (stand on any 12+)</td><td>house edge about 4%</td></tr>
+      <tr><td>Taking insurance or even money</td><td>about −7.4% of the insurance bet</td></tr>
+      <tr><td>Playing at a 6:5 table</td><td>about +1.39 points of house edge</td></tr>
+      <tr><td>Correct basic strategy (for comparison)</td><td>house edge about 0.4%</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="strategy">1. Playing by feel instead of basic strategy</h2>
+  <p>Two popular “systems” are really mistakes in disguise. <strong>Never bust</strong> means standing on any hard 12 or more so you can’t go over 21. <strong>Mimicking the dealer</strong> means hitting until 17 and never doubling or splitting. Both sound sensible, and both hand the casino ten times the edge or more compared with the <a href={routes.strategy.en}>basic strategy chart</a>.</p>
+
+  <h2 id="insurance">2. Taking insurance or even money</h2>
+  <p>Insurance pays 2 to 1 on a dealer ten that only shows up about 31% of the time in a six-deck shoe, so it loses about 7.4% of every insurance bet. Even money is the same bet with another name. Full math in <a href={routes.insurance.en}>blackjack insurance</a>.</p>
+
+  <h2 id="payout">3. Sitting at a 6:5 table</h2>
+  <p>A blackjack that pays 6:5 instead of 3:2 adds about 1.39 points to the house edge, more than any other single rule. Read the felt before you sit. Details in <a href={routes.payout65.en}>6:5 vs 3:2</a>.</p>
+
+  <h2 id="hands">4. Misplaying specific hands</h2>
+  <ul>
+    <li><strong>Standing on 12–16 against 7, 8, 9, 10 or ace</strong> because you don’t want to bust. A strong dealer card usually ends on 17 or more, so your stiff hand loses anyway.</li>
+    <li><strong>Not doubling 10 or 11 against a weak dealer card.</strong> These are your best chances to put more money on the table with the edge on your side. See <a href={routes.whenDouble.en}>when to double down</a>.</li>
+    <li><strong>Not splitting 8-8 and A-A.</strong></li>
+    <li><strong>Splitting 10-10.</strong> You break up a 20.</li>
+    <li><strong>Splitting 5-5.</strong> Treat it as a 10 and double instead. More in <a href={routes.whenSplit.en}>when to split</a>.</li>
+    <li><strong>Standing on soft 17 (A-6).</strong> One card can’t bust you; hit or double. See <a href={routes.softHands.en}>soft hands</a>.</li>
+  </ul>
+
+  <h2 id="myths">5. Believing the table myths</h2>
+  <ul>
+    <li><strong>Betting systems.</strong> The martingale and other progressions don’t change the house edge. They only change the variance and your risk of ruin.</li>
+    <li><strong>“Bad players ruin your cards.”</strong> Other players’ decisions don’t change your expected value. They’re as likely to help you as to hurt you.</li>
+    <li><strong>Obsessing over 16 vs 10.</strong> Hitting and standing differ by less than 1% of the bet. It’s worth getting right (hit, or surrender if allowed), but it isn’t where the money goes. See <a href={routes.hand16v10.en}>16 vs 10</a> and <a href={routes.surrender.en}>when to surrender</a>.</li>
+  </ul>
+
+  <h2 id="fix">How to stop making them</h2>
+  <p>Knowing the chart and playing it under pressure are different skills. The fastest fix is repetition with instant feedback: you play a hand, you see the right answer and why. The Veintiuno app does exactly that, and its mistake heat map shows which hands you get wrong most often so you can focus there. You can start on the free <a href={routes.simulator.en}>practice table</a> or the <a href={routes.course.en}>blackjack course</a>.</p>
+  <div class="callout"><p><strong>Even perfect play loses in the long run.</strong> Avoiding these mistakes makes the house edge as small as possible, not negative. Play with a set budget, and if gambling stops being fun, see our <a href={routes.responsible.en}>responsible gambling</a> page.</p></div>
+</Guide>

@@ -1,0 +1,65 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Welche Blackjack-Regeln gelten in Macau?', a: 'Typisch sind 6 Decks, der Dealer steht auf Soft 17, keine Hole Card (du verlierst gegen einen Dealer-Blackjack aber nur den ursprünglichen Einsatz), Early Surrender gegen 2 bis 10, Verdoppeln auf zwei beliebige Karten und nach Split, Split bis zu 4 Hände und Blackjack 3:2.' },
+  { q: 'Wie hoch ist der Hausvorteil beim Blackjack in Macau?', a: 'Etwa 0,16 % mit perfekter Grundstrategie – einer der niedrigsten weltweit. Das liegt vor allem am Early Surrender.' },
+  { q: 'Was ändert sich an der Strategie?', a: 'Gegen eine 10 gibst du harte 14, 15 und 16 auf, einschließlich 7-7 und 8-8. Gegen ein Ass gibst du nie auf. Sonst spielst du wie an einem Tisch, an dem der Dealer nach Blackjack schaut.' },
+  { q: 'Gibt es ähnliche Regeln anderswo?', a: 'Ja, ähnliche Regeln findest du zum Beispiel in Singapur, Panama, der Dominikanischen Republik und in Cancún.' },
+];
+---
+<Guide
+  lang="de"
+  route="macau"
+  title="Blackjack in Macau: Regeln und Strategie"
+  h1="Blackjack in Macau: die Regeln und wie sie deine Strategie ändern"
+  description="Blackjack-Regeln in Macau: Early Surrender, keine Hole Card, nur der ursprüngliche Einsatz geht verloren. Warum der Hausvorteil nur ≈0,16 % beträgt."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['surrender', 'strategy', 'dataRules', 'live']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurze Antwort:</strong> Typisches Blackjack in Macau spielt mit 6 Decks, Dealer steht auf Soft 17, Blackjack zahlt 3:2 – und vor allem mit <strong>Early Surrender</strong> gegen 2 bis 10. Dadurch liegt der Hausvorteil mit perfekter Grundstrategie bei nur etwa <strong>0,16 %</strong>, einem der niedrigsten der Welt. Die wichtigste Änderung: Gegen eine 10 gibst du harte 14, 15 und 16 auf.</p></div>
+  </div>
+
+  <h2 id="rules">Die typischen Regeln</h2>
+  <p>Die folgenden Regeln stammen aus Besuchsberichten (unter anderem Wizard of Odds) und sind typisch, aber nicht an jedem Tisch garantiert. Lies vor dem Spielen immer die Regeln deines Tisches.</p>
+  <table>
+    <thead><tr><th>Regel</th><th>Macau (typisch)</th></tr></thead>
+    <tbody>
+      <tr><td>Decks</td><td>6</td></tr>
+      <tr><td>Dealer auf Soft 17</td><td>steht (S17)</td></tr>
+      <tr><td>Hole Card</td><td>keine – bei Dealer-Blackjack verlierst du nur den ursprünglichen Einsatz</td></tr>
+      <tr><td>Surrender</td><td>Early Surrender gegen 2 bis 10, nicht gegen Ass</td></tr>
+      <tr><td>Verdoppeln</td><td>auf zwei beliebige Karten, auch nach Split</td></tr>
+      <tr><td>Splitten</td><td>bis zu 4 Hände</td></tr>
+      <tr><td>Blackjack zahlt</td><td>3:2</td></tr>
+      <tr><td>Hausvorteil (Grundstrategie)</td><td>≈ 0,16 %</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="hole-card">Keine Hole Card, aber „nur der ursprüngliche Einsatz“</h2>
+  <p>Wie in Europa bekommt der Dealer seine zweite Karte erst nach den Spielern. Der Unterschied: Hat er am Ende Blackjack, bekommst du Verdopplungen und Splits zurück und verlierst nur deinen ursprünglichen Einsatz („original bets only“). Für die Strategie ist das <strong>gleichwertig mit einem Tisch, an dem der Dealer nach Blackjack schaut</strong>. Du kannst also 11 gegen eine 10 verdoppeln und 8-8 gegen eine 10 splitten, ohne die Zusatzeinsätze zu riskieren – anders als an typischen europäischen Tischen.</p>
+
+  <h2 id="early-surrender">Early Surrender: der große Vorteil</h2>
+  <p>Beim Early Surrender darfst du aufgeben, <strong>bevor</strong> feststeht, ob der Dealer Blackjack hat. Du rettest also auch dann den halben Einsatz, wenn er ihn später aufdeckt. Das macht Aufgeben viel wertvoller als das übliche Late Surrender – und ist der Hauptgrund für den niedrigen Hausvorteil.</p>
+  <table>
+    <thead><tr><th>Deine Hand</th><th>Gegen eine 10</th><th>Gegen ein Ass</th></tr></thead>
+    <tbody>
+      <tr><td>Harte 14 (inkl. 7-7)</td><td>aufgeben</td><td>nie aufgeben</td></tr>
+      <tr><td>Harte 15</td><td>aufgeben</td><td>nie aufgeben</td></tr>
+      <tr><td>Harte 16 (inkl. 8-8)</td><td>aufgeben</td><td>nie aufgeben</td></tr>
+    </tbody>
+  </table>
+  <p>Gegen ein Ass ist Early Surrender in Macau nicht erlaubt. Für alle übrigen Hände gilt die normale <a href={routes.strategy.de}>Strategietabelle</a> für Tische, an denen der Dealer nach Blackjack schaut. Wie Late Surrender funktioniert, erklären wir in <a href={routes.surrender.de}>Wann aufgeben?</a></p>
+
+  <h2 id="where">Wo es ähnliche Regeln gibt</h2>
+  <p>Ähnliche Bedingungen findest du in <strong>Singapur, Panama, der Dominikanischen Republik und in Cancún</strong>. Auf dem chinesischen Festland gibt es keine legalen Casinos, ebenso wenig in Taiwan oder Hongkong – Spieler von dort fahren deshalb meist nach Macau.</p>
+  <p>Wie viel jede Einzelregel ausmacht, zeigt unsere Tabelle zum <a href={routes.dataRules.de}>Hausvorteil nach Regeln</a>.</p>
+
+  <h2 id="practice">So trainierst du die Macau-Strategie</h2>
+  <p>Die meisten Strategietabellen im Netz gelten für Las Vegas oder Europa und kennen Early Surrender gar nicht. In der App Veintiuno gibt es deshalb einen eigenen Tisch <strong>„Macau / Asien“</strong> mit genau dieser Tabelle: Du bekommst Hände ausgeteilt, wirst sofort korrigiert und siehst, warum 15 gegen eine 10 hier aufgegeben wird.</p>
+  <div class="callout"><p><strong>Auch 0,16 % sind ein Vorteil für das Haus.</strong> Ein niedriger Hausvorteil bedeutet, dass du langsamer verlierst – nicht, dass du gewinnst. Setz dir vorher ein Budget und lies unseren Ratgeber zum <a href={routes.responsible.de}>verantwortungsvollen Spielen</a>.</p></div>
+</Guide>

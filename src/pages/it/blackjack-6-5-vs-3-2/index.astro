@@ -1,0 +1,69 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Che differenza c’è tra blackjack 6:5 e 3:2?', a: 'È quanto ti pagano un blackjack naturale (asso più una carta da 10). A 3:2, con 10 di puntata vinci 15; a 6:5 vinci 12. Tutto il resto del gioco può essere identico, ma il vantaggio del banco sale di circa 1,39 punti.' },
+  { q: 'Quanto costa giocare a un tavolo 6:5?', a: 'Sul tavolo di riferimento (6 mazzi, banco che sta su soft 17) il vantaggio del banco passa da circa lo 0,36% a circa l’1,75% dell’importo puntato. Su 100 mani da 10 sono circa 14 di perdita attesa in più.' },
+  { q: 'Con il 6:5 devo cambiare strategia?', a: 'Quasi per niente. La strategia di base resta praticamente la stessa: il costo sta nel pagamento del blackjack, non nelle decisioni. L’unica vera contromossa è scegliere un tavolo che paga 3:2.' },
+  { q: 'Il blackjack pagato alla pari (1:1) è ancora peggio?', a: 'Sì. Se il blackjack ti viene pagato 1 a 1, il vantaggio del banco aumenta di circa 2,27 punti rispetto al 3:2, ancora più del 6:5.' },
+];
+---
+<Guide
+  lang="it"
+  route="payout65"
+  title="Blackjack 6:5 vs 3:2: quanto ti costa davvero"
+  h1="Blackjack 6:5 contro 3:2: quanto ti costa davvero"
+  description="Blackjack che paga 6:5 o 3:2? Il 6:5 aggiunge circa 1,39 punti al vantaggio del banco: più di qualsiasi altra regola. I numeri e come riconoscerlo al tavolo."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['dataRules', 'insurance', 'mistakes', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> a un tavolo <strong>3:2</strong> un blackjack con 10 di puntata ti paga 15; a un tavolo <strong>6:5</strong> ti paga 12. Sembra poco, ma il 6:5 aggiunge circa <strong>1,39 punti</strong> al vantaggio del banco: da circa lo 0,36% a circa l’1,75% dell’importo puntato. È la regola singola più cara del blackjack. Se puoi scegliere, <strong>gioca sempre al 3:2</strong>.</p></div>
+  </div>
+
+  <h2 id="what">Cosa significano 3:2 e 6:5</h2>
+  <p>Il blackjack “naturale” è la mano iniziale di asso più una carta da 10 (10, J, Q o K). È l’unica mano che non viene pagata alla pari: il tavolo ti dà un premio extra. Quanto, lo dice la scritta sul panno.</p>
+  <ul>
+    <li><strong>3:2 (tre a due):</strong> per ogni 2 puntati ne vinci 3. Con 10 di puntata vinci 15.</li>
+    <li><strong>6:5 (sei a cinque):</strong> per ogni 5 puntati ne vinci 6. Con 10 di puntata vinci 12.</li>
+  </ul>
+  <p>La differenza è di 0,3 puntate ogni volta che fai blackjack. E ti capita spesso: circa il <strong>4,75% delle mani</strong>, più o meno una volta ogni 21.</p>
+
+  <h2 id="cost">Quanto ti costa il 6:5, in numeri</h2>
+  <p>Sul tavolo di riferimento (6 mazzi, banco che sta su soft 17, raddoppio su qualsiasi coppia di carte, raddoppio dopo divisione, resa tardiva, banco che controlla il blackjack), con strategia di base perfetta:</p>
+  <table>
+    <thead><tr><th>Pagamento del blackjack</th><th>Con 10 di puntata vinci</th><th>Vantaggio del banco</th></tr></thead>
+    <tbody>
+      <tr><td>3:2</td><td>15</td><td>circa 0,36%</td></tr>
+      <tr><td>6:5</td><td>12</td><td>circa 1,75%</td></tr>
+      <tr><td>1:1 (alla pari)</td><td>10</td><td>circa 2,63% (+2,27 punti)</td></tr>
+    </tbody>
+  </table>
+  <p>Un esempio concreto: giochi 100 mani da 10, cioè 1.000 puntati in totale. Al tavolo 6:5 perdi in media circa <strong>14 in più</strong> che al tavolo 3:2 (l’1,39% di 1.000). Non in ogni sessione, ma in media, sessione dopo sessione.</p>
+
+  <h2 id="compare">Più cara di qualsiasi altra regola</h2>
+  <p>Per capire quanto pesa, confrontala con le altre regole che peggiorano il tavolo:</p>
+  <table>
+    <thead><tr><th>Regola sfavorevole</th><th>Punti di vantaggio in più per il banco</th></tr></thead>
+    <tbody>
+      <tr><td>Blackjack pagato 6:5</td><td>circa 1,39</td></tr>
+      <tr><td>Banco che chiede carta su soft 17 (H17)</td><td>circa 0,22</td></tr>
+      <tr><td>Niente carta coperta (regole europee)</td><td>circa 0,11</td></tr>
+      <tr><td>Raddoppio solo su 9, 10 e 11</td><td>circa 0,09</td></tr>
+      <tr><td>Niente resa</td><td>circa 0,07</td></tr>
+    </tbody>
+  </table>
+  <p>Il 6:5 da solo costa più di tutte le altre messe insieme. Trovi l’elenco completo in <a href={routes.dataRules.it}>vantaggio del banco per regole</a>.</p>
+
+  <h2 id="where">Dove trovi il 6:5 e come riconoscerlo</h2>
+  <p>Il 6:5 è frequente ai tavoli a puntata bassa della Strip di Las Vegas, nei giochi a un solo mazzo di Las Vegas e ai tavoli economici delle navi da crociera. Nei sondaggi del 2026, circa la metà dei casinò della Strip offre ancora il 3:2 da qualche parte, spesso a tavoli con puntata minima più alta.</p>
+  <p>Il trucco è semplice: <strong>leggi il panno</strong> prima di sederti. Cerca la scritta “Blackjack pays 3 to 2”. Se dice “6 to 5”, cerca un altro tavolo. Occhio anche ai tavoli a mazzo unico che pagano 6:5: il mazzo singolo attira, ma il pagamento ridotto si fa sentire.</p>
+
+  <h2 id="strategy">La strategia cambia con il 6:5?</h2>
+  <p>Praticamente no. Le decisioni migliori su chiedere carta, stare, <a href={routes.whenDouble.it}>raddoppiare</a> o <a href={routes.whenSplit.it}>dividere</a> restano le stesse: il costo sta tutto nel pagamento, non nel modo di giocare. Usa la <a href={routes.strategy.it}>tabella di strategia di base</a> del tuo tavolo e scegli bene dove sederti: è l’unica difesa che hai.</p>
+  <div class="callout"><p><strong>Una nota onesta:</strong> anche a un buon tavolo 3:2 il banco mantiene il suo vantaggio. Scegliere il 3:2 riduce quanto perdi in media, non ti fa vincere. Gioca solo con soldi che puoi permetterti di perdere e, se il gioco smette di essere un divertimento, leggi la nostra pagina sul <a href={routes.responsible.it}>gioco responsabile</a>.</p></div>
+  <p>Vuoi allenare la strategia con le regole di Las Vegas senza rischiare niente? Prova il <a href={routes.simulator.it}>tavolo di allenamento gratis</a>.</p>
+</Guide>

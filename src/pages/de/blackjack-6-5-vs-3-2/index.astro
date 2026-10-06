@@ -1,0 +1,67 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Was bedeutet „Blackjack pays 6 to 5“?', a: 'Dass ein natürlicher Blackjack (Ass plus Zehnerkarte mit den ersten zwei Karten) nur 6 zu 5 statt 3 zu 2 auszahlt. Bei 10 Einsatz bekommst du 12 statt 15 Gewinn. Alle anderen Gewinne werden weiter 1 zu 1 ausgezahlt.' },
+  { q: 'Wie viel kostet mich ein 6:5-Tisch?', a: 'Etwa 1,39 Prozentpunkte Hausvorteil zusätzlich. Am Referenztisch (6 Decks, S17, Verdoppeln nach Split, Late Surrender) steigt der Hausvorteil mit perfekter Grundstrategie von rund 0,36 % auf rund 1,75 %. Keine andere einzelne Regel kostet so viel.' },
+  { q: 'Muss ich an einem 6:5-Tisch anders spielen?', a: 'Kaum. Die Grundstrategie ändert sich mit 6:5 praktisch nicht: Der Verlust steckt in der Auszahlung, nicht in deinen Entscheidungen. Die beste Entscheidung ist, einen Tisch mit 3:2 zu suchen.' },
+  { q: 'Ist 1:1 für Blackjack noch schlechter?', a: 'Ja. Wenn ein Blackjack nur 1 zu 1 auszahlt (Even Money), steigt der Hausvorteil um etwa 2,27 Punkte – noch mehr als bei 6:5.' },
+];
+---
+<Guide
+  lang="de"
+  route="payout65"
+  title="Blackjack 6:5 vs 3:2: Was kostet dich 6:5?"
+  h1="Blackjack 6:5 gegen 3:2: der teuerste Unterschied am Tisch"
+  description="Blackjack 6:5 oder 3:2? Was die schlechtere Auszahlung wirklich kostet, mit Rechenbeispiel, Regelvergleich und wie du den richtigen Tisch erkennst."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['dataRules', 'mistakes', 'insurance', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurze Antwort:</strong> Spiel immer an einem Tisch, der Blackjack <strong>3 zu 2</strong> auszahlt. Ein 6:5-Tisch erhöht den Hausvorteil um etwa <strong>1,39 Prozentpunkte</strong> – am Referenztisch von rund 0,36 % auf rund 1,75 %. Das ist mehr, als dich jede andere einzelne Regeländerung kostet, und keine Strategie gleicht es aus.</p></div>
+  </div>
+
+  <h2 id="payout">Was 3:2 und 6:5 konkret bedeuten</h2>
+  <p>Ein natürlicher Blackjack ist ein Ass plus eine Zehnerkarte mit deinen ersten zwei Karten. Er ist die einzige Hand, die mehr als 1 zu 1 auszahlt – und genau dort setzt die 6:5-Regel an:</p>
+  <table>
+    <thead><tr><th>Einsatz</th><th>Gewinn bei 3:2</th><th>Gewinn bei 6:5</th><th>Unterschied</th></tr></thead>
+    <tbody>
+      <tr><td>10</td><td>15</td><td>12</td><td>−3</td></tr>
+      <tr><td>25</td><td>37,50</td><td>30</td><td>−7,50</td></tr>
+      <tr><td>1 Einheit</td><td>1,5</td><td>1,2</td><td>−0,3 Einheiten</td></tr>
+    </tbody>
+  </table>
+  <p>Auf den ersten Blick klingt „6 zu 5“ sogar nach mehr, weil die Zahlen größer sind. Tatsächlich bekommst du pro Blackjack <strong>0,3 Einsätze weniger</strong>.</p>
+
+  <h2 id="cost">Warum 0,3 Einsätze so viel ausmachen</h2>
+  <p>Du bekommst einen natürlichen Blackjack in etwa <strong>4,75 %</strong> deiner Hände, also ungefähr einmal alle 21 Hände. Jedes Mal fehlen dir 0,3 Einsätze. Über viele Hände summiert sich das zu rund 1,39 Prozentpunkten zusätzlichem Hausvorteil.</p>
+  <p>Ein Rechenbeispiel: Du spielst 100 Hände zu je 10. Insgesamt setzt du 1.000. Am 6:5-Tisch verlierst du dabei im Erwartungswert etwa <strong>14 mehr</strong> als am 3:2-Tisch (1,39 % von 1.000) – zusätzlich zu dem, was das Haus ohnehin schon gewinnt.</p>
+
+  <h2 id="compare">6:5 im Vergleich mit anderen Regeln</h2>
+  <p>So viel Hausvorteil fügt jede Regel ungefähr hinzu, verglichen mit dem Referenztisch (6 Decks, Dealer steht auf Soft 17, Verdoppeln auf zwei beliebige Karten, Verdoppeln nach Split, Late Surrender, Dealer schaut nach Blackjack):</p>
+  <table>
+    <thead><tr><th>Regel</th><th>Zusätzlicher Hausvorteil</th></tr></thead>
+    <tbody>
+      <tr><td>Blackjack zahlt 1:1 (Even Money)</td><td>≈ +2,27 Punkte</td></tr>
+      <tr><td><strong>Blackjack zahlt 6:5</strong></td><td><strong>≈ +1,39 Punkte</strong></td></tr>
+      <tr><td>Dealer zieht auf Soft 17 (H17)</td><td>≈ +0,22 Punkte</td></tr>
+      <tr><td>Ohne Hole Card</td><td>≈ +0,11 Punkte</td></tr>
+      <tr><td>Verdoppeln nur mit 9–11</td><td>≈ +0,09 Punkte</td></tr>
+      <tr><td>Kein Surrender</td><td>≈ +0,07 Punkte</td></tr>
+    </tbody>
+  </table>
+  <p>Ein Tisch mit H17 und ohne Surrender, der aber 3:2 zahlt, ist also immer noch deutlich besser als ein „schöner“ Tisch mit 6:5. Alle Regeln im Detail findest du in der Tabelle zum <a href={routes.dataRules.de}>Hausvorteil nach Regeln</a>.</p>
+
+  <h2 id="where">Wo du 6:5 findest – und wie du es erkennst</h2>
+  <p>6:5 ist vor allem an Tischen mit niedrigen Mindesteinsätzen auf dem Las Vegas Strip, bei Single-Deck-Spielen in Las Vegas und an günstigen Tischen auf Kreuzfahrtschiffen verbreitet. Laut Erhebungen von 2026 bietet ungefähr die Hälfte der Casinos am Strip irgendwo noch 3:2 an – oft aber nur an Tischen mit höherem Mindesteinsatz.</p>
+  <p>Die Regel steht fast immer auf dem Tischtuch. Lies vor dem Hinsetzen nach: <strong>„Blackjack pays 3 to 2“</strong> ist das, was du suchst. Steht dort „6 to 5“, geh weiter. Im Zweifel frag den Dealer.</p>
+  <div class="callout"><p><strong>Ein Single-Deck-Spiel mit 6:5 ist kein Schnäppchen.</strong> Weniger Decks helfen dir zwar etwas, aber die schlechtere Blackjack-Auszahlung frisst diesen Vorteil mehr als auf.</p></div>
+
+  <h2 id="strategy">Ändert sich die Strategie?</h2>
+  <p>Praktisch nicht. Die <a href={routes.strategy.de}>Grundstrategie</a> bleibt mit 6:5 nahezu identisch: Du verdoppelst, splittest und ziehst wie an jedem anderen Tisch mit den gleichen übrigen Regeln. Der Verlust steckt in der Auszahlung, nicht in deinen Entscheidungen – deshalb ist die einzige wirksame Gegenmaßnahme die Wahl des Tisches.</p>
+  <p>Wichtig bleibt: Auch an einem 3:2-Tisch hat das Haus einen Vorteil. Spiel nur mit Geld, dessen Verlust du dir leisten kannst, und setz dir vorher ein Limit. Mehr dazu unter <a href={routes.responsible.de}>verantwortungsvolles Spielen</a>.</p>
+  <p>Wenn du die Grundstrategie ohne echtes Geld trainieren willst, probier den <a href={routes.simulator.de}>kostenlosen Übungstisch</a> oder die App Veintiuno, in der du die Regeln deines Tisches auswählen kannst – zum Beispiel Las Vegas Strip (S17) oder Las Vegas H17.</p>
+</Guide>

@@ -1,0 +1,65 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Merece la pena el seguro en el blackjack?', a: 'No, si juegas con estrategia básica. Con 6 barajas pierdes de media alrededor de un 7,4 % de lo que pones en el seguro. Solo tiene sentido para quien cuenta cartas y sabe que quedan muchas cartas de valor 10.' },
+  { q: '¿Debo aceptar el dinero par si tengo blackjack y el crupier enseña un as?', a: 'Tampoco. El dinero par es el seguro con otro nombre. Aceptarlo te da 1 apuesta segura; rechazarlo vale de media unas 1,037 apuestas. Rechazar es mejor por unas 0,037 apuestas cada vez.' },
+  { q: '¿El seguro protege una buena mano como 20?', a: 'No. El seguro es una apuesta aparte sobre la carta oculta del crupier y no depende de tu mano. Tener 20 no hace que el crupier tenga blackjack ni más ni menos a menudo.' },
+  { q: '¿En los casinos de España se ofrece seguro?', a: 'Sí. Aunque el crupier no tenga carta oculta, se ofrece igual cuando enseña un as, y es igual de mala apuesta.' },
+];
+---
+<Guide
+  lang="es"
+  route="insurance"
+  title="Seguro en el blackjack: por qué no conviene (números)"
+  h1="El seguro en el blackjack: por qué casi nunca conviene"
+  description="Qué es el seguro en el blackjack, por qué pierdes un 7,4 % de media al tomarlo, si aceptar el dinero par con blackjack y cuándo lo toman los contadores."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['mistakes', 'payout65', 'counting', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Respuesta corta:</strong> <strong>no tomes el seguro</strong>. Paga 2 a 1, pero con 6 barajas la carta oculta del crupier es un 10 solo el <strong>30,87 %</strong> de las veces, así que pierdes de media un <strong>7,4 %</strong> de lo que apuestas al seguro. Lo mismo vale para el <strong>dinero par</strong> cuando tienes blackjack: rechazarlo es mejor.</p></div>
+  </div>
+
+  <h2 id="que-es">Qué es el seguro</h2>
+  <p>Cuando la carta visible del crupier es un as, te ofrecen el seguro. Puedes apostar hasta la mitad de tu apuesta a que su otra carta es de valor 10 (un 10, una J, una Q o una K), es decir, a que tiene blackjack. Si aciertas, el seguro paga 2 a 1; si no, lo pierdes y la mano sigue con normalidad.</p>
+  <p>El nombre engaña. No «aseguras» nada: haces <strong>una segunda apuesta</strong>, distinta de la primera, sobre una sola carta.</p>
+
+  <h2 id="numeros">Los números del seguro</h2>
+  <p>Con 6 barajas hay 312 cartas, 96 de ellas de valor 10. Después de ver el as del crupier quedan 311 cartas sin ver, y 96 siguen siendo dieces. La probabilidad de que la carta oculta sea un 10 es de 96 entre 311: un <strong>30,87 %</strong>.</p>
+  <p>Para que una apuesta que paga 2 a 1 no pierda dinero, tendrías que acertar al menos una de cada tres veces (33,3 %). Te quedas corto. El valor esperado es 2 × 0,3087 − 0,6913 = <strong>−0,074</strong>: pierdes de media 7,4 céntimos por cada euro puesto en el seguro.</p>
+  <table>
+    <thead><tr><th>Número de barajas</th><th>Pérdida media del seguro</th></tr></thead>
+    <tbody>
+      <tr><td>1 baraja</td><td>≈ 5,9 %</td></tr>
+      <tr><td>6 barajas</td><td>≈ 7,4 %</td></tr>
+      <tr><td>8 barajas</td><td>≈ 7,5 %</td></tr>
+    </tbody>
+  </table>
+  <p>Para hacerte una idea: la mesa entera, jugada con <a href={routes.strategy.es}>estrategia básica</a>, le da a la casa alrededor de un 0,36 %. El seguro, como apuesta suelta, le da unas veinte veces más.</p>
+
+  <h2 id="dinero-par">El dinero par: el mismo seguro con otro nombre</h2>
+  <p>Si tienes blackjack y el crupier enseña un as, no te ofrecen «seguro», sino <strong>dinero par</strong> (<em>even money</em>): cobrar ya 1 a 1 en lugar de esperar al 3 a 2. Suena muy tentador, porque es ganancia segura. Pero es exactamente lo mismo que asegurar tu blackjack, y tiene el mismo problema:</p>
+  <table>
+    <thead><tr><th>Opción</th><th>Lo que cobras de media</th></tr></thead>
+    <tbody>
+      <tr><td>Aceptar dinero par</td><td>1 apuesta, siempre</td></tr>
+      <tr><td>Rechazarlo</td><td>69,13 % × 1,5 = 1,037 apuestas</td></tr>
+    </tbody>
+  </table>
+  <p>Al rechazarlo, unas veces empatas (cuando el crupier también tiene blackjack) y la mayoría cobras 1,5. De media, ganas unas <strong>0,037 apuestas más</strong> cada vez, alrededor de un 3,7 %. Es poco por mano, pero es dinero que regalas sin necesidad.</p>
+
+  <h2 id="mito">El mito de «proteger una buena mano»</h2>
+  <p>Mucha gente asegura cuando tiene 19 o 20 «para no perder una mano tan buena». La lógica falla: la probabilidad de que el crupier tenga blackjack es la misma tengas 20, 12 o blackjack. Tu mano no cambia la carta oculta. Si el seguro es mala apuesta con 12, también lo es con 20.</p>
+  <p>Lo mismo pasa en las mesas españolas y europeas sin carta oculta: el crupier todavía no tiene su segunda carta, pero te ofrecen el seguro igual y las cuentas son las mismas. Más detalles en <a href={routes.spain.es}>reglas del blackjack en España</a>.</p>
+
+  <h2 id="contadores">Cuándo sí lo toman los contadores</h2>
+  <p>El seguro solo es rentable si más de una de cada tres cartas restantes es un 10. Eso no lo puedes saber sin contar. En el sistema Hi-Lo, en juegos de varias barajas, ocurre aproximadamente con una <strong>cuenta verdadera de +3 o más</strong>, y por eso es uno de los primeros ajustes que aprende quien cuenta. Si te interesa, está explicado en <a href={routes.counting.es}>cómo contar cartas</a>, con la advertencia de que contar no es ninguna garantía de nada.</p>
+  <div class="callout"><p><strong>Regla para el 99 % de los jugadores:</strong> cuando te ofrezcan seguro o dinero par, di que no. En la app Veintiuno, la corrección te lo recuerda cada vez, hasta que no tengas que pensarlo.</p></div>
+
+  <h2 id="responsable">Juega con cabeza</h2>
+  <p>Evitar el seguro reduce lo que pierdes, pero el blackjack sigue siendo un juego con ventaja para la casa. Pon un límite de dinero antes de empezar. Si necesitas ayuda, mira <a href={routes.responsible.es}>juego responsable</a>.</p>
+</Guide>

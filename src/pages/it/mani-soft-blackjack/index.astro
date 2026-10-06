@@ -1,0 +1,66 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Cos’è una mano soft a blackjack?', a: 'Una mano con un asso che conta come 11, per esempio A-6 (soft 17). Si chiama soft perché una carta in più non può farti sballare: se superi 21, l’asso torna a valere 1.' },
+  { q: 'Con soft 17 (A-6) sto o chiedo carta?', a: 'Mai stare. Contro un 3, 4, 5 o 6 del banco raddoppia (se il tavolo lo permette); contro tutte le altre carte chiedi carta. Un 17 non vince quasi mai da solo e con una mano soft non rischi di sballare.' },
+  { q: 'Cosa faccio con A-7 (soft 18)?', a: 'Stai contro 2, 7 e 8; raddoppia contro 3, 4, 5 e 6 (se non puoi raddoppiare, stai); chiedi carta contro 9, 10 e asso.' },
+  { q: 'E se il tavolo permette di raddoppiare solo con 9, 10 o 11?', a: 'Allora non raddoppi mai con le mani soft. Nelle caselle dove avresti raddoppiato chiedi carta, tranne A-7 contro 3–6, dove stai.' },
+];
+---
+<Guide
+  lang="it"
+  route="softHands"
+  title="Mani soft a blackjack: come giocare A-2…A-9"
+  h1="Come giocare le mani soft a blackjack (da A-2 ad A-9)"
+  description="Come giocare le mani soft a blackjack, da A-2 ad A-9: quando chiedere carta, raddoppiare o stare. Tabella completa, soft 17 e soft 18 e gli errori più comuni."
+  updated="2026-10-06"
+  readMinutes={6}
+  faq={faq}
+  related={['strategy', 'whenDouble', 'mistakes', 'surrender']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> una mano soft contiene un asso che vale 11, quindi una carta in più non ti fa sballare. Regole chiave: <strong>non stare mai con soft 17 (A-6)</strong>, <strong>raddoppia A-7 contro 3–6</strong> e chiedi carta con A-7 contro 9, 10 o asso. Con A-8 e A-9 stai sempre. Le mani da A-2 ad A-6 si raddoppiano solo contro le carte deboli del banco.</p></div>
+  </div>
+
+  <h2 id="what">Cos’è una mano soft</h2>
+  <p>Una mano è <strong>soft</strong> quando contiene un asso che conta come 11. A-6 vale 17 “soft”: se chiedi carta e arriva un 8, l’asso torna a valere 1 e hai 15, non sballi. È proprio questa sicurezza che rende le mani soft così diverse dalle mani hard: puoi permetterti di essere più aggressivo.</p>
+
+  <h2 id="chart">La tabella delle mani soft</h2>
+  <p>Tavolo di riferimento: 6 mazzi, banco che sta su soft 17, raddoppio su qualsiasi coppia di carte. C = chiedi carta, S = stai, R = raddoppia, Rs = raddoppia se puoi, altrimenti stai.</p>
+  <table>
+    <thead><tr><th>Mano</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>A</th></tr></thead>
+    <tbody>
+      <tr><td>A-2 (13)</td><td>C</td><td>C</td><td>C</td><td>R</td><td>R</td><td>C</td><td>C</td><td>C</td><td>C</td><td>C</td></tr>
+      <tr><td>A-3 (14)</td><td>C</td><td>C</td><td>C</td><td>R</td><td>R</td><td>C</td><td>C</td><td>C</td><td>C</td><td>C</td></tr>
+      <tr><td>A-4 (15)</td><td>C</td><td>C</td><td>R</td><td>R</td><td>R</td><td>C</td><td>C</td><td>C</td><td>C</td><td>C</td></tr>
+      <tr><td>A-5 (16)</td><td>C</td><td>C</td><td>R</td><td>R</td><td>R</td><td>C</td><td>C</td><td>C</td><td>C</td><td>C</td></tr>
+      <tr><td>A-6 (17)</td><td>C</td><td>R</td><td>R</td><td>R</td><td>R</td><td>C</td><td>C</td><td>C</td><td>C</td><td>C</td></tr>
+      <tr><td>A-7 (18)</td><td>S</td><td>Rs</td><td>Rs</td><td>Rs</td><td>Rs</td><td>S</td><td>S</td><td>C</td><td>C</td><td>C</td></tr>
+      <tr><td>A-8 (19)</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td></tr>
+      <tr><td>A-9 (20)</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td></tr>
+    </tbody>
+  </table>
+  <p>Dove dice R ma il tavolo non ti lascia raddoppiare, chiedi carta. Puoi vedere la tabella completa, adattata alle regole del tuo tavolo, nella <a href={routes.strategy.it}>tabella di strategia interattiva</a>.</p>
+
+  <h2 id="soft17">Soft 17 (A-6): mai stare</h2>
+  <p>È l’errore più diffuso con le mani soft. Molti vedono “17” e stanno, come farebbero con un 10-7. Ma un 17 non vince quasi mai da solo: batte solo un banco che sballa. E con A-6 chiedere carta non ti costa niente in termini di sballo. Contro 3–6 raddoppia, contro tutto il resto chiedi carta.</p>
+
+  <h2 id="soft18">Soft 18 (A-7): la mano più sbagliata</h2>
+  <p>A-7 è la mano soft con più sfumature. Contro 2, 7 e 8 stai: 18 è un buon totale. Contro 3–6 raddoppi, perché il banco è debole. Ma contro 9, 10 e asso <strong>chiedi carta</strong>: il banco arriva spesso a 19 o 20 e il tuo 18 non basta. Se il tavolo non permette il raddoppio, contro 3–6 stai.</p>
+
+  <h2 id="rules">Quando cambiano le regole</h2>
+  <ul>
+    <li><strong>Banco che chiede carta su soft 17 (H17):</strong> raddoppia anche A-7 contro 2 e A-8 contro 6 (se non puoi, stai).</li>
+    <li><strong>Raddoppio solo su 9, 10 e 11</strong> (come nei <a href={routes.spain.it}>casinò spagnoli</a>): niente raddoppi con le mani soft. A-7 contro 3–6 stai, le altre caselle R diventano “chiedi carta”.</li>
+  </ul>
+
+  <h2 id="mistakes">Gli errori più comuni</h2>
+  <ul>
+    <li>Stare con A-6.</li>
+    <li>Stare con A-7 contro 9, 10 o asso.</li>
+    <li>Non raddoppiare A-7 contro 3–6.</li>
+  </ul>
+  <p>Trovi tutti i raddoppi in <a href={routes.whenDouble.it}>quando raddoppiare</a> e gli altri sbagli frequenti in <a href={routes.mistakes.it}>errori comuni a blackjack</a>. Per fissarli, allenati al <a href={routes.simulator.it}>tavolo gratis</a> o segui il <a href={routes.course.it}>corso di blackjack</a>.</p>
+</Guide>

@@ -1,0 +1,65 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Wie hoch ist der Hausvorteil beim Live-Blackjack?', a: 'An einem typischen Live-Dealer-Tisch (8 Decks, Dealer steht auf Soft 17, keine Hole Card, nur ein Split, kein Surrender, Blackjack 3:2) etwa 0,6 bis 0,7 % mit perfekter Grundstrategie.' },
+  { q: 'Kann man beim Live-Blackjack Karten zählen?', a: 'Kaum. Der Schuh wird meist schon etwa zur Hälfte neu gemischt, deshalb wird der True Count selten hoch genug. Software oder Hilfsmittel zu benutzen verstößt gegen die Geschäftsbedingungen und ist vielerorts illegal.' },
+  { q: 'Muss ich online anders spielen als im Casino?', a: 'Ein wenig. Weil der Dealer nur bei einem Ass nach Blackjack schaut, verlierst du gegen eine 10 bei einem späteren Blackjack auch Verdopplungen und Splits. Deshalb verdoppelst du 11 gegen eine 10 nicht und splittest 8-8 gegen eine 10 nicht (du ziehst).' },
+  { q: 'Lohnen sich Nebenwetten wie 21+3 oder Perfect Pairs?', a: 'Nein. Nebenwetten haben einen viel höheren Hausvorteil als das Hauptspiel. Wenn du Blackjack spielst, bleib beim Hauptspiel.' },
+];
+---
+<Guide
+  lang="de"
+  route="live"
+  title="Live-Blackjack: Regeln, Strategie, Hausvorteil"
+  h1="Live-Blackjack online: Regeln, Strategie und was du wissen solltest"
+  description="Live-Blackjack online ehrlich erklärt: typische Regeln, ≈0,6–0,7 % Hausvorteil, was du gegen eine 10 anders spielst und warum Zählen online kaum hilft."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['strategy', 'counting', 'mistakes', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurze Antwort:</strong> Ein typischer Live-Blackjack-Tisch spielt mit 8 Decks, ohne Hole Card, ohne Surrender und zahlt Blackjack 3:2. Mit perfekter Grundstrategie liegt der Hausvorteil bei etwa <strong>0,6–0,7 %</strong>. Wichtigste Strategieänderung: Gegen eine 10 <strong>verdoppelst du 11 nicht</strong> und <strong>splittest 8-8 nicht</strong>. Kartenzählen bringt online so gut wie nichts.</p></div>
+  </div>
+
+  <h2 id="how">Wie Live-Blackjack funktioniert</h2>
+  <p>Beim Live-Blackjack teilt ein echter Dealer in einem Studio echte Karten aus, und du siehst ihm per Videostream zu. Deine Entscheidungen triffst du über Buttons auf dem Bildschirm. Es fühlt sich an wie ein Casino-Tisch – aber die Regeln unterscheiden sich in einigen Punkten, die deine Strategie verändern.</p>
+
+  <h2 id="rules">Die typischen Regeln</h2>
+  <p>Die meisten Live-Tische (im Stil von Evolution) folgen ungefähr diesen Regeln. Prüfe immer die Regeln des konkreten Tisches, bevor du spielst.</p>
+  <table>
+    <thead><tr><th>Regel</th><th>Typischer Live-Tisch</th></tr></thead>
+    <tbody>
+      <tr><td>Decks</td><td>8</td></tr>
+      <tr><td>Dealer auf Soft 17</td><td>steht (S17)</td></tr>
+      <tr><td>Nach Blackjack schauen</td><td>nur bei einem Ass</td></tr>
+      <tr><td>Dealer-Blackjack mit offener 10</td><td>du verlierst auch Verdopplungen und Splits</td></tr>
+      <tr><td>Splitten</td><td>nur einmal</td></tr>
+      <tr><td>Surrender</td><td>nein</td></tr>
+      <tr><td>Blackjack zahlt</td><td>3:2</td></tr>
+      <tr><td>Hausvorteil (Grundstrategie)</td><td>≈ 0,6–0,7 %</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="strategy">Was du anders spielst</h2>
+  <p>Zeigt der Dealer eine 10, schaut er nicht nach. Deckt er später doch einen Blackjack auf, verlierst du nicht nur deinen Einsatz, sondern auch alles, was du durch Verdoppeln oder Splitten zusätzlich gesetzt hast. Deshalb wirst du gegen eine 10 vorsichtiger:</p>
+  <ul>
+    <li><strong>11 gegen 10:</strong> nicht verdoppeln, sondern ziehen.</li>
+    <li><strong>8-8 gegen 10:</strong> nicht splitten, sondern ziehen (Surrender gibt es meist nicht).</li>
+    <li>Sonst spielst du wie an einem europäischen Tisch ohne Hole Card – wie in vielen deutschsprachigen Spielbanken.</li>
+  </ul>
+  <p>Die passende Tabelle findest du in der <a href={routes.strategy.de}>Blackjack-Strategietabelle</a>, wenn du die europäischen Regeln auswählst. Warum 8-8 je nach Tisch anders gespielt wird, erklären wir in <a href={routes.whenSplit.de}>Wann splitten?</a></p>
+
+  <h2 id="counting">Warum Kartenzählen online kaum funktioniert</h2>
+  <p>Kartenzählen lebt davon, dass gegen Ende des Schuhs viele hohe Karten übrig bleiben. Bei Live-Tischen wird der Schuh aber meist schon etwa <strong>zur Hälfte neu gemischt</strong>. Der True Count wird deshalb selten hoch genug, um einen echten Vorteil zu bringen.</p>
+  <p>Und eine klare Grenze: Benutze <strong>niemals Software oder Hilfsmittel</strong> zum Zählen. Das verstößt gegen die Geschäftsbedingungen der Anbieter und ist vielerorts illegal. Wenn dich das Zählen interessiert, lies unseren ehrlichen Ratgeber zum <a href={routes.counting.de}>Kartenzählen</a> und zur Frage <a href={routes.countingLegal.de}>Ist Kartenzählen illegal?</a></p>
+
+  <h2 id="side-bets">Nebenwetten: lieber nicht</h2>
+  <p>Live-Tische bieten fast immer Nebenwetten wie <strong>21+3</strong> oder <strong>Perfect Pairs</strong> an. Sie zahlen manchmal hohe Quoten, haben aber einen <strong>viel höheren Hausvorteil</strong> als das Hauptspiel. Wer bei der Grundstrategie spart und dann Nebenwetten spielt, verschenkt den ganzen Vorteil wieder. Mehr typische Fallen findest du in <a href={routes.mistakes.de}>Die häufigsten Blackjack-Fehler</a>.</p>
+
+  <h2 id="money">Ehrlich gesagt: Es ist Glücksspiel um echtes Geld</h2>
+  <p>Live-Blackjack ist bequem, schnell und jederzeit verfügbar – genau das macht es riskant. Setz dir vor dem Spielen ein festes Budget und eine Zeitgrenze, und spiel nie, um Verluste zurückzuholen. Warnsignale und Hilfsangebote findest du unter <a href={routes.responsible.de}>verantwortungsvolles Spielen</a>.</p>
+  <div class="callout"><p><strong>Erst üben, dann entscheiden.</strong> In der App Veintiuno gibt es einen eigenen Tisch <strong>„Live-Dealer online“</strong> mit genau dieser Strategie – ohne echtes Geld und ohne Casino-Links. Du kannst auch direkt am <a href={routes.simulator.de}>kostenlosen Übungstisch</a> im Browser anfangen.</p></div>
+</Guide>

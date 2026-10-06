@@ -1,0 +1,63 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Cos’è il blackjack live?', a: 'È blackjack online con un croupier vero, trasmesso in video da uno studio o da un casinò. Tu decidi dal telefono o dal computer, il croupier gioca con carte fisiche e un sabot reale.' },
+  { q: 'La strategia di base funziona nel blackjack live?', a: 'Sì, come in un casinò fisico. Devi solo usare la tabella giusta: di solito 8 mazzi, banco che sta su soft 17 e senza carta coperta. In particolare, contro un 10 non raddoppiare 11 e non dividere 8-8.' },
+  { q: 'Si possono contare le carte nel blackjack live?', a: 'In pratica quasi no. Il sabot di solito viene rimescolato più o meno a metà, quindi il conteggio reale raramente sale abbastanza. E usare software o aiuti è contro i termini del sito e in molti posti illegale.' },
+  { q: 'Le scommesse laterali come 21+3 o Perfect Pairs convengono?', a: 'No. Hanno un vantaggio del banco molto più alto della mano principale giocata con la strategia di base.' },
+];
+---
+<Guide
+  lang="it"
+  route="live"
+  title="Blackjack live: regole, strategia e conteggio"
+  h1="Blackjack live: come funziona e a cosa fare attenzione"
+  description="Come funziona il blackjack live con croupier dal vivo: regole tipiche, cosa cambia nella strategia, perché contare serve a poco e le scommesse laterali."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['strategy', 'mistakes', 'insurance', 'counting']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> il blackjack live è blackjack online con un croupier vero in video. Il tavolo tipico usa <strong>8 mazzi, banco che sta su soft 17, niente resa, una sola divisione</strong> e il banco controlla il blackjack solo quando mostra un asso. Il vantaggio del banco è di circa lo <strong>0,6–0,7%</strong>. Contro un 10, <strong>non raddoppiare 11 e non dividere 8-8</strong>. Contare le carte serve a poco e le scommesse laterali costano molto di più.</p></div>
+  </div>
+
+  <h2 id="what">Cos’è e in cosa è diverso</h2>
+  <p>Nel blackjack live le carte sono vere: un croupier le distribuisce da un sabot fisico davanti a una telecamera. Tu vedi la mano in streaming e prendi le decisioni dallo schermo. Rispetto al blackjack online “a computer”, l’atmosfera è più vicina a quella del casinò, ma le regole sono spesso meno favorevoli di quelle di un buon tavolo fisico.</p>
+
+  <h2 id="rules">Le regole tipiche</h2>
+  <table>
+    <thead><tr><th>Regola</th><th>Tavolo live tipico</th></tr></thead>
+    <tbody>
+      <tr><td>Mazzi</td><td>8</td></tr>
+      <tr><td>Soft 17 del banco</td><td>Sta (S17)</td></tr>
+      <tr><td>Controllo del blackjack</td><td>Solo quando il banco mostra un asso</td></tr>
+      <tr><td>Se il banco mostra un 10 e fa blackjack</td><td>Perdi anche raddoppi e divisioni</td></tr>
+      <tr><td>Divisioni</td><td>Una sola</td></tr>
+      <tr><td>Resa</td><td>No</td></tr>
+      <tr><td>Pagamento del blackjack</td><td>3:2</td></tr>
+      <tr><td>Vantaggio del banco</td><td>circa 0,6–0,7%</td></tr>
+    </tbody>
+  </table>
+  <p>Le regole possono cambiare da un tavolo all’altro: controllale sempre nel regolamento prima di giocare. Se il tavolo paga il blackjack 6:5, il costo sale molto: lo spieghiamo in <a href={routes.payout65.it}>blackjack 6:5 contro 3:2</a>.</p>
+
+  <h2 id="strategy">Cosa cambia nella strategia</h2>
+  <p>La regola chiave è che, se il banco mostra un 10 e poi rivela blackjack, perdi anche quello che hai aggiunto raddoppiando o dividendo. Per questo, <strong>contro un 10</strong>:</p>
+  <ul>
+    <li><strong>11:</strong> non raddoppiare, chiedi carta.</li>
+    <li><strong>8-8:</strong> non dividere, chiedi carta.</li>
+  </ul>
+  <p>Per il resto giochi come a un tavolo europeo senza carta coperta. Trovi la tabella completa, adattata a queste regole, nella <a href={routes.strategy.it}>tabella di strategia di base</a>. Come sempre, rifiuta l’<a href={routes.insurance.it}>assicurazione</a>.</p>
+
+  <h2 id="counting">Contare le carte nel live: perché serve a poco</h2>
+  <p>Le carte vengono da un sabot vero, quindi in teoria il conteggio funziona. In pratica, il sabot di solito viene rimescolato <strong>più o meno a metà</strong>: il conteggio reale raramente sale abbastanza da darti un vantaggio utile. E non usare mai software o aiuti per contare: è contro i termini del sito e in molti posti è illegale. Se vuoi capire come funziona il conteggio, leggi <a href={routes.counting.it}>contare le carte</a>.</p>
+
+  <h2 id="side-bets">Le scommesse laterali</h2>
+  <p>Molti tavoli live offrono scommesse extra come <strong>21+3</strong> o <strong>Perfect Pairs</strong>. Pagano tanto quando vinci, ma hanno un vantaggio del banco molto più alto della mano principale. Se vuoi ridurre le perdite, ignorale.</p>
+
+  <h2 id="practice">Allenati prima di giocare</h2>
+  <p>Nell’app Veintiuno c’è un tavolo “Live online” con le regole e la tabella di strategia di questo tipo di gioco, così alleni proprio le eccezioni contro il 10, senza soldi veri. Sul web puoi iniziare dal <a href={routes.simulator.it}>tavolo di allenamento gratis</a>.</p>
+  <div class="callout warn"><p><strong>È gioco d’azzardo con soldi veri.</strong> Nessuna strategia ti fa vincere a lungo andare. Decidi un budget prima di iniziare, non inseguire le perdite e, se il gioco smette di essere un divertimento, leggi la pagina sul <a href={routes.responsible.it}>gioco responsabile</a>.</p></div>
+</Guide>

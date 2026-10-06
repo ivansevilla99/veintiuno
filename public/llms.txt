@@ -19,6 +19,12 @@ Key facts used across the site:
 - [Cómo contar cartas (Hi-Lo)](https://veintiunoapp.com/contar-cartas-blackjack/)
 - [¿Es ilegal contar cartas?](https://veintiunoapp.com/es-ilegal-contar-cartas/)
 - [Guías](https://veintiunoapp.com/guias/)
+- [Blackjack 6:5 frente a 3:2](https://veintiunoapp.com/blackjack-6-5-vs-3-2/): what a 6:5 table costs (+1.39 points)
+- [El seguro en el blackjack](https://veintiunoapp.com/seguro-blackjack/): insurance loses ≈7.4 % (6 decks)
+- [Cuándo rendirse](https://veintiunoapp.com/cuando-rendirse-blackjack/)
+- [Manos blandas](https://veintiunoapp.com/manos-blandas-blackjack/)
+- [Errores comunes](https://veintiunoapp.com/errores-comunes-blackjack/)
+- [Blackjack en Macao](https://veintiunoapp.com/blackjack-macao-reglas/): early surrender, ≈0.16 % house edge
 
 ## English
 - [Interactive basic strategy chart](https://veintiunoapp.com/en/blackjack-strategy-chart/)
@@ -30,6 +36,12 @@ Key facts used across the site:
 - [How to count cards](https://veintiunoapp.com/en/card-counting/)
 - [Blackjack rules in Spain](https://veintiunoapp.com/en/blackjack-rules-in-spain/)
 - [All guides](https://veintiunoapp.com/en/guides/)
+- [Blackjack 6:5 vs 3:2](https://veintiunoapp.com/en/blackjack-6-5-vs-3-2/)
+- [Blackjack insurance](https://veintiunoapp.com/en/blackjack-insurance/)
+- [When to surrender](https://veintiunoapp.com/en/when-to-surrender-in-blackjack/)
+- [Soft hands](https://veintiunoapp.com/en/soft-hands-blackjack/)
+- [Common blackjack mistakes](https://veintiunoapp.com/en/common-blackjack-mistakes/)
+- [Macau blackjack rules](https://veintiunoapp.com/en/macau-blackjack-rules/)
 
 ## Deutsch
 - [Blackjack-Strategietabelle (interaktiv)](https://veintiunoapp.com/de/blackjack-strategie-tabelle/)

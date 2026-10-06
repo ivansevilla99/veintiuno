@@ -1,0 +1,65 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quelle est l’erreur la plus coûteuse au blackjack ?', a: 'Ne pas suivre la stratégie de base. Jouer « pour ne jamais sauter » donne à la maison un avantage d’environ 4 %, et imiter le croupier environ 5,5 %, contre à peu près 0,4 % avec la stratégie de base. Viennent ensuite les tables 6:5 (environ +1,39 point) et l’assurance.' },
+  { q: 'Les mauvais joueurs à la table me font-ils perdre ?', a: 'Non. Les décisions des autres joueurs ne changent pas votre espérance. Elles changent parfois les cartes que vous recevez, mais dans un sens aussi souvent favorable que défavorable.' },
+  { q: 'La martingale permet-elle de gagner au blackjack ?', a: 'Non. Aucun système de mise, martingale ou progression, ne modifie l’avantage de la maison. Il change seulement la façon dont vos gains et vos pertes se répartissent, et augmente souvent le risque de tout perdre.' },
+  { q: 'Tirer ou rester avec 16 contre 10, est-ce une grosse erreur ?', a: 'Non. La différence entre tirer et rester est inférieure à 1 % de la mise. La bonne réponse est de tirer (ou d’abandonner si c’est permis), mais les vraies erreurs coûteuses sont ailleurs.' },
+];
+---
+<Guide
+  lang="fr"
+  route="mistakes"
+  title="Les erreurs les plus courantes au blackjack"
+  h1="Les erreurs les plus courantes au blackjack (et ce qu’elles coûtent)"
+  description="Les erreurs les plus courantes au blackjack, classées par coût : jouer sans stratégie, imiter le croupier, l’assurance, les tables 6:5 et les mythes à oublier."
+  updated="2026-10-06"
+  readMinutes={6}
+  faq={faq}
+  related={['insurance', 'payout65', 'softHands', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> l’erreur la plus chère est de <strong>jouer à l’instinct</strong> au lieu de suivre la stratégie de base : « ne jamais sauter » donne à la maison environ 4 % d’avantage, et imiter le croupier environ 5,5 %, contre à peu près 0,4 % avec la stratégie de base. Suivent les <strong>tables 6:5</strong>, l’<strong>assurance</strong> et une poignée de décisions mal jouées.</p></div>
+  </div>
+
+  <h2 id="ranking">Les erreurs classées par coût</h2>
+  <p>Les chiffres ci-dessous sont approximatifs et proviennent d’analyses publiées (comme celles de Wizard of Odds). Ils indiquent l’avantage de la maison qui en résulte ou ce que l’erreur vous coûte.</p>
+  <table>
+    <thead><tr><th>Erreur</th><th>Coût approximatif</th></tr></thead>
+    <tbody>
+      <tr><td>Imiter le croupier (tirer jusqu’à 17, ne jamais doubler ni séparer)</td><td>avantage de la maison d’environ 5,5 %</td></tr>
+      <tr><td>Jouer « pour ne jamais sauter » (rester sur tout 12 ou plus)</td><td>avantage de la maison d’environ 4 %</td></tr>
+      <tr><td>Prendre l’assurance ou l’égalité</td><td>environ −7,4 % de la mise d’assurance</td></tr>
+      <tr><td>Jouer à une table qui paie le blackjack 6:5</td><td>environ +1,39 point</td></tr>
+      <tr><td>Stratégie de base correcte (pour comparer)</td><td>avantage de la maison d’environ 0,4 %</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="instinct">1. Jouer à l’instinct</h2>
+  <p>Les deux façons « intuitives » de jouer sont aussi les plus chères. <strong>Ne jamais sauter</strong> paraît prudent, mais vous laissez le croupier jouer toute sa main sans prendre de risque de votre côté. <strong>Imiter le croupier</strong> semble logique, sauf que le croupier n’a pas le choix : il ne double pas, ne sépare pas, et surtout, quand vous sautez tous les deux, c’est vous qui perdez.</p>
+  <p>La solution est la <a href={routes.strategy.fr}>stratégie de base</a> : la meilleure décision pour chaque main, calculée pour les règles de votre table.</p>
+
+  <h2 id="bets">2. Les mauvais paris : assurance et 6:5</h2>
+  <p>L’<a href={routes.insurance.fr}>assurance</a> est un pari annexe qui perd environ 7,4 % avec 6 jeux. L’« égalité » proposée quand vous avez un blackjack est exactement la même chose. Quant aux tables qui paient le blackjack <a href={routes.payout65.fr}>6:5 au lieu de 3:2</a>, elles ajoutent environ 1,39 point à l’avantage de la maison, plus que n’importe quelle autre règle.</p>
+
+  <h2 id="decisions">3. Les décisions mal jouées</h2>
+  <ul>
+    <li><strong>Rester sur 12 à 16 contre 7, 8, 9, 10 ou as</strong> par peur de sauter. Contre une carte forte, le croupier finit souvent sur 17 ou plus : il faut tirer.</li>
+    <li><strong>Ne pas doubler 11 ou 10</strong> contre une carte faible du croupier. Voir <a href={routes.whenDouble.fr}>quand doubler</a>.</li>
+    <li><strong>Ne pas séparer 8-8 et A-A</strong>, ou au contraire <strong>séparer 10-10</strong>. Et 5-5 ne se sépare pas : on double. Tout est dans <a href={routes.whenSplit.fr}>quand séparer</a>.</li>
+    <li><strong>Rester sur 17 souple (A-6).</strong> Une seule carte ne peut pas vous faire sauter : tirez, ou doublez contre 3 à 6. Voir les <a href={routes.softHands.fr}>mains souples</a>.</li>
+  </ul>
+  <div class="callout"><p><strong>Et 16 contre 10 ?</strong> C’est la main qui fait le plus débat, mais tirer ou rester ne diffère que de moins de 1 % de la mise. La bonne réponse est de tirer (ou d’<a href={routes.surrender.fr}>abandonner</a> si c’est permis), mais ce n’est pas là que vous perdez le plus. Les détails sont dans <a href={routes.hand16v10.fr}>16 contre 10</a>.</p></div>
+
+  <h2 id="myths">4. Les mythes qui coûtent cher</h2>
+  <ul>
+    <li><strong>Les systèmes de mise</strong> (martingale, progressions) : ils ne changent pas l’avantage de la maison. Ils modifient seulement la variance et le risque de ruine, souvent dans le mauvais sens.</li>
+    <li><strong>« Le mauvais joueur à ma table me fait perdre »</strong> : les décisions des autres ne changent pas votre espérance.</li>
+  </ul>
+
+  <h2 id="fix">Comment corriger ses erreurs</h2>
+  <p>Connaître la bonne réponse ne suffit pas : à table, sous pression, l’instinct reprend le dessus. Ce qui marche, c’est la répétition avec une correction immédiate. Sur la <a href={routes.simulator.fr}>table d’entraînement gratuite</a> ou dans l’app Veintiuno, chaque décision est corrigée sur le moment avec une explication, et la carte de chaleur des erreurs vous montre les mains que vous ratez le plus. Le <a href={routes.course.fr}>cours gratuit</a> reprend tout depuis le début.</p>
+  <p>Même sans aucune erreur, la maison garde l’avantage. Jouez avec un budget fixé à l’avance et consultez notre page <a href={routes.responsible.fr}>jeu responsable</a> si le jeu n’est plus un plaisir.</p>
+</Guide>

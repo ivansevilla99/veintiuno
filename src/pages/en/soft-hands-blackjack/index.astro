@@ -1,0 +1,75 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Do you hit or stand on soft 17?', a: 'Always hit or double soft 17 (A-6); never stand. On a six-deck S17 table you double A-6 against 3 through 6 and hit against everything else. Standing on soft 17 is one of the most common mistakes at the table.' },
+  { q: 'What do you do with soft 18 (A-7)?', a: 'Stand against 2, 7 and 8; double against 3 through 6 if allowed (stand if not); and hit against 9, 10 and ace. Soft 18 is a weak total against a strong dealer card, and one more card can’t bust you.' },
+  { q: 'Should you ever double soft 19?', a: 'Only A-8 against a 6 when the dealer hits soft 17 (H17). Otherwise, soft 19 and soft 20 always stand.' },
+  { q: 'What if my table only allows doubling on 9, 10 or 11?', a: 'Then you never double soft hands. Hit the ones the chart would double, except A-7 against 3 through 6, which you stand on instead. This is the rule in Spanish casinos.' },
+];
+---
+<Guide
+  lang="en"
+  route="softHands"
+  title="Soft 17 and Soft Hands in Blackjack: How to Play"
+  h1="How to play soft hands in blackjack (A-2 to A-9)"
+  description="How to play soft hands in blackjack: soft 17, soft 18 and every hand from A-2 to A-9. When to hit, double or stand, H17 changes and the most common mistakes."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['whenDouble', 'mistakes', 'surrender', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> a soft hand has an ace counted as 11, so one card can’t bust you. <strong>Never stand on soft 17 (A-6).</strong> Double soft 13–18 against the dealer’s weak cards (mostly 4, 5 and 6), stand on soft 18 against 2, 7 and 8, hit soft 18 against 9, 10 and ace, and always stand on soft 19 and 20.</p></div>
+  </div>
+
+  <h2 id="what">What a soft hand is</h2>
+  <p>A hand is “soft” when it contains an ace that’s being counted as 11. A-6 is soft 17: if you draw a 10, the ace simply drops to 1 and you have hard 17. Because <strong>one more card can’t bust you</strong>, soft hands are opportunities: you can improve freely, and against a weak dealer you can double your bet.</p>
+  <p>That’s why the most common soft-hand mistake isn’t taking too many risks, it’s being too timid.</p>
+
+  <h2 id="chart">The soft hands chart</h2>
+  <p>Six decks, dealer stands on soft 17, double on any two cards. H = hit, D = double (hit if not allowed), Ds = double (stand if not allowed), S = stand.</p>
+  <table>
+    <thead><tr><th>Hand</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>A</th></tr></thead>
+    <tbody>
+      <tr><td>A-2 (soft 13)</td><td>H</td><td>H</td><td>H</td><td>D</td><td>D</td><td>H</td><td>H</td><td>H</td><td>H</td><td>H</td></tr>
+      <tr><td>A-3 (soft 14)</td><td>H</td><td>H</td><td>H</td><td>D</td><td>D</td><td>H</td><td>H</td><td>H</td><td>H</td><td>H</td></tr>
+      <tr><td>A-4 (soft 15)</td><td>H</td><td>H</td><td>D</td><td>D</td><td>D</td><td>H</td><td>H</td><td>H</td><td>H</td><td>H</td></tr>
+      <tr><td>A-5 (soft 16)</td><td>H</td><td>H</td><td>D</td><td>D</td><td>D</td><td>H</td><td>H</td><td>H</td><td>H</td><td>H</td></tr>
+      <tr><td>A-6 (soft 17)</td><td>H</td><td>D</td><td>D</td><td>D</td><td>D</td><td>H</td><td>H</td><td>H</td><td>H</td><td>H</td></tr>
+      <tr><td>A-7 (soft 18)</td><td>S</td><td>Ds</td><td>Ds</td><td>Ds</td><td>Ds</td><td>S</td><td>S</td><td>H</td><td>H</td><td>H</td></tr>
+      <tr><td>A-8 (soft 19)</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td></tr>
+      <tr><td>A-9 (soft 20)</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td></tr>
+    </tbody>
+  </table>
+  <p>The full chart, with hard hands and pairs and adjustable to your table’s rules, is on our <a href={routes.strategy.en}>basic strategy chart</a> page.</p>
+
+  <h2 id="soft17">Soft 17: never stand</h2>
+  <p>A-6 looks like 17, and 17 feels like a hand to stand on. But a dealer who doesn’t bust finishes with 17 or more, so standing on 17 rarely wins. Since one card can’t hurt you, A-6 is a hand to improve: <strong>double against 3 through 6</strong> and <strong>hit against everything else</strong>.</p>
+
+  <h2 id="soft18">Soft 18: the trickiest soft hand</h2>
+  <p>A-7 is the one soft hand where all three plays appear in the same row:</p>
+  <ul>
+    <li><strong>Against 2, 7 or 8:</strong> stand. 18 is a solid total here.</li>
+    <li><strong>Against 3 through 6:</strong> double if allowed; stand if not.</li>
+    <li><strong>Against 9, 10 or ace:</strong> hit. Against those cards 18 loses too often, and you can’t bust on the next card.</li>
+  </ul>
+  <EVTable lang="en" cards={[1, 7]} up={10} tables={['vegasS17', 'spainCasino']} caption="A-7 vs 10: hit or stand" />
+
+  <h2 id="rules">How the rules change soft hands</h2>
+  <ul>
+    <li><strong>Dealer hits soft 17 (H17):</strong> also double A-7 against a 2 and A-8 against a 6 (stand if doubling isn’t allowed).</li>
+    <li><strong>Double on 9–11 only</strong>, as in <a href={routes.spain.en}>Spanish casinos</a>: you never double soft hands. Hit the ones marked D, and stand on A-7 against 3 through 6.</li>
+  </ul>
+
+  <h2 id="mistakes">The most common soft-hand mistakes</h2>
+  <ol>
+    <li><strong>Standing on A-6.</strong> Soft 17 is always a hit or a double.</li>
+    <li><strong>Standing on A-7 against 9, 10 or ace.</strong> It feels safe, but hitting is better.</li>
+    <li><strong>Not doubling A-7 against 3 through 6</strong> when the table allows it.</li>
+  </ol>
+  <p>More on these doubles in <a href={routes.whenDouble.en}>when to double down</a>, and the full list of costly errors in <a href={routes.mistakes.en}>common blackjack mistakes</a>.</p>
+  <p>Soft hands are where intuition fails most often, which makes them perfect for drilling. Practice them on the free <a href={routes.simulator.en}>practice table</a>, or follow the <a href={routes.course.en}>blackjack course</a>.</p>
+</Guide>

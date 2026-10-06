@@ -1,0 +1,67 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Wat is de grootste fout bij blackjack?', a: 'Zonder strategie spelen. Wie nooit een kaart vraagt boven 12 („nooit kapotgaan”) speelt tegen ongeveer 4% huisvoordeel, en wie de dealer nadoet tegen ongeveer 5,5%. Met basisstrategie is dat ongeveer 0,4%.' },
+  { q: 'Werken inzetsystemen zoals martingale?', a: 'Nee. Inzetsystemen en progressies veranderen het huisvoordeel niet. Ze veranderen alleen de schommelingen en de kans dat je in korte tijd je hele budget kwijt bent.' },
+  { q: 'Kan een slechte medespeler mijn kaarten verpesten?', a: 'Nee, dat is een mythe. De beslissingen van anderen veranderen jouw verwachte waarde niet. Soms helpt hun keuze je toevallig, soms niet, maar gemiddeld maakt het niets uit.' },
+  { q: 'Is 16 tegen 10 passen een grote fout?', a: 'Nee. Het verschil tussen kaart vragen en passen is minder dan 1% van je inzet. Er zijn fouten die veel meer kosten, zoals verzekering nemen of aan een 6:5-tafel spelen.' },
+];
+---
+<Guide
+  lang="nl"
+  route="mistakes"
+  title="De meest gemaakte blackjack fouten (en wat ze kosten)"
+  h1="De meest gemaakte fouten bij blackjack"
+  description="De duurste blackjackfouten: zonder strategie spelen, verzekering, 6:5-tafels, passen op zachte 17 en inzetsystemen. Wat elke fout kost en hoe je hem vermijdt."
+  updated="2026-10-06"
+  readMinutes={6}
+  faq={faq}
+  related={['insurance', 'payout65', 'softHands', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> De duurste fout is <strong>zonder basisstrategie spelen</strong>: wie „nooit kapot wil gaan” of de dealer nadoet, speelt tegen 4 tot 5,5% huisvoordeel in plaats van ongeveer 0,4%. Daarna volgen <strong>verzekering nemen</strong> (−7,4% op die inzet) en <strong>aan een 6:5-tafel spelen</strong> (+1,39 punten). 16 tegen 10 is daarentegen een kleine kwestie.</p></div>
+  </div>
+
+  <h2 id="ranking">De fouten op een rij, met wat ze kosten</h2>
+  <p>Bij benadering, volgens gepubliceerde analyses (onder andere van Wizard of Odds):</p>
+  <table>
+    <thead><tr><th>Fout</th><th>Wat het ongeveer kost</th></tr></thead>
+    <tbody>
+      <tr><td>De dealer nadoen (kaart tot 17, nooit verdubbelen of splitsen)</td><td>≈ 5,5% huisvoordeel</td></tr>
+      <tr><td>„Nooit kapotgaan” (passen op elke 12 of meer)</td><td>≈ 4% huisvoordeel</td></tr>
+      <tr><td>Verzekering of even money nemen</td><td>−7,4% op de verzekeringsinzet</td></tr>
+      <tr><td>Aan een 6:5-tafel spelen</td><td>+1,39 punten huisvoordeel</td></tr>
+      <tr><td>Ter vergelijking: perfecte basisstrategie</td><td>≈ 0,4% huisvoordeel</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="no-strategy">1. Op gevoel spelen</h2>
+  <p>De twee populairste „systemen” aan tafel zijn ook de duurste. Wie op elke 12 of meer past omdat hij niet kapot wil gaan, laat de dealer alle kansen. Wie de dealer nadoet – kaart vragen tot 17, nooit verdubbelen of splitsen – geeft zijn belangrijkste voordelen weg: de dealer mag niet verdubbelen of splitsen, jij wel. Met de <a href={routes.strategy.nl}>basisstrategie</a> zakt het huisvoordeel naar ongeveer 0,4%.</p>
+
+  <h2 id="insurance">2. Verzekering en even money</h2>
+  <p>Verzekering is een losse weddenschap waarop je met 6 decks gemiddeld ongeveer 7,4% verliest. Even money is precies hetzelfde onder een andere naam. Alle cijfers staan in de gids over <a href={routes.insurance.nl}>verzekering bij blackjack</a>.</p>
+
+  <h2 id="65">3. Aan een 6:5-tafel gaan zitten</h2>
+  <p>Een tafel die blackjack 6 tegen 5 uitbetaalt in plaats van 3 tegen 2 kost je ongeveer 1,39 procentpunt extra – meer dan welke andere regel ook. Deze fout maak je al voordat je één kaart krijgt. Zie <a href={routes.payout65.nl}>blackjack 6:5 vs 3:2</a>.</p>
+
+  <h2 id="hands">4. Fouten met specifieke handen</h2>
+  <ul>
+    <li><strong>Passen met 12–16 tegen 7, 8, 9, 10 of aas</strong> omdat je „niet kapot wilt gaan”.</li>
+    <li><strong>11 of 10 niet verdubbelen</strong> tegen een zwakke kaart van de dealer (zie <a href={routes.whenDouble.nl}>wanneer verdubbelen</a>).</li>
+    <li><strong>8-8 en A-A niet splitsen</strong>, of juist <strong>10-10 splitsen</strong>. En 5-5 split je niet: die verdubbel je (zie <a href={routes.whenSplit.nl}>wanneer splitsen</a>).</li>
+    <li><strong>Passen op zachte 17 (A-6).</strong> Meer in de gids over <a href={routes.softHands.nl}>zachte handen</a>.</li>
+  </ul>
+
+  <h2 id="systems">5. Geloven in inzetsystemen</h2>
+  <p>Martingale (verdubbelen na elk verlies) en andere progressies veranderen het huisvoordeel niet. Ze veranderen alleen hoe je resultaten schommelen en hoe groot de kans is dat je je hele budget in één slechte reeks kwijtraakt. Geen inzetpatroon maakt van een spel met huisvoordeel een spel met winstverwachting.</p>
+
+  <h2 id="myths">Mythes die geen fouten zijn</h2>
+  <ul>
+    <li><strong>„Die slechte speler verpest mijn kaarten.”</strong> De beslissingen van anderen veranderen jouw verwachte waarde niet.</li>
+    <li><strong>„Kaart vragen met 16 tegen 10 is roekeloos.”</strong> Het verschil met passen is minder dan 1% van je inzet. Lees de gids <a href={routes.hand16v10.nl}>16 tegen 10</a> – maar maak je meer zorgen over de grote fouten hierboven.</li>
+  </ul>
+  <div class="callout"><p><strong>Eerlijk:</strong> ook zonder fouten houdt het casino een klein voordeel. Fouten vermijden betekent minder verliezen, niet winnen. Speel met een vast budget en lees <a href={routes.responsible.nl}>verantwoord spelen</a>.</p></div>
+  <p>De snelste manier om deze fouten af te leren is oefenen met directe correctie: aan de <a href={routes.simulator.nl}>gratis oefentafel</a> of in de Veintiuno-app, die per vakje van de tabel bijhoudt waar jij het vaakst de fout in gaat.</p>
+</Guide>

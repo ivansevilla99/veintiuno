@@ -1,0 +1,70 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quando desistir no blackjack?', a: 'Na mesa de referência (6 baralhos, dealer para no 17 soft, late surrender): desista com 16 duro contra 9, 10 ou ás, e com 15 duro contra 10. Se o dealer pede no 17 soft, desista também com 15 e 17 contra ás e com 8-8 contra ás.' },
+  { q: 'Desistir não é coisa de quem tem medo?', a: 'Não. Desistir recupera metade da aposta. Quando a sua mão perde mais da metade das vezes em média, ficar com metade é matematicamente melhor do que jogar.' },
+  { q: 'Devo desistir com 8-8 contra um 10?', a: 'Não: divida. Duas mãos que começam com 8 perdem menos do que desistir. A única exceção é 8-8 contra ás quando o dealer pede no 17 soft.' },
+  { q: 'E se a mesa não permitir desistir?', a: 'Jogue a mão: com 16 contra 10, 15 contra 10 e 16 contra 9, peça carta.' },
+];
+---
+<Guide
+  lang="pt"
+  route="surrender"
+  title="Quando desistir no blackjack (surrender): guia"
+  h1="Quando desistir no blackjack (surrender)"
+  description="Quando desistir no blackjack: 16 contra 9, 10 ou ás e 15 contra 10. Veja a regra prática, o valor esperado de cada opção e o que muda com H17 e early surrender."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['hand16v10', 'macau', 'strategy', 'whenSplit']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Resposta curta:</strong> numa mesa de 6 baralhos em que o dealer para no 17 soft, <strong>desista com 16 duro contra 9, 10 ou ás e com 15 duro contra 10</strong>. Com um par de 8, divida em vez de desistir. Se a mesa não oferece desistência, peça carta nessas mãos.</p></div>
+  </div>
+
+  <h2 id="what">O que é desistir (surrender)</h2>
+  <p>Desistir é abandonar a mão logo no início e recuperar <strong>metade da aposta</strong>. A versão mais comum é o <strong>late surrender</strong>: você só pode desistir depois de o dealer conferir se tem blackjack. Se ele tiver, você perde a aposta inteira como todo mundo.</p>
+  <p>Nem toda mesa oferece. A maioria das mesas da Espanha e da Europa e muitas mesas ao vivo online não permitem desistir. Onde existe, a regra vale cerca de <strong>0,07 ponto</strong> de vantagem da casa a seu favor.</p>
+
+  <h2 id="rule">A regra prática</h2>
+  <p>Desista quando a sua mão, jogada da melhor forma, <strong>perde mais da metade das vezes em média</strong> (valor esperado abaixo de −0,5 aposta). Desistindo, você perde exatamente 0,5; jogando, perderia mais.</p>
+
+  <h2 id="table">Quando desistir: a tabela</h2>
+  <table>
+    <thead><tr><th>Sua mão</th><th>Dealer para no 17 soft (S17)</th><th>Dealer pede no 17 soft (H17)</th></tr></thead>
+    <tbody>
+      <tr><td>16 duro</td><td>Desistir contra 9, 10, ás</td><td>Desistir contra 9, 10, ás</td></tr>
+      <tr><td>15 duro</td><td>Desistir contra 10</td><td>Desistir contra 10 e ás</td></tr>
+      <tr><td>17 duro</td><td>Nunca</td><td>Desistir contra ás</td></tr>
+      <tr><td>8-8</td><td>Dividir sempre</td><td>Desistir contra ás; senão, dividir</td></tr>
+    </tbody>
+  </table>
+  <p>Tudo isso está na <a href={routes.strategy.pt}>tabela de estratégia básica</a>, que você pode ajustar às regras da sua mesa.</p>
+
+  <h2 id="example">Exemplo: 16 contra 10</h2>
+  <p>Com 10-6 contra um 10 do dealer (6 baralhos, S17), o valor médio de cada opção é:</p>
+  <table>
+    <thead><tr><th>Opção</th><th>Valor esperado</th></tr></thead>
+    <tbody>
+      <tr><td>Parar</td><td>−0,542</td></tr>
+      <tr><td>Pedir</td><td>−0,535</td></tr>
+      <tr><td><strong>Desistir</strong></td><td><strong>−0,500</strong></td></tr>
+    </tbody>
+  </table>
+  <p>Desistir é o melhor. Sem essa opção, pedir ganha de parar por muito pouco. A análise completa está em <a href={routes.hand16v10.pt}>16 contra 10: pedir ou parar?</a></p>
+
+  <h2 id="why">Por que desistir não é “fugir”</h2>
+  <p>Muitos jogadores nunca desistem porque parece rendição, e de certa forma é. Mas o blackjack se joga em médias: uma mão de 16 contra um 10 perde mais da metade das vezes, então entregar metade da aposta antes de a mão acontecer é simplesmente a opção que perde menos. Pense nisso como cortar uma perda já esperada, não como desistir do jogo.</p>
+  <p>Ao mesmo tempo, não exagere. Desistir com mãos que não estão na tabela, como 12 contra 10 ou 15 contra 9, entrega dinheiro à toa: essas mãos, jogadas corretamente, perdem menos do que metade da aposta. Desista só nas mãos indicadas acima.</p>
+
+  <h2 id="pairs">E os pares de 8?</h2>
+  <p>Um 8-8 soma 16, mas não é tratado como 16: <a href={routes.whenSplit.pt}>divida</a>. Duas mãos que começam com 8 perdem menos do que desistir. A única exceção é contra um ás quando o dealer pede no 17 soft.</p>
+
+  <h2 id="early">Early surrender: a versão mais valiosa</h2>
+  <p>Em algumas mesas, como as de Macau, existe o <strong>early surrender</strong>: você pode desistir antes de o dealer poder mostrar blackjack, mas não contra um ás. Vale muito mais. Contra um 10, você desiste com 14, 15 e 16 duros, incluindo 7-7 e 8-8. Veja as <a href={routes.macau.pt}>regras do blackjack em Macau</a>.</p>
+
+  <h2 id="no-surrender">Se não puder desistir</h2>
+  <p>Jogue a mão. Com 16 contra 10, 15 contra 10 e 16 contra 9: peça carta. Treine essas decisões no <a href={routes.simulator.pt}>simulador grátis</a> até ficarem automáticas. E lembre-se: desistir bem reduz perdas, não garante ganhos.</p>
+</Guide>

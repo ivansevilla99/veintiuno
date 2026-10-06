@@ -1,0 +1,67 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Por que o blackjack de Macau é tão bom para o jogador?', a: 'Principalmente pelo early surrender: você pode desistir antes de o dealer conferir o blackjack (exceto contra um ás). Com as regras típicas, a vantagem da casa fica em cerca de 0,16%, uma das mais baixas do mundo.' },
+  { q: 'Em Macau o dealer não tem carta oculta. Perco as dobras se ele tiver blackjack?', a: 'Não. Nas regras típicas de Macau você só perde a aposta original contra um blackjack do dealer; as dobras e divisões são devolvidas. Por isso a estratégia é a mesma de uma mesa com carta oculta.' },
+  { q: 'Quando desistir no blackjack de Macau?', a: 'Contra um 10, desista com 14, 15 e 16 duros, incluindo 7-7 e 8-8. Contra um ás, nunca: o early surrender não vale contra ás.' },
+  { q: 'Onde mais se joga com regras parecidas?', a: 'Regras semelhantes aparecem em Singapura, no Panamá, na República Dominicana e em Cancún.' },
+];
+---
+<Guide
+  lang="pt"
+  route="macau"
+  title="Blackjack em Macau: regras e estratégia"
+  h1="Blackjack em Macau: regras, early surrender e estratégia"
+  description="As regras típicas do blackjack em Macau: sem carta oculta, early surrender e vantagem da casa de cerca de 0,16%. Veja o que muda na estratégia e quando desistir"
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['surrender', 'live', 'dataRules', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Resposta curta:</strong> o blackjack típico de Macau usa 6 baralhos, o dealer para no 17 soft, não há carta oculta (mas você só perde a aposta original contra um blackjack do dealer) e existe <strong>early surrender</strong> contra 2 a 10. Com essas regras, a vantagem da casa fica em cerca de <strong>0,16%</strong>, uma das melhores do mundo. A grande mudança na estratégia: <strong>contra um 10, desista com 14, 15 e 16 duros</strong>, incluindo 7-7 e 8-8.</p></div>
+  </div>
+
+  <h2 id="rules">As regras típicas de Macau</h2>
+  <p>As regras variam de mesa para mesa; estas são as mais comuns, segundo visitas relatadas pelo Wizard of Odds:</p>
+  <table>
+    <thead><tr><th>Regra</th><th>Macau (típico)</th></tr></thead>
+    <tbody>
+      <tr><td>Baralhos</td><td>6</td></tr>
+      <tr><td>Dealer no 17 soft</td><td>Para</td></tr>
+      <tr><td>Carta oculta</td><td>Não, mas você só perde a aposta original contra um blackjack do dealer</td></tr>
+      <tr><td>Desistência</td><td><strong>Early surrender</strong> contra 2 a 10 (não contra ás)</td></tr>
+      <tr><td>Dobrar</td><td>Com quaisquer duas cartas, também depois de dividir</td></tr>
+      <tr><td>Dividir</td><td>Até 4 mãos</td></tr>
+      <tr><td>Blackjack paga</td><td>3:2</td></tr>
+      <tr><td><strong>Vantagem da casa</strong></td><td><strong>≈0,16%</strong></td></tr>
+    </tbody>
+  </table>
+  <p>Para comparar: na mesa de referência de 6 baralhos com late surrender, a vantagem da casa é de cerca de 0,36%. Veja quanto vale cada regra em <a href={routes.dataRules.pt}>vantagem da casa por regras</a>.</p>
+
+  <h2 id="hole-card">Sem carta oculta, mas sem a armadilha europeia</h2>
+  <p>Nas mesas europeias sem carta oculta, se o dealer completa um blackjack você perde também o que colocou ao dobrar ou dividir. Por isso a estratégia europeia evita dobrar 11 contra um 10, por exemplo.</p>
+  <p>Em Macau, a regra típica é de <strong>“só a aposta original”</strong>: se o dealer tiver blackjack, as dobras e divisões são devolvidas. Para a estratégia, isso equivale a uma mesa em que o dealer confere o blackjack antes. Você joga como numa mesa com carta oculta.</p>
+
+  <h2 id="early-surrender">Early surrender: o grande trunfo</h2>
+  <p>No <a href={routes.surrender.pt}>late surrender</a> comum, você só pode desistir depois de o dealer conferir o blackjack. No <strong>early surrender</strong> de Macau, você desiste antes, recuperando metade da aposta mesmo nas mãos em que o dealer teria blackjack. Só não vale contra um ás. É isso que derruba a vantagem da casa para perto de 0,16%.</p>
+
+  <h2 id="strategy">O que muda na estratégia</h2>
+  <table>
+    <thead><tr><th>Sua mão</th><th>Contra um 10 do dealer</th><th>Contra um ás</th></tr></thead>
+    <tbody>
+      <tr><td>14 duro (incluindo 7-7)</td><td>Desistir</td><td>Não desistir</td></tr>
+      <tr><td>15 duro</td><td>Desistir</td><td>Não desistir</td></tr>
+      <tr><td>16 duro (incluindo 8-8)</td><td>Desistir</td><td>Não desistir</td></tr>
+    </tbody>
+  </table>
+  <p>No resto, siga a tabela normal com carta oculta. A <a href={routes.strategy.pt}>tabela de estratégia básica</a> mostra todas as casas.</p>
+
+  <h2 id="region">Ásia e outros lugares com regras parecidas</h2>
+  <p>Regras parecidas aparecem em Singapura, no Panamá, na República Dominicana e em Cancún. Na China continental não há cassinos legais, e em Taiwan e Hong Kong também não; quem mora lá costuma ir a Macau para jogar.</p>
+
+  <h2 id="practice">Treinar com as regras de Macau</h2>
+  <p>O app Veintiuno tem uma mesa “Macau / Ásia” com essa tabela, para você treinar o early surrender antes de viajar. Se você joga online, as regras são outras: veja o <a href={routes.live.pt}>blackjack ao vivo</a>. E, mesmo com a melhor regra do mundo, a vantagem continua sendo da casa: defina um orçamento e leia o guia de <a href={routes.responsible.pt}>jogo responsável</a>.</p>
+</Guide>

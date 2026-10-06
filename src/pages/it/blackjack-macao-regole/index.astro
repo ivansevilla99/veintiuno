@@ -1,0 +1,68 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quali sono le regole del blackjack a Macao?', a: 'Tipicamente: 6 mazzi, banco che sta su soft 17, niente carta coperta ma contro un blackjack del banco perdi solo la puntata iniziale, resa anticipata contro 2–10 (non contro l’asso), raddoppio su qualsiasi coppia di carte e dopo divisione, fino a 4 mani divise, blackjack pagato 3:2.' },
+  { q: 'Perché il blackjack di Macao è così favorevole?', a: 'Soprattutto grazie alla resa anticipata. Con queste regole il vantaggio del banco è di circa lo 0,16%, uno dei più bassi al mondo.' },
+  { q: 'Cosa cambia nella strategia a Macao?', a: 'Contro un 10 del banco ti arrendi con 14, 15 e 16 hard, compresi 7-7 e 8-8. Contro l’asso non ti arrendi mai. Per il resto giochi come a un tavolo con carta coperta.' },
+  { q: 'Si gioca a blackjack nei casinò della Cina continentale?', a: 'No: nella Cina continentale non ci sono casinò legali, e nemmeno a Taiwan o a Hong Kong. Chi vuole giocare di solito va a Macao.' },
+];
+---
+<Guide
+  lang="it"
+  route="macau"
+  title="Blackjack a Macao: regole e strategia"
+  h1="Blackjack a Macao: le regole e come cambiano la strategia"
+  description="Le regole del blackjack a Macao e in Asia: resa anticipata, solo la puntata iniziale persa e vantaggio del banco di circa lo 0,16%. Cosa cambia nella strategia."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['surrender', 'strategy', 'live', 'dataRules']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> il blackjack tipico di Macao si gioca con 6 mazzi, banco che sta su soft 17 e <strong>resa anticipata</strong> contro 2–10. Senza carta coperta, ma contro un blackjack del banco perdi solo la puntata iniziale. Il vantaggio del banco è di circa lo <strong>0,16%</strong>, uno dei più bassi al mondo. In pratica: contro un 10 ti arrendi con 14, 15 e 16 hard (anche 7-7 e 8-8), contro l’asso mai.</p></div>
+  </div>
+
+  <h2 id="rules">Le regole tipiche di Macao</h2>
+  <p>Le regole possono variare da un casinò all’altro, ma questa è la configurazione più comune riportata da chi ci ha giocato (fonte: visite di Wizard of Odds; affidabilità media):</p>
+  <table>
+    <thead><tr><th>Regola</th><th>Macao (tipico)</th></tr></thead>
+    <tbody>
+      <tr><td>Mazzi</td><td>6</td></tr>
+      <tr><td>Soft 17 del banco</td><td>Sta (S17)</td></tr>
+      <tr><td>Carta coperta</td><td>No, ma contro un blackjack del banco perdi solo la puntata iniziale</td></tr>
+      <tr><td>Resa</td><td>Anticipata, contro 2–10 (non contro l’asso)</td></tr>
+      <tr><td>Raddoppio</td><td>Su qualsiasi coppia di carte, anche dopo divisione</td></tr>
+      <tr><td>Divisioni</td><td>Fino a 4 mani</td></tr>
+      <tr><td>Pagamento del blackjack</td><td>3:2</td></tr>
+      <tr><td>Vantaggio del banco</td><td>circa 0,16%</td></tr>
+    </tbody>
+  </table>
+  <p>Per confronto, il tavolo di riferimento con carta coperta e resa tardiva ha un vantaggio del banco di circa lo 0,36%.</p>
+
+  <h2 id="hole-card">Niente carta coperta, ma senza la trappola europea</h2>
+  <p>Nei tavoli europei senza carta coperta, se il banco fa blackjack perdi anche quello che hai aggiunto raddoppiando o dividendo. A Macao no: perdi solo la puntata iniziale e i raddoppi e le divisioni ti vengono restituiti. Per la strategia è come giocare a un tavolo in cui il banco controlla il blackjack: puoi raddoppiare e dividere contro un 10 o un asso senza paura.</p>
+
+  <h2 id="surrender">La resa anticipata: il vero regalo</h2>
+  <p>La resa anticipata ti permette di rinunciare alla mano e riprenderti metà della puntata <strong>prima</strong> che il banco possa rivelare un blackjack. Vale molto più della resa tardiva, perché ti salva mezza puntata anche nelle mani in cui il banco avrebbe fatto blackjack. A Macao non è permessa contro l’asso.</p>
+
+  <h2 id="strategy">Cosa cambia nella strategia</h2>
+  <table>
+    <thead><tr><th>Situazione</th><th>A Macao</th></tr></thead>
+    <tbody>
+      <tr><td>14, 15, 16 hard contro 10</td><td>Resa</td></tr>
+      <tr><td>7-7 e 8-8 contro 10</td><td>Resa</td></tr>
+      <tr><td>Qualsiasi mano contro asso</td><td>Mai resa</td></tr>
+      <tr><td>Tutto il resto</td><td>Come la tabella con carta coperta</td></tr>
+    </tbody>
+  </table>
+  <p>Per tutte le altre mani usa la <a href={routes.strategy.it}>tabella di strategia di base</a>. Per capire bene la differenza tra resa tardiva e anticipata, leggi <a href={routes.surrender.it}>quando arrendersi</a>.</p>
+
+  <h2 id="asia">E nel resto dell’Asia?</h2>
+  <p>Nella Cina continentale non ci sono casinò legali, e nemmeno a Taiwan o a Hong Kong: chi vuole giocare di solito va a Macao. Regole simili a quelle di Macao si trovano anche fuori dall’Asia, per esempio a Singapore, Panama, nella Repubblica Dominicana e a Cancún. Prima di sederti, chiedi o leggi sempre le regole del tavolo: possono cambiare da casinò a casinò.</p>
+
+  <h2 id="app">Allenati con le regole di Macao</h2>
+  <p>Nell’app Veintiuno c’è un tavolo “Macao / Asia” con la sua tabella di strategia, così alleni proprio le rese anticipate prima del viaggio. Puoi anche cominciare dal <a href={routes.simulator.it}>tavolo di allenamento gratis</a> sul web.</p>
+  <div class="callout"><p><strong>Un vantaggio basso resta un vantaggio del banco.</strong> Anche alle migliori regole del mondo, a lungo andare il casinò vince. Fissa un budget prima di giocare e, se serve, leggi la pagina sul <a href={routes.responsible.it}>gioco responsabile</a>.</p></div>
+</Guide>

@@ -1,0 +1,65 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Wann sollte man beim Blackjack aufgeben?', a: 'Mit Late Surrender, 6 Decks und S17: harte 16 gegen 9, 10 und Ass sowie harte 15 gegen 10. Ein Achterpaar wird gesplittet, nicht aufgegeben. Zieht der Dealer auf Soft 17, gibst du zusätzlich 15 gegen Ass, 17 gegen Ass und 8-8 gegen Ass auf.' },
+  { q: 'Was ist der Unterschied zwischen Late und Early Surrender?', a: 'Bei Late Surrender gibst du erst auf, nachdem der Dealer nachgesehen hat, ob er Blackjack hat. Bei Early Surrender darfst du aufgeben, bevor ein Blackjack des Dealers feststeht. Early Surrender ist viel wertvoller und wird in Macau gegen 2 bis 10 angeboten, nicht gegen ein Ass.' },
+  { q: 'Was mache ich, wenn der Tisch kein Surrender erlaubt?', a: 'Dann spielst du die Hand: 16 gegen 10 ziehen, 15 gegen 10 ziehen, 16 gegen 9 ziehen. An den meisten europäischen und spanischen Tischen sowie an vielen Live-Tischen gibt es kein Surrender.' },
+  { q: 'Ist Aufgeben nicht feige?', a: 'Nein, es ist Mathematik. Du gibst nur Hände auf, die im Schnitt mehr als die Hälfte des Einsatzes verlieren. Den halben Einsatz zu retten ist dann schlicht die Option, die am wenigsten kostet.' },
+];
+---
+<Guide
+  lang="de"
+  route="surrender"
+  title="Blackjack Surrender: Wann solltest du aufgeben?"
+  h1="Aufgeben beim Blackjack: die wenigen Hände, in denen Surrender richtig ist"
+  description="Wann du beim Blackjack aufgeben (Surrender) solltest: die genauen Hände für S17 und H17, Late vs. Early Surrender und ein Rechenbeispiel mit 16 gegen 10."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['hand16v10', 'strategy', 'macau', 'softHands']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurze Antwort:</strong> Mit Late Surrender (6 Decks, Dealer steht auf Soft 17) gibst du nur <strong>harte 16 gegen 9, 10 und Ass</strong> und <strong>harte 15 gegen 10</strong> auf. Ein 8-8 splittest du. Die Faustregel: Aufgeben lohnt sich, wenn eine Hand im Schnitt mehr als die Hälfte deines Einsatzes verliert.</p></div>
+  </div>
+
+  <h2 id="what">Was Surrender ist</h2>
+  <p>Beim Aufgeben (englisch <em>surrender</em>) verzichtest du nach den ersten zwei Karten auf deine Hand und bekommst die <strong>Hälfte deines Einsatzes</strong> zurück. Die übliche Variante ist <strong>Late Surrender</strong>: Du darfst erst aufgeben, nachdem der Dealer geprüft hat, ob er Blackjack hat. Hat er ihn, verlierst du ganz normal.</p>
+  <p>Die Regel ist wenig wert, aber nicht nichts: Sie senkt den Hausvorteil um etwa <strong>0,07 Prozentpunkte</strong>. Leider fehlt sie an den meisten europäischen und spanischen Tischen und an vielen Live-Dealer-Tischen.</p>
+
+  <h2 id="hands">Die Hände zum Aufgeben</h2>
+  <table>
+    <thead><tr><th>Deine Hand</th><th>Dealer steht auf Soft 17 (S17)</th><th>Dealer zieht auf Soft 17 (H17)</th></tr></thead>
+    <tbody>
+      <tr><td>Harte 16 (nicht 8-8)</td><td>gegen 9, 10, Ass</td><td>gegen 9, 10, Ass</td></tr>
+      <tr><td>Harte 15</td><td>gegen 10</td><td>gegen 10 und Ass</td></tr>
+      <tr><td>Harte 17</td><td>nie</td><td>gegen Ass</td></tr>
+      <tr><td>8-8</td><td>nie – splitten</td><td>gegen Ass</td></tr>
+    </tbody>
+  </table>
+  <p>Alles andere spielst du nach der normalen <a href={routes.strategy.de}>Strategietabelle</a>. Die Liste ist kurz – und genau deshalb lohnt es sich, sie auswendig zu kennen.</p>
+
+  <h2 id="example">Ein Beispiel: 16 gegen 10</h2>
+  <p>Mit 10-6 gegen eine 10 des Dealers (6 Decks, S17) ist jede Option im Schnitt so viel wert, pro Einsatzeinheit:</p>
+  <table>
+    <thead><tr><th>Option</th><th>Erwartungswert</th></tr></thead>
+    <tbody>
+      <tr><td>Stehen bleiben</td><td>−0,542</td></tr>
+      <tr><td>Ziehen</td><td>−0,535</td></tr>
+      <tr><td><strong>Aufgeben</strong></td><td><strong>−0,500</strong></td></tr>
+    </tbody>
+  </table>
+  <p>Stehen und Ziehen verlieren beide mehr als den halben Einsatz. Aufgeben verliert genau die Hälfte – also ist es die beste Wahl. Gibt es kein Surrender, ziehst du knapp. Die ganze Analyse findest du in <a href={routes.hand16v10.de}>16 gegen 10</a>.</p>
+
+  <h2 id="rule">Die Faustregel</h2>
+  <p>Gib auf, wenn deine Hand im Schnitt <strong>mehr als die Hälfte</strong> des Einsatzes verliert (Erwartungswert unter −0,5). Das trifft nur auf sehr wenige Hände zu: schwache harte Summen gegen die stärksten Karten des Dealers. Eine 16 gegen eine 7 fühlt sich schlecht an, verliert aber nicht so oft – dort ziehst du.</p>
+  <div class="callout"><p><strong>Typischer Fehler:</strong> zu oft aufgeben. Wer jede unangenehme Hand wegwirft, verschenkt Geld. Surrender ist ein Werkzeug für vier, fünf Situationen, keine Fluchttür.</p></div>
+
+  <h2 id="early">Early Surrender (Macau)</h2>
+  <p>Bei <strong>Early Surrender</strong> darfst du aufgeben, bevor feststeht, ob der Dealer Blackjack hat. Das ist viel wertvoller. In Macau ist es gegen 2 bis 10 erlaubt, aber nicht gegen ein Ass. Gegen eine 10 gibst du dann <strong>harte 14, 15 und 16</strong> auf, einschließlich 7-7 und 8-8. Mehr dazu in unserem Ratgeber zu den <a href={routes.macau.de}>Blackjack-Regeln in Macau</a>.</p>
+
+  <h2 id="without">Ohne Surrender</h2>
+  <p>Erlaubt dein Tisch kein Aufgeben, spielst du die Hand: 16 gegen 10 ziehen, 15 gegen 10 ziehen, 16 gegen 9 ziehen. Die Verluste sind etwas höher, aber Ziehen bleibt dort die beste verfügbare Option.</p>
+  <p>Surrender ändert nichts daran, dass das Haus langfristig im Vorteil ist. Spiel um echtes Geld nur mit einem festen Budget – Tipps findest du unter <a href={routes.responsible.de}>verantwortungsvolles Spielen</a>. Üben kannst du ohne Risiko am <a href={routes.simulator.de}>kostenlosen Übungstisch</a> oder in der App Veintiuno, in der du Tische mit und ohne Surrender auswählen kannst.</p>
+</Guide>

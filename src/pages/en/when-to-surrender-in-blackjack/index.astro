@@ -1,0 +1,69 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'When should you surrender in blackjack?', a: 'With late surrender on a six-deck table where the dealer stands on soft 17: surrender hard 16 against a 9, 10 or ace, and hard 15 against a 10. If the dealer hits soft 17, also surrender 15 and 17 against an ace, and 8-8 against an ace.' },
+  { q: 'Should you surrender 16 against a 10?', a: 'Yes, if surrender is allowed. Surrendering costs exactly half a bet (−0.500), while hitting is worth about −0.535 and standing about −0.542. Without surrender, hit.' },
+  { q: 'Do you surrender a pair of 8s?', a: 'Normally no: split 8-8, even against a 10. The only exception on standard tables is 8-8 against an ace when the dealer hits soft 17, where surrender is slightly better.' },
+  { q: 'What is the difference between late and early surrender?', a: 'Late surrender is only allowed after the dealer checks for blackjack. Early surrender, found in Macau, lets you give up before the dealer can show a blackjack, which is much more valuable: against a 10 you surrender hard 14, 15 and 16, including 7-7 and 8-8.' },
+];
+---
+<Guide
+  lang="en"
+  route="surrender"
+  title="When to Surrender in Blackjack (Late Surrender Chart)"
+  h1="When to surrender in blackjack"
+  description="When to surrender in blackjack: hard 16 vs 9, 10 or ace and hard 15 vs 10. The late surrender chart, H17 changes, early surrender and what to do without it."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['hand16v10', 'macau', 'softHands', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> on a standard six-deck table where the dealer stands on soft 17, <strong>surrender hard 16 against a 9, 10 or ace, and hard 15 against a 10</strong>. That’s it. Don’t surrender a pair of 8s (split them). If surrender isn’t offered, hit those hands instead.</p></div>
+  </div>
+
+  <h2 id="what">What surrender is</h2>
+  <p>Surrender lets you give up your hand after seeing your first two cards and the dealer’s upcard. You lose <strong>half your bet</strong> and keep the other half. It’s the only move in blackjack with a guaranteed result, and it makes sense when your hand is so bad that you’d lose more than half a bet on average by playing it.</p>
+  <p>Most tables that offer it use <strong>late surrender</strong>: the dealer first checks for blackjack, and you can only surrender if the dealer doesn’t have one. Across a whole session late surrender is worth about 0.07 points of house edge. It isn’t available everywhere: most European and Spanish tables and many live-dealer tables don’t offer it.</p>
+
+  <h2 id="chart">The late surrender chart</h2>
+  <table>
+    <thead><tr><th>Your hand</th><th>Dealer stands on soft 17 (S17)</th><th>Dealer hits soft 17 (H17)</th></tr></thead>
+    <tbody>
+      <tr><td>Hard 17</td><td>never</td><td>vs ace</td></tr>
+      <tr><td>Hard 16</td><td>vs 9, 10, ace</td><td>vs 9, 10, ace</td></tr>
+      <tr><td>Hard 15</td><td>vs 10</td><td>vs 10, ace</td></tr>
+      <tr><td>8-8</td><td>never (split)</td><td>vs ace</td></tr>
+    </tbody>
+  </table>
+  <p>Every other hand you play out according to the <a href={routes.strategy.en}>basic strategy chart</a>. Surrender is a short list, and that’s exactly why it’s easy to learn.</p>
+
+  <h2 id="rule">The rule of thumb</h2>
+  <p>Surrender when your hand loses more than half the time on average, that is, when its expected value is <strong>below −0.5 bets</strong>. Giving up half a bet is then a smaller loss than playing on.</p>
+  <p>The classic example is 10-6 against a 10 on a six-deck S17 table:</p>
+  <EVTable lang="en" cards={[10, 6]} up={10} tables={['vegasS17']} />
+  <p>Standing is worth about −0.542, hitting −0.535 and surrendering exactly −0.500. Surrender wins. Without it, hitting is better than standing, but only by a hair. We break that hand down in <a href={routes.hand16v10.en}>16 vs 10</a>.</p>
+
+  <h2 id="early">Early surrender: the Macau rule</h2>
+  <p>Some tables, notably in <a href={routes.macau.en}>Macau</a>, offer <strong>early surrender</strong>: you can give up before the dealer can show a blackjack (though not against an ace). That’s much more valuable, because you also escape the hands where the dealer turns out to have blackjack. Against a 10, you surrender hard <strong>14, 15 and 16</strong>, including 7-7 and 8-8.</p>
+
+  <h2 id="no-surrender">No surrender? Play the hand</h2>
+  <p>If the table doesn’t offer surrender, you don’t stand on these hands out of fear. You play them:</p>
+  <ul>
+    <li><strong>16 vs 10:</strong> hit.</li>
+    <li><strong>15 vs 10:</strong> hit.</li>
+    <li><strong>16 vs 9:</strong> hit.</li>
+    <li><strong>8-8:</strong> split.</li>
+  </ul>
+  <h2 id="mistakes">Common surrender mistakes</h2>
+  <ul>
+    <li><strong>Surrendering too much.</strong> Giving up 12 or 13 against a 10 feels safe, but those hands lose less than half a bet if you play them correctly.</li>
+    <li><strong>Surrendering 8-8 against a 10.</strong> On standard tables, two hands starting on 8 do better than giving up. See <a href={routes.whenSplit.en}>when to split</a>.</li>
+    <li><strong>Forgetting it exists.</strong> If your table offers late surrender and you never use it, you’re giving away part of the 0.07 points it’s worth.</li>
+  </ul>
+  <div class="callout"><p><strong>Surrender reduces losses; it doesn’t create wins.</strong> The house keeps an edge on every table. Set a budget before you play, and if gambling stops being fun, visit our <a href={routes.responsible.en}>responsible gambling</a> page.</p></div>
+  <p>The Veintiuno app adjusts the chart to your table’s rules, surrender included. Get it right first on the free <a href={routes.simulator.en}>practice table</a>.</p>
+</Guide>

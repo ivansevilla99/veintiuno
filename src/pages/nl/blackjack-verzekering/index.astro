@@ -1,0 +1,60 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Moet je verzekering nemen bij blackjack?', a: 'Nee, als je basisstrategie speelt. Met 6 decks verlies je gemiddeld ongeveer 7,4% van elke verzekeringsinzet. Alleen kaartentellers nemen hem, en dan alleen als er duidelijk veel tienen over zijn (bij Hi-Lo ongeveer vanaf een true count van +3).' },
+  { q: 'Is even money nemen met blackjack slim?', a: 'Nee. Even money is verzekering onder een andere naam. Neem je het, dan krijg je gegarandeerd 1 inzet. Sla je het af, dan krijg je gemiddeld ongeveer 1,037 inzet. Afslaan levert dus zo’n 3,7% meer op.' },
+  { q: 'Beschermt verzekering een goede hand zoals 20?', a: 'Nee, dat is een mythe. Verzekering is een aparte weddenschap op de gesloten kaart van de dealer en hangt niet af van je eigen hand. Met 20 is hij net zo slecht als met 12.' },
+  { q: 'Hoe werkt verzekering aan tafels zonder hole card?', a: 'In Spanje en aan veel Europese tafels wordt verzekering op dezelfde manier aangeboden wanneer de dealer een aas laat zien. De rekensom is dezelfde, en hij is dus net zo slecht.' },
+];
+---
+<Guide
+  lang="nl"
+  route="insurance"
+  title="Verzekering bij blackjack: waarom je nee zegt"
+  h1="Verzekering en even money bij blackjack: de rekensom"
+  description="Verzekering nemen als de dealer een aas toont? Met 6 decks verlies je zo’n 7,4% van die inzet. De rekensom, even money en de mythe van ‘je hand beschermen’."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['mistakes', 'payout65', 'counting', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> Neem <strong>geen verzekering</strong> en geen even money. Met 6 decks verlies je gemiddeld ongeveer <strong>7,4%</strong> van elke verzekeringsinzet. Verzekering wordt pas winstgevend als meer dan 1 op de 3 resterende kaarten een tien is – en dat weet je alleen als je kaarten telt.</p></div>
+  </div>
+
+  <h2 id="how">Hoe verzekering werkt</h2>
+  <p>Laat de dealer een aas zien, dan biedt hij je verzekering aan. Je zet maximaal de helft van je inzet in op de vraag of zijn gesloten kaart een tienwaardige kaart is (10, boer, vrouw of heer). Heeft de dealer blackjack, dan betaalt de verzekering 2 tegen 1; zo niet, dan ben je de verzekeringsinzet kwijt en gaat de hand gewoon verder.</p>
+  <p>Het klinkt als een veiligheidsnet. In werkelijkheid is het een losse weddenschap met een flink huisvoordeel.</p>
+
+  <h2 id="math">De rekensom met 6 decks</h2>
+  <p>Een shoe van 6 decks heeft 312 kaarten, waarvan 96 tienwaardig. Zie je alleen de aas van de dealer, dan blijven er 311 onbekende kaarten over, met nog steeds 96 tienen. De kans dat de gesloten kaart een tien is, is dus 96/311 = <strong>30,87%</strong>.</p>
+  <p>Per eenheid verzekering win je 2 met kans 30,87% en verlies je 1 met kans 69,13%: 2 × 0,3087 − 0,6913 = <strong>−0,074</strong>. Je verliest dus gemiddeld ongeveer 7,4 cent per euro die je op verzekering zet.</p>
+  <table>
+    <thead><tr><th>Aantal decks</th><th>Gemiddeld verlies op de verzekeringsinzet</th></tr></thead>
+    <tbody>
+      <tr><td>1 deck</td><td>≈ 5,9%</td></tr>
+      <tr><td>6 decks</td><td>≈ 7,4%</td></tr>
+      <tr><td>8 decks</td><td>≈ 7,5%</td></tr>
+    </tbody>
+  </table>
+  <p>Ter vergelijking: met perfecte basisstrategie heeft het hoofdspel aan een goede tafel een huisvoordeel van ongeveer 0,36%. Verzekering is ruim twintig keer zo duur.</p>
+
+  <h2 id="even-money">Even money: verzekering onder een andere naam</h2>
+  <p>Heb jij blackjack en laat de dealer een aas zien, dan biedt hij „even money” aan: je krijgt meteen 1 tegen 1 uitbetaald in plaats van 3 tegen 2 af te wachten. Dat is precies hetzelfde als een volledige verzekering nemen.</p>
+  <ul>
+    <li><strong>Even money nemen:</strong> gegarandeerd 1 inzet.</li>
+    <li><strong>Afslaan:</strong> in 69,13% van de gevallen heeft de dealer geen blackjack en win je 1,5 inzet; anders is het gelijkspel. Gemiddeld: 0,6913 × 1,5 = <strong>1,037 inzet</strong>.</li>
+  </ul>
+  <p>Afslaan levert dus ongeveer 0,037 inzet meer op, elke keer weer. Zekerheid voelt prettig, maar je betaalt ervoor.</p>
+
+  <h2 id="myth">De mythe van ‘je goede hand beschermen’</h2>
+  <p>Veel spelers nemen verzekering met 19 of 20, „om een goede hand te beschermen”. Maar de verzekering is een weddenschap op de gesloten kaart van de dealer, los van jouw hand. Of je 20 of 12 hebt, de kans op een tien onder die aas blijft hetzelfde – en dus ook het verlies van ongeveer 7,4%.</p>
+  <p>Ook aan tafels zonder hole card, zoals in <a href={routes.spain.nl}>Spaanse casino’s</a> en veel Europese tafels, wordt verzekering op dezelfde manier aangeboden. De rekensom verandert niet.</p>
+
+  <h2 id="counting">Wanneer verzekering wél zin heeft</h2>
+  <p>Alleen als meer dan 1 op de 3 resterende kaarten een tien is. Met <a href={routes.counting.nl}>kaarten tellen</a> volgens Hi-Lo is dat in een shoe ongeveer vanaf een true count van <strong>+3</strong>. Dat is het moment waarop tellers verzekering nemen. Tel je niet, dan is het antwoord altijd nee.</p>
+  <div class="callout"><p><strong>Onthoud:</strong> zelfs zonder verzekering heeft het casino een voordeel. Speel met een vast budget en alleen met geld dat je kunt missen. Meer daarover op de pagina <a href={routes.responsible.nl}>verantwoord spelen</a>.</p></div>
+  <p>In de <a href={routes.simulator.nl}>gratis oefentafel</a> en in de <a href={routes.app.nl}>Veintiuno-app</a> leer je om automatisch nee te zeggen – zonder echt geld.</p>
+</Guide>

@@ -1,0 +1,78 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Qual è l’errore più costoso a blackjack?', a: 'Giocare a istinto invece che con la strategia di base. Chi non chiede mai carta con 12 o più per paura di sballare affronta un vantaggio del banco di circa il 4%, contro circa lo 0,4% di chi gioca con la strategia.' },
+  { q: 'I sistemi di puntata come la martingala funzionano?', a: 'No. Nessun sistema di puntata cambia il vantaggio del banco: cambiano solo l’oscillazione dei risultati e il rischio di perdere tutto il budget.' },
+  { q: 'Un giocatore scarso al tavolo mi fa perdere?', a: 'No, è un mito. Le decisioni degli altri cambiano quali carte ricevi in una mano concreta, ma non il tuo valore atteso: a lungo andare aiutano e danneggiano nella stessa misura.' },
+  { q: 'Sbagliare 16 contro 10 è un errore grave?', a: 'No. Tra chiedere carta e stare la differenza è inferiore all’1% della puntata. Gli errori che costano davvero sono altri: assicurazione, tavoli 6:5, stare con 12–16 contro carte alte, non raddoppiare.' },
+];
+---
+<Guide
+  lang="it"
+  route="mistakes"
+  title="Errori comuni a blackjack: i 10 più costosi"
+  h1="Gli errori più comuni a blackjack (e quanto ti costano)"
+  description="Gli errori più comuni a blackjack e quanto costano: giocare per non sballare, assicurazione, tavoli 6:5, soft 17, martingala. Con i numeri e come evitarli."
+  updated="2026-10-06"
+  readMinutes={6}
+  faq={faq}
+  related={['insurance', 'payout65', 'softHands', 'howToWin']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> l’errore più caro è <strong>non usare la strategia di base</strong>: giocare “per non sballare” porta il vantaggio del banco a circa il 4%, contro circa lo 0,4% con la strategia. Seguono <strong>prendere l’assicurazione</strong> (−7,4% su quella puntata), <strong>sedersi a un tavolo 6:5</strong> (+1,39 punti), stare con 12–16 contro carte alte, non raddoppiare e dividere male. I sistemi di puntata non aiutano.</p></div>
+  </div>
+
+  <h2 id="cost">Quanto costa ogni stile di gioco</h2>
+  <p>Cifre approssimative tratte da analisi pubblicate (come quelle di Wizard of Odds), su un tavolo standard:</p>
+  <table>
+    <thead><tr><th>Come giochi</th><th>Vantaggio del banco, circa</th></tr></thead>
+    <tbody>
+      <tr><td>Strategia di base perfetta</td><td>0,4%</td></tr>
+      <tr><td>“Non sballare mai” (stai con qualsiasi 12 o più)</td><td>4%</td></tr>
+      <tr><td>Imitare il banco (carta fino a 17, mai raddoppiare né dividere)</td><td>5,5%</td></tr>
+    </tbody>
+  </table>
+  <p>Giocare a istinto significa regalare al banco circa dieci volte il vantaggio che avrebbe con la strategia di base.</p>
+
+  <h2 id="list">I 10 errori che costano di più</h2>
+
+  <h3>1. Giocare “per non sballare”</h3>
+  <p>Stare con qualsiasi 12 o più sembra prudente, ma ti lascia vincere solo quando sballa il banco. La <a href={routes.strategy.it}>tabella di strategia di base</a> ti dice quando rischiare e quando no.</p>
+
+  <h3>2. Prendere l’assicurazione o l’even money</h3>
+  <p>Con 6 mazzi perdi in media circa il <strong>7,4%</strong> di ogni puntata assicurativa. L’even money è la stessa cosa con un altro nome. I numeri completi in <a href={routes.insurance.it}>assicurazione a blackjack</a>.</p>
+
+  <h3>3. Giocare a un tavolo che paga 6:5</h3>
+  <p>Aggiunge circa <strong>1,39 punti</strong> al vantaggio del banco, più di qualsiasi altra regola. Leggi il panno e cerca il 3:2: lo spieghiamo in <a href={routes.payout65.it}>blackjack 6:5 contro 3:2</a>.</p>
+
+  <h3>4. Stare con 12–16 contro 7, 8, 9, 10 o asso</h3>
+  <p>Contro una carta alta il banco arriva spesso a 17 o più. Stare con 15 contro un 10 “per non sballare” perde più che chiedere carta.</p>
+
+  <h3>5. Non raddoppiare con 10 o 11 contro una carta debole</h3>
+  <p>Sono le situazioni in cui hai il vantaggio: non puntare di più è lasciare soldi sul tavolo. Vedi <a href={routes.whenDouble.it}>quando raddoppiare</a>.</p>
+
+  <h3>6. Non dividere 8-8 e A-A</h3>
+  <p>Un 16 è una mano pessima; due mani che partono da 8 vanno molto meglio. E due assi separati sono due ottimi inizi invece di un modesto 12.</p>
+
+  <h3>7. Dividere 10-10</h3>
+  <p>Un 20 è una delle mani migliori che puoi avere. Dividerlo trasforma una mano quasi vincente in due mani incerte.</p>
+
+  <h3>8. Dividere 5-5</h3>
+  <p>Un 5-5 è un 10, non una coppia da dividere: raddoppia come faresti con un 10. Tutte le coppie in <a href={routes.whenSplit.it}>quando dividere</a>.</p>
+
+  <h3>9. Stare con soft 17 (A-6)</h3>
+  <p>Con un asso che vale 11 non puoi sballare con una carta: chiedi carta o raddoppia. Tutto in <a href={routes.softHands.it}>mani soft</a>.</p>
+
+  <h3>10. Credere nei sistemi di puntata</h3>
+  <p>Martingala e progressioni non cambiano il vantaggio del banco: cambiano solo l’oscillazione dei risultati e il rischio di perdere tutto il budget.</p>
+
+  <h2 id="myths">Due miti da lasciar perdere</h2>
+  <ul>
+    <li><strong>“Il giocatore scarso al tavolo ti rovina le carte.”</strong> Falso: le decisioni degli altri non cambiano il tuo valore atteso.</li>
+    <li><strong>“Sbagliare 16 contro 10 è un disastro.”</strong> Tra chiedere carta e stare la differenza è inferiore all’1% della puntata. Approfondisci in <a href={routes.hand16v10.it}>16 contro 10</a>: non è lì che si perdono i soldi.</li>
+  </ul>
+  <div class="callout"><p><strong>Una nota onesta:</strong> eliminare questi errori riduce il vantaggio del banco, ma non lo cancella. Nessuna strategia ti garantisce di vincere. Se giochi con soldi veri, fissa un limite e leggi la pagina sul <a href={routes.responsible.it}>gioco responsabile</a>.</p></div>
+  <p>Il modo più rapido per smettere di sbagliare è allenarsi con correzione immediata: prova il <a href={routes.simulator.it}>tavolo di allenamento gratis</a>. Nell’app, la mappa dei tuoi errori ti mostra in quali mani sbagli più spesso.</p>
+</Guide>

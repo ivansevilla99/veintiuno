@@ -1,0 +1,62 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Wat zijn de gebruikelijke regels bij live blackjack?', a: 'Aan een typische live-tafel: 8 decks, de dealer past op zachte 17, hij checkt alleen op blackjack als hij een aas laat zien, één keer splitsen, geen surrender en blackjack betaalt 3:2. Het huisvoordeel met perfecte strategie is ongeveer 0,6–0,7%.' },
+  { q: 'Werkt kaarten tellen bij live blackjack?', a: 'Nauwelijks. De shoe wordt meestal rond de helft opnieuw geschud, waardoor de true count zelden hoog genoeg wordt. Gebruik nooit software of hulpmiddelen: dat is tegen de voorwaarden en op veel plaatsen illegaal.' },
+  { q: 'Verandert de strategie bij live blackjack?', a: 'Een beetje. Tegen een 10 verdubbel je 11 niet en split je 8-8 niet (je vraagt een kaart), omdat een latere blackjack van de dealer ook je extra inzet meeneemt. Verder speel je zoals aan een Europese tafel zonder hole card.' },
+  { q: 'Zijn side bets zoals 21+3 of Perfect Pairs de moeite waard?', a: 'Nee. Side bets hebben een veel hoger huisvoordeel dan het hoofdspel. Wil je zo weinig mogelijk verliezen, laat ze dan liggen.' },
+];
+---
+<Guide
+  lang="nl"
+  route="live"
+  title="Live blackjack: regels, strategie en kaarten tellen"
+  h1="Live blackjack online: hoe het werkt en hoe je speelt"
+  description="Live blackjack online: de gebruikelijke regels (8 decks, geen surrender), wat er aan je strategie verandert en waarom kaarten tellen nauwelijks werkt."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['spain', 'macau', 'mistakes', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> Live blackjack wordt meestal gespeeld met <strong>8 decks</strong>, een dealer die past op zachte 17, <strong>geen surrender</strong> en een dealer die alleen bij een aas op blackjack checkt. Het huisvoordeel met perfecte strategie is ongeveer <strong>0,6–0,7%</strong>. Tegen een 10 verdubbel je 11 niet en split je 8-8 niet. Kaarten tellen werkt nauwelijks, en side bets zijn veel duurder dan het hoofdspel.</p></div>
+  </div>
+
+  <h2 id="rules">De gebruikelijke regels</h2>
+  <p>Een typische live-tafel online, zoals bij de grote studio’s, ziet er ongeveer zo uit. Regels verschillen per aanbieder en per tafel, dus lees altijd de spelregels van de tafel zelf.</p>
+  <table>
+    <thead><tr><th>Regel</th><th>Typische live-tafel</th></tr></thead>
+    <tbody>
+      <tr><td>Decks</td><td>8</td></tr>
+      <tr><td>Dealer op zachte 17</td><td>Past (S17)</td></tr>
+      <tr><td>Check op blackjack</td><td>Alleen als de dealer een aas laat zien</td></tr>
+      <tr><td>Dealer toont een 10 en draait blackjack</td><td>Je verliest ook je verdubbelingen en splits</td></tr>
+      <tr><td>Splitsen</td><td>Eén keer</td></tr>
+      <tr><td>Opgeven (surrender)</td><td>Nee</td></tr>
+      <tr><td>Blackjack betaalt</td><td>3 tegen 2</td></tr>
+      <tr><td>Huisvoordeel met perfecte strategie</td><td>≈ 0,6–0,7%</td></tr>
+    </tbody>
+  </table>
+  <p>Ter vergelijking: aan de referentietafel (6 decks, late surrender, dealer checkt altijd op blackjack) is het ongeveer 0,36%.</p>
+
+  <h2 id="strategy">Wat er aan de strategie verandert</h2>
+  <p>Het belangrijkste verschil zit in die ene regel: toont de dealer een 10 en blijkt hij later blackjack te hebben, dan verlies je ook het extra geld dat je hebt ingezet door te verdubbelen of te splitsen. Daarom speel je tegen een 10 voorzichtiger:</p>
+  <ul>
+    <li><strong>11 tegen 10:</strong> niet verdubbelen, maar een kaart vragen.</li>
+    <li><strong>8-8 tegen 10:</strong> niet splitsen, maar een kaart vragen.</li>
+  </ul>
+  <p>Verder speel je zoals aan een Europese tafel zonder hole card. In de <a href={routes.strategy.nl}>interactieve strategietabel</a> kies je „Europees / online” om alle vakjes te zien. Hoe de Europese regels in de praktijk werken, lees je ook in de gids over <a href={routes.spain.nl}>blackjack in Spanje</a>.</p>
+
+  <h2 id="counting">Werkt kaarten tellen bij live blackjack?</h2>
+  <p>Nauwelijks. In de studio wordt de shoe meestal rond de helft opnieuw geschud. Daardoor wordt de true count zelden hoog genoeg om er iets mee te kunnen. <a href={routes.counting.nl}>Kaarten tellen</a> is een interessante vaardigheid om te begrijpen hoe het spel werkt, maar online levert het vrijwel niets op.</p>
+  <p>Gebruik nooit software, tellers of andere hulpmiddelen tijdens het spelen: dat is in strijd met de voorwaarden van de aanbieders en op veel plaatsen illegaal.</p>
+
+  <h2 id="sidebets">Side bets: 21+3, Perfect Pairs en andere</h2>
+  <p>Live-tafels bieden vaak extra weddenschappen aan, zoals 21+3 en Perfect Pairs. Die zijn spannend, maar hebben een <strong>veel hoger huisvoordeel</strong> dan het hoofdspel. Wil je zo weinig mogelijk verliezen, dan laat je ze liggen. Ook verzekering is aan live-tafels net zo slecht als overal: zie <a href={routes.insurance.nl}>verzekering bij blackjack</a>.</p>
+
+  <h2 id="honest">Eerlijk over live blackjack</h2>
+  <p>Live blackjack is gokken met echt geld, en het casino heeft altijd een voordeel. Basisstrategie maakt dat voordeel kleiner, maar laat het niet verdwijnen. Bepaal vooraf een budget, speel niet om verliezen terug te winnen en stop als het niet leuk meer is. Op de pagina <a href={routes.responsible.nl}>verantwoord spelen</a> vind je waarschuwingssignalen en waar je hulp kunt krijgen.</p>
+  <div class="callout"><p><strong>Eerst oefenen, zonder geld:</strong> de Veintiuno-app heeft een tafel „Live dealer online” met precies deze strategietabel. Je kunt ook direct oefenen aan de <a href={routes.simulator.nl}>gratis oefentafel</a> op deze website.</p></div>
+</Guide>

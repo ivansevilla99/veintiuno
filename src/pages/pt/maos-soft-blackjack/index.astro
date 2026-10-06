@@ -1,0 +1,85 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const ups = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'A'];
+const rows: [string, string[]][] = [
+  ['A-2 (13 soft)', ['Pe', 'Pe', 'Pe', 'D', 'D', 'Pe', 'Pe', 'Pe', 'Pe', 'Pe']],
+  ['A-3 (14 soft)', ['Pe', 'Pe', 'Pe', 'D', 'D', 'Pe', 'Pe', 'Pe', 'Pe', 'Pe']],
+  ['A-4 (15 soft)', ['Pe', 'Pe', 'D', 'D', 'D', 'Pe', 'Pe', 'Pe', 'Pe', 'Pe']],
+  ['A-5 (16 soft)', ['Pe', 'Pe', 'D', 'D', 'D', 'Pe', 'Pe', 'Pe', 'Pe', 'Pe']],
+  ['A-6 (17 soft)', ['Pe', 'D', 'D', 'D', 'D', 'Pe', 'Pe', 'Pe', 'Pe', 'Pe']],
+  ['A-7 (18 soft)', ['Pa', 'Dp', 'Dp', 'Dp', 'Dp', 'Pa', 'Pa', 'Pe', 'Pe', 'Pe']],
+  ['A-8 (19 soft)', ['Pa', 'Pa', 'Pa', 'Pa', 'Pa', 'Pa', 'Pa', 'Pa', 'Pa', 'Pa']],
+  ['A-9 (20 soft)', ['Pa', 'Pa', 'Pa', 'Pa', 'Pa', 'Pa', 'Pa', 'Pa', 'Pa', 'Pa']],
+];
+
+const faq = [
+  { q: 'O que é uma mão soft no blackjack?', a: 'É uma mão com um ás que está contando como 11. Por exemplo, A-6 é um 17 soft. Como o ás pode passar a valer 1, uma carta a mais nunca faz você estourar.' },
+  { q: 'Devo parar com 17 soft (A-6)?', a: 'Nunca. Com A-6 você dobra contra 3, 4, 5 e 6 e pede contra o resto. Parar com 17 soft é um dos erros mais comuns.' },
+  { q: 'O que fazer com A-7 (18 soft)?', a: 'Na mesa de referência: dobrar contra 3 a 6 (se não puder dobrar, parar), parar contra 2, 7 e 8, e pedir contra 9, 10 e ás.' },
+  { q: 'E se a mesa só deixa dobrar com 9, 10 ou 11?', a: 'Então você nunca dobra uma mão soft. Onde a tabela diz dobrar, você pede; no caso do A-7 contra 3 a 6, você para.' },
+];
+---
+<Guide
+  lang="pt"
+  route="softHands"
+  title="Mãos soft no blackjack: 17 soft, A-7 e mais"
+  h1="Mãos soft no blackjack: como jogar de A-2 a A-9"
+  description="Como jogar as mãos soft no blackjack: quando dobrar, pedir ou parar com A-2 a A-9, por que nunca parar com 17 soft e o que muda com H17 e mesas da Espanha."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['whenDouble', 'strategy', 'mistakes', 'spain']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Resposta curta:</strong> uma mão soft tem um ás que conta como 11, então uma carta a mais não faz você estourar. Por isso ela se joga de forma <strong>mais agressiva</strong>: dobre A-2 a A-6 contra as cartas fracas do dealer, <strong>nunca pare com 17 soft (A-6)</strong>, dobre A-7 contra 3 a 6 e peça com A-7 contra 9, 10 ou ás. A-8 e A-9: pare.</p></div>
+  </div>
+
+  <h2 id="what">O que é uma mão soft</h2>
+  <p>Uma mão é <strong>soft</strong> (macia) quando tem um ás contando como 11. A-6 vale 17 soft; se você recebe um 8, o ás passa a valer 1 e você fica com 15, sem estourar. Essa flexibilidade muda tudo: com uma mão soft, pedir carta é muito mais barato do que com uma mão dura.</p>
+
+  <h2 id="chart">A tabela das mãos soft</h2>
+  <p>Mesa de referência: 6 baralhos, dealer para no 17 soft, dobrar com quaisquer duas cartas. Colunas = carta visível do dealer.</p>
+  <div class="chart-scroll" style="overflow-x:auto">
+    <table>
+      <thead><tr><th>Mão</th>{ups.map((u) => <th>{u}</th>)}</tr></thead>
+      <tbody>
+        {rows.map(([hand, acts]) => <tr><td>{hand}</td>{acts.map((a) => <td>{a}</td>)}</tr>)}
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Pe</strong> = pedir · <strong>Pa</strong> = parar · <strong>D</strong> = dobrar (se não puder, pedir) · <strong>Dp</strong> = dobrar (se não puder, parar).</p>
+  <p>A versão interativa, ajustável às regras da sua mesa, está na <a href={routes.strategy.pt}>tabela de estratégia básica</a>.</p>
+
+  <h2 id="logic">A lógica por trás</h2>
+  <ul>
+    <li><strong>A-2 a A-6 contra 2 a 6 (com variações):</strong> o dealer está fraco e estoura com frequência. Você não corre risco de estourar com uma carta, então aproveita para colocar mais dinheiro na mesa dobrando.</li>
+    <li><strong>A-6 nunca para:</strong> 17 é uma mão fraca, que só ganha se o dealer estourar. Como pedir não pode fazer você estourar, sempre vale a pena tentar melhorar.</li>
+    <li><strong>A-7 é a mão mais traiçoeira:</strong> 18 parece bom, mas contra 9, 10 ou ás perde com frequência. Ali você pede; contra 3 a 6 você dobra.</li>
+    <li><strong>A-8 e A-9:</strong> 19 e 20 já são mãos fortes. Pare.</li>
+  </ul>
+  <p>Para entender todas as dobras, leia <a href={routes.whenDouble.pt}>quando dobrar no blackjack</a>.</p>
+
+  <h2 id="example">Um exemplo na mesa</h2>
+  <p>Você recebe ás e 6 e o dealer mostra um 5. Muita gente para, porque 17 “já é alguma coisa”. A jogada certa é dobrar: o dealer está numa das posições mais fracas, você não pode estourar com uma carta e qualquer 2, 3 ou 4 transforma a sua mão em 19 a 21. Se vier uma carta alta, você fica com uma mão dura de 13 a 17, mas o dealer ainda tem boas chances de estourar.</p>
+  <p>Agora o mesmo A-6 contra um 10. Dobrar não compensa, porque o dealer está forte, mas parar também não: 17 perde com frequência contra um 10. Você pede e, se ficar com uma mão dura de 12 a 16, segue a tabela das mãos duras.</p>
+
+  <h2 id="rules">O que muda com outras regras</h2>
+  <table>
+    <thead><tr><th>Regra da mesa</th><th>Mudança</th></tr></thead>
+    <tbody>
+      <tr><td>Dealer pede no 17 soft (H17)</td><td>A-7 contra 2: dobrar (senão parar). A-8 contra 6: dobrar (senão parar).</td></tr>
+      <tr><td>Dobrar só com 9, 10 ou 11 (Espanha)</td><td>Nunca dobrar mãos soft: onde diz dobrar, pedir; A-7 contra 3 a 6, parar.</td></tr>
+    </tbody>
+  </table>
+  <p>Veja como funcionam as <a href={routes.spain.pt}>regras do blackjack na Espanha</a>.</p>
+
+  <h2 id="mistakes">Os erros mais comuns com mãos soft</h2>
+  <ol>
+    <li>Parar com A-6 (17 soft).</li>
+    <li>Parar com A-7 contra 9, 10 ou ás.</li>
+    <li>Não dobrar A-7 contra 3 a 6.</li>
+  </ol>
+  <p>Esses e outros deslizes estão nos <a href={routes.mistakes.pt}>erros mais comuns no blackjack</a>. A forma mais rápida de corrigi-los é praticar no <a href={routes.simulator.pt}>simulador grátis</a>, que corrige cada decisão na hora.</p>
+</Guide>

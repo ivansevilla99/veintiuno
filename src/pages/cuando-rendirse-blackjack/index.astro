@@ -1,0 +1,67 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import EVTable from '../../components/EVTable.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Cuándo hay que rendirse en el blackjack?', a: 'Con la rendición tardía, en 6 barajas y crupier que se planta con 17 blando: con 16 duro contra 9, 10 o as, y con 15 duro contra 10. Si el crupier pide con 17 blando, añade 15 contra as, 17 contra as y 8-8 contra as.' },
+  { q: '¿Me rindo con una pareja de ochos contra un 10?', a: 'No. 8-8 se divide. La única excepción es 8-8 contra as cuando el crupier pide con 17 blando.' },
+  { q: '¿Qué hago si la mesa no permite rendirse?', a: 'Juega la mano: con 16 contra 10, 15 contra 10 y 16 contra 9, pide. En la mayoría de casinos de España y de Europa no hay rendición.' },
+  { q: '¿Qué diferencia hay entre rendición tardía y temprana?', a: 'En la tardía te rindes después de que el crupier compruebe si tiene blackjack. En la temprana te rindes antes, así que también te salvas de su blackjack; por eso vale mucho más y permite rendirse con más manos.' },
+];
+---
+<Guide
+  lang="es"
+  route="surrender"
+  title="Cuándo rendirse en el blackjack: las manos exactas"
+  h1="Cuándo rendirse en el blackjack"
+  description="Cuándo rendirse en el blackjack: 16 contra 9, 10 o as y 15 contra 10. Rendición tardía y temprana, cambios con H17 y qué hacer si tu mesa no permite rendirse."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['hand16v10', 'macau', 'strategy', 'mistakes']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Respuesta corta:</strong> con rendición tardía (6 barajas, el crupier se planta con 17 blando), <strong>ríndete con 16 duro contra 9, 10 o as, y con 15 duro contra 10</strong>. Nada más. Si tienes 8-8, divide. Y si tu mesa no ofrece rendirse, pide con esas manos.</p></div>
+  </div>
+
+  <h2 id="que-es">Qué es rendirse</h2>
+  <p>Rendirse (<em>surrender</em>) es abandonar la mano a cambio de recuperar <strong>la mitad de tu apuesta</strong>. Pierdes media apuesta seguro, en lugar de arriesgar la apuesta entera.</p>
+  <p>La versión más común es la <strong>rendición tardía</strong>: solo puedes rendirte después de que el crupier haya comprobado que no tiene blackjack, y antes de pedir ninguna carta. Ojo: en la mayoría de mesas de España y de Europa, y en muchas mesas en vivo online, <strong>no se puede rendir</strong>. Mira las reglas de tu mesa antes.</p>
+
+  <h2 id="regla">La regla para saber cuándo</h2>
+  <p>Rendirte te cuesta exactamente media apuesta (−0,500). Por tanto, solo compensa cuando jugar la mano te hace perder <strong>más de media apuesta</strong> de media. Eso pasa en muy pocas manos: las que pierden más de la mitad de las veces aunque las juegues bien.</p>
+  <p>El caso más claro es 16 contra 10. Estos son los valores esperados de cada opción:</p>
+  <EVTable cards={[10, 6]} up={10} tables={['vegasS17']} />
+  <p>Plantarse vale unas −0,542 apuestas y pedir, −0,535. Rendirse, −0,500: es lo que menos pierde. Sin rendición, pedir gana por muy poco. Lo tienes explicado a fondo en <a href={routes.hand16v10.es}>16 contra 10</a>.</p>
+
+  <h2 id="tabla">Las manos en las que te rindes</h2>
+  <table>
+    <thead><tr><th>Tu mano</th><th>Crupier se planta con 17 blando (S17)</th><th>Crupier pide con 17 blando (H17)</th></tr></thead>
+    <tbody>
+      <tr><td>16 duro</td><td>contra 9, 10 y as</td><td>contra 9, 10 y as</td></tr>
+      <tr><td>15 duro</td><td>contra 10</td><td>contra 10 y as</td></tr>
+      <tr><td>17 duro</td><td>nunca</td><td>contra as</td></tr>
+      <tr><td>8-8</td><td>nunca (divide)</td><td>contra as</td></tr>
+    </tbody>
+  </table>
+  <p>Todo lo que no está en esta tabla se juega con normalidad según la <a href={routes.strategy.es}>tabla de estrategia básica</a>. Valor de la regla en conjunto: tener rendición tardía reduce la ventaja de la casa en unos <strong>0,07 puntos</strong>. Poco, pero gratis.</p>
+
+  <h2 id="ochos">¿Y con 8-8?</h2>
+  <p>Una pareja de ochos suma 16, y por eso mucha gente se rinde con ella contra un 10. Es un error: dos manos que empiezan en 8 pierden menos que un 16. <strong>Divide</strong>, salvo contra as cuando el crupier pide con 17 blando. Más en <a href={routes.whenSplit.es}>cuándo dividir</a>.</p>
+
+  <h2 id="temprana">Rendición temprana (Macao y Asia)</h2>
+  <p>En algunas mesas, sobre todo en Macao, se permite rendirse <strong>antes</strong> de que el crupier mire si tiene blackjack, aunque no contra un as. Eso te salva también de los blackjacks del crupier, así que vale mucho más que la tardía y se usa con más manos. Contra un 10 te rindes con:</p>
+  <ul>
+    <li>14, 15 y 16 duros,</li>
+    <li>incluidos 7-7 y 8-8.</li>
+  </ul>
+  <p>Lo explicamos en <a href={routes.macau.es}>las reglas del blackjack en Macao</a>.</p>
+
+  <h2 id="sin-rendicion">Si tu mesa no permite rendirse</h2>
+  <p>Juega la mano. Con <strong>16 contra 10, 15 contra 10 y 16 contra 9, pide</strong>. Plantarte «para no pasarte» es uno de los <a href={routes.mistakes.es}>errores más comunes</a>: con esas cartas el crupier acaba con 17 o más la mayoría de las veces.</p>
+  <div class="callout"><p><strong>Rendirse no es de cobardes.</strong> Es la jugada correcta en estas pocas manos. El error es rendirse con más manos de la cuenta, por miedo. En la app Veintiuno eliges las reglas de tu mesa y la corrección te dice cuándo toca y cuándo no.</p></div>
+
+  <h2 id="responsable">Una nota sobre el dinero</h2>
+  <p>Rendirte bien reduce un poco lo que pierdes, pero no cambia que la casa tiene ventaja. Juega solo con lo que puedas perder y consulta <a href={routes.responsible.es}>juego responsable</a> si lo necesitas.</p>
+</Guide>

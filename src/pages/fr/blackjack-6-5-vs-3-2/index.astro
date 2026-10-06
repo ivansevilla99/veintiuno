@@ -1,0 +1,61 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Que veut dire « blackjack paie 6:5 » ?', a: 'Que votre blackjack naturel (un as et une carte de valeur 10 sur les deux premières cartes) vous rapporte 6 pour 5 misés au lieu de 3 pour 2. Avec une mise de 10, vous gagnez 12 au lieu de 15. Les autres mains gagnantes sont toujours payées 1 contre 1.' },
+  { q: 'Combien coûte une table 6:5 par rapport à une table 3:2 ?', a: 'Environ 1,39 point d’avantage de la maison en plus. Sur la table de référence (6 jeux, croupier reste sur 17 souple, abandon tardif), on passe d’environ 0,36 % à environ 1,75 % du montant misé. Aucune autre règle isolée ne coûte autant.' },
+  { q: 'Faut-il changer de stratégie de base à une table 6:5 ?', a: 'Pratiquement pas. Les décisions restent quasiment les mêmes ; ce qui change, c’est le paiement du blackjack, et vous ne pouvez rien y faire en jouant mieux. La seule vraie parade est de choisir une table 3:2.' },
+  { q: 'Le blackjack payé à égalité (1:1) est-il pire ?', a: 'Oui. Un blackjack payé 1 contre 1 ajoute environ 2,27 points à l’avantage de la maison, encore plus que le 6:5.' },
+];
+---
+<Guide
+  lang="fr"
+  route="payout65"
+  title="Blackjack 6:5 ou 3:2 : ce que ça vous coûte"
+  h1="Blackjack 6:5 contre 3:2 : la règle qui coûte le plus cher"
+  description="Blackjack payé 6:5 ou 3:2 : la différence en chiffres, ce que la règle 6:5 ajoute à l’avantage de la maison et comment repérer une bonne table."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['dataRules', 'mistakes', 'insurance', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> choisissez toujours une table qui paie le blackjack <strong>3:2</strong>. Une table 6:5 ajoute environ <strong>1,39 point</strong> à l’avantage de la maison : sur une table classique, on passe d’environ 0,36 % à environ 1,75 % du montant misé. C’est la règle isolée qui vous coûte le plus, et aucune stratégie ne la compense.</p></div>
+  </div>
+
+  <h2 id="what">Ce que signifient 3:2 et 6:5</h2>
+  <p>Quand vos deux premières cartes sont un as et une carte de valeur 10, vous avez un <strong>blackjack naturel</strong>. C’est la seule main mieux payée que les autres, et c’est là que tout se joue :</p>
+  <ul>
+    <li><strong>3:2</strong> (3 pour 2) : vous misez 10, vous gagnez 15.</li>
+    <li><strong>6:5</strong> (6 pour 5) : vous misez 10, vous gagnez 12.</li>
+  </ul>
+  <p>La différence paraît minime : 3 unités sur une mise de 10, soit 0,3 mise par blackjack. Mais vous recevez un blackjack environ <strong>4,75 % du temps</strong>, à peu près une main sur 21. Sur des centaines de mains, ces petites différences s’additionnent.</p>
+
+  <h2 id="numbers">Combien coûte le 6:5, en chiffres</h2>
+  <p>Sur la table de référence (6 jeux, croupier qui reste sur 17 souple, doublement sur deux cartes quelconques, doublement après séparation, abandon tardif), l’avantage de la maison avec une stratégie de base parfaite est d’environ 0,36 %. Avec un paiement 6:5, il monte à environ 1,75 %.</p>
+  <table>
+    <thead><tr><th>Règle défavorable</th><th>Coût approximatif (points d’avantage de la maison)</th></tr></thead>
+    <tbody>
+      <tr><td>Blackjack payé 1:1 (égalité)</td><td>+2,27</td></tr>
+      <tr><td><strong>Blackjack payé 6:5</strong></td><td><strong>+1,39</strong></td></tr>
+      <tr><td>Croupier tire sur 17 souple (H17)</td><td>+0,22</td></tr>
+      <tr><td>Pas de carte cachée</td><td>+0,11</td></tr>
+      <tr><td>Doublement sur 9–11 seulement</td><td>+0,09</td></tr>
+      <tr><td>Pas d’abandon</td><td>+0,07</td></tr>
+    </tbody>
+  </table>
+  <p>Autrement dit, le 6:5 coûte plus que toutes les autres règles courantes réunies. Vous trouverez le détail de chaque règle dans notre tableau de l’<a href={routes.dataRules.fr}>avantage de la maison selon les règles</a>.</p>
+  <div class="callout"><p><strong>Un exemple concret :</strong> 100 mains à 10 la main, soit 1 000 misés. À une table 6:5, vous perdez en moyenne environ <strong>14 de plus</strong> qu’à une table 3:2 (1,39 % de 1 000). Ce n’est qu’une moyenne : sur une soirée, le hasard pèse bien plus. Mais sur la durée, c’est exactement ce que la règle vous prend.</p></div>
+
+  <h2 id="where">Où trouve-t-on des tables 6:5 ?</h2>
+  <p>Le 6:5 est fréquent sur les tables à petites mises du Strip de Las Vegas, sur les jeux à un seul paquet de Las Vegas et sur les tables des croisières bon marché. Selon les relevés de 2026, environ la moitié des casinos du Strip proposent encore du 3:2 quelque part.</p>
+  <p>Un jeu à un seul paquet payé 6:5 n’est pas une bonne affaire : l’avantage qu’apporte le paquet unique est largement effacé par le mauvais paiement.</p>
+
+  <h2 id="spot">Comment reconnaître une bonne table</h2>
+  <p>C’est simple : lisez le tapis. Le paiement est presque toujours imprimé dessus, par exemple « Blackjack pays 3 to 2 » ou « Blackjack pays 6 to 5 ». En cas de doute, demandez au croupier avant de vous asseoir. Si le tapis indique 6:5 et qu’une table 3:2 est disponible, même avec une mise minimale un peu plus haute, c’est généralement la meilleure option.</p>
+
+  <h2 id="strategy">Et la stratégie de base ?</h2>
+  <p>Elle ne change pratiquement pas. Le coût du 6:5 se trouve dans le paiement, pas dans vos décisions. Vous jouez donc vos mains comme d’habitude avec le <a href={routes.strategy.fr}>tableau de stratégie de base</a>, mais aucune décision ne peut récupérer ce que la table vous retire à chaque blackjack.</p>
+  <p>Pour bien jouer le reste, entraînez-vous sur la <a href={routes.simulator.fr}>table d’entraînement gratuite</a> et évitez les autres pièges classiques, comme l’<a href={routes.insurance.fr}>assurance</a>. Et souvenez-vous : quelle que soit la table, le blackjack reste un jeu où la maison garde l’avantage. Fixez-vous un budget et consultez notre page sur le <a href={routes.responsible.fr}>jeu responsable</a> si le jeu cesse d’être un plaisir.</p>
+</Guide>

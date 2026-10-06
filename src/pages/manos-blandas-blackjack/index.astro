@@ -1,0 +1,87 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Qué es una mano blanda en el blackjack?', a: 'Una mano con un as que cuenta como 11 sin pasarte, como A-6 (17 blando). Con una sola carta más no te puedes pasar, porque si hace falta el as pasa a valer 1.' },
+  { q: '¿Me planto con 17 blando (A-6)?', a: 'Nunca. A-6 se pide siempre, y si la mesa deja doblar cualquier mano, se dobla contra 3, 4, 5 y 6. Plantarte con 17 blando es uno de los errores más comunes.' },
+  { q: '¿Qué hago con A-7 (18 blando)?', a: 'Contra 2, 7 y 8, plántate. Contra 3 a 6, dobla si se puede (si no, plántate). Contra 9, 10 o as, pide: 18 no es tan buena mano contra cartas fuertes.' },
+  { q: '¿Y en los casinos de España?', a: 'Como solo se puede doblar con 9, 10 u 11, nunca doblas una mano blanda. Donde la tabla dice doblar, pides; salvo con A-7 contra 3 a 6, que te plantas.' },
+];
+
+const ups = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'A'];
+const rows: [string, string[]][] = [
+  ['A-2 (13)', ['P', 'P', 'P', 'D', 'D', 'P', 'P', 'P', 'P', 'P']],
+  ['A-3 (14)', ['P', 'P', 'P', 'D', 'D', 'P', 'P', 'P', 'P', 'P']],
+  ['A-4 (15)', ['P', 'P', 'D', 'D', 'D', 'P', 'P', 'P', 'P', 'P']],
+  ['A-5 (16)', ['P', 'P', 'D', 'D', 'D', 'P', 'P', 'P', 'P', 'P']],
+  ['A-6 (17)', ['P', 'D', 'D', 'D', 'D', 'P', 'P', 'P', 'P', 'P']],
+  ['A-7 (18)', ['Pl', 'Dp', 'Dp', 'Dp', 'Dp', 'Pl', 'Pl', 'P', 'P', 'P']],
+  ['A-8 (19)', ['Pl', 'Pl', 'Pl', 'Pl', 'Pl', 'Pl', 'Pl', 'Pl', 'Pl', 'Pl']],
+  ['A-9 (20)', ['Pl', 'Pl', 'Pl', 'Pl', 'Pl', 'Pl', 'Pl', 'Pl', 'Pl', 'Pl']],
+];
+---
+<Guide
+  lang="es"
+  route="softHands"
+  title="Manos blandas en blackjack: A-2 a A-9 y el 17 blando"
+  h1="Cómo jugar las manos blandas en el blackjack"
+  description="Cómo jugar las manos blandas del blackjack, de A-2 a A-9: cuándo pedir, doblar o plantarte, por qué nunca te plantas con 17 blando y qué cambia en España."
+  updated="2026-10-06"
+  readMinutes={6}
+  faq={faq}
+  related={['whenDouble', 'strategy', 'mistakes', 'surrender']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Respuesta corta:</strong> con una mano blanda <strong>no te puedes pasar con una carta</strong>, así que se juega más agresivo. <strong>A-2 a A-6: pide</strong> (y dobla contra las cartas débiles del crupier si la mesa lo permite). <strong>A-7: plántate contra 2, 7 y 8, dobla contra 3–6 y pide contra 9, 10 y as</strong>. <strong>A-8 y A-9: plántate</strong>. Y nunca te plantes con 17 blando.</p></div>
+  </div>
+
+  <h2 id="que-es">Qué es una mano blanda</h2>
+  <p>Una mano es <strong>blanda</strong> cuando lleva un as que cuenta como 11. A-6 es «17 blando»: vale 17, pero si pides y sale un 10, el as pasa a valer 1 y tienes 17 duro, no te has pasado. Por eso una carta más nunca te pasa con una mano blanda.</p>
+  <p>Esa red de seguridad cambia la forma de jugar. Con un 17 duro te plantas siempre; con un 17 blando, pedir es gratis en el sentido de que no te puedes pasar, y casi siempre mejora tu mano.</p>
+
+  <h2 id="tabla">La tabla de manos blandas</h2>
+  <p>Mesa de referencia: 6 barajas, el crupier se planta con 17 blando y se puede doblar con cualquier par de cartas. Columnas: carta visible del crupier.</p>
+  <div class="chart-scroll">
+    <table>
+      <thead><tr><th>Tu mano</th>{ups.map((u) => <th>{u}</th>)}</tr></thead>
+      <tbody>
+        {rows.map(([hand, acts]) => (
+          <tr><td><strong>{hand}</strong></td>{acts.map((a) => <td>{a}</td>)}</tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p><strong>P</strong> = pedir · <strong>D</strong> = doblar (si no se puede, pedir) · <strong>Dp</strong> = doblar (si no se puede, plantarse) · <strong>Pl</strong> = plantarse.</p>
+  <p>Tienes la tabla completa, con manos duras y parejas y ajustable a tu mesa, en la <a href={routes.strategy.es}>tabla de estrategia básica</a>.</p>
+
+  <h2 id="por-grupos">Cómo recordarla</h2>
+  <ul>
+    <li><strong>A-2 y A-3:</strong> dobla contra 5 y 6. Si no, pide.</li>
+    <li><strong>A-4 y A-5:</strong> dobla contra 4, 5 y 6. Si no, pide.</li>
+    <li><strong>A-6:</strong> dobla contra 3 a 6. Si no, pide. Nunca te plantes.</li>
+    <li><strong>A-7:</strong> la más traicionera. Dobla contra 3 a 6, plántate contra 2, 7 y 8, y pide contra 9, 10 y as.</li>
+    <li><strong>A-8 y A-9:</strong> plántate siempre.</li>
+  </ul>
+  <p>Fíjate en el patrón: cuanto más alta es tu mano blanda, contra más cartas del crupier doblas, porque partes de una base mejor. Las dobladas, explicadas una a una, están en <a href={routes.whenDouble.es}>cuándo doblar</a>.</p>
+
+  <h2 id="h17">Si el crupier pide con 17 blando (H17)</h2>
+  <p>Dos cambios pequeños:</p>
+  <ul>
+    <li><strong>A-7 contra 2:</strong> dobla (si no se puede, plántate).</li>
+    <li><strong>A-8 contra 6:</strong> dobla (si no se puede, plántate).</li>
+  </ul>
+
+  <h2 id="espana">En los casinos de España</h2>
+  <p>En España solo se puede doblar con 9, 10 u 11, así que <strong>nunca doblas una mano blanda</strong>. Donde la tabla dice «D», pides. Y A-7 contra 3 a 6, que en otras mesas doblarías, aquí te plantas. El resto no cambia. Lo tienes en <a href={routes.spain.es}>reglas del blackjack en España</a>.</p>
+
+  <h2 id="errores">Los errores más comunes con manos blandas</h2>
+  <ul>
+    <li><strong>Plantarse con A-6.</strong> 17 es una mano que gana poco: el crupier suele llegar a 17 o más. Pedir no te puede pasar.</li>
+    <li><strong>Plantarse con A-7 contra 9, 10 o as.</strong> Contra cartas fuertes, 18 se queda corto. Pide.</li>
+    <li><strong>No doblar A-7 contra 3 a 6</strong> cuando la mesa lo permite. Doblar aquí gana más que plantarse.</li>
+  </ul>
+  <div class="callout"><p><strong>Las manos blandas son donde más se nota la intuición equivocada.</strong> «Tengo 18, me planto» suena razonable y a veces no lo es. La forma de interiorizarlo es repetir: en la <a href={routes.simulator.es}>mesa gratuita</a> o en la app Veintiuno te corrigen cada jugada al momento y el mapa de errores te enseña qué manos fallas más.</p></div>
+
+  <p>Todo esto sirve para aprender a jugar bien, no para ganar dinero: la casa mantiene su ventaja. Si juegas con dinero real, pon un límite y consulta <a href={routes.responsible.es}>juego responsable</a>.</p>
+</Guide>

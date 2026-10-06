@@ -1,0 +1,67 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quelles sont les règles du blackjack à Macao ?', a: 'En général : 6 jeux, le croupier reste sur 17 souple, pas de carte cachée mais vous ne perdez que votre mise initiale face à un blackjack du croupier, abandon anticipé contre 2 à 10 (pas contre un as), doublement sur deux cartes quelconques et après séparation, séparation jusqu’à 4 mains et blackjack payé 3:2. Les règles peuvent varier selon les tables.' },
+  { q: 'Le blackjack de Macao est-il avantageux ?', a: 'Oui, c’est l’un des meilleurs au monde pour le joueur : avec ces règles, l’avantage de la maison tourne autour de 0,16 %, surtout grâce à l’abandon anticipé. La maison garde néanmoins l’avantage.' },
+  { q: 'Qu’est-ce que l’abandon anticipé ?', a: 'La possibilité d’abandonner votre main, en récupérant la moitié de la mise, avant que le croupier puisse montrer un blackjack. À Macao, il est autorisé contre une carte de 2 à 10, mais pas contre un as.' },
+  { q: 'Peut-on jouer au blackjack en Chine continentale, à Taïwan ou à Hong Kong ?', a: 'Il n’y a pas de casinos légaux en Chine continentale, à Taïwan ni à Hong Kong. Les joueurs de ces régions vont généralement à Macao.' },
+];
+---
+<Guide
+  lang="fr"
+  route="macau"
+  title="Blackjack à Macao : règles et stratégie"
+  h1="Le blackjack à Macao : règles, abandon anticipé et stratégie"
+  description="Les règles du blackjack à Macao et en Asie : 6 jeux, abandon anticipé, seule la mise initiale perdue face au blackjack. Avantage de la maison et stratégie."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['surrender', 'strategy', 'live', 'spain']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> le blackjack de Macao se joue en général avec 6 jeux, un croupier qui reste sur 17 souple et, surtout, l’<strong>abandon anticipé</strong> contre 2 à 10. Résultat : un avantage de la maison d’environ <strong>0,16 %</strong>, l’un des plus bas au monde. La stratégie change surtout contre un 10 : <strong>abandonnez 14, 15 et 16 durs, y compris 7-7 et 8-8</strong>.</p></div>
+  </div>
+
+  <h2 id="rules">Les règles typiques de Macao</h2>
+  <p>Ces règles proviennent de relevés publiés lors de visites (Wizard of Odds) ; elles sont représentatives, mais chaque table peut varier. Vérifiez toujours les conditions affichées.</p>
+  <table>
+    <thead><tr><th>Règle</th><th>Macao (typique)</th></tr></thead>
+    <tbody>
+      <tr><td>Nombre de jeux</td><td>6</td></tr>
+      <tr><td>17 souple</td><td>le croupier reste (S17)</td></tr>
+      <tr><td>Carte cachée</td><td>non, mais vous ne perdez que la mise initiale face à un blackjack</td></tr>
+      <tr><td>Abandon</td><td>anticipé, contre 2 à 10 (pas contre un as)</td></tr>
+      <tr><td>Doublement</td><td>sur deux cartes quelconques, et après séparation</td></tr>
+      <tr><td>Séparation</td><td>jusqu’à 4 mains</td></tr>
+      <tr><td>Paiement du blackjack</td><td>3:2</td></tr>
+      <tr><td>Avantage de la maison</td><td>environ 0,16 %</td></tr>
+    </tbody>
+  </table>
+  <p>Pour comparer : sur une table classique de 6 jeux avec carte cachée et abandon tardif, l’avantage de la maison est d’environ 0,36 %. Ce qui fait la différence, c’est l’abandon anticipé. Le détail de chaque règle se trouve dans <a href={routes.dataRules.fr}>l’avantage de la maison selon les règles</a>.</p>
+
+  <h2 id="original-bets">Sans carte cachée, mais « mise initiale seulement »</h2>
+  <p>À Macao, le croupier ne reçoit sa deuxième carte qu’après que vous avez joué. Dans un jeu européen classique, cela signifie que vous pouvez perdre vos doublements et vos séparations face à un blackjack. Ici, ce n’est pas le cas : si le croupier a blackjack, on vous rend les mises supplémentaires et vous ne perdez que votre mise initiale.</p>
+  <p>Pour la stratégie, cela revient à jouer comme à une table avec carte cachée : vous doublez et séparez comme sur le tableau habituel, sans la prudence imposée par les tables européennes.</p>
+
+  <h2 id="surrender">L’abandon anticipé change tout</h2>
+  <p>L’abandon anticipé vous permet de renoncer à votre main, en récupérant la moitié de la mise, avant que le croupier puisse révéler un blackjack. C’est beaucoup plus précieux que l’abandon tardif, où le croupier a déjà vérifié son jeu. Les mains à abandonner contre un 10 :</p>
+  <table>
+    <thead><tr><th>Votre main</th><th>Contre un 10</th><th>Contre un as</th></tr></thead>
+    <tbody>
+      <tr><td>16 dur (dont 8-8)</td><td>abandonner</td><td>jamais d’abandon</td></tr>
+      <tr><td>15 dur</td><td>abandonner</td><td>jamais d’abandon</td></tr>
+      <tr><td>14 dur (dont 7-7)</td><td>abandonner</td><td>jamais d’abandon</td></tr>
+    </tbody>
+  </table>
+  <p>Pour le reste, vous suivez le <a href={routes.strategy.fr}>tableau de stratégie de base</a> pour une table avec carte cachée. Pour comprendre la logique de l’abandon en général, lisez <a href={routes.surrender.fr}>quand abandonner</a>.</p>
+
+  <h2 id="asia">Ailleurs en Asie et dans le monde</h2>
+  <p>Des règles similaires se retrouvent à Singapour, au Panama, en République dominicaine et à Cancún. Il n’y a pas de casinos légaux en Chine continentale, à Taïwan ni à Hong Kong : les joueurs de ces régions vont généralement à Macao.</p>
+  <p>Si vous jouez plutôt en Europe, les règles sont très différentes : lisez <a href={routes.spain.fr}>les règles du blackjack en Espagne</a> ou notre guide du <a href={routes.live.fr}>blackjack en direct</a>.</p>
+
+  <h2 id="practice">S’entraîner avant le voyage</h2>
+  <p>L’app Veintiuno propose une table « Macao / Asie » avec ce tableau de stratégie, parmi ses huit configurations de table. Vous pouvez y répéter les abandons anticipés jusqu’à ce qu’ils deviennent naturels, avec une correction immédiate et une explication à chaque décision. Vous pouvez aussi commencer sur la <a href={routes.simulator.fr}>table d’entraînement gratuite</a>.</p>
+  <p>Même avec d’aussi bonnes règles, la maison garde l’avantage : le blackjack reste un jeu d’argent. Fixez-vous un budget et consultez notre page <a href={routes.responsible.fr}>jeu responsable</a> si besoin.</p>
+</Guide>

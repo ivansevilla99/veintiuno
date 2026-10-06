@@ -1,0 +1,63 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Qual a vantagem da casa no blackjack ao vivo?', a: 'Numa mesa ao vivo típica (8 baralhos, dealer para no 17 soft, sem desistência, blackjack 3:2), a vantagem da casa fica em cerca de 0,6–0,7% jogando a estratégia básica correta.' },
+  { q: 'Dá para contar cartas no blackjack ao vivo online?', a: 'Quase não. O sapato costuma ser embaralhado por volta da metade, então a contagem real raramente fica alta. E nunca use programas ou ajudas externas: vai contra os termos e, em muitos lugares, é ilegal.' },
+  { q: 'Por que não dobrar 11 contra um 10 no blackjack ao vivo?', a: 'Porque o dealer só confere o blackjack quando mostra um ás. Se ele mostra um 10 e depois completa um blackjack, você perde também o que colocou ao dobrar. Por isso, contra um 10, você só pede.' },
+  { q: 'As apostas paralelas como 21+3 valem a pena?', a: 'Não. Apostas paralelas como 21+3 e Perfect Pairs têm uma vantagem da casa muito maior do que o jogo principal.' },
+];
+---
+<Guide
+  lang="pt"
+  route="live"
+  title="Blackjack ao vivo: regras e estratégia certa"
+  h1="Blackjack ao vivo online: regras, estratégia e contagem"
+  description="Blackjack ao vivo online: regras típicas, vantagem da casa de 0,6–0,7%, o que muda na estratégia contra um 10 e por que contar cartas quase não ajuda."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['strategy', 'macau', 'spain', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Resposta curta:</strong> a mesa típica de blackjack ao vivo online usa 8 baralhos, o dealer para no 17 soft, só confere o blackjack quando mostra um ás, permite dividir uma vez só, não oferece desistência e paga o blackjack a 3:2. A vantagem da casa fica em cerca de <strong>0,6–0,7%</strong>. A mudança-chave: <strong>contra um 10, não dobre 11 e não divida 8-8</strong> (peça). Contar cartas quase não funciona.</p></div>
+  </div>
+
+  <h2 id="rules">As regras típicas do blackjack ao vivo</h2>
+  <p>As mesas ao vivo (no estilo das da Evolution) costumam seguir estas regras. Confira sempre as da sua mesa, na janela de ajuda do jogo:</p>
+  <table>
+    <thead><tr><th>Regra</th><th>Mesa ao vivo típica</th></tr></thead>
+    <tbody>
+      <tr><td>Baralhos</td><td>8</td></tr>
+      <tr><td>Dealer no 17 soft</td><td>Para</td></tr>
+      <tr><td>Conferência do blackjack</td><td>Só quando mostra um ás</td></tr>
+      <tr><td>Se mostra um 10 e completa blackjack</td><td>Você perde também dobras e divisões</td></tr>
+      <tr><td>Dividir</td><td>Uma vez só</td></tr>
+      <tr><td>Desistência</td><td>Não</td></tr>
+      <tr><td>Blackjack paga</td><td>3:2</td></tr>
+      <tr><td><strong>Vantagem da casa</strong></td><td><strong>≈0,6–0,7%</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="strategy">O que muda na estratégia</h2>
+  <p>O ponto delicado é o 10 do dealer. Como ele não confere o blackjack nesse caso, qualquer dinheiro extra que você coloca na mesa (dobrando ou dividindo) pode ser perdido de uma vez se a carta seguinte for um ás. Por isso, <strong>contra um 10</strong>:</p>
+  <ul>
+    <li><strong>11:</strong> pedir, não dobrar.</li>
+    <li><strong>8-8:</strong> pedir, não dividir.</li>
+  </ul>
+  <p>No resto, jogue como numa mesa europeia sem carta oculta. As <a href={routes.spain.pt}>regras do blackjack na Espanha</a> explicam essa lógica, e a <a href={routes.strategy.pt}>tabela de estratégia básica</a> se ajusta às regras da sua mesa. Para saber quais dobras e divisões valem nas outras situações, veja <a href={routes.whenDouble.pt}>quando dobrar</a> e <a href={routes.whenSplit.pt}>quando dividir</a>.</p>
+
+  <h2 id="counting">Contar cartas no blackjack ao vivo</h2>
+  <p>Na teoria você vê todas as cartas, então daria para contar. Na prática, o sapato costuma ser <strong>embaralhado por volta da metade</strong>, e a contagem real raramente chega a valores altos. O ganho fica muito pequeno.</p>
+  <p>E um aviso claro: <strong>nunca use programas, contadores automáticos ou qualquer ajuda externa</strong>. Isso vai contra os termos das plataformas e, em muitos lugares, é ilegal. Se quiser entender a técnica, leia sobre <a href={routes.counting.pt}>contagem de cartas</a>.</p>
+
+  <h2 id="side-bets">Apostas paralelas</h2>
+  <p>As mesas ao vivo oferecem apostas como <strong>21+3</strong> e <strong>Perfect Pairs</strong>. Elas são chamativas, mas têm uma vantagem da casa muito maior do que o jogo principal. Se o seu objetivo é perder menos, ignore-as.</p>
+
+  <h2 id="money">É jogo com dinheiro real</h2>
+  <div class="callout"><p>O blackjack ao vivo online é jogo com dinheiro real, e nenhuma estratégia elimina a vantagem da casa. Defina um orçamento antes de começar, não tente recuperar perdas e pare se deixar de ser diversão. Veja os sinais de alerta no guia de <a href={routes.responsible.pt}>jogo responsável</a>.</p></div>
+
+  <h2 id="practice">Treinar sem arriscar dinheiro</h2>
+  <p>O app Veintiuno tem uma mesa “Ao vivo online” com exatamente essa tabela, e você pode treinar de graça no <a href={routes.simulator.pt}>simulador</a>, sem dinheiro real. Se um dia viajar, compare com as <a href={routes.macau.pt}>regras de Macau</a>, das mais favoráveis do mundo.</p>
+</Guide>

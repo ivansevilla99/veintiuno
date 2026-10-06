@@ -1,0 +1,62 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Faut-il prendre l’assurance au blackjack ?', a: 'Non, si vous jouez la stratégie de base. Avec 6 jeux, l’assurance vous fait perdre environ 7,4 % de ce que vous y misez. Elle ne devient intéressante que lorsqu’il reste plus d’une carte de valeur 10 sur trois dans le sabot, ce que seul un compteur de cartes peut savoir.' },
+  { q: 'Faut-il accepter l’égalité (even money) avec un blackjack ?', a: 'Non. Prendre l’égalité vous garantit 1 mise ; la refuser vous rapporte en moyenne environ 1,037 mise. L’égalité n’est rien d’autre que l’assurance présentée autrement, et elle coûte environ 3,7 % à chaque fois.' },
+  { q: 'L’assurance protège-t-elle une bonne main comme 20 ?', a: 'Non. L’assurance est un pari séparé sur la carte cachée du croupier : elle gagne seulement s’il a une carte de valeur 10. Votre propre main n’entre pas dans le calcul, que ce soit un 20 ou un 12.' },
+  { q: 'Et aux tables sans carte cachée, comme en Europe ?', a: 'L’assurance y est proposée de la même manière et elle est tout aussi mauvaise : la probabilité que la carte suivante du croupier soit un 10 est la même.' },
+];
+---
+<Guide
+  lang="fr"
+  route="insurance"
+  title="Assurance au blackjack : faut-il la prendre ?"
+  h1="L’assurance au blackjack : pourquoi il faut presque toujours la refuser"
+  description="Faut-il prendre l’assurance ou l’égalité au blackjack ? Non : elle vous coûte environ 7,4 % de la mise. Le calcul exact, les mythes et la seule exception."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['payout65', 'mistakes', 'counting', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> <strong>ne prenez pas l’assurance</strong>, ni l’égalité (even money) quand vous avez un blackjack. Avec 6 jeux, l’assurance perd environ <strong>7,4 %</strong> de ce que vous y misez. Elle ne devient rentable que s’il reste plus d’une carte de valeur 10 sur trois dans le sabot, une situation que seuls les compteurs de cartes repèrent.</p></div>
+  </div>
+
+  <h2 id="what">Comment fonctionne l’assurance</h2>
+  <p>Quand la carte visible du croupier est un <strong>as</strong>, il vous propose l’assurance. Vous pouvez miser jusqu’à la moitié de votre mise initiale sur une seule chose : que sa carte cachée soit une carte de valeur 10 (10, valet, dame ou roi), donc qu’il ait blackjack. Si c’est le cas, l’assurance est payée <strong>2 contre 1</strong>. Sinon, vous la perdez et la main continue normalement.</p>
+  <p>Le nom est trompeur. Ce n’est pas une protection, c’est un <strong>pari annexe</strong> sur la carte du croupier, avec ses propres probabilités.</p>
+
+  <h2 id="math">Le calcul : pourquoi elle perd</h2>
+  <p>Prenons un sabot de 6 jeux. Après avoir vu l’as du croupier (et rien d’autre), il reste 311 cartes, dont 96 de valeur 10. La probabilité que la carte cachée soit un 10 est donc de 96/311, soit <strong>30,87 %</strong>.</p>
+  <p>Pour une unité misée sur l’assurance : vous gagnez 2 unités 30,87 % du temps et vous perdez 1 unité 69,13 % du temps. L’espérance vaut 2 × 0,3087 − 0,6913 = <strong>−0,074</strong>. Vous perdez en moyenne 7,4 % de chaque mise d’assurance.</p>
+  <table>
+    <thead><tr><th>Nombre de jeux</th><th>Perte moyenne sur l’assurance</th></tr></thead>
+    <tbody>
+      <tr><td>1 jeu</td><td>environ 5,9 %</td></tr>
+      <tr><td>6 jeux</td><td>environ 7,4 %</td></tr>
+      <tr><td>8 jeux</td><td>environ 7,5 %</td></tr>
+    </tbody>
+  </table>
+  <p>Pour que l’assurance soit un pari équitable payé 2 contre 1, il faudrait que plus d’une carte restante sur trois soit un 10. Dans un sabot normal, on en est loin.</p>
+
+  <h2 id="even-money">L’égalité (even money), c’est la même chose</h2>
+  <p>Si vous avez un blackjack et que le croupier montre un as, il vous proposera souvent l’« égalité » : être payé 1 contre 1 tout de suite, sans attendre. Cela semble prudent, mais c’est exactement l’assurance sous un autre nom.</p>
+  <table>
+    <thead><tr><th>Choix</th><th>Ce que vous recevez en moyenne</th></tr></thead>
+    <tbody>
+      <tr><td>Accepter l’égalité</td><td>1 mise, garantie</td></tr>
+      <tr><td>Refuser</td><td>69,13 % × 1,5 ≈ 1,037 mise</td></tr>
+    </tbody>
+  </table>
+  <p>Refuser rapporte environ 0,037 mise de plus à chaque fois, soit à peu près 3,7 %. Bien sûr, parfois le croupier aura blackjack et vous ne ferez qu’égalité. Mais sur la durée, refuser l’égalité est le bon choix.</p>
+
+  <h2 id="myths">Le mythe de « protéger une bonne main »</h2>
+  <p>Beaucoup de joueurs prennent l’assurance quand ils ont 19 ou 20, « pour protéger leur main ». Mais l’assurance ne dépend pas de votre main : elle gagne ou perd uniquement selon la carte cachée du croupier. Avoir 20 ne rend pas un 10 plus probable sous son as. Une mauvaise mise reste une mauvaise mise, que vous ayez 20 ou 12.</p>
+  <p>Aux tables sans carte cachée, comme dans la plupart des casinos européens et en <a href={routes.spain.fr}>Espagne</a>, l’assurance est proposée de la même façon et elle est tout aussi défavorable.</p>
+
+  <h2 id="exception">La seule exception : le comptage des cartes</h2>
+  <p>Les compteurs prennent l’assurance quand le sabot est riche en cartes hautes. Avec le système Hi-Lo, dans un jeu à sabot, le seuil se situe vers un compte réel d’environ +3. C’est l’un des indices les plus utiles du comptage, expliqué dans notre guide pour <a href={routes.counting.fr}>compter les cartes</a>. Si vous ne comptez pas, la réponse est simple : non, toujours.</p>
+  <p>Refuser l’assurance fait partie des <a href={routes.mistakes.fr}>erreurs les plus courantes</a> faciles à corriger. Dans l’app Veintiuno, chaque décision est corrigée immédiatement, avec une explication. Rappelez-vous enfin que le blackjack reste un jeu d’argent où la maison garde l’avantage : consultez notre page sur le <a href={routes.responsible.fr}>jeu responsable</a> si besoin.</p>
+</Guide>

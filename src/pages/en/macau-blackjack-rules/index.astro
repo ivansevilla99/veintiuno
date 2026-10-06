@@ -1,0 +1,65 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'What are the blackjack rules in Macau?', a: 'Typically: six decks, dealer stands on soft 17, no hole card but you only lose your original bet to a dealer blackjack, early surrender against 2 through 10 (not against an ace), double on any two cards, double after split, split up to four hands and blackjack pays 3:2.' },
+  { q: 'Is blackjack in Macau a good game?', a: 'By the rules, yes. Thanks mainly to early surrender, the typical Macau game has a house edge of about 0.16%, one of the lowest in the world. The house still keeps an edge.' },
+  { q: 'What is early surrender?', a: 'It lets you give up half your bet before the dealer can show a blackjack. In Macau it’s allowed against 2 through 10 but not against an ace. Against a 10 you surrender hard 14, 15 and 16, including 7-7 and 8-8.' },
+  { q: 'Are there legal casinos in mainland China, Hong Kong or Taiwan?', a: 'No. There are no legal casinos in mainland China, Hong Kong or Taiwan, which is why players from those places usually go to Macau.' },
+];
+---
+<Guide
+  lang="en"
+  route="macau"
+  title="Macau Blackjack Rules and Strategy (Early Surrender)"
+  h1="Blackjack in Macau: rules and strategy"
+  description="Macau blackjack rules: six decks, S17, no hole card, original bets only and early surrender. Why the house edge is about 0.16% and how basic strategy changes."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['surrender', 'spain', 'live', 'dataRules']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> a typical Macau blackjack table uses <strong>six decks, dealer stands on soft 17, no hole card (original bets only), early surrender against 2–10, double on any two cards, double after split and 3:2 blackjack</strong>. The house edge is about <strong>0.16%</strong>, one of the best in the world, mainly because of early surrender. The strategy change to learn: against a 10, surrender hard 14, 15 and 16.</p></div>
+  </div>
+
+  <h2 id="rules">The typical Macau rules</h2>
+  <p>Rules vary by casino and table, and these come from published visits (such as Wizard of Odds), so treat them as typical rather than guaranteed. Always check the table before you play.</p>
+  <table>
+    <thead><tr><th>Rule</th><th>Typical Macau table</th></tr></thead>
+    <tbody>
+      <tr><td>Decks</td><td>6</td></tr>
+      <tr><td>Soft 17</td><td>dealer stands (S17)</td></tr>
+      <tr><td>Hole card</td><td>none, but you lose only your original bet to a dealer blackjack</td></tr>
+      <tr><td>Surrender</td><td>early, against 2 through 10 (not against an ace)</td></tr>
+      <tr><td>Doubling</td><td>any two cards, also after splitting</td></tr>
+      <tr><td>Splitting</td><td>up to 4 hands</td></tr>
+      <tr><td>Blackjack pays</td><td>3:2</td></tr>
+      <tr><td>House edge (approx.)</td><td>0.16%</td></tr>
+    </tbody>
+  </table>
+  <p>For comparison, the standard six-deck Las Vegas-style reference table with late surrender has a house edge of about 0.36%. Similar Macau-style rules show up in Singapore, Panama, the Dominican Republic and Cancún.</p>
+
+  <h2 id="hole-card">No hole card, but “original bets only”</h2>
+  <p>In Macau the dealer doesn’t peek for blackjack. At many no-hole-card tables, such as in <a href={routes.spain.en}>Spain</a>, that hurts you: if the dealer turns out to have blackjack, you also lose the extra money from doubles and splits. Macau’s typical rule is different: you lose <strong>only your original bet</strong>, and the extra money is returned. For strategy purposes that makes it equivalent to a game where the dealer peeks, so you can use the standard peek chart.</p>
+
+  <h2 id="early-surrender">Early surrender: why the edge is so low</h2>
+  <p>With ordinary late surrender, you can only give up after the dealer checks for blackjack. With <strong>early surrender</strong> you can give up half your bet before the dealer can show a blackjack, which also rescues you from many of the hands the dealer would have won with a natural. That’s why it’s worth so much more than late surrender.</p>
+  <p>In Macau you can’t surrender against an ace, only against 2 through 10.</p>
+
+  <h2 id="strategy">How basic strategy changes</h2>
+  <ul>
+    <li><strong>Against a 10:</strong> surrender hard <strong>14, 15 and 16</strong>, including 7-7 and 8-8.</li>
+    <li><strong>Against an ace:</strong> never surrender (it isn’t allowed).</li>
+    <li><strong>Everything else:</strong> play the standard peek chart for six decks, S17, double any two cards and double after split. See the <a href={routes.strategy.en}>basic strategy chart</a>.</li>
+  </ul>
+  <p>If you’re used to late surrender, compare these hands with the regular rules in <a href={routes.surrender.en}>when to surrender</a>.</p>
+
+  <h2 id="asia">Blackjack in the rest of Asia</h2>
+  <p>Mainland China, Hong Kong and Taiwan have no legal casinos, so players from there usually travel to Macau. Rules can differ between individual casinos and tables, and we don’t list specific casinos: read the table’s rules sign and ask the dealer if anything is unclear.</p>
+
+  <h2 id="practice">Practice the Macau chart</h2>
+  <p>The Veintiuno app includes a “Macau / Asia” table preset with this chart, so the trainer corrects you with the rules you’ll actually face. You can also try the free <a href={routes.simulator.en}>practice table</a> or compare rule costs in our <a href={routes.dataRules.en}>house edge by rules</a> data.</p>
+  <div class="callout"><p><strong>A low house edge is still a house edge.</strong> Good rules make your money last longer; they don’t make blackjack profitable. Set a budget before you play, and if gambling stops being fun, see our <a href={routes.responsible.en}>responsible gambling</a> page.</p></div>
+</Guide>

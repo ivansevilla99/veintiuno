@@ -1,0 +1,62 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Wat zijn de blackjackregels in Macau?', a: 'Gebruikelijk zijn: 6 decks, de dealer past op zachte 17, geen hole card maar je verliest tegen een dealer-blackjack alleen je oorspronkelijke inzet, early surrender tegen 2 tot en met 10 (niet tegen een aas), verdubbelen op elke twee kaarten en na splitsen, splitsen tot 4 handen en blackjack betaalt 3:2.' },
+  { q: 'Hoe hoog is het huisvoordeel in Macau?', a: 'Met die regels en perfecte strategie ongeveer 0,16% – een van de laagste ter wereld, vooral dankzij early surrender. Regels kunnen per casino en per tafel verschillen, dus controleer ze altijd.' },
+  { q: 'Wanneer geef je op in Macau?', a: 'Tegen een 10 geef je op met harde 14, 15 en 16, ook met 7-7 en 8-8. Tegen een aas geef je nooit op, want dat staat de regel niet toe. Verder speel je zoals aan een tafel waar de dealer op blackjack checkt.' },
+  { q: 'Zijn er casino’s in China, Taiwan of Hongkong?', a: 'Op het Chinese vasteland zijn er geen legale casino’s, en in Taiwan en Hongkong ook niet. Spelers uit die regio’s gaan meestal naar Macau.' },
+];
+---
+<Guide
+  lang="nl"
+  route="macau"
+  title="Blackjack in Macau: regels en strategie"
+  h1="Blackjack in Macau en Azië: de regels en de strategie"
+  description="De blackjackregels in Macau: early surrender, alleen je oorspronkelijke inzet verliezen en zo’n 0,16% huisvoordeel. Plus wat er aan de strategie verandert."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['surrender', 'live', 'dataRules', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> In Macau speel je meestal met 6 decks, een dealer die past op zachte 17, <strong>early surrender</strong> tegen 2 tot en met 10 en de regel dat je tegen een dealer-blackjack alleen je oorspronkelijke inzet verliest. Met perfecte strategie is het huisvoordeel ongeveer <strong>0,16%</strong> – een van de laagste ter wereld. Het belangrijkste verschil: tegen een 10 geef je op met harde 14, 15 en 16.</p></div>
+  </div>
+
+  <h2 id="rules">De gebruikelijke regels in Macau</h2>
+  <p>Gebaseerd op bezoeken en waarnemingen van onder andere Wizard of Odds; regels kunnen per casino en per tafel verschillen, dus lees altijd wat er op tafel staat.</p>
+  <table>
+    <thead><tr><th>Regel</th><th>Macau (gebruikelijk)</th></tr></thead>
+    <tbody>
+      <tr><td>Decks</td><td>6</td></tr>
+      <tr><td>Dealer op zachte 17</td><td>Past (S17)</td></tr>
+      <tr><td>Hole card</td><td>Nee, maar je verliest tegen een dealer-blackjack alleen je oorspronkelijke inzet</td></tr>
+      <tr><td>Opgeven</td><td><strong>Early surrender</strong> tegen 2 tot en met 10, niet tegen een aas</td></tr>
+      <tr><td>Verdubbelen</td><td>Op elke twee kaarten, ook na splitsen</td></tr>
+      <tr><td>Splitsen</td><td>Tot 4 handen</td></tr>
+      <tr><td>Blackjack betaalt</td><td>3 tegen 2</td></tr>
+      <tr><td>Huisvoordeel met perfecte strategie</td><td>≈ 0,16%</td></tr>
+    </tbody>
+  </table>
+  <p>Ter vergelijking: aan de referentietafel met late surrender en een dealer die op blackjack checkt is het huisvoordeel ongeveer 0,36%.</p>
+
+  <h2 id="obo">Geen hole card, maar alleen je oorspronkelijke inzet</h2>
+  <p>De dealer kijkt in Macau niet meteen of hij blackjack heeft. Blijkt hij die aan het eind te hebben, dan verlies je alleen je oorspronkelijke inzet: het extra geld van een verdubbeling of split krijg je terug. Voor de strategie is dat gelijk aan een tafel waar de dealer wél checkt. Je verdubbelt en splitst dus net zo als met een hole card – anders dan aan de meeste Europese tafels, zoals in <a href={routes.spain.nl}>Spanje</a>.</p>
+
+  <h2 id="surrender">Early surrender: de regel die het verschil maakt</h2>
+  <p>Bij early surrender mag je opgeven voordat de dealer blackjack kan laten zien. Dat is veel waardevoller dan de late surrender uit Las Vegas, omdat je ook de helft van je inzet redt in de handen waarin de dealer blackjack blijkt te hebben. Daardoor geef je vaker op:</p>
+  <ul>
+    <li><strong>Tegen een 10:</strong> opgeven met harde 14, 15 en 16, inclusief 7-7 en 8-8.</li>
+    <li><strong>Tegen een aas:</strong> nooit opgeven, want dat staat de regel daar niet toe.</li>
+    <li><strong>Alle andere handen:</strong> zoals in de tabel voor een tafel waar de dealer op blackjack checkt.</li>
+  </ul>
+  <p>Meer over opgeven in het algemeen in de gids <a href={routes.surrender.nl}>wanneer surrender je</a>.</p>
+
+  <h2 id="region">Macau en de rest van de regio</h2>
+  <p>Op het Chinese vasteland zijn geen legale casino’s, en in Taiwan en Hongkong ook niet; spelers uit die regio’s gaan meestal naar Macau. Vergelijkbare regels kom je onder meer tegen in Singapore, Panama, de Dominicaanse Republiek en Cancún.</p>
+
+  <h2 id="practice">Oefenen met de regels van Macau</h2>
+  <p>De Veintiuno-app heeft een tafel „Macau / Azië” met precies deze strategietabel, zodat je de extra surrender-beslissingen kunt oefenen voordat je ze aan tafel tegenkomt. Op de website kun je de <a href={routes.strategy.nl}>strategietabel</a> aanpassen en met de <a href={routes.dataRules.nl}>tabel met huisvoordeel per regel</a> zien wat elke regel waard is.</p>
+  <div class="callout"><p><strong>Eerlijk:</strong> ook met 0,16% huisvoordeel blijft het casino in het voordeel. Goede regels betekenen minder verlies, geen winst. Bepaal vooraf een budget en lees <a href={routes.responsible.nl}>verantwoord spelen</a>.</p></div>
+</Guide>

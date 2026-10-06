@@ -40,7 +40,7 @@ export const routes = {
   support: { es: '/soporte/', en: '/en/support/' },
   course: { es: '/curso-blackjack/', en: '/en/blackjack-course/', de: '/de/blackjack-kurs/', fr: '/fr/cours-blackjack/' },
   simulator: { es: '/jugar-blackjack-gratis/', en: '/en/play-blackjack-free/', de: '/de/blackjack-kostenlos-spielen/', fr: '/fr/jouer-blackjack-gratuit/' },
-  live: { es: '/blackjack-en-vivo/', en: '/en/live-blackjack/' },
+  live: { es: '/blackjack-en-vivo/', en: '/en/live-blackjack/', de: '/de/live-blackjack/', fr: '/fr/blackjack-en-direct/' },
   countingLegal: { es: '/es-ilegal-contar-cartas/', en: '/en/is-card-counting-illegal/', de: '/de/ist-kartenzaehlen-illegal/', fr: '/fr/compter-les-cartes-est-il-illegal/' },
   printable: { es: '/tabla-estrategia-blackjack-pdf/', en: '/en/blackjack-strategy-chart-pdf/', de: '/de/blackjack-strategie-tabelle-pdf/', fr: '/fr/tableau-strategie-blackjack-pdf/' },
   movie21: { es: '/pelicula-21-blackjack-mit/', en: '/en/21-movie-mit-blackjack-team/' },
@@ -53,6 +53,12 @@ export const routes = {
   dataBust: { es: '/datos/probabilidad-crupier-se-pase/', en: '/en/blackjack-data/dealer-bust-probability/', de: '/de/blackjack-daten/dealer-bust-wahrscheinlichkeit/', fr: '/fr/donnees-blackjack/probabilite-croupier-saute/' },
   dataRules: { es: '/datos/ventaja-casa-reglas-blackjack/', en: '/en/blackjack-data/house-edge-by-rules/', de: '/de/blackjack-daten/hausvorteil-regeln/', fr: '/fr/donnees-blackjack/avantage-maison-regles/' },
   data: { es: '/datos/', en: '/en/blackjack-data/', de: '/de/blackjack-daten/', fr: '/fr/donnees-blackjack/' },
+  payout65: { es: '/blackjack-6-5-vs-3-2/', en: '/en/blackjack-6-5-vs-3-2/', de: '/de/blackjack-6-5-vs-3-2/', fr: '/fr/blackjack-6-5-vs-3-2/' },
+  insurance: { es: '/seguro-blackjack/', en: '/en/blackjack-insurance/', de: '/de/blackjack-versicherung/', fr: '/fr/assurance-blackjack/' },
+  surrender: { es: '/cuando-rendirse-blackjack/', en: '/en/when-to-surrender-in-blackjack/', de: '/de/blackjack-aufgeben/', fr: '/fr/quand-abandonner-blackjack/' },
+  softHands: { es: '/manos-blandas-blackjack/', en: '/en/soft-hands-blackjack/', de: '/de/soft-hands-blackjack/', fr: '/fr/mains-souples-blackjack/' },
+  mistakes: { es: '/errores-comunes-blackjack/', en: '/en/common-blackjack-mistakes/', de: '/de/blackjack-fehler/', fr: '/fr/erreurs-blackjack/' },
+  macau: { es: '/blackjack-macao-reglas/', en: '/en/macau-blackjack-rules/', de: '/de/blackjack-macau-regeln/', fr: '/fr/blackjack-macao-regles/' },
 } as const satisfies Record<string, { es: string; en?: string; de?: string; fr?: string }>;
 
 export type RouteKey = keyof typeof routes;

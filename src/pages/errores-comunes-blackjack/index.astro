@@ -1,0 +1,76 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Cuál es el error más caro en el blackjack?', a: 'Jugar sin estrategia: plantarse con cualquier 12 o más «para no pasarse» lleva la ventaja de la casa a alrededor de un 4 %, e imitar al crupier a cerca de un 5,5 %, frente a un 0,4 % aproximado con estrategia básica.' },
+  { q: '¿La martingala u otros sistemas de apuestas funcionan?', a: 'No. Ningún sistema de apuestas cambia la ventaja de la casa. Solo cambia cómo se reparten las ganancias y pérdidas, y suele aumentar el riesgo de perder todo tu presupuesto.' },
+  { q: '¿Un mal jugador en la mesa me hace perder?', a: 'No. Las decisiones de los demás cambian qué cartas te tocan en una mano concreta, pero no tu valor esperado: a veces te «quitan» una buena carta y otras te la «regalan».' },
+  { q: '¿Plantarse con 16 contra 10 es un error grave?', a: 'Es un error, pero pequeño: pedir y plantarse se diferencian en menos de un 1 % de la apuesta. Los errores caros son otros, como tomar el seguro o no doblar 11.' },
+];
+---
+<Guide
+  lang="es"
+  route="mistakes"
+  title="Errores comunes en el blackjack (y cuánto cuestan)"
+  h1="Los errores más comunes en el blackjack"
+  description="Los errores más caros del blackjack: no pasarse nunca, imitar al crupier, el seguro, las mesas 6:5 o los sistemas de apuestas. Cuánto cuesta cada uno."
+  updated="2026-10-06"
+  readMinutes={6}
+  faq={faq}
+  related={['insurance', 'payout65', 'softHands', 'howToWin']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Respuesta corta:</strong> los errores que más cuestan son <strong>jugar «para no pasarse»</strong> (la ventaja de la casa sube a un 4 % aproximado), <strong>imitar al crupier</strong> (≈ 5,5 %), <strong>tomar el seguro</strong> (pierdes ≈ 7,4 % de esa apuesta) y <strong>sentarte en una mesa 6:5</strong> (+1,39 puntos). Con estrategia básica, la casa se queda alrededor de un 0,4 %.</p></div>
+  </div>
+
+  <h2 id="tabla">Lo que cuesta cada error</h2>
+  <p>Cifras aproximadas, sacadas de análisis publicados (como los de Wizard of Odds), para una mesa de varias barajas:</p>
+  <table>
+    <thead><tr><th>Forma de jugar</th><th>Ventaja de la casa aproximada</th></tr></thead>
+    <tbody>
+      <tr><td>Estrategia básica</td><td>≈ 0,4 %</td></tr>
+      <tr><td>«No pasarse nunca» (plantarse con 12 o más)</td><td>≈ 4 %</td></tr>
+      <tr><td>Imitar al crupier (pedir hasta 17, sin doblar ni dividir)</td><td>≈ 5,5 %</td></tr>
+      <tr><td>Estrategia básica en una mesa 6:5</td><td>+1,39 puntos</td></tr>
+      <tr><td>Tomar el seguro o el dinero par</td><td>−7,4 % de lo puesto en el seguro</td></tr>
+    </tbody>
+  </table>
+  <p>La diferencia entre jugar bien y jugar «a ojo» es de diez veces o más. Veamos los errores uno a uno.</p>
+
+  <h2 id="no-pasarse">1. Jugar para no pasarse</h2>
+  <p>Es el error más extendido: plantarse con 12, 13, 14, 15 o 16 contra un 7, 8, 9, 10 o as porque «no quiero pasarme». El problema es que con esas cartas el crupier suele terminar con 17 o más, y entonces tu 15 pierde igual, sin haberte pasado. Contra cartas fuertes, con 12–16 se pide. Tienes los números en <a href={routes.hand16v10.es}>16 contra 10</a> y en la <a href={routes.dataBust.es}>probabilidad de que el crupier se pase</a>.</p>
+
+  <h2 id="crupier">2. Imitar al crupier</h2>
+  <p>Pedir hasta 17 y no doblar ni dividir nunca parece prudente («si la casa gana así…»). Pero el crupier gana porque <strong>tú juegas primero</strong>: si te pasas, pierdes aunque luego él también se pase. Imitándolo te quedas con esa desventaja y renuncias a tus herramientas (doblar, dividir, rendirte). Resultado: alrededor de un 5,5 % para la casa.</p>
+
+  <h2 id="dobles">3. No doblar ni dividir cuando toca</h2>
+  <ul>
+    <li><strong>No doblar 11 o 10</strong> contra una carta débil del crupier. Son las manos en las que vas por delante: hay que apostar más. Ver <a href={routes.whenDouble.es}>cuándo doblar</a>.</li>
+    <li><strong>No dividir 8-8 ni A-A.</strong> 16 es la peor mano; dos manos que empiezan en 8 pierden menos. Y dos ases son dos buenos comienzos.</li>
+    <li><strong>Dividir 10-10.</strong> Ya tienes 20: no rompas una mano ganadora.</li>
+    <li><strong>Dividir 5-5.</strong> Es un 10: se dobla, no se divide. Más en <a href={routes.whenSplit.es}>cuándo dividir</a>.</li>
+  </ul>
+
+  <h2 id="blandas">4. Plantarse con 17 blando</h2>
+  <p>A-6 vale 17, pero no te puedes pasar con una carta más. Plantarte ahí es regalar opciones de mejorar. Se pide (o se dobla contra 3–6 si la mesa lo permite). Lo explicamos en <a href={routes.softHands.es}>manos blandas</a>.</p>
+
+  <h2 id="seguro">5. Tomar el seguro y el dinero par</h2>
+  <p>Con 6 barajas pierdes de media un 7,4 % de lo que pones en el seguro, y aceptar dinero par con blackjack es la misma apuesta. «Proteger una buena mano» es un mito: el seguro no depende de tu mano. Todos los números en <a href={routes.insurance.es}>el seguro en el blackjack</a>.</p>
+
+  <h2 id="mesa">6. Elegir mal la mesa</h2>
+  <p>Una mesa donde el blackjack paga 6:5 en lugar de 3:2 te cuesta unos 1,39 puntos, más que cualquier decisión mal tomada en una mano concreta. Lee el tapete. Más en <a href={routes.payout65.es}>6:5 frente a 3:2</a>.</p>
+
+  <h2 id="mitos">7. Creer en sistemas y supersticiones</h2>
+  <ul>
+    <li><strong>Martingala y progresiones:</strong> doblar la apuesta después de perder no cambia la ventaja de la casa. Solo cambia la varianza y el riesgo de quedarte sin presupuesto.</li>
+    <li><strong>«El de la tercera base me ha quitado la carta»:</strong> las decisiones de los demás no cambian tu valor esperado. Lo que hoy te quitan, otro día te lo regalan.</li>
+  </ul>
+  <p>Lo que sí reduce la ventaja de la casa, y lo que no, está en <a href={routes.howToWin.es}>¿cómo ganar al blackjack?</a></p>
+
+  <h2 id="perspectiva">Un error que no es tan grave</h2>
+  <p>Plantarte con 16 contra 10 es técnicamente un error, pero pedir y plantarse se diferencian en <strong>menos de un 1 %</strong> de la apuesta. Si vas a obsesionarte con algo, que sea con los errores de arriba.</p>
+  <div class="callout"><p><strong>La forma de dejar de cometerlos es practicar con corrección.</strong> En la <a href={routes.simulator.es}>mesa gratuita</a> o en la app Veintiuno cada jugada se corrige al momento y el mapa de errores te enseña cuáles repites. Sin dinero real.</p></div>
+
+  <p>Incluso jugando perfecto, la casa conserva su ventaja. Si juegas con dinero, decide antes cuánto puedes perder y no lo superes. Si te cuesta, en <a href={routes.responsible.es}>juego responsable</a> encontrarás ayuda.</p>
+</Guide>

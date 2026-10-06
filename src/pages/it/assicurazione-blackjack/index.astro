@@ -1,0 +1,62 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Conviene prendere l’assicurazione a blackjack?', a: 'No, quasi mai. Con 6 mazzi perdi in media circa il 7,4% di ogni puntata assicurativa. Diventa conveniente solo se più di una carta su tre rimaste è un 10, cosa che sa riconoscere solo chi conta le carte.' },
+  { q: 'Devo accettare l’“even money” quando ho blackjack e il banco mostra un asso?', a: 'No. L’even money è un’assicurazione con un altro nome. Accettando incassi sempre 1 puntata; rifiutando incassi in media circa 1,037 puntate. Rifiutare rende circa il 3,7% in più ogni volta.' },
+  { q: 'L’assicurazione non serve a proteggere una buona mano?', a: 'No, è un mito. L’assicurazione è una scommessa separata sul fatto che la carta coperta del banco sia un 10. Non dipende dalla tua mano: è cattiva con un 20 come con un 12.' },
+  { q: 'E ai tavoli europei senza carta coperta?', a: 'Te la offrono allo stesso modo ed è ugualmente svantaggiosa: paga 2 a 1 su un evento che succede meno di una volta su tre.' },
+];
+---
+<Guide
+  lang="it"
+  route="insurance"
+  title="Assicurazione blackjack: conviene? I numeri"
+  h1="L’assicurazione a blackjack: conviene davvero?"
+  description="Assicurazione a blackjack ed even money: perché non conviene quasi mai. Con 6 mazzi perdi circa il 7,4% di ogni puntata assicurativa. I calcoli spiegati."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['mistakes', 'payout65', 'counting', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> <strong>non prendere l’assicurazione</strong>, nemmeno sotto forma di “even money”. È una scommessa a parte che paga 2 a 1 sul fatto che il banco abbia un 10 coperto, ma con 6 mazzi succede solo nel 30,87% dei casi. Risultato: perdi in media circa il <strong>7,4% di ogni puntata assicurativa</strong>. L’unica eccezione riguarda chi conta le carte.</p></div>
+  </div>
+
+  <h2 id="what">Come funziona l’assicurazione</h2>
+  <p>Quando la carta scoperta del banco è un asso, il croupier ti offre l’assicurazione. Puoi puntare fino a metà della tua puntata iniziale che la carta coperta del banco sia un 10 (10, J, Q o K), cioè che il banco abbia blackjack. Se ha ragione tu, l’assicurazione ti paga <strong>2 a 1</strong>; se no, la perdi.</p>
+  <p>Sembra una protezione, ma è una scommessa nuova e indipendente: stai puntando sulla carta del banco, non sulla tua mano.</p>
+
+  <h2 id="math">I numeri: perché perdi</h2>
+  <p>Con 6 mazzi, dopo aver visto solo l’asso del banco, restano 311 carte e 96 di queste valgono 10. La probabilità che la carta coperta sia un 10 è quindi <strong>96 su 311, il 30,87%</strong>.</p>
+  <p>Per puntata assicurativa da 1: vinci 2 nel 30,87% dei casi e perdi 1 nel 69,13%. Il valore atteso è 2 × 0,3087 − 0,6913 = <strong>−0,074</strong>. Ogni volta che ti assicuri, perdi in media il 7,4% di quello che hai messo.</p>
+  <table>
+    <thead><tr><th>Numero di mazzi</th><th>Perdita media sulla puntata assicurativa</th></tr></thead>
+    <tbody>
+      <tr><td>1 mazzo</td><td>circa 5,9%</td></tr>
+      <tr><td>6 mazzi</td><td>circa 7,4%</td></tr>
+      <tr><td>8 mazzi</td><td>circa 7,5%</td></tr>
+    </tbody>
+  </table>
+  <p>Per confronto, giocando la mano principale con strategia di base perfetta il vantaggio del banco è di circa lo 0,36% sul tavolo di riferimento. L’assicurazione è una delle puntate peggiori del tavolo.</p>
+
+  <h2 id="even-money">Even money: la stessa cosa con un altro nome</h2>
+  <p>Se hai blackjack e il banco mostra un asso, il croupier ti propone l’“even money”: ti paga subito 1 a 1 invece di rischiare un pareggio. È esattamente un’assicurazione, solo presentata meglio.</p>
+  <table>
+    <thead><tr><th>Scelta</th><th>Cosa incassi in media</th></tr></thead>
+    <tbody>
+      <tr><td>Accetti l’even money</td><td>1 puntata, sempre</td></tr>
+      <tr><td>Rifiuti</td><td>69,13% × 1,5 = circa 1,037 puntate</td></tr>
+    </tbody>
+  </table>
+  <p>Rifiutare ti rende circa lo 0,037 di puntata in più ogni volta, circa il 3,7%. Certo, a volte il banco avrà blackjack e farai solo pari: è il prezzo di una scelta che a lungo andare rende di più.</p>
+
+  <h2 id="myth">Il mito di “proteggere una buona mano”</h2>
+  <p>Molti si assicurano solo quando hanno 19 o 20, “per non perdere una mano così bella”. Ma l’assicurazione non guarda la tua mano: vince o perde solo in base alla carta coperta del banco. Le probabilità sono le stesse con un 20 o con un 12. Se non conviene con una mano, non conviene con nessuna.</p>
+  <p>Nei tavoli europei senza carta coperta, come quelli dei <a href={routes.spain.it}>casinò spagnoli</a>, te la offrono allo stesso modo ed è altrettanto svantaggiosa.</p>
+
+  <h2 id="counting">L’unica eccezione: chi conta le carte</h2>
+  <p>L’assicurazione diventa conveniente solo quando più di una carta su tre fra quelle rimaste è un 10. In un gioco con sabot, con il sistema Hi-Lo questo succede circa da un <strong>conteggio reale di +3</strong> in su. È lì che i contatori la prendono. Se ti interessa, trovi tutto nella guida su come <a href={routes.counting.it}>contare le carte</a>. Se non conti, la regola è semplice: rifiuta sempre.</p>
+  <div class="callout"><p><strong>Ricorda:</strong> rifiutare l’assicurazione riduce quanto perdi, non ti fa vincere. Gioca con un budget che puoi permetterti e, se serve, consulta la pagina sul <a href={routes.responsible.it}>gioco responsabile</a>. Per allenarti senza soldi c’è il <a href={routes.simulator.it}>tavolo di allenamento gratis</a>.</p></div>
+</Guide>

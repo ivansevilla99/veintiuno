@@ -1,0 +1,68 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Qué tiene de especial el blackjack de Macao?', a: 'La rendición temprana: puedes rendirte contra cualquier carta del crupier del 2 al 10 antes de que se sepa si tiene blackjack. Junto con el resto de reglas, deja la ventaja de la casa en torno a un 0,16 %, de las más bajas del mundo.' },
+  { q: '¿El crupier de Macao tiene carta oculta?', a: 'No, pero si saca blackjack solo pierdes tu apuesta original: lo que hayas doblado o dividido se te devuelve. Para la estrategia, equivale a una mesa en la que el crupier mira si tiene blackjack.' },
+  { q: '¿Me puedo rendir contra un as en Macao?', a: 'No. La rendición temprana es contra 2 a 10. Contra un as no hay rendición.' },
+  { q: '¿Hay casinos en China continental, Taiwán o Hong Kong?', a: 'No hay casinos legales en ninguno de los tres. Quien juega al blackjack desde allí suele ir a Macao.' },
+];
+---
+<Guide
+  lang="es"
+  route="macau"
+  title="Blackjack en Macao: reglas y rendición temprana"
+  h1="Blackjack en Macao y Asia: reglas y estrategia"
+  description="Reglas del blackjack en Macao: 6 barajas, sin carta oculta pero solo pierdes la apuesta original, y rendición temprana. Ventaja de la casa y estrategia."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['surrender', 'dataRules', 'strategy', 'spain']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Respuesta corta:</strong> el blackjack típico de Macao usa <strong>6 barajas</strong>, el crupier se planta con 17 blando, no tiene carta oculta pero <strong>solo pierdes tu apuesta original</strong> si saca blackjack, y permite la <strong>rendición temprana contra 2 a 10</strong>. Con eso, la ventaja de la casa ronda el <strong>0,16 %</strong>, una de las más bajas del mundo. La gran diferencia de estrategia: <strong>contra un 10, ríndete con 14, 15 y 16 duros</strong>, incluidos 7-7 y 8-8.</p></div>
+  </div>
+
+  <h2 id="reglas">Las reglas típicas de Macao</h2>
+  <p>Las reglas pueden variar de un casino a otro, así que míralas siempre en la mesa. Las más habituales, según visitas publicadas por Wizard of Odds, son estas:</p>
+  <table>
+    <thead><tr><th>Regla</th><th>Macao (típico)</th></tr></thead>
+    <tbody>
+      <tr><td>Barajas</td><td>6</td></tr>
+      <tr><td>17 blando del crupier</td><td>se planta (S17)</td></tr>
+      <tr><td>Carta oculta</td><td>no, pero solo pierdes la apuesta original contra un blackjack</td></tr>
+      <tr><td>Rendición</td><td>temprana, contra 2 a 10 (no contra as)</td></tr>
+      <tr><td>Doblar</td><td>con cualquier par de cartas, también después de dividir</td></tr>
+      <tr><td>Dividir</td><td>hasta 4 manos</td></tr>
+      <tr><td>Pago del blackjack</td><td>3:2</td></tr>
+      <tr><td>Ventaja de la casa aproximada</td><td>≈ 0,16 %</td></tr>
+    </tbody>
+  </table>
+  <p>Como comparación, la mesa de referencia de Las Vegas con rendición tardía ronda el 0,36 %. Puedes ver cuánto vale cada regla en <a href={routes.dataRules.es}>cuánto cuesta cada regla</a>.</p>
+
+  <h2 id="carta-oculta">Sin carta oculta, pero sin castigo extra</h2>
+  <p>En Macao el crupier no se lleva su segunda carta hasta que todos han jugado, como en <a href={routes.spain.es}>los casinos de España</a>. La diferencia está en qué pasa si al final saca blackjack: en Macao <strong>solo pierdes tu apuesta original</strong>, y lo que hayas añadido doblando o dividiendo se te devuelve.</p>
+  <p>Eso hace que puedas doblar y dividir sin miedo a su blackjack. En la práctica, la estrategia es la misma que en una mesa en la que el crupier comprueba si tiene blackjack antes de que juegues (la <a href={routes.strategy.es}>tabla de estrategia básica</a> de 6 barajas con S17).</p>
+
+  <h2 id="rendicion">La clave: la rendición temprana</h2>
+  <p>En casi todo el mundo, si hay rendición, es tardía: solo puedes rendirte después de que el crupier haya descartado tener blackjack. En Macao te rindes <strong>antes</strong>. Eso significa que, contra un 10, te salvas de media apuesta incluso en las manos en las que el crupier tenía blackjack. Por eso esta regla vale tanto y por eso te rindes con más manos.</p>
+  <table>
+    <thead><tr><th>Tu mano contra un 10</th><th>Rendición tardía (Las Vegas)</th><th>Rendición temprana (Macao)</th></tr></thead>
+    <tbody>
+      <tr><td>14 duro (incluido 7-7)</td><td>pedir</td><td>rendirse</td></tr>
+      <tr><td>15 duro</td><td>rendirse</td><td>rendirse</td></tr>
+      <tr><td>16 duro</td><td>rendirse</td><td>rendirse</td></tr>
+      <tr><td>8-8</td><td>dividir</td><td>rendirse</td></tr>
+    </tbody>
+  </table>
+  <p>Contra un <strong>as no hay rendición</strong>: juegas la mano con la tabla normal. Las demás decisiones no cambian. Todo lo de rendirse, tardía y temprana, está en <a href={routes.surrender.es}>cuándo rendirse</a>.</p>
+
+  <h2 id="otros">Otros sitios con reglas parecidas</h2>
+  <p>Reglas parecidas a las de Macao se encuentran también en Singapur, Panamá, la República Dominicana y Cancún. Comprueba siempre las reglas concretas de la mesa: un detalle como el pago 6:5 lo cambia todo (ver <a href={routes.payout65.es}>6:5 frente a 3:2</a>).</p>
+  <p>Una aclaración frecuente: en China continental, Taiwán y Hong Kong no hay casinos legales. Por eso, para jugar al blackjack en la zona, se suele ir a Macao.</p>
+
+  <h2 id="practicar">Practicar las reglas de Macao</h2>
+  <p>La rendición temprana es poco intuitiva: rendirse con un 14 o con 8-8 parece exagerado si vienes de otras mesas. La app Veintiuno tiene una mesa <strong>«Macao / Asia»</strong> con su tabla propia, así que puedes practicar esas decisiones con corrección inmediata, sin dinero real.</p>
+  <div class="callout"><p><strong>Ventaja baja no es ventaja tuya.</strong> Un 0,16 % sigue siendo a favor del casino. Si vas a jugar con dinero, fija un presupuesto antes de sentarte y respétalo. Tienes recursos en <a href={routes.responsible.es}>juego responsable</a>.</p></div>
+</Guide>

@@ -1,0 +1,68 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quand faut-il abandonner au blackjack ?', a: 'Avec l’abandon tardif, sur une table de 6 jeux où le croupier reste sur 17 souple : abandonnez un 16 dur contre 9, 10 ou as, et un 15 dur contre 10. Si le croupier tire sur 17 souple, abandonnez aussi 15 et 17 contre un as, et 8-8 contre un as.' },
+  { q: 'Faut-il abandonner une paire de 8 contre un 10 ?', a: 'Non. Avec 8-8, séparez. La seule exception avec l’abandon tardif est 8-8 contre un as quand le croupier tire sur 17 souple. Avec l’abandon anticipé (règle de Macao), 8-8 contre un 10 s’abandonne.' },
+  { q: 'Que faire si la table ne propose pas l’abandon ?', a: 'Jouez la main : 16 contre 10, tirez ; 15 contre 10, tirez ; 16 contre 9, tirez. C’est le cas de la plupart des tables européennes et espagnoles et de beaucoup de tables en direct.' },
+  { q: 'L’abandon, c’est pour les joueurs prudents ?', a: 'Non, c’est une décision mathématique. On abandonne seulement quand la main perd en moyenne plus de la moitié de la mise. Utilisé correctement, l’abandon vaut environ 0,07 point d’avantage de la maison.' },
+];
+---
+<Guide
+  lang="fr"
+  route="surrender"
+  title="Quand abandonner au blackjack ? Les mains exactes"
+  h1="Quand abandonner au blackjack"
+  description="Quand abandonner au blackjack : 16 contre 9, 10 ou as et 15 contre 10. La règle d’or, les changements en H17, l’abandon anticipé et que faire sans abandon."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['hand16v10', 'macau', 'softHands', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> avec l’abandon tardif, sur une table de 6 jeux où le croupier reste sur 17 souple, <strong>abandonnez un 16 dur contre 9, 10 ou as et un 15 dur contre 10</strong>. Une paire de 8 se sépare, elle ne s’abandonne pas. La règle d’or : abandonnez seulement quand votre main perd en moyenne plus de la moitié de la mise.</p></div>
+  </div>
+
+  <h2 id="what">Qu’est-ce que l’abandon ?</h2>
+  <p>L’abandon (surrender) vous permet de renoncer à votre main après avoir vu vos deux premières cartes et de <strong>récupérer la moitié de votre mise</strong>. Dans sa forme la plus courante, l’<strong>abandon tardif</strong>, vous ne pouvez le faire qu’après que le croupier a vérifié s’il a blackjack.</p>
+  <p>Bien utilisé, il vaut environ <strong>0,07 point</strong> d’avantage de la maison par rapport à une table sans abandon. Attention : la plupart des tables européennes et espagnoles, et beaucoup de tables en direct, ne le proposent pas. Lisez les règles avant de compter dessus.</p>
+
+  <h2 id="rule">La règle d’or : moins de 50 % de chances</h2>
+  <p>Abandonner vous coûte exactement une demi-mise, soit une espérance de −0,500. C’est donc le bon choix seulement quand toutes les autres options perdent en moyenne plus que cela. Exemple avec 10-6 contre un 10 (6 jeux, S17) :</p>
+  <EVTable lang="fr" cards={[10, 6]} up={10} tables={['vegasS17', 'vegasH17']} />
+  <p>Rester vaut environ −0,542, tirer −0,535 et abandonner −0,500. L’abandon l’emporte. Sans abandon, tirer bat rester d’un cheveu ; c’est tout le sujet de notre guide <a href={routes.hand16v10.fr}>16 contre 10</a>.</p>
+
+  <h2 id="table">Les mains à abandonner</h2>
+  <table>
+    <thead><tr><th>Votre main</th><th>Croupier reste sur 17 souple (S17)</th><th>Croupier tire sur 17 souple (H17)</th></tr></thead>
+    <tbody>
+      <tr><td>16 dur (pas 8-8)</td><td>contre 9, 10, as</td><td>contre 9, 10, as</td></tr>
+      <tr><td>15 dur</td><td>contre 10</td><td>contre 10 et as</td></tr>
+      <tr><td>17 dur</td><td>jamais</td><td>contre as</td></tr>
+      <tr><td>8-8</td><td>jamais (séparez)</td><td>contre as</td></tr>
+    </tbody>
+  </table>
+  <p>Toutes les autres mains se jouent normalement. Les mains souples ne s’abandonnent jamais : une seule carte ne peut pas vous faire sauter (voir notre guide des <a href={routes.softHands.fr}>mains souples</a>).</p>
+
+  <h2 id="early">L’abandon anticipé : la règle de Macao</h2>
+  <p>Dans certains casinos, notamment à <a href={routes.macau.fr}>Macao</a>, on trouve l’<strong>abandon anticipé</strong> : vous pouvez abandonner avant que le croupier puisse montrer un blackjack. Il ne s’applique généralement pas contre un as. C’est beaucoup plus intéressant que l’abandon tardif, et la liste s’allonge : contre un 10, abandonnez les 14, 15 et 16 durs, y compris 7-7 et 8-8.</p>
+
+  <h2 id="without">Et sans abandon ?</h2>
+  <p>Si la table ne propose pas l’abandon, jouez la main :</p>
+  <ul>
+    <li><strong>16 contre 10 :</strong> tirez.</li>
+    <li><strong>15 contre 10 :</strong> tirez.</li>
+    <li><strong>16 contre 9 :</strong> tirez.</li>
+  </ul>
+  <p>Le <a href={routes.strategy.fr}>tableau de stratégie de base</a> s’adapte aux règles de votre table, avec ou sans abandon. Pour automatiser ces décisions, entraînez-vous sur la <a href={routes.simulator.fr}>table d’entraînement gratuite</a> ou dans l’app Veintiuno, qui corrige chaque décision avec une explication.</p>
+
+  <h2 id="mistakes">Les erreurs classiques</h2>
+  <ul>
+    <li><strong>Abandonner trop souvent</strong>, par exemple un 12 ou un 13 contre un 10 : ces mains perdent moins de la moitié de la mise en moyenne.</li>
+    <li><strong>Abandonner une paire de 8</strong> au lieu de la séparer, sauf contre un as en H17.</li>
+    <li><strong>Ne jamais abandonner par fierté :</strong> renoncer à un 16 contre un 10 n’est pas lâche, c’est le choix qui perd le moins.</li>
+  </ul>
+  <p>L’abandon réduit vos pertes, il ne vous fait pas gagner : le blackjack reste un jeu où la maison garde l’avantage. Fixez-vous un budget et consultez notre page <a href={routes.responsible.fr}>jeu responsable</a> si besoin.</p>
+</Guide>

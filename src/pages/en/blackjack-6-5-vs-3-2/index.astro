@@ -1,0 +1,66 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Is 6:5 blackjack worth playing?', a: 'Not if a 3:2 table is available. A 6:5 payout adds about 1.39 points to the house edge, taking a standard six-deck game from about 0.36% to about 1.75% of the amount bet. That’s more than any other single rule change.' },
+  { q: 'How much does 6:5 cost per hour?', a: 'It depends on how much you wager, not on time. As a rule of thumb, 6:5 costs about 1.39% of everything you bet. Over 100 hands at $10 a hand ($1,000 wagered), that’s about $14 extra in expectation.' },
+  { q: 'Does basic strategy change at a 6:5 table?', a: 'Barely. The cost of 6:5 is in the payout for a natural blackjack, not in your decisions. You play the same chart; you just get paid less when you’re dealt an ace and a ten-value card.' },
+  { q: 'Is even money (1:1) on blackjack better than 6:5?', a: 'No, it’s worse. A table that pays blackjack at 1:1 adds about 2.27 points to the house edge, compared with about 1.39 for 6:5.' },
+];
+---
+<Guide
+  lang="en"
+  route="payout65"
+  title="Blackjack 6:5 vs 3:2: What 6:5 Really Costs You"
+  h1="Blackjack 6:5 vs 3:2: how much does 6:5 cost?"
+  description="Blackjack 6:5 vs 3:2 explained: a 6:5 payout raises the house edge from about 0.36% to 1.75%. What that means per hand, where 6:5 is common and how to spot it."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['dataRules', 'mistakes', 'insurance', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> a 3:2 table pays $15 on a $10 blackjack; a 6:5 table pays only $12. That difference adds about <strong>1.39 points</strong> to the house edge, taking a standard six-deck game from about <strong>0.36% to about 1.75%</strong> of the amount bet. It’s the single most expensive rule in blackjack, so always look for “Blackjack pays 3 to 2” on the felt.</p></div>
+  </div>
+
+  <h2 id="payouts">3:2 vs 6:5: what the payout means</h2>
+  <p>When your first two cards are an ace and a ten-value card, you have a natural blackjack. Traditionally it pays <strong>3 to 2</strong>: you win one and a half times your bet. At a 6:5 table it pays <strong>6 to 5</strong>: you win only 1.2 times your bet.</p>
+  <table>
+    <thead><tr><th>Your bet</th><th>Blackjack pays 3:2</th><th>Blackjack pays 6:5</th><th>Difference</th></tr></thead>
+    <tbody>
+      <tr><td>$10</td><td>$15</td><td>$12</td><td>$3</td></tr>
+      <tr><td>$25</td><td>$37.50</td><td>$30</td><td>$7.50</td></tr>
+      <tr><td>$100</td><td>$150</td><td>$120</td><td>$30</td></tr>
+    </tbody>
+  </table>
+  <p>Each blackjack pays 0.3 of a bet less at a 6:5 table. It looks small, but you get a natural blackjack about <strong>4.75% of hands</strong>, roughly one hand in 21, and every one of them is short-changed.</p>
+
+  <h2 id="cost">How much 6:5 costs you</h2>
+  <p>On the reference table (6 decks, dealer stands on soft 17, double on any two cards, double after split, late surrender, dealer peeks for blackjack), perfect basic strategy leaves the house an edge of about 0.36%. Switch the payout to 6:5 and the edge climbs to about 1.75%. In other words, the casino keeps nearly five times as much of your action.</p>
+  <p>A concrete example: 100 hands at $10 a hand is $1,000 wagered. At 6:5 you can expect to lose about <strong>$14 more</strong> than at 3:2 (1.39% of $1,000). That’s on top of the normal house edge, not instead of it.</p>
+
+  <h2 id="compare">6:5 compared with other bad rules</h2>
+  <p>Players often worry about whether the dealer hits soft 17 or whether surrender is allowed. Those rules matter, but none comes close to 6:5:</p>
+  <table>
+    <thead><tr><th>Rule change</th><th>Added house edge (approx.)</th></tr></thead>
+    <tbody>
+      <tr><td>Blackjack pays 1:1 (even money)</td><td>+2.27 points</td></tr>
+      <tr><td><strong>Blackjack pays 6:5</strong></td><td><strong>+1.39 points</strong></td></tr>
+      <tr><td>Dealer hits soft 17</td><td>+0.22 points</td></tr>
+      <tr><td>No hole card</td><td>+0.11 points</td></tr>
+      <tr><td>Double on 9–11 only</td><td>+0.09 points</td></tr>
+      <tr><td>No surrender</td><td>+0.07 points</td></tr>
+    </tbody>
+  </table>
+  <p>Put simply: a 3:2 table where the dealer hits soft 17 and you can’t surrender is still much better than a 6:5 table with every other rule in your favor. You’ll find the full breakdown in our <a href={routes.dataRules.en}>house edge by rules</a> table.</p>
+
+  <h2 id="where">Where you’ll find 6:5 tables</h2>
+  <p>6:5 is common on <strong>low-limit tables on the Las Vegas Strip</strong>, on many <strong>Las Vegas single-deck games</strong> and on cheaper <strong>cruise ship</strong> tables. Surveys in 2026 found that roughly half of Strip casinos still offer 3:2 somewhere, often at higher minimums.  A single-deck game sounds attractive, but if it pays 6:5 the payout cost outweighs what you might gain from fewer decks.</p>
+  <p>How to check: read the felt. Almost every table prints the payout in large letters, “Blackjack pays 3 to 2” or “Blackjack pays 6 to 5.” If it isn’t printed, ask the dealer before you sit down.</p>
+
+  <h2 id="strategy">Does strategy change at 6:5?</h2>
+  <p>Hardly at all. The cost of 6:5 is in the payout, not in the decisions, so the <a href={routes.strategy.en}>basic strategy chart</a> is essentially the same. Good strategy still cuts the house edge a lot compared with guessing; it just can’t undo a bad payout. The only real fix is choosing the table.</p>
+  <div class="callout"><p><strong>Keep it in perspective.</strong> Even at 3:2 the house keeps an edge, and no table rule turns blackjack into a way to make money. Set a budget before you play and stop when it’s gone. If gambling stops being fun, see our <a href={routes.responsible.en}>responsible gambling</a> page.</p></div>
+  <p>Want to get the decisions right before you ever sit down? Practice for free on the <a href={routes.simulator.en}>practice table</a>, or work through the <a href={routes.course.en}>blackjack course</a>.</p>
+</Guide>

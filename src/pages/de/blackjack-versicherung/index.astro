@@ -1,0 +1,62 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Soll ich beim Blackjack die Versicherung nehmen?', a: 'Nein. Mit 6 Decks verlierst du im Schnitt etwa 7,4 % jedes Versicherungseinsatzes. Lohnend wäre sie nur, wenn mehr als jede dritte verbleibende Karte eine Zehnerkarte ist – das wissen nur Kartenzähler, ab einem Hi-Lo True Count von etwa +3.' },
+  { q: 'Soll ich Even Money nehmen, wenn ich Blackjack habe?', a: 'Auch nein. Even Money ist die Versicherung unter anderem Namen. Nimmst du sie, bekommst du sicher 1 Einsatz; lehnst du ab, bekommst du im Schnitt etwa 1,037 Einsätze. Ablehnen ist rund 3,7 % besser.' },
+  { q: 'Schützt die Versicherung nicht eine gute Hand wie 20?', a: 'Nein, das ist ein Mythos. Die Versicherung ist eine eigene Wette darauf, ob die verdeckte Karte des Dealers eine Zehnerkarte ist. Ob du 20 oder 12 hast, ändert an dieser Wahrscheinlichkeit praktisch nichts.' },
+  { q: 'Und an Tischen ohne Hole Card?', a: 'Dort wird die Versicherung genauso angeboten, wenn der Dealer ein Ass zeigt, und sie ist genauso schlecht. Die Regel ohne Hole Card ändert nichts an der Rechnung.' },
+];
+---
+<Guide
+  lang="de"
+  route="insurance"
+  title="Versicherung beim Blackjack: lohnt sie sich?"
+  h1="Versicherung beim Blackjack: warum du sie fast nie nehmen solltest"
+  description="Lohnt sich die Versicherung beim Blackjack? Warum sie im Schnitt 7,4 % des Einsatzes kostet, was Even Money ist und wann nur Kartenzähler sie nehmen."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['mistakes', 'payout65', 'counting', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurze Antwort:</strong> <strong>Nimm die Versicherung nicht</strong> – auch nicht als „Even Money“, wenn du selbst Blackjack hast. Mit 6 Decks verlierst du im Schnitt etwa <strong>7,4 %</strong> jedes Versicherungseinsatzes. Sinnvoll ist sie nur für Kartenzähler, wenn überdurchschnittlich viele Zehnerkarten im Schuh sind.</p></div>
+  </div>
+
+  <h2 id="what">Was die Versicherung ist</h2>
+  <p>Zeigt der Dealer ein Ass als offene Karte, bietet er dir die Versicherung an. Du setzt bis zur Hälfte deines ursprünglichen Einsatzes darauf, dass seine verdeckte Karte eine Zehnerkarte ist (10, Bube, Dame, König) – also dass er Blackjack hat. Liegt er richtig, zahlt die Versicherung <strong>2 zu 1</strong>.</p>
+  <p>Der Name ist geschickt gewählt: Er klingt nach Absicherung. In Wahrheit ist es eine <strong>eigene Nebenwette</strong> auf die verdeckte Karte des Dealers, die mit deiner Hand nichts zu tun hat.</p>
+
+  <h2 id="math">Die Rechnung</h2>
+  <p>Mit 6 Decks, nachdem du nur das Ass des Dealers gesehen hast, sind noch 311 Karten unbekannt. Davon sind 96 Zehnerkarten. Die Wahrscheinlichkeit, dass der Dealer Blackjack hat, liegt also bei <strong>30,87 %</strong> – deutlich unter den 33,3 %, die eine Auszahlung von 2 zu 1 bräuchte, um fair zu sein.</p>
+  <p>Erwartungswert der Versicherung: 2 × 0,3087 − 0,6913 = <strong>−0,074</strong>. Pro 10, die du versicherst, verlierst du im Schnitt 0,74.</p>
+  <table>
+    <thead><tr><th>Anzahl Decks</th><th>Verlust pro Versicherungseinsatz</th></tr></thead>
+    <tbody>
+      <tr><td>1 Deck</td><td>≈ 5,9 %</td></tr>
+      <tr><td>6 Decks</td><td>≈ 7,4 %</td></tr>
+      <tr><td>8 Decks</td><td>≈ 7,5 %</td></tr>
+    </tbody>
+  </table>
+  <p>Zum Vergleich: Das Hauptspiel kostet dich mit perfekter Grundstrategie am Referenztisch nur rund 0,36 % deines Einsatzes. Die Versicherung ist also etwa zwanzigmal teurer.</p>
+
+  <h2 id="even-money">Even Money: dieselbe Wette, anderer Name</h2>
+  <p>Hast du selbst Blackjack und der Dealer zeigt ein Ass, bietet er dir „Even Money“ an: Du bekommst sofort 1 zu 1 ausgezahlt, statt abzuwarten. Das ist mathematisch exakt dasselbe wie Blackjack plus Versicherung.</p>
+  <table>
+    <thead><tr><th>Deine Wahl</th><th>Ergebnis im Schnitt</th></tr></thead>
+    <tbody>
+      <tr><td>Even Money nehmen</td><td>sicher 1,000 Einsatz</td></tr>
+      <tr><td>Ablehnen</td><td>69,13 % × 1,5 = <strong>≈ 1,037 Einsätze</strong></td></tr>
+    </tbody>
+  </table>
+  <p>Wenn du ablehnst, gewinnst du in knapp 70 % der Fälle 3 zu 2 und spielst in den übrigen ein Unentschieden. Ablehnen bringt dir im Schnitt etwa <strong>3,7 %</strong> mehr. Der „sichere Gewinn“ fühlt sich gut an, kostet dich aber jedes Mal Geld.</p>
+
+  <h2 id="myth">Der Mythos „eine gute Hand schützen“</h2>
+  <p>Viele versichern eine 19 oder 20, „weil die Hand zu gut zum Verlieren ist“. Aber die Versicherung gewinnt oder verliert unabhängig davon, was du hältst: Sie hängt nur von der verdeckten Karte des Dealers ab. Wenn die Wette mit 12 schlecht ist, ist sie mit 20 genauso schlecht.</p>
+  <p>Auch an europäischen Tischen ohne Hole Card, wie sie in vielen deutschsprachigen Spielbanken üblich sind, wird die Versicherung angeboten – und sie ist dort genauso unvorteilhaft.</p>
+
+  <h2 id="counters">Wann Kartenzähler sie nehmen</h2>
+  <p>Die Versicherung wird nur dann profitabel, wenn mehr als jede dritte verbleibende Karte eine Zehnerkarte ist. Im Hi-Lo-System entspricht das ungefähr einem <strong>True Count von +3 oder mehr</strong> in einem Spiel mit Schuh. Deshalb ist „Versicherung ab +3“ einer der wichtigsten Index-Spielzüge beim <a href={routes.counting.de}>Kartenzählen</a>. Wenn du nicht zählst, lautet die Regel schlicht: niemals.</p>
+  <p>Und wie bei jedem Spiel um Geld gilt: Das Haus behält einen Vorteil. Setz dir ein Budget und lies unseren Ratgeber zum <a href={routes.responsible.de}>verantwortungsvollen Spielen</a>. Die richtige Antwort auf „Insurance?“ kannst du ohne Risiko am <a href={routes.simulator.de}>kostenlosen Übungstisch</a> oder in der App Veintiuno trainieren, die dich sofort korrigiert und dir erklärt, warum.</p>
+</Guide>

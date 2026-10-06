@@ -1,0 +1,69 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Qual a diferença entre blackjack 3:2 e 6:5?', a: 'É quanto você recebe por um blackjack natural (ás + carta de valor 10 nas duas primeiras cartas). No 3:2, uma aposta de 10 ganha 15; no 6:5, ganha 12. O resto do jogo é igual, mas essa diferença soma cerca de 1,39 ponto à vantagem da casa.' },
+  { q: 'Quanto custa jogar numa mesa 6:5?', a: 'Numa mesa de referência de 6 baralhos, a vantagem da casa sobe de cerca de 0,36% para cerca de 1,75% da quantia apostada. Em 100 mãos de 10, ou seja, 1.000 apostados, isso significa perder em média uns 14 a mais.' },
+  { q: 'A estratégia básica muda numa mesa 6:5?', a: 'Praticamente não. O custo está no pagamento, não nas decisões: você continua pedindo, parando, dobrando e dividindo do mesmo jeito.' },
+  { q: 'Pagamento 1:1 no blackjack é melhor que 6:5?', a: 'Não, é ainda pior. Um blackjack que paga só 1 para 1 soma cerca de 2,27 pontos à vantagem da casa, contra cerca de 1,39 do 6:5.' },
+];
+---
+<Guide
+  lang="pt"
+  route="payout65"
+  title="Blackjack 6:5 vs 3:2: quanto você perde a mais?"
+  h1="Blackjack 6:5 vs 3:2: quanto custa de verdade"
+  description="Blackjack que paga 6:5 em vez de 3:2 soma cerca de 1,39 ponto à vantagem da casa. Veja a conta, exemplos com dinheiro e como identificar a mesa certa."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['dataRules', 'insurance', 'mistakes', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Resposta curta:</strong> escolha sempre a mesa que paga <strong>3:2</strong>. Uma mesa que paga o blackjack a <strong>6:5</strong> soma cerca de <strong>1,39 ponto</strong> à vantagem da casa: numa mesa de 6 baralhos ela passa de ≈0,36% para ≈1,75% do que você aposta. Nenhuma outra regra isolada custa tanto.</p></div>
+  </div>
+
+  <h2 id="what">O que significa 3:2 e 6:5</h2>
+  <p>Quando as suas duas primeiras cartas são um ás e uma carta de valor 10, você tem um <strong>blackjack natural</strong>. É a única mão que paga mais do que a aposta, e o quanto ela paga está escrito no feltro da mesa:</p>
+  <ul>
+    <li><strong>3 para 2 (3:2):</strong> você aposta 10 e ganha 15.</li>
+    <li><strong>6 para 5 (6:5):</strong> você aposta 10 e ganha 12.</li>
+  </ul>
+  <p>Parece pouca coisa, três unidades. Mas o blackjack natural sai em cerca de <strong>4,75% das mãos</strong> (mais ou menos uma a cada 21), e cada uma delas paga 0,3 aposta a menos no 6:5. Isso não some com o tempo: vira uma taxa fixa sobre tudo o que você joga.</p>
+
+  <h2 id="cost">Quanto custa em números</h2>
+  <p>Mesa de referência: 6 baralhos, dealer para no 17 soft, dobrar com quaisquer duas cartas, dobrar depois de dividir, late surrender e dealer confere o blackjack. Com estratégia básica perfeita:</p>
+  <table>
+    <thead><tr><th>Regra</th><th>Efeito na vantagem da casa</th></tr></thead>
+    <tbody>
+      <tr><td>Blackjack paga 3:2 (referência)</td><td>≈0,36%</td></tr>
+      <tr><td><strong>Blackjack paga 6:5</strong></td><td><strong>+1,39 ponto (≈1,75%)</strong></td></tr>
+      <tr><td>Blackjack paga 1:1</td><td>+2,27 pontos</td></tr>
+      <tr><td>Dealer pede no 17 soft</td><td>+0,22 ponto</td></tr>
+      <tr><td>Sem carta oculta</td><td>+0,11 ponto</td></tr>
+      <tr><td>Dobrar só com 9–11</td><td>+0,09 ponto</td></tr>
+      <tr><td>Sem desistência (surrender)</td><td>+0,07 ponto</td></tr>
+    </tbody>
+  </table>
+  <p>Repare: o 6:5 custa mais do que as outras quatro regras ruins da tabela juntas (só o pagamento 1:1, que é ainda pior, o supera). Você pode ver o efeito de cada regra em detalhe na página de <a href={routes.dataRules.pt}>vantagem da casa por regras</a>.</p>
+
+  <h2 id="example">Um exemplo com dinheiro</h2>
+  <p>Imagine que você joga 100 mãos apostando 10 por mão. Ao todo, você apostou 1.000. A diferença de 1,39% sobre esses 1.000 dá cerca de <strong>14 a mais de perda esperada</strong> só por estar numa mesa 6:5, mesmo jogando cada mão de forma perfeita.</p>
+  <p>É uma média, não uma previsão: numa sessão curta a sorte domina. Mas, quanto mais você joga, mais o resultado se aproxima dessa conta.</p>
+  <div class="callout"><p><strong>Importante:</strong> nenhuma escolha de mesa faz o blackjack virar um jogo lucrativo. A vantagem continua sendo da casa. Escolher 3:2 só faz você perder menos. Se for jogar com dinheiro, defina um orçamento antes e leia o nosso guia de <a href={routes.responsible.pt}>jogo responsável</a>.</p></div>
+
+  <h2 id="where">Onde aparecem as mesas 6:5</h2>
+  <p>As mesas 6:5 são comuns nas mesas de aposta baixa da Strip de Las Vegas, nos jogos de um baralho de Las Vegas e nas mesas baratas de cruzeiros. Em levantamentos de 2026, mais ou menos metade dos cassinos da Strip ainda oferece 3:2 em alguma mesa, muitas vezes com aposta mínima mais alta.</p>
+  <p>Um jogo de um baralho que paga 6:5 pode parecer atraente, mas o pagamento menor apaga a vantagem de jogar com poucos baralhos.</p>
+
+  <h2 id="how">Como identificar a mesa certa</h2>
+  <ol>
+    <li><strong>Leia o feltro.</strong> A frase “Blackjack pays 3 to 2” é o que você procura. Se diz “6 to 5”, siga em frente.</li>
+    <li><strong>Desconfie das mesas mais baratas.</strong> É onde o 6:5 costuma aparecer.</li>
+    <li><strong>Confira as outras regras.</strong> Depois do pagamento, a mais importante é se o dealer pede ou para no 17 soft.</li>
+  </ol>
+
+  <h2 id="strategy">E a estratégia, muda?</h2>
+  <p>Quase nada. O custo do 6:5 está no pagamento, não nas suas decisões. A <a href={routes.strategy.pt}>tabela de estratégia básica</a> continua valendo, e treinar no <a href={routes.simulator.pt}>simulador grátis</a> é o melhor jeito de não errar as jogadas que você controla. Outra regra que também tira dinheiro do jogador é o <a href={routes.insurance.pt}>seguro</a>; os demais deslizes estão nos <a href={routes.mistakes.pt}>erros mais comuns</a>.</p>
+</Guide>

@@ -1,0 +1,72 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import EVTable from '../../../components/EVTable.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Qu’est-ce qu’une main souple au blackjack ?', a: 'Une main qui contient un as compté comme 11, par exemple A-6 (17 souple). Comme l’as peut redevenir 1, une seule carte supplémentaire ne peut pas vous faire sauter.' },
+  { q: 'Faut-il rester sur 17 souple (A-6) ?', a: 'Non, jamais. A-6 se tire contre 2 et contre 7 à as, et se double contre 3 à 6 si la table permet de doubler sur deux cartes quelconques. 17 est un total faible : il ne gagne que si le croupier saute.' },
+  { q: 'Comment jouer A-7 (18 souple) ?', a: 'Sur une table de 6 jeux où le croupier reste sur 17 souple : restez contre 2, 7 et 8 ; doublez contre 3 à 6 (sinon restez) ; tirez contre 9, 10 et as.' },
+  { q: 'Peut-on doubler une main souple en Espagne ?', a: 'Non. Les tables qui n’autorisent le doublement que sur 9, 10 ou 11, comme dans les casinos espagnols, empêchent tout doublement de main souple. A-7 contre 3 à 6 se joue alors en restant.' },
+];
+---
+<Guide
+  lang="fr"
+  route="softHands"
+  title="Mains souples au blackjack : A-2 à A-9"
+  h1="Comment jouer les mains souples au blackjack"
+  description="Comment jouer les mains souples au blackjack, de A-2 à A-9 : quand tirer, doubler ou rester, le cas du 17 souple, les règles H17 et les erreurs à éviter."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['whenDouble', 'surrender', 'mistakes', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> ne restez <strong>jamais sur 17 souple (A-6)</strong>. Doublez les mains souples faibles (A-2 à A-6) contre les cartes faibles du croupier, doublez <strong>A-7 contre 3 à 6</strong> et tirez-le contre 9, 10 et as. Restez toujours avec A-8 et A-9. Ces règles valent pour une table de 6 jeux où le croupier reste sur 17 souple et où l’on peut doubler sur deux cartes quelconques.</p></div>
+  </div>
+
+  <h2 id="what">Qu’est-ce qu’une main souple ?</h2>
+  <p>Une main est <strong>souple</strong> quand elle contient un as compté comme 11. A-6 vaut 17 souple, A-7 vaut 18 souple. L’as pouvant redevenir 1, <strong>une seule carte ne peut pas vous faire sauter</strong> : si vous tirez un 9 sur A-6, vous avez simplement 16 dur.</p>
+  <p>C’est pour ça que les mains souples se jouent de façon plus agressive : tirer ou doubler ne vous expose pas au risque immédiat de dépasser 21. Beaucoup de joueurs les jouent pourtant comme des mains dures, et c’est là qu’ils perdent de l’argent.</p>
+
+  <h2 id="chart">Le tableau des mains souples</h2>
+  <p>Table de référence : 6 jeux, croupier reste sur 17 souple (S17), doublement sur deux cartes quelconques. T = tirer, D = doubler (sinon tirer), Dr = doubler (sinon rester), R = rester.</p>
+  <div class="chart-scroll">
+  <table>
+    <thead><tr><th>Main</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>A</th></tr></thead>
+    <tbody>
+      <tr><td>A-2 (13)</td><td>T</td><td>T</td><td>T</td><td>D</td><td>D</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+      <tr><td>A-3 (14)</td><td>T</td><td>T</td><td>T</td><td>D</td><td>D</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+      <tr><td>A-4 (15)</td><td>T</td><td>T</td><td>D</td><td>D</td><td>D</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+      <tr><td>A-5 (16)</td><td>T</td><td>T</td><td>D</td><td>D</td><td>D</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+      <tr><td>A-6 (17)</td><td>T</td><td>D</td><td>D</td><td>D</td><td>D</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+      <tr><td>A-7 (18)</td><td>R</td><td>Dr</td><td>Dr</td><td>Dr</td><td>Dr</td><td>R</td><td>R</td><td>T</td><td>T</td><td>T</td></tr>
+      <tr><td>A-8 (19)</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td></tr>
+      <tr><td>A-9 (20)</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td><td>R</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Le <a href={routes.strategy.fr}>tableau de stratégie interactif</a> affiche aussi les mains dures et les paires, et s’ajuste aux règles de votre table.</p>
+
+  <h2 id="soft17">Le 17 souple : ne restez jamais</h2>
+  <p>A-6 est la main souple la plus mal jouée. Beaucoup de joueurs restent parce que « 17, c’est déjà bien ». En réalité, 17 est un total faible : le croupier termine toujours à 17 ou plus, donc votre 17 ne gagne que s’il saute. Avec A-6, vous ne risquez rien à tirer une carte, donc vous tirez contre 2 et contre 7 à as, et vous doublez contre 3 à 6 si la table le permet.</p>
+
+  <h2 id="soft18">A-7 : la main la plus subtile</h2>
+  <p>A-7 (18 souple) se joue de trois façons selon la carte du croupier : <strong>rester</strong> contre 2, 7 et 8 ; <strong>doubler</strong> contre 3 à 6 ; <strong>tirer</strong> contre 9, 10 et as. Contre un 9, un 10 ou un as, 18 perd souvent ; tirer permet de l’améliorer sans risque de sauter avec une carte.</p>
+  <EVTable lang="fr" cards={[1, 7]} up={6} tables={['vegasS17']} caption="A-7 contre 6 : rester ou doubler" />
+
+  <h2 id="rules">Quand les règles changent</h2>
+  <ul>
+    <li><strong>Le croupier tire sur 17 souple (H17) :</strong> doublez aussi A-7 contre 2 et A-8 contre 6 (sinon restez).</li>
+    <li><strong>Doublement seulement sur 9, 10 ou 11</strong> (comme en <a href={routes.spain.fr}>Espagne</a>) : ne doublez jamais une main souple ; A-7 contre 3 à 6 se joue en restant, et les autres cases « D » deviennent « tirer ».</li>
+  </ul>
+  <p>Tous les doublements, durs et souples, sont détaillés dans notre guide <a href={routes.whenDouble.fr}>quand doubler</a>.</p>
+
+  <h2 id="mistakes">Les trois erreurs les plus fréquentes</h2>
+  <ol>
+    <li><strong>Rester sur A-6</strong> (17 souple).</li>
+    <li><strong>Rester sur A-7 contre 9, 10 ou as</strong> au lieu de tirer.</li>
+    <li><strong>Ne pas doubler A-7 contre 3 à 6</strong> quand la table le permet.</li>
+  </ol>
+  <p>Ces décisions vont à l’encontre de l’intuition, c’est pourquoi elles demandent de l’entraînement. Sur la <a href={routes.simulator.fr}>table d’entraînement gratuite</a> ou dans l’app Veintiuno, chaque erreur est corrigée immédiatement avec une explication, et la carte de chaleur des erreurs vous montre quelles mains souples vous ratez le plus. Voir aussi les <a href={routes.mistakes.fr}>erreurs les plus courantes</a> au blackjack.</p>
+</Guide>

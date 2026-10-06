@@ -1,0 +1,72 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: '21點的軟牌是什麼？', a: '軟牌是有一張 A 算作 11 點的手牌，例如 A-6 是軟 17。因為 A 可以改算 1 點，再要一張牌絕對不會爆牌。' },
+  { q: '軟 17（A-6）可以停牌嗎？', a: '不行，永遠不要停在軟 17。對莊家 3 到 6 要加倍（牌桌允許的話），其他情況要牌。軟 17 停牌是最常見的軟牌錯誤之一。' },
+  { q: 'A-7（軟 18）該怎麼打？', a: '對莊家 2、7、8 停牌；對 3 到 6 加倍（不能加倍就停牌）；對 9、10、A 要牌。莊家軟 17 要牌的牌桌，對 2 也加倍。' },
+  { q: '只能在 9–11 加倍的牌桌，軟牌怎麼打？', a: '軟牌永遠不加倍：原本要加倍的情況改成要牌，只有 A-7 對 3 到 6 改成停牌。西班牙的賭場就常見這條規則。' },
+];
+---
+<Guide
+  lang="zh"
+  route="softHands"
+  title="21點軟牌怎麼打？軟 17、A-7 完整策略"
+  h1="21點軟牌怎麼打：A-2 到 A-9"
+  description="21點軟牌（A-2 到 A-9）的完整打法：軟 17 為什麼不能停牌、A-7 什麼時候加倍或要牌，附策略表和莊家軟 17 要牌時的變化。"
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['strategy', 'whenDouble', 'mistakes', 'surrender']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>簡短回答：</strong>軟牌是有 A 算作 11 點的手牌，再要一張牌不會爆牌，所以要比硬牌更積極。重點三條：<strong>軟 17（A-6）永遠不停牌</strong>；<strong>A-7 對 9、10、A 要牌</strong>；對莊家 5、6 這種弱牌，大部分軟牌都<strong>加倍</strong>。A-8 和 A-9 幾乎永遠停牌。</p></div>
+  </div>
+
+  <h2 id="what">什麼是軟牌</h2>
+  <p>只要你的手牌裡有一張 A 算作 11 點，就是<strong>軟牌</strong>：A-2 是軟 13，A-6 是軟 17，A-9 是軟 20。關鍵在於：<strong>一張牌不可能讓你爆牌</strong>，因為如果超過 21 點，A 會自動改算 1 點。</p>
+  <p>這就是軟牌和硬牌打法不同的原因。硬 17 要牌很危險；軟 17 要牌最壞也只是變成一手硬牌，繼續打。</p>
+
+  <h2 id="chart">軟牌策略表</h2>
+  <p>以下是參考牌桌（6 副牌、莊家軟 17 停牌、任意兩張可加倍）的軟牌打法。H = 要牌，S = 停牌，D = 加倍（不能加倍就要牌），Ds = 加倍（不能加倍就停牌）。</p>
+  <div class="chart-scroll">
+  <table>
+    <thead><tr><th>你的牌</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>A</th></tr></thead>
+    <tbody>
+      <tr><td>A-2（軟 13）</td><td>H</td><td>H</td><td>H</td><td>D</td><td>D</td><td>H</td><td>H</td><td>H</td><td>H</td><td>H</td></tr>
+      <tr><td>A-3（軟 14）</td><td>H</td><td>H</td><td>H</td><td>D</td><td>D</td><td>H</td><td>H</td><td>H</td><td>H</td><td>H</td></tr>
+      <tr><td>A-4（軟 15）</td><td>H</td><td>H</td><td>D</td><td>D</td><td>D</td><td>H</td><td>H</td><td>H</td><td>H</td><td>H</td></tr>
+      <tr><td>A-5（軟 16）</td><td>H</td><td>H</td><td>D</td><td>D</td><td>D</td><td>H</td><td>H</td><td>H</td><td>H</td><td>H</td></tr>
+      <tr><td>A-6（軟 17）</td><td>H</td><td>D</td><td>D</td><td>D</td><td>D</td><td>H</td><td>H</td><td>H</td><td>H</td><td>H</td></tr>
+      <tr><td>A-7（軟 18）</td><td>S</td><td>Ds</td><td>Ds</td><td>Ds</td><td>Ds</td><td>S</td><td>S</td><td>H</td><td>H</td><td>H</td></tr>
+      <tr><td>A-8（軟 19）</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td></tr>
+      <tr><td>A-9（軟 20）</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>直行是莊家的明牌。完整的互動式版本，可以依你那桌的規則調整，請看<a href={routes.strategy.zh}>基本策略表</a>。</p>
+
+  <h2 id="key-hands">三手最重要的軟牌</h2>
+  <ul>
+    <li><strong>A-6（軟 17）：永遠不停牌。</strong>17 點只有在莊家爆牌時才贏，而軟 17 要牌不會爆。對 3 到 6 加倍，其他情況要牌。</li>
+    <li><strong>A-7（軟 18）：最容易打錯。</strong>18 點聽起來不錯，但對莊家 9、10、A 時，它常常輸，所以要牌。對 3 到 6 則要加倍，因為莊家很可能爆牌。</li>
+    <li><strong>A-8 和 A-9：停牌。</strong>19 和 20 點已經很強，不需要冒險。</li>
+  </ul>
+
+  <h2 id="rules">規則改變時的差異</h2>
+  <ul>
+    <li><strong>莊家軟 17 要牌（H17）：</strong>A-7 對 2 改成加倍（Ds），A-8 對 6 也改成加倍（Ds）。</li>
+    <li><strong>只能在 9–11 加倍</strong>（例如<a href={routes.spain.zh}>西班牙</a>）：軟牌永遠不加倍。原本的 D 改成要牌，A-7 對 3 到 6 改成停牌。</li>
+  </ul>
+  <p>想了解所有加倍的時機，請看<a href={routes.whenDouble.zh}>什麼時候加倍</a>。</p>
+
+  <h2 id="mistakes">最常見的軟牌錯誤</h2>
+  <ol>
+    <li>在軟 17（A-6）停牌。</li>
+    <li>A-7 對 9、10、A 停牌。</li>
+    <li>A-7 對 3 到 6 沒有加倍。</li>
+  </ol>
+  <p>這三個錯誤都來自同一個直覺：把軟牌當成硬牌來打。更多常見錯誤，請看<a href={routes.mistakes.zh}>21點最常見的錯誤</a>。</p>
+  <div class="callout"><p><strong>練習的方法：</strong>軟牌比硬牌少見，所以很難靠實戰記住。在<a href={routes.simulator.zh}>免費練習桌</a>上，每打錯一次都會馬上告訴你原因；Veintiuno App 還有錯誤熱圖，讓你看到自己最常在哪幾格出錯。</p></div>
+</Guide>

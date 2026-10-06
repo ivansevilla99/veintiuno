@@ -1,0 +1,62 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quando conviene arrendersi a blackjack?', a: 'Con 6 mazzi e banco che sta su soft 17: arrenditi con 16 hard contro 9, 10 o asso e con 15 hard contro 10. Se il banco chiede carta su soft 17, aggiungi 15 contro asso, 17 contro asso e 8-8 contro asso.' },
+  { q: 'Cos’è la resa tardiva (late surrender)?', a: 'Dopo che il banco ha controllato di non avere blackjack, puoi rinunciare alla mano e riprenderti metà della puntata. Rispetto a un tavolo senza resa, vale circa 0,07 punti di vantaggio in meno per il banco.' },
+  { q: 'Mi arrendo con una coppia di 8?', a: 'No, di regola dividi. L’unica eccezione è 8-8 contro un asso quando il banco chiede carta su soft 17: lì la resa è migliore.' },
+  { q: 'E se il tavolo non permette la resa?', a: 'Giochi la mano: con 16 contro 10, 15 contro 10 e 16 contro 9 chiedi carta.' },
+];
+---
+<Guide
+  lang="it"
+  route="surrender"
+  title="Quando arrendersi a blackjack: la resa spiegata"
+  h1="Quando arrendersi a blackjack"
+  description="Quando conviene la resa a blackjack: 16 contro 9, 10 o asso e 15 contro 10. Resa tardiva e anticipata, i valori attesi esatti e cosa fare se non è permessa."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['hand16v10', 'strategy', 'macau', 'softHands']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>In breve:</strong> con 6 mazzi, banco che sta su soft 17 e resa tardiva, <strong>arrenditi con 16 hard contro 9, 10 o asso, e con 15 hard contro 10</strong>. Basta così. Con 8-8 dividi invece di arrenderti. La regola di fondo: ti arrendi quando la tua mano, in media, perde più di metà della puntata.</p></div>
+  </div>
+
+  <h2 id="what">Cos’è la resa</h2>
+  <p>La resa (in inglese <em>surrender</em>) ti permette di rinunciare alla mano subito dopo aver visto le prime due carte e di riprenderti <strong>metà della puntata</strong>. Perdi sempre il 50%, ma eviti di perdere il 100% in una mano che quasi sicuramente andrebbe male.</p>
+  <p>Nella versione più diffusa, la <strong>resa tardiva</strong>, puoi arrenderti solo dopo che il banco ha controllato di non avere blackjack. Rispetto a un tavolo senza resa vale circa <strong>0,07 punti</strong> di vantaggio del banco in meno. Attenzione: la maggior parte dei tavoli europei e spagnoli e molti tavoli live non la offrono.</p>
+
+  <h2 id="when">Quando arrendersi: la tabella</h2>
+  <table>
+    <thead><tr><th>La tua mano</th><th>Banco sta su soft 17 (S17)</th><th>Banco chiede su soft 17 (H17)</th></tr></thead>
+    <tbody>
+      <tr><td>16 hard</td><td>Resa contro 9, 10, asso</td><td>Resa contro 9, 10, asso</td></tr>
+      <tr><td>15 hard</td><td>Resa contro 10</td><td>Resa contro 10 e asso</td></tr>
+      <tr><td>17 hard</td><td>Mai</td><td>Resa contro asso</td></tr>
+      <tr><td>8-8</td><td>Dividi sempre</td><td>Resa contro asso</td></tr>
+    </tbody>
+  </table>
+  <p>Sono poche mani, ma tutte situazioni in cui perdi più della metà delle volte. In tutte le altre giochi normalmente seguendo la <a href={routes.strategy.it}>tabella di strategia di base</a>.</p>
+
+  <h2 id="why">Perché conviene: l’esempio di 16 contro 10</h2>
+  <p>Prendi un 10-6 contro un 10 del banco, con 6 mazzi e banco che sta su soft 17. Ecco quanto vale in media ogni opzione, per unità puntata:</p>
+  <table>
+    <thead><tr><th>Opzione</th><th>Valore atteso</th></tr></thead>
+    <tbody>
+      <tr><td>Stare</td><td>−0,542</td></tr>
+      <tr><td>Chiedere carta</td><td>−0,535</td></tr>
+      <tr><td>Arrendersi</td><td><strong>−0,500</strong></td></tr>
+    </tbody>
+  </table>
+  <p>Arrendendoti perdi esattamente metà puntata. Giocando perdi in media di più. Ecco la regola pratica: <strong>arrenditi quando la mano vale meno di −0,5</strong>. Senza resa, chiedere carta batte stare di pochissimo: lo spieghiamo in dettaglio in <a href={routes.hand16v10.it}>16 contro 10</a>.</p>
+
+  <h2 id="early">Resa anticipata: molto più preziosa</h2>
+  <p>In alcuni posti, come <a href={routes.macau.it}>Macao</a>, si gioca con la <strong>resa anticipata</strong>: puoi arrenderti prima che il banco possa mostrare il blackjack (ma non contro un asso). Vale molto di più della resa tardiva. Contro un 10 si arrendono 14, 15 e 16 hard, compresi 7-7 e 8-8.</p>
+
+  <h2 id="no-surrender">Se il tavolo non ha la resa</h2>
+  <p>Allora giochi la mano. Con 16 contro 10, 15 contro 10 e 16 contro 9 <strong>chiedi carta</strong>. Non è piacevole, ma perde un po’ meno che stare.</p>
+  <div class="callout"><p><strong>Arrendersi non è da codardi.</strong> Molti giocatori lo evitano per orgoglio, ma è solo matematica: in queste poche mani salvare metà della puntata è la scelta che perde di meno. Non ti fa vincere, riduce le perdite. Se giochi con soldi veri, fissa un budget e leggi la pagina sul <a href={routes.responsible.it}>gioco responsabile</a>.</p></div>
+  <p>Per allenare la resa finché diventa automatica, usa il <a href={routes.simulator.it}>tavolo di allenamento gratis</a>, che ti corregge ogni decisione.</p>
+</Guide>

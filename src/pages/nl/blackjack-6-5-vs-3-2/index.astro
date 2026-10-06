@@ -1,0 +1,65 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Wat betekent „Blackjack pays 6 to 5”?', a: 'Dat een natuurlijke blackjack (een aas plus een tienwaardige kaart als eerste twee kaarten) maar 6 tegen 5 uitbetaalt in plaats van 3 tegen 2. Bij een inzet van 10 win je 12 in plaats van 15. Alle andere winsten worden gewoon 1 tegen 1 uitbetaald.' },
+  { q: 'Hoeveel kost een 6:5-tafel me?', a: 'Ongeveer 1,39 procentpunt extra huisvoordeel. Aan de referentietafel (6 decks, dealer past op zachte 17, verdubbelen na splitsen, late surrender) stijgt het huisvoordeel met perfecte basisstrategie van ongeveer 0,36% naar ongeveer 1,75%. Geen enkele andere regel kost zoveel.' },
+  { q: 'Moet ik aan een 6:5-tafel anders spelen?', a: 'Nauwelijks. De basisstrategie verandert met 6:5 bijna niet: het verlies zit in de uitbetaling, niet in je beslissingen. De beste beslissing is een tafel zoeken die 3:2 betaalt.' },
+  { q: 'Is 1:1 voor blackjack nog slechter?', a: 'Ja. Als een blackjack maar 1 tegen 1 uitbetaalt (even money), stijgt het huisvoordeel met ongeveer 2,27 punten – nog meer dan bij 6:5.' },
+];
+---
+<Guide
+  lang="nl"
+  route="payout65"
+  title="Blackjack 6:5 vs 3:2: wat kost 6:5 je echt?"
+  h1="Blackjack 6:5 of 3:2: het duurste verschil aan tafel"
+  description="Blackjack 6:5 of 3:2? Wat de lagere uitbetaling je echt kost, met rekenvoorbeeld, een vergelijking met andere regels en hoe je de juiste tafel herkent."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['dataRules', 'mistakes', 'insurance', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> Speel altijd aan een tafel die blackjack <strong>3 tegen 2</strong> uitbetaalt. Een 6:5-tafel verhoogt het huisvoordeel met ongeveer <strong>1,39 procentpunt</strong> – aan de referentietafel van ongeveer 0,36% naar ongeveer 1,75%. Dat is meer dan welke andere losse regel ook, en geen enkele strategie maakt het goed.</p></div>
+  </div>
+
+  <h2 id="payout">Wat 3:2 en 6:5 precies betekenen</h2>
+  <p>Een natuurlijke blackjack is een aas plus een tien, boer, vrouw of heer als je eerste twee kaarten. Het is de enige hand die meer dan 1 tegen 1 uitbetaalt – en precies daar knijpt de 6:5-regel:</p>
+  <table>
+    <thead><tr><th>Inzet</th><th>Winst bij 3:2</th><th>Winst bij 6:5</th><th>Verschil</th></tr></thead>
+    <tbody>
+      <tr><td>10</td><td>15</td><td>12</td><td>−3</td></tr>
+      <tr><td>1 eenheid</td><td>1,5</td><td>1,2</td><td>−0,3 eenheid</td></tr>
+    </tbody>
+  </table>
+  <p>„6 tegen 5” klingt misschien als meer, omdat de getallen groter zijn. In werkelijkheid krijg je per blackjack <strong>0,3 inzet minder</strong>.</p>
+
+  <h2 id="cost">Waarom 0,3 inzet zoveel uitmaakt</h2>
+  <p>Je krijgt een natuurlijke blackjack in ongeveer <strong>4,75%</strong> van je handen, dus grofweg één keer per 21 handen. Elke keer mis je 0,3 inzet. Over veel handen telt dat op tot ongeveer 1,39 procentpunt extra huisvoordeel.</p>
+  <p>Een rekenvoorbeeld: je speelt 100 handen van 10. In totaal zet je 1.000 in. Aan de 6:5-tafel verlies je daarbij naar verwachting ongeveer <strong>14 meer</strong> dan aan een 3:2-tafel (1,39% van 1.000) – bovenop wat het casino toch al wint.</p>
+
+  <h2 id="compare">6:5 vergeleken met andere regels</h2>
+  <p>Zoveel huisvoordeel voegt elke regel ongeveer toe ten opzichte van de referentietafel (6 decks, dealer past op zachte 17, verdubbelen op elke twee kaarten, verdubbelen na splitsen, late surrender, dealer checkt op blackjack):</p>
+  <table>
+    <thead><tr><th>Regel</th><th>Extra huisvoordeel</th></tr></thead>
+    <tbody>
+      <tr><td>Blackjack betaalt 1:1 (even money)</td><td>≈ +2,27 punten</td></tr>
+      <tr><td><strong>Blackjack betaalt 6:5</strong></td><td><strong>≈ +1,39 punten</strong></td></tr>
+      <tr><td>Dealer neemt kaart op zachte 17 (H17)</td><td>≈ +0,22 punten</td></tr>
+      <tr><td>Geen hole card (Europese tafel)</td><td>≈ +0,11 punten</td></tr>
+      <tr><td>Alleen verdubbelen op 9–11</td><td>≈ +0,09 punten</td></tr>
+      <tr><td>Geen opgeven (surrender)</td><td>≈ +0,07 punten</td></tr>
+    </tbody>
+  </table>
+  <p>Met andere woorden: 6:5 kost je meer dan zes keer zoveel als H17, en ongeveer twintig keer zoveel als het ontbreken van surrender. Alle regels per stuk vind je in de <a href={routes.dataRules.nl}>tabel met huisvoordeel per regel</a>.</p>
+
+  <h2 id="where">Waar je 6:5 tegenkomt</h2>
+  <p>6:5 is vooral gebruikelijk aan tafels met lage minimuminzet op de Las Vegas Strip, bij single-deck-spellen in Las Vegas en aan goedkope tafels op cruiseschepen. Volgens overzichten uit 2026 biedt ongeveer de helft van de casino’s op de Strip ergens nog 3:2 aan – maar vaak alleen aan tafels met een hogere minimuminzet.</p>
+  <p>Het advies is simpel: <strong>lees het laken</strong>. Op de tafel staat bijna altijd gedrukt hoe blackjack uitbetaalt („Blackjack pays 3 to 2” of „6 to 5”). Zie je 6:5, loop dan door naar een tafel met 3:2.</p>
+
+  <h2 id="strategy">Verandert de basisstrategie?</h2>
+  <p>Bijna niet. Of een blackjack nu 1,5 of 1,2 inzet oplevert, het beïnvloedt niet wat je met 12 tegen een 3 of met A-7 tegen een 9 moet doen. Het verlies zit in de uitbetaling, niet in je beslissingen. Dat betekent ook: zelfs als je perfect speelt, speel je aan een 6:5-tafel tegen een veel hoger huisvoordeel.</p>
+  <div class="callout"><p><strong>Eerlijk gezegd:</strong> ook aan een 3:2-tafel heeft het casino een voordeel. Basisstrategie maakt dat voordeel zo klein mogelijk, maar laat het niet verdwijnen. Speel alleen met geld dat je kunt missen en lees onze pagina over <a href={routes.responsible.nl}>verantwoord spelen</a>.</p></div>
+  <p>Wil je de strategie zelf oefenen? De <a href={routes.strategy.nl}>interactieve strategietabel</a> past zich aan de regels van jouw tafel aan, en aan de <a href={routes.simulator.nl}>gratis oefentafel</a> krijg je bij elke beslissing meteen feedback – zonder echt geld.</p>
+</Guide>

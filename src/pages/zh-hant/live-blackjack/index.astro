@@ -1,0 +1,63 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: '真人線上21點的莊家優勢是多少？', a: '典型的真人牌桌（8 副牌、莊家軟 17 停牌、只在明牌是 A 時查看、只能分牌一次、不能投降、Blackjack 賠 3:2），用正確策略，莊家優勢大約是 0.6% 到 0.7%。' },
+  { q: '真人21點的策略和一般策略表一樣嗎？', a: '大部分一樣，但有兩個重要差異：對莊家 10，11 點不加倍，8-8 不分牌（要牌）。因為莊家明牌是 10 時不會先查看，之後翻出 Blackjack 會連加倍和分牌的注碼一起收走。' },
+  { q: '真人線上21點可以算牌嗎？', a: '幾乎沒用。牌靴通常發到大約一半就重新洗牌，真數很少會升高。也絕對不要使用軟體或任何輔助工具：這違反平台條款，在很多地方也是違法的。' },
+  { q: '21+3、Perfect Pairs 這些邊注值得玩嗎？', a: '不值得。邊注的莊家優勢比主遊戲高得多。' },
+];
+---
+<Guide
+  lang="zh"
+  route="live"
+  title="真人線上21點：規則、策略與算牌真相"
+  h1="真人線上21點：規則、策略和你該知道的事"
+  description="真人線上21點怎麼運作：8 副牌、莊家只在 A 時查看、不能投降，莊家優勢約 0.6–0.7%。11 對 10、8-8 對 10 的策略差異，以及為什麼算牌幾乎沒用。"
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['strategy', 'mistakes', 'macau', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>簡短回答：</strong>典型的真人線上21點是 8 副牌、莊家軟 17 停牌、<strong>莊家只在明牌是 A 時查看 Blackjack</strong>、只能分牌一次、不能投降，Blackjack 賠 3:2。用正確策略，莊家優勢大約是 <strong>0.6% 到 0.7%</strong>。策略上最重要的差異：<strong>對莊家 10，11 點不加倍，8-8 不分牌</strong>。算牌在這裡幾乎沒用。</p></div>
+  </div>
+
+  <h2 id="rules">典型的規則</h2>
+  <p>真人線上21點是由真人荷官在攝影棚發牌，透過直播進行。以下是最常見的規則（各平台、各牌桌可能不同，請先看清楚牌桌說明）：</p>
+  <table>
+    <thead><tr><th>規則</th><th>典型真人牌桌</th><th>參考牌桌</th></tr></thead>
+    <tbody>
+      <tr><td>副數</td><td>8 副</td><td>6 副</td></tr>
+      <tr><td>莊家軟 17</td><td>停牌</td><td>停牌</td></tr>
+      <tr><td>莊家查看 Blackjack</td><td>只在明牌是 A 時</td><td>明牌是 A 或 10 時</td></tr>
+      <tr><td>分牌</td><td>只能一次</td><td>可以再分</td></tr>
+      <tr><td>投降</td><td>不能</td><td>晚投降</td></tr>
+      <tr><td>Blackjack 賠率</td><td>3:2</td><td>3:2</td></tr>
+      <tr><td>莊家優勢（約）</td><td><strong>0.6%–0.7%</strong></td><td>0.36%</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="strategy">策略上的差異</h2>
+  <p>關鍵在於：莊家明牌是 10 時<strong>不會先查看</strong>。如果你加倍或分牌之後，莊家才翻出 Blackjack，你多下的注碼也會一起輸掉。所以對莊家 10 時要更保守：</p>
+  <ul>
+    <li><strong>11 對 10：要牌，不加倍。</strong></li>
+    <li><strong>8-8 對 10：要牌，不分牌。</strong></li>
+    <li>其他情況：和沒有暗牌的歐式牌桌一樣，請看<a href={routes.strategy.zh}>基本策略表</a>並選擇「歐洲／線上」的規則。</li>
+  </ul>
+  <p>沒有投降，所以 16 對 10 就照策略要牌（見<a href={routes.hand16v10.zh}>16 對 10</a>）。</p>
+
+  <h2 id="counting">為什麼算牌幾乎沒用</h2>
+  <p>理論上，真人牌桌用的是實體牌靴，可以算牌。實際上，牌靴通常發到<strong>大約一半</strong>就重新洗牌，剩下的牌還很多，真數很少會升到有利的程度。這和在實體賭場算牌完全不同。</p>
+  <div class="callout warn"><p><strong>重要：</strong>絕對不要在線上牌桌使用算牌軟體、程式或任何輔助工具。這違反平台條款，在很多地方也是違法的。想了解算牌本身，請看<a href={routes.counting.zh}>算牌</a>和<a href={routes.countingLegal.zh}>算牌違法嗎？</a></p></div>
+
+  <h2 id="side-bets">邊注：21+3、Perfect Pairs</h2>
+  <p>真人牌桌常常會提供各種邊注，例如 21+3 和 Perfect Pairs。它們的賠率看起來很誘人，但莊家優勢<strong>比主遊戲高得多</strong>。如果你的目標是輸得少，就只玩主遊戲，也不要買<a href={routes.insurance.zh}>保險</a>。</p>
+
+  <h2 id="honest">誠實的提醒</h2>
+  <p>真人線上21點是真錢賭博。它的節奏快、隨時都能玩，所以更容易玩超過原本的打算。玩之前先設好預算和時間，輸了不要追，並注意警訊。可以求助的地方和自我檢查，請看<a href={routes.responsible.zh}>負責任博彩</a>。</p>
+
+  <h2 id="practice">不花錢練習</h2>
+  <p>Veintiuno 是不涉及真錢的訓練器。App 裡有一張「真人線上」牌桌，使用這套規則和對應的策略表，每次打錯都會馬上糾正並說明原因。你也可以在<a href={routes.simulator.zh}>免費練習桌</a>上，先熟悉基本策略。</p>
+</Guide>

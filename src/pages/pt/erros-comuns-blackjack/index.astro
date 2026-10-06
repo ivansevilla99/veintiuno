@@ -1,0 +1,77 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Qual é o erro mais caro no blackjack?', a: 'Jogar sem estratégia: parar com qualquer 12 ou mais para “não estourar” leva a vantagem da casa a cerca de 4%, e imitar o dealer, a cerca de 5,5%, contra cerca de 0,4% com estratégia básica.' },
+  { q: 'Martingale ou progressões funcionam no blackjack?', a: 'Não. Nenhum sistema de apostas muda a vantagem da casa. Eles só mudam a variância e o risco de perder o seu dinheiro todo de uma vez.' },
+  { q: 'Um jogador ruim na mesa atrapalha as minhas cartas?', a: 'Não. É um mito. As decisões dos outros jogadores não mudam o seu valor esperado: às vezes eles “tiram” uma carta boa, às vezes uma ruim.' },
+  { q: 'Pedir com 16 contra 10 é um erro grave?', a: 'Não. Pedir ou parar com 16 contra 10 difere em menos de 1% da aposta. Os erros caros são outros: seguro, mesas 6:5, não dobrar 11 ou parar com 12–16 contra cartas altas.' },
+];
+---
+<Guide
+  lang="pt"
+  route="mistakes"
+  title="10 erros comuns no blackjack (e quanto custam)"
+  h1="Os erros mais comuns no blackjack e quanto custam"
+  description="Os erros mais comuns no blackjack: jogar para não estourar, fazer seguro, mesas 6:5, parar com 17 soft e sistemas de apostas. Quanto custa cada um e como evitar."
+  updated="2026-10-06"
+  readMinutes={6}
+  faq={faq}
+  related={['insurance', 'payout65', 'softHands', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Resposta curta:</strong> o erro mais caro no blackjack é <strong>não seguir a estratégia básica</strong>. Jogar “para não estourar” leva a vantagem da casa a cerca de <strong>4%</strong>, e imitar o dealer, a cerca de <strong>5,5%</strong>, contra cerca de <strong>0,4%</strong> jogando certo. Depois vêm o seguro (−7,4% da aposta de seguro) e as mesas 6:5 (+1,39 ponto).</p></div>
+  </div>
+
+  <h2 id="ranking">Os erros, do mais caro ao mais barato</h2>
+  <p>Valores aproximados, segundo análises publicadas como as do Wizard of Odds:</p>
+  <table>
+    <thead><tr><th>Erro</th><th>Custo aproximado</th></tr></thead>
+    <tbody>
+      <tr><td>Imitar o dealer (pedir até 17, nunca dobrar nem dividir)</td><td>Vantagem da casa ≈5,5%</td></tr>
+      <tr><td>Jogar “para não estourar” (parar com qualquer 12+)</td><td>Vantagem da casa ≈4%</td></tr>
+      <tr><td>Fazer seguro ou aceitar even money</td><td>−7,4% de cada aposta de seguro</td></tr>
+      <tr><td>Jogar numa mesa que paga 6:5</td><td>+1,39 ponto</td></tr>
+      <tr><td>Estratégia básica correta (referência)</td><td>Vantagem da casa ≈0,4%</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="strategy">1. Jogar sem estratégia básica</h2>
+  <p>Parar com qualquer 12 ou mais “para não estourar” parece prudente, mas deixa o dealer jogar com vantagem. Imitar o dealer é ainda pior: você estoura primeiro e perde mesmo que ele estoure depois. A <a href={routes.strategy.pt}>tabela de estratégia básica</a> resolve as duas coisas.</p>
+
+  <h2 id="insurance">2. Fazer seguro (e aceitar even money)</h2>
+  <p>O seguro perde cerca de 7,4% de cada aposta num jogo de 6 baralhos, e o even money é o mesmo seguro com outro nome. Veja a conta completa em <a href={routes.insurance.pt}>seguro no blackjack</a>.</p>
+
+  <h2 id="65">3. Sentar numa mesa 6:5</h2>
+  <p>Um blackjack que paga 6:5 em vez de 3:2 soma cerca de 1,39 ponto à vantagem da casa, mais do que qualquer outra regra isolada. Leia o feltro antes de sentar: <a href={routes.payout65.pt}>blackjack 6:5 vs 3:2</a>.</p>
+
+  <h2 id="stiff">4. Parar com 12–16 contra 7, 8, 9, 10 ou ás</h2>
+  <p>O medo de estourar faz muita gente parar com mãos fracas contra cartas altas. Contra um 7 ou mais, o dealer chega a 17 ou mais na maioria das vezes, e o seu 15 perde. Peça carta (ou desista, quando a regra permitir e a tabela indicar).</p>
+
+  <h2 id="double">5. Não dobrar 10 e 11 contra cartas fracas</h2>
+  <p>Dobrar é a forma de colocar mais dinheiro na mesa quando você está em vantagem. Deixar de dobrar um 11 ou um 10 contra uma carta fraca do dealer desperdiça essas situações. Tudo em <a href={routes.whenDouble.pt}>quando dobrar</a>.</p>
+
+  <h2 id="split">6. Dividir errado</h2>
+  <ul>
+    <li><strong>Não dividir 8-8 e A-A:</strong> erro. Divida.</li>
+    <li><strong>Dividir 10-10:</strong> erro. Um 20 já é uma mão excelente.</li>
+    <li><strong>Dividir 5-5:</strong> erro. Trate como um 10 e dobre.</li>
+  </ul>
+  <p>Detalhes em <a href={routes.whenSplit.pt}>quando dividir</a>.</p>
+
+  <h2 id="soft17">7. Parar com 17 soft (A-6)</h2>
+  <p>Com A-6 uma carta não pode fazer você estourar, e 17 é uma mão fraca. Nunca pare: dobre contra 3 a 6 e peça contra o resto. Veja as <a href={routes.softHands.pt}>mãos soft</a>.</p>
+
+  <h2 id="systems">8. Confiar em sistemas de apostas</h2>
+  <p>Martingale, progressões e afins não mudam a vantagem da casa. Eles só mudam a variância e o risco de perder o seu orçamento todo. Se você joga com dinheiro, o que protege você é um limite definido antes, não um sistema. Leia o guia de <a href={routes.responsible.pt}>jogo responsável</a>.</p>
+
+  <h2 id="myths">9. Culpar os outros jogadores</h2>
+  <p>“O jogador da terceira base pegou a minha carta” é um mito. As decisões dos outros não mudam o seu valor esperado: às vezes eles tiram uma carta que ajudaria você, às vezes uma que atrapalharia.</p>
+
+  <h2 id="16v10">10. Brigar por 16 contra 10</h2>
+  <p>É a mão mais discutida, mas pedir ou parar difere em menos de 1% da aposta. Vale acertar (<a href={routes.hand16v10.pt}>pedir, ou desistir se puder</a>), só que os erros acima custam muito mais.</p>
+
+  <h2 id="fix">Como corrigir esses erros</h2>
+  <p>Ler ajuda, mas o que fixa é a repetição com correção imediata. Jogue no <a href={routes.simulator.pt}>simulador grátis</a> ou siga o <a href={routes.course.pt}>curso de blackjack grátis</a>. Jogar bem reduz a vantagem da casa; não a elimina.</p>
+</Guide>

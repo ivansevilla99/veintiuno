@@ -1,0 +1,69 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: '21點最貴的錯誤是什麼？', a: '不用基本策略，而是憑感覺或「永不爆牌」來打。只要 12 點以上就停牌，莊家優勢大約是 4%；用基本策略大約只有 0.4%。模仿莊家打法（要到 17 點、從不加倍分牌）大約是 5.5%。' },
+  { q: '倍投法（馬丁格爾）有用嗎？', a: '沒有。任何注碼系統都不會改變莊家優勢，只會改變輸贏的波動和輸光的風險。' },
+  { q: '同桌的人打錯，會害我輸嗎？', a: '不會，這是迷思。別人的決定有時讓你這手贏、有時讓你這手輸，長期下來不會改變你的期望值。' },
+  { q: '16 對 10 停牌算大錯嗎？', a: '不算。要牌和停牌的差距不到注碼的 1%。真正花錢的錯誤是買保險、玩 6:5 的牌桌、12 到 16 點對莊家大牌停牌，以及不加倍、不分牌。' },
+];
+---
+<Guide
+  lang="zh"
+  route="mistakes"
+  title="21點新手最常犯的錯誤（和它們的代價）"
+  h1="21點最常見的錯誤，以及每一個讓你付出多少"
+  description="21點最常見的錯誤：憑感覺打、買保險、玩 6:5 牌桌、軟 17 停牌、不敢加倍分牌，以及倍投法。附上每個錯誤的大約代價和正確打法。"
+  updated="2026-10-06"
+  readMinutes={6}
+  faq={faq}
+  related={['strategy', 'insurance', 'payout65', 'softHands']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>簡短回答：</strong>最貴的錯誤是<strong>不用基本策略</strong>：憑「永不爆牌」來打，莊家優勢大約是 4%，用基本策略大約只有 0.4%。接下來是<strong>買保險</strong>（每筆約輸 7.4%）、<strong>玩 6:5 的牌桌</strong>（約多 1.39 個百分點）、<strong>12 到 16 點對莊家大牌停牌</strong>，以及<strong>該加倍、該分牌時不敢</strong>。</p></div>
+  </div>
+
+  <h2 id="cost">錯誤的代價：一張表看懂</h2>
+  <p>以下是公開分析（例如 Wizard of Odds）中的大約數字。它們說明的是：哪些錯誤真的花錢，哪些只是大家愛爭論。</p>
+  <table>
+    <thead><tr><th>打法</th><th>莊家優勢（約）</th></tr></thead>
+    <tbody>
+      <tr><td>完美基本策略</td><td>約 0.4%</td></tr>
+      <tr><td>「永不爆牌」：12 點以上一律停牌</td><td>約 4%</td></tr>
+      <tr><td>模仿莊家：要到 17 點，從不加倍、分牌</td><td>約 5.5%</td></tr>
+    </tbody>
+  </table>
+  <p>差距是十倍以上。光是把<a href={routes.strategy.zh}>基本策略表</a>學好，比任何技巧或系統都有用。</p>
+
+  <h2 id="insurance">1. 買保險和平賠</h2>
+  <p>莊家明牌是 A 時，保險看起來很安全，但 6 副牌下平均每筆保險會輸掉約 <strong>7.4%</strong>。自己拿到 Blackjack 時的「平賠」也是一樣的賭注。答案很簡單：不買。原因請看<a href={routes.insurance.zh}>21點保險該買嗎？</a></p>
+
+  <h2 id="payout">2. 坐在 6:5 的牌桌</h2>
+  <p>Blackjack 只賠 6:5 而不是 3:2，會讓莊家優勢增加約 <strong>1.39 個百分點</strong>，比任何其他規則都貴。這個錯誤在你坐下之前就犯了。詳細請看<a href={routes.payout65.zh}>6:5 和 3:2 差多少</a>。</p>
+
+  <h2 id="fear">3. 怕爆牌：12 到 16 點對大牌停牌</h2>
+  <p>莊家明牌是 7、8、9、10 或 A 時，他很可能停在 17 點以上。這時你的 12 到 16 點停牌，大多數時候都會輸。正確打法是要牌（或在允許時<a href={routes.surrender.zh}>投降</a>）。爆牌的感覺很差，但長期來看，停牌輸得更多。</p>
+
+  <h2 id="timid">4. 該加倍、該分牌時不敢</h2>
+  <ul>
+    <li><strong>11 和 10 對莊家弱牌不加倍</strong>：這些是你最有優勢的時候，要加注。見<a href={routes.whenDouble.zh}>什麼時候加倍</a>。</li>
+    <li><strong>8-8 和 A-A 不分牌</strong>：一對 8 是 16 點，最差的牌；分開就是兩手從 8 開始的牌。A-A 分開是兩次拿 21 點的機會。</li>
+    <li><strong>分 10-10</strong>：20 點已經很強，不要拆掉它。</li>
+    <li><strong>分 5-5</strong>：它是 10 點，應該加倍，不是分牌。</li>
+  </ul>
+  <p>所有分牌規則請看<a href={routes.whenSplit.zh}>什麼時候分牌</a>。</p>
+
+  <h2 id="soft">5. 軟 17 停牌</h2>
+  <p>A-6 是軟 17，要牌不會爆牌，而 17 點本身很弱。永遠不要停在軟 17。其他軟牌的打法，請看<a href={routes.softHands.zh}>21點軟牌怎麼打</a>。</p>
+
+  <h2 id="myths">6. 相信注碼系統和牌桌迷思</h2>
+  <ul>
+    <li><strong>倍投法、各種注碼遞增系統：</strong>不會改變莊家優勢，只會改變波動和輸光的風險。輸了就加倍，最後總會遇到上限或預算用完。</li>
+    <li><strong>「同桌有人亂打，害我輸」：</strong>迷思。別人的決定不會改變你的期望值。</li>
+  </ul>
+
+  <h2 id="overrated">被高估的「錯誤」：16 對 10</h2>
+  <p>很多人為了 16 對 10 該要牌還是停牌爭論不休，但兩者的差距<strong>不到注碼的 1%</strong>。它值得學對，但不是讓你輸錢的主因。上面那些錯誤才是。詳細數字請看<a href={routes.hand16v10.zh}>16 對 10</a>。</p>
+  <div class="callout"><p><strong>誠實的提醒：</strong>避開這些錯誤能讓你輸得少很多，但基本策略並不能保證贏錢，莊家長期仍然有優勢。只用你輸得起的錢玩，請看<a href={routes.responsible.zh}>負責任博彩</a>。想找出自己的錯誤，可以從<a href={routes.course.zh}>免費課程</a>和<a href={routes.simulator.zh}>免費練習桌</a>開始。</p></div>
+</Guide>

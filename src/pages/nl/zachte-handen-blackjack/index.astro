@@ -1,0 +1,73 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Wat is een zachte hand bij blackjack?', a: 'Een hand met een aas die als 11 telt, zoals A-6 (zachte 17). Omdat de aas ook als 1 kan tellen, kan één extra kaart je nooit kapot laten gaan.' },
+  { q: 'Pas je op zachte 17?', a: 'Nee. Met A-6 vraag je een kaart of verdubbel je (tegen 3 tot en met 6, als de tafel verdubbelen op elke twee kaarten toestaat). Passen op zachte 17 is een van de meest gemaakte fouten.' },
+  { q: 'Wat doe je met A-7 (zachte 18)?', a: 'Aan de referentietafel: passen tegen 2, 7 en 8; verdubbelen tegen 3 tot en met 6 (mag dat niet, dan passen); kaart vragen tegen 9, 10 en aas.' },
+  { q: 'Verdubbel je zachte handen als je alleen op 9–11 mag verdubbelen?', a: 'Nee. Aan tafels waar je alleen op 9, 10 of 11 mag verdubbelen, zoals in Spanje, verdubbel je nooit een zachte hand. A-7 tegen 3 tot en met 6 pas je dan.' },
+];
+---
+<Guide
+  lang="nl"
+  route="softHands"
+  title="Zachte handen bij blackjack: A-2 tot A-9 (soft 17)"
+  h1="Zachte handen bij blackjack: zo speel je A-2 tot A-9"
+  description="Hoe speel je zachte handen bij blackjack? De tabel voor A-2 tot A-9, waarom je nooit past op zachte 17, wanneer je A-7 verdubbelt en wat er verandert bij H17."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['whenDouble', 'strategy', 'mistakes', 'surrender']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> Een zachte hand bevat een aas die als 11 telt, dus één kaart kan je niet kapot laten gaan. Daarom vraag je vaker een kaart of verdubbel je dan je denkt: <strong>pas nooit op zachte 17 (A-6)</strong>, verdubbel A-7 tegen 3 tot en met 6 en vraag een kaart met A-7 tegen 9, 10 of aas. A-8 en A-9 pas je bijna altijd.</p></div>
+  </div>
+
+  <h2 id="what">Wat is een zachte hand?</h2>
+  <p>Een hand is <strong>zacht</strong> als hij een aas bevat die als 11 telt. A-6 is zachte 17: hij is 17 of 7 waard. Vraag je een kaart en kom je boven 21, dan telt de aas gewoon als 1. Daardoor is kaart vragen met een zachte hand risicoloos voor die ene kaart – en dat verandert de strategie volledig ten opzichte van harde handen.</p>
+
+  <h2 id="chart">De tabel voor zachte handen</h2>
+  <p>Referentietafel: 6 decks, dealer past op zachte 17, verdubbelen op elke twee kaarten. K = kaart vragen, P = passen, V = verdubbelen, Vp = verdubbelen als het mag, anders passen.</p>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th>Hand</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>A</th></tr></thead>
+    <tbody>
+      <tr><td>A-2 (zacht 13)</td><td>K</td><td>K</td><td>K</td><td>V</td><td>V</td><td>K</td><td>K</td><td>K</td><td>K</td><td>K</td></tr>
+      <tr><td>A-3 (zacht 14)</td><td>K</td><td>K</td><td>K</td><td>V</td><td>V</td><td>K</td><td>K</td><td>K</td><td>K</td><td>K</td></tr>
+      <tr><td>A-4 (zacht 15)</td><td>K</td><td>K</td><td>V</td><td>V</td><td>V</td><td>K</td><td>K</td><td>K</td><td>K</td><td>K</td></tr>
+      <tr><td>A-5 (zacht 16)</td><td>K</td><td>K</td><td>V</td><td>V</td><td>V</td><td>K</td><td>K</td><td>K</td><td>K</td><td>K</td></tr>
+      <tr><td>A-6 (zacht 17)</td><td>K</td><td>V</td><td>V</td><td>V</td><td>V</td><td>K</td><td>K</td><td>K</td><td>K</td><td>K</td></tr>
+      <tr><td>A-7 (zacht 18)</td><td>P</td><td>Vp</td><td>Vp</td><td>Vp</td><td>Vp</td><td>P</td><td>P</td><td>K</td><td>K</td><td>K</td></tr>
+      <tr><td>A-8 (zacht 19)</td><td>P</td><td>P</td><td>P</td><td>P</td><td>P</td><td>P</td><td>P</td><td>P</td><td>P</td><td>P</td></tr>
+      <tr><td>A-9 (zacht 20)</td><td>P</td><td>P</td><td>P</td><td>P</td><td>P</td><td>P</td><td>P</td><td>P</td><td>P</td><td>P</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Mag je bij A-2 tot en met A-6 niet verdubbelen, dan vraag je een kaart. De volledige tabel, ook voor harde handen en paren, staat in de <a href={routes.strategy.nl}>interactieve strategietabel</a>.</p>
+
+  <h2 id="soft17">Waarom je nooit past op zachte 17</h2>
+  <p>Zachte 17 voelt als een gemaakte hand, maar 17 is de zwakste eindscore: gaat de dealer niet kapot, dan eindigt hij altijd op minstens 17. Met passen kun je hooguit gelijkspelen tegen een 17. Door een kaart te vragen riskeer je niets – één kaart laat je niet kapotgaan – en heb je een goede kans om te verbeteren. Tegen een zwakke dealer (3 tot en met 6) verdubbel je zelfs.</p>
+
+  <h2 id="soft18">A-7: de lastigste zachte hand</h2>
+  <p>Zachte 18 heeft drie verschillende antwoorden, afhankelijk van de open kaart van de dealer:</p>
+  <ul>
+    <li><strong>Tegen 2, 7 of 8:</strong> passen. 18 is daar goed genoeg.</li>
+    <li><strong>Tegen 3 tot en met 6:</strong> verdubbelen. De dealer gaat vaak kapot, dus je wilt meer geld op tafel.</li>
+    <li><strong>Tegen 9, 10 of aas:</strong> kaart vragen. 18 verliest daar te vaak.</li>
+  </ul>
+
+  <h2 id="rules">Wat verandert er met andere regels?</h2>
+  <ul>
+    <li><strong>Dealer neemt kaart op zachte 17 (H17):</strong> A-7 tegen 2 verdubbel je (anders passen) en A-8 tegen 6 verdubbel je (anders passen).</li>
+    <li><strong>Alleen verdubbelen op 9–11</strong> (zoals in <a href={routes.spain.nl}>Spaanse casino’s</a>): je verdubbelt nooit een zachte hand. A-7 tegen 3 tot en met 6 pas je.</li>
+  </ul>
+
+  <h2 id="mistakes">De meest gemaakte fouten met zachte handen</h2>
+  <ul>
+    <li>Passen op A-6.</li>
+    <li>Passen op A-7 tegen 9, 10 of aas.</li>
+    <li>A-7 tegen 3 tot en met 6 niet verdubbelen.</li>
+  </ul>
+  <p>Meer over verdubbelen in de gids <a href={routes.whenDouble.nl}>wanneer verdubbelen</a>. De Veintiuno-app houdt in een heatmap bij in welke vakjes van de tabel jij het vaakst fout zit, zodat je gericht kunt oefenen. Zonder echt geld – en ook met perfecte strategie houdt het casino een voordeel, dus speel in een casino altijd <a href={routes.responsible.nl}>verantwoord</a>.</p>
+</Guide>

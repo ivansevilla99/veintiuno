@@ -1,0 +1,65 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Quelles sont les règles habituelles du blackjack en direct ?', a: 'Sur une table en direct typique : 8 jeux, le croupier reste sur 17 souple, il ne vérifie son blackjack que s’il montre un as, une seule séparation, pas d’abandon et blackjack payé 3:2. L’avantage de la maison tourne autour de 0,6 à 0,7 %. Vérifiez toujours les règles affichées sur la table.' },
+  { q: 'La stratégie de base change-t-elle en direct ?', a: 'Un peu. Contre un 10, ne doublez pas 11 et ne séparez pas 8-8 (tirez), car si le croupier retourne un blackjack vous perdez aussi la mise supplémentaire. Pour le reste, jouez comme à une table européenne sans carte cachée.' },
+  { q: 'Peut-on compter les cartes au blackjack en direct ?', a: 'Presque pas. Le sabot est généralement remélangé vers la moitié, donc le compte réel monte rarement assez pour faire la différence. Et n’utilisez jamais de logiciel ni d’aide : c’est contraire aux conditions des sites et illégal dans de nombreux pays.' },
+  { q: 'Les paris annexes comme 21+3 valent-ils le coup ?', a: 'Non. Les paris annexes comme 21+3 ou Perfect Pairs ont un avantage de la maison bien plus élevé que le jeu principal.' },
+];
+---
+<Guide
+  lang="fr"
+  route="live"
+  title="Blackjack en direct : règles et stratégie"
+  h1="Blackjack en direct : règles, stratégie et ce qu’il faut savoir"
+  description="Blackjack en direct en ligne : règles habituelles (8 jeux, sans abandon), avantage de la maison, ajustements de stratégie et limites du comptage des cartes."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['strategy', 'macau', 'mistakes', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> une table de blackjack en direct typique utilise <strong>8 jeux</strong>, sans abandon, avec une seule séparation et un croupier qui ne vérifie son blackjack que s’il montre un as. L’avantage de la maison tourne autour de <strong>0,6 à 0,7 %</strong>. Jouez la stratégie européenne, avec deux ajustements contre un 10 : <strong>ne doublez pas 11 et ne séparez pas 8-8</strong>.</p></div>
+  </div>
+
+  <h2 id="what">Comment fonctionne le blackjack en direct</h2>
+  <p>Le blackjack en direct (live) est diffusé en vidéo depuis un studio : un vrai croupier distribue de vraies cartes, et vous prenez vos décisions depuis votre écran. Les tables les plus répandues suivent un format standard, proche de celui des grands fournisseurs du secteur.</p>
+  <p>C’est un jeu d’argent réel. Veintiuno ne propose ni ne recommande aucun site de jeu : ce guide sert uniquement à comprendre les règles et à bien jouer si vous décidez de le faire.</p>
+
+  <h2 id="rules">Les règles typiques</h2>
+  <table>
+    <thead><tr><th>Règle</th><th>Table en direct typique</th></tr></thead>
+    <tbody>
+      <tr><td>Nombre de jeux</td><td>8</td></tr>
+      <tr><td>17 souple</td><td>le croupier reste (S17)</td></tr>
+      <tr><td>Vérification du blackjack</td><td>seulement si le croupier montre un as</td></tr>
+      <tr><td>Croupier montre un 10 et fait blackjack</td><td>vous perdez aussi doublements et séparations</td></tr>
+      <tr><td>Séparation</td><td>une seule</td></tr>
+      <tr><td>Abandon</td><td>non</td></tr>
+      <tr><td>Paiement du blackjack</td><td>3:2</td></tr>
+      <tr><td>Avantage de la maison</td><td>environ 0,6 à 0,7 %</td></tr>
+    </tbody>
+  </table>
+  <p>Pour comparer, une table de 6 jeux avec carte cachée et abandon tardif tourne autour de 0,36 %. Le détail de ce que coûte chaque règle se trouve dans <a href={routes.dataRules.fr}>l’avantage de la maison selon les règles</a>.</p>
+
+  <h2 id="strategy">La stratégie à adopter</h2>
+  <p>Comme le croupier ne vérifie pas son blackjack quand il montre un 10, une mise supplémentaire contre un 10 peut être perdue d’un coup s’il retourne un as. D’où deux ajustements :</p>
+  <ul>
+    <li><strong>11 contre un 10 :</strong> tirez, ne doublez pas.</li>
+    <li><strong>8-8 contre un 10 :</strong> tirez, ne séparez pas.</li>
+  </ul>
+  <p>Pour tout le reste, jouez comme à une table européenne sans carte cachée. Le <a href={routes.strategy.fr}>tableau de stratégie interactif</a> s’adapte à ces règles, et nos guides <a href={routes.whenDouble.fr}>quand doubler</a> et <a href={routes.whenSplit.fr}>quand séparer</a> détaillent chaque cas. Sans abandon, 16 contre 10 se tire : voir <a href={routes.hand16v10.fr}>16 contre 10</a>.</p>
+
+  <h2 id="counting">Pourquoi le comptage ne sert presque à rien</h2>
+  <p>En direct, le sabot est généralement remélangé vers la moitié. Le compte réel a donc rarement le temps de monter assez haut pour vous donner un avantage. <a href={routes.counting.fr}>Compter les cartes</a> reste un bon exercice mental, mais ce n’est pas un plan rentable en ligne.</p>
+  <p>Surtout, n’utilisez jamais de logiciel, d’application ou d’aide pendant une partie en direct : c’est contraire aux conditions des sites et illégal dans de nombreux endroits.</p>
+
+  <h2 id="side-bets">Les paris annexes</h2>
+  <p>Les tables en direct mettent souvent en avant des paris annexes comme <strong>21+3</strong> ou <strong>Perfect Pairs</strong>. Leur avantage de la maison est bien plus élevé que celui du jeu principal. Si vous voulez réduire vos pertes, ignorez-les, tout comme l’<a href={routes.insurance.fr}>assurance</a>.</p>
+
+  <h2 id="budget">Jouer avec la tête</h2>
+  <p>Le rythme du jeu en ligne est rapide et l’argent est dématérialisé : il est facile de miser plus que prévu. Fixez un budget avant de commencer, ne cherchez pas à vous refaire, et consultez notre page <a href={routes.responsible.fr}>jeu responsable</a> si le jeu cesse d’être un plaisir.</p>
+  <p>Pour apprendre sans risquer d’argent, l’app Veintiuno propose une table « Croupier en direct » avec ce tableau de stratégie : chaque décision est corrigée immédiatement, avec une explication. Vous pouvez aussi commencer sur la <a href={routes.simulator.fr}>table d’entraînement gratuite</a>.</p>
+</Guide>

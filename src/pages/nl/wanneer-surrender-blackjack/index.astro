@@ -1,0 +1,70 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Wanneer geef je op bij blackjack?', a: 'Met late surrender, 6 decks en een dealer die past op zachte 17: met een harde 16 tegen 9, 10 of aas en met een harde 15 tegen 10. Een paar achten split je in plaats van op te geven.' },
+  { q: 'Wat is het verschil tussen late en early surrender?', a: 'Bij late surrender geef je pas op nadat de dealer heeft gecheckt of hij blackjack heeft. Bij early surrender (zoals in Macau) geef je op voordat de dealer blackjack kan laten zien, en dat is veel meer waard: tegen een 10 geef je dan op met harde 14, 15 en 16, ook met 7-7 en 8-8.' },
+  { q: 'Wat doe ik met 16 tegen 10 als opgeven niet mag?', a: 'Kaart vragen. Met 10-6 tegen een 10 is opgeven −0,500 inzet waard, kaart vragen −0,535 en passen −0,542. Zonder opgeven wint kaart vragen dus nipt van passen.' },
+  { q: 'Hoeveel levert surrender op?', a: 'Late surrender verlaagt het huisvoordeel met ongeveer 0,07 procentpunt ten opzichte van een tafel zonder surrender. Weinig, maar alleen als je hem op de juiste handen gebruikt.' },
+];
+---
+<Guide
+  lang="nl"
+  route="surrender"
+  title="Wanneer opgeven bij blackjack? Surrender uitgelegd"
+  h1="Wanneer surrender je bij blackjack?"
+  description="Wanneer geef je op bij blackjack? Late surrender met 16 tegen 9, 10 of aas en 15 tegen 10, de H17-uitzonderingen, early surrender en wat als het niet mag."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['hand16v10', 'strategy', 'macau', 'softHands']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kort antwoord:</strong> Met late surrender (6 decks, dealer past op zachte 17) geef je op met een <strong>harde 16 tegen 9, 10 of aas</strong> en een <strong>harde 15 tegen 10</strong>. Verder nooit. Een paar achten split je. Neemt de dealer een kaart op zachte 17, dan komen daar 15 tegen aas, 17 tegen aas en 8-8 tegen aas bij.</p></div>
+  </div>
+
+  <h2 id="what">Wat is opgeven (surrender)?</h2>
+  <p>Bij <strong>late surrender</strong> mag je, nadat de dealer heeft gecheckt of hij blackjack heeft, je hand opgeven. Je krijgt dan de helft van je inzet terug en de hand is voorbij. Het klinkt als opgeven in de slechte zin van het woord, maar soms is het simpelweg de goedkoopste optie.</p>
+  <p>De vuistregel: <strong>geef op wanneer je hand gemiddeld vaker dan de helft van de keren verliest</strong> – dus als de verwachte waarde van de beste andere optie lager is dan −0,5 inzet.</p>
+  <p>Let op: de meeste Spaanse en Europese tafels en veel live-tafels online bieden geen surrender aan. Kijk dus eerst of je tafel het toestaat.</p>
+
+  <h2 id="chart">Wanneer opgeven: de tabel</h2>
+  <p>Referentietafel: 6 decks, late surrender, dealer checkt op blackjack.</p>
+  <table>
+    <thead><tr><th>Jouw hand</th><th>Dealer past op zachte 17 (S17)</th><th>Dealer neemt kaart op zachte 17 (H17)</th></tr></thead>
+    <tbody>
+      <tr><td>Harde 17</td><td>Nooit opgeven</td><td>Opgeven tegen aas</td></tr>
+      <tr><td>Harde 16</td><td>Opgeven tegen 9, 10, aas</td><td>Opgeven tegen 9, 10, aas</td></tr>
+      <tr><td>Harde 15</td><td>Opgeven tegen 10</td><td>Opgeven tegen 10 en aas</td></tr>
+      <tr><td>8-8</td><td>Splitsen</td><td>Opgeven tegen aas, anders splitsen</td></tr>
+    </tbody>
+  </table>
+  <p>Alle andere handen speel je gewoon volgens de <a href={routes.strategy.nl}>basisstrategie</a>.</p>
+
+  <h2 id="example">Voorbeeld: 16 tegen een 10</h2>
+  <p>Met 10-6 tegen een 10 van de dealer (6 decks, S17) is elke optie gemiddeld zoveel waard:</p>
+  <table>
+    <thead><tr><th>Optie</th><th>Verwachte waarde (inzet)</th></tr></thead>
+    <tbody>
+      <tr><td>Passen</td><td>−0,542</td></tr>
+      <tr><td>Kaart vragen</td><td>−0,535</td></tr>
+      <tr><td><strong>Opgeven</strong></td><td><strong>−0,500</strong></td></tr>
+    </tbody>
+  </table>
+  <p>Opgeven verliest het minst. Zonder surrender wint kaart vragen nipt van passen. Meer hierover in de gids over <a href={routes.hand16v10.nl}>16 tegen 10</a>.</p>
+
+  <h2 id="early">Early surrender: veel waardevoller</h2>
+  <p>Bij <strong>early surrender</strong> mag je opgeven vóórdat de dealer blackjack kan laten zien. Dat is veel meer waard, omdat je ook de handen redt waarin de dealer blackjack blijkt te hebben. In Macau bijvoorbeeld mag dat tegen 2 tot en met 10, maar niet tegen een aas. Tegen een 10 geef je dan op met harde 14, 15 en 16, inclusief 7-7 en 8-8. Meer daarover in de gids over <a href={routes.macau.nl}>blackjack in Macau</a>.</p>
+
+  <h2 id="no-surrender">Wat als opgeven niet mag?</h2>
+  <p>Dan speel je de hand uit:</p>
+  <ul>
+    <li><strong>16 tegen 10:</strong> kaart vragen.</li>
+    <li><strong>15 tegen 10:</strong> kaart vragen.</li>
+    <li><strong>16 tegen 9:</strong> kaart vragen.</li>
+  </ul>
+  <p>Het voelt slecht, maar passen met 15 of 16 tegen een sterke kaart van de dealer verliest nog meer.</p>
+  <div class="callout"><p><strong>Eerlijk:</strong> surrender verlaagt het huisvoordeel met maar ongeveer 0,07 procentpunt. Het is een nuttig hulpmiddel, geen manier om te winnen. Speel met een budget en lees <a href={routes.responsible.nl}>verantwoord spelen</a>.</p></div>
+  <p>Oefen deze handen aan de <a href={routes.simulator.nl}>gratis oefentafel</a>, die je bij elke beslissing corrigeert.</p>
+</Guide>

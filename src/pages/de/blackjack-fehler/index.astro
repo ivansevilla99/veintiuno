@@ -1,0 +1,69 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Was ist der teuerste Fehler beim Blackjack?', a: 'Ohne Strategie zu spielen. Wer den Dealer nachahmt (bis 17 ziehen, nie verdoppeln oder splitten), spielt mit etwa 5,5 % Hausvorteil; wer sich „nie überkaufen“ will und ab 12 stehen bleibt, mit etwa 4 %. Mit Grundstrategie sind es rund 0,4 %.' },
+  { q: 'Helfen Progressionen oder die Martingale?', a: 'Nein. Kein Einsatzsystem verändert den Hausvorteil. Es verändert nur, wie stark dein Ergebnis schwankt und wie hoch das Risiko ist, dein ganzes Budget zu verlieren.' },
+  { q: 'Ruinieren schlechte Mitspieler meine Karten?', a: 'Nein, das ist ein Mythos. Die Entscheidungen der anderen am Tisch verändern deinen Erwartungswert nicht. Manchmal nimmt dir ein Mitspieler eine gute Karte weg, genauso oft eine schlechte.' },
+  { q: 'Ist es ein großer Fehler, bei 16 gegen 10 stehen zu bleiben?', a: 'Nein. Zwischen Ziehen und Stehenbleiben liegt weniger als 1 % des Einsatzes. Teuer sind andere Fehler: die Versicherung, 6:5-Tische, nicht verdoppeln oder bei 12–16 gegen starke Dealerkarten stehen bleiben.' },
+];
+---
+<Guide
+  lang="de"
+  route="mistakes"
+  title="Die häufigsten Blackjack-Fehler und ihre Kosten"
+  h1="Die häufigsten Blackjack-Fehler – und was sie dich kosten"
+  description="Die häufigsten Fehler beim Blackjack, nach Kosten sortiert: ohne Strategie spielen, Versicherung, 6:5-Tische, falsch verdoppeln oder splitten, Mythen."
+  updated="2026-10-06"
+  readMinutes={6}
+  faq={faq}
+  related={['strategy', 'insurance', 'payout65', 'softHands']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurze Antwort:</strong> Der mit Abstand teuerste Fehler ist, <strong>ohne Grundstrategie zu spielen</strong>: Das hebt den Hausvorteil von rund 0,4 % auf etwa 4 bis 5,5 %. Danach kommen die <strong>Versicherung</strong> (rund −7,4 % auf jeden Versicherungseinsatz), <strong>6:5-Tische</strong> (+1,39 Punkte) und eine Handvoll typischer Spielfehler wie nicht verdoppeln oder bei 12–16 gegen eine 10 stehen bleiben.</p></div>
+  </div>
+
+  <h2 id="overview">Die Fehler im Überblick</h2>
+  <p>Die Zahlen sind ungefähre Werte aus veröffentlichten Analysen (unter anderem Wizard of Odds) und beziehen sich auf typische Tische mit mehreren Decks.</p>
+  <table>
+    <thead><tr><th>Fehler</th><th>Ungefähre Kosten</th></tr></thead>
+    <tbody>
+      <tr><td>Den Dealer nachahmen (bis 17 ziehen, nie verdoppeln/splitten)</td><td>≈ 5,5 % Hausvorteil</td></tr>
+      <tr><td>„Nie überkaufen“: ab 12 immer stehen bleiben</td><td>≈ 4 % Hausvorteil</td></tr>
+      <tr><td>Versicherung oder Even Money nehmen</td><td>≈ −7,4 % auf den Versicherungseinsatz</td></tr>
+      <tr><td>An einem 6:5-Tisch spielen</td><td>≈ +1,39 Punkte Hausvorteil</td></tr>
+      <tr><td>Zum Vergleich: perfekte Grundstrategie</td><td>≈ 0,4 % Hausvorteil</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="no-strategy">1. Ohne Strategie spielen</h2>
+  <p>Viele spielen nach Gefühl: „Ich will mich nicht überkaufen“, also bleiben sie mit jeder 12 oder mehr stehen. Andere machen es wie der Dealer und ziehen bis 17. Beides klingt vernünftig, kostet aber ein Vielfaches dessen, was die <a href={routes.strategy.de}>Grundstrategie</a> kostet. Der Dealer muss nach festen Regeln spielen – du nicht, und genau diese Freiheit ist dein Werkzeug.</p>
+
+  <h2 id="insurance">2. Die Versicherung nehmen</h2>
+  <p>Zeigt der Dealer ein Ass, bietet er dir die Versicherung an. Mit 6 Decks verlierst du darauf im Schnitt etwa 7,4 % – auch als „Even Money“, wenn du selbst Blackjack hast. Die ganze Rechnung findest du im Ratgeber zur <a href={routes.insurance.de}>Versicherung beim Blackjack</a>.</p>
+
+  <h2 id="payout">3. An einem 6:5-Tisch sitzen</h2>
+  <p>Zahlt der Tisch für Blackjack nur 6 zu 5 statt 3 zu 2, steigt der Hausvorteil um rund 1,39 Punkte. Keine Spielentscheidung gleicht das aus. Mehr dazu in <a href={routes.payout65.de}>Blackjack 6:5 gegen 3:2</a>.</p>
+
+  <h2 id="play">4. Typische Spielfehler</h2>
+  <ul>
+    <li><strong>Mit 12 bis 16 gegen 7, 8, 9, 10 oder Ass stehen bleiben</strong>, „um sich nicht zu überkaufen“. Gegen starke Dealerkarten verliert eine stehende 12–16 zu oft.</li>
+    <li><strong>11 oder 10 gegen eine schwache Karte nicht verdoppeln.</strong> Das sind die profitabelsten Situationen im ganzen Spiel. Siehe <a href={routes.whenDouble.de}>Wann verdoppeln?</a></li>
+    <li><strong>8-8 und A-A nicht splitten.</strong> Beide Paare werden (fast) immer gesplittet.</li>
+    <li><strong>10-10 splitten.</strong> Eine 20 ist eine der besten Hände, die du haben kannst – behalte sie.</li>
+    <li><strong>5-5 splitten.</strong> Zwei Hände mit 5 sind schwach; als 10 verdoppelst du stattdessen. Alle Paare findest du unter <a href={routes.whenSplit.de}>Wann splitten?</a></li>
+    <li><strong>Bei Soft 17 (A-6) stehen bleiben.</strong> Mit A-6 ziehst oder verdoppelst du immer. Mehr in <a href={routes.softHands.de}>Soft Hands richtig spielen</a>.</li>
+  </ul>
+
+  <h2 id="systems">5. An Einsatzsysteme glauben</h2>
+  <p>Martingale (nach jedem Verlust verdoppeln) und andere Progressionen versprechen, das Spiel zu „schlagen“. Sie verändern den Hausvorteil aber nicht: Sie verschieben nur, wie dein Ergebnis schwankt, und erhöhen oft das Risiko, dein ganzes Budget in einer Pechsträhne zu verlieren. Was wirklich etwas bringt – und was nicht –, liest du in <a href={routes.howToWin.de}>Kann man beim Blackjack gewinnen?</a></p>
+
+  <h2 id="myths">6. Tischmythen</h2>
+  <p>„Der schlechte Spieler auf Platz drei hat mir die Karte genommen.“ Das passiert – aber genauso oft nimmt er dir eine schlechte Karte weg. Die Entscheidungen anderer verändern deinen Erwartungswert nicht. Ärgere dich nicht darüber, sondern konzentrier dich auf deine eigenen Entscheidungen.</p>
+
+  <h2 id="not-a-mistake">Was kein großer Fehler ist</h2>
+  <p>Ausgerechnet die meistdiskutierte Hand ist harmlos: Bei <a href={routes.hand16v10.de}>16 gegen 10</a> liegen Ziehen und Stehenbleiben weniger als 1 % des Einsatzes auseinander. Wenn du deine Energie auf die Fehler oben konzentrierst, sparst du viel mehr.</p>
+  <div class="callout"><p><strong>Auch fehlerfrei hat das Haus einen Vorteil.</strong> Gute Strategie macht Blackjack günstiger, nicht profitabel. Spiel um echtes Geld nur mit einem festen Budget – und lies unseren Ratgeber zum <a href={routes.responsible.de}>verantwortungsvollen Spielen</a>.</p></div>
+  <p>Am schnellsten gewöhnst du dir diese Fehler ab, indem du sie ohne Geld wiederholst, bis die richtige Entscheidung automatisch kommt: am <a href={routes.simulator.de}>kostenlosen Übungstisch</a>, im <a href={routes.course.de}>Blackjack-Kurs</a> oder in der App Veintiuno, die dir mit einer Fehler-Heatmap zeigt, wo du noch danebenliegst.</p>
+</Guide>

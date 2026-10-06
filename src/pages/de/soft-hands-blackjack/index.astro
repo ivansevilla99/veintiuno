@@ -1,0 +1,73 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Was ist eine Soft Hand beim Blackjack?', a: 'Eine Hand mit einem Ass, das als 11 zählt, zum Beispiel A-6 (Soft 17). Weil das Ass notfalls zu 1 wird, kann dich eine einzelne zusätzliche Karte nicht überkaufen.' },
+  { q: 'Soll ich bei Soft 17 stehen bleiben?', a: 'Nein. Mit A-6 bleibst du nie stehen: Gegen 3 bis 6 verdoppelst du (wenn der Tisch Verdoppeln auf zwei beliebige Karten erlaubt), sonst ziehst du. 17 ist eine schwache Summe, und ziehen kann dich nicht überkaufen.' },
+  { q: 'Wie spiele ich A-7 (Soft 18)?', a: 'Gegen 2, 7 und 8 stehen bleiben, gegen 3 bis 6 verdoppeln (sonst stehen), gegen 9, 10 und Ass ziehen. Zieht der Dealer auf Soft 17, verdoppelst du A-7 auch gegen 2.' },
+  { q: 'Und wenn ich nur mit 9, 10 oder 11 verdoppeln darf?', a: 'Dann verdoppelst du Soft Hands nie. A-7 gegen 3 bis 6 bleibt dann stehen, die übrigen Soft Hands ziehen statt zu verdoppeln. Das betrifft zum Beispiel Tische in Spanien.' },
+];
+---
+<Guide
+  lang="de"
+  route="softHands"
+  title="Soft Hands beim Blackjack: A-2 bis A-9 richtig"
+  h1="Soft Hands beim Blackjack: so spielst du A-2 bis A-9"
+  description="Soft Hands beim Blackjack: wie du A-2 bis A-9 gegen jede Dealerkarte spielst, wann du Soft 17 und 18 verdoppelst und welche Fehler am meisten kosten."
+  updated="2026-10-06"
+  readMinutes={5}
+  faq={faq}
+  related={['whenDouble', 'strategy', 'mistakes', 'surrender']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Kurze Antwort:</strong> Soft Hands spielst du aggressiver als harte Hände, weil dich eine Karte nicht überkaufen kann. Die drei wichtigsten Regeln: <strong>Bleib nie bei Soft 17 (A-6) stehen</strong>, <strong>verdoppel A-7 gegen 3 bis 6</strong> und <strong>zieh mit A-7 gegen 9, 10 und Ass</strong>. A-8 und A-9 bleiben (fast) immer stehen.</p></div>
+  </div>
+
+  <h2 id="what">Was eine Soft Hand ist</h2>
+  <p>Eine Hand ist „soft“, wenn sie ein Ass enthält, das als 11 zählt. A-6 ist also Soft 17: Ziehst du eine 10, wird das Ass zu 1 und du hast harte 17 – nicht 27. Deshalb kann dich <strong>eine einzelne Karte nie überkaufen</strong>.</p>
+  <p>Diese Sicherheit verändert die Rechnung: Du kannst Karten ziehen, um eine mittelmäßige Summe zu verbessern, und gegen schwache Dealerkarten lohnt es sich oft, den Einsatz zu verdoppeln.</p>
+
+  <h2 id="chart">Die Tabelle für Soft Hands</h2>
+  <p>Referenztisch: 6 Decks, Dealer steht auf Soft 17 (S17), Verdoppeln auf zwei beliebige Karten. <strong>Z</strong> = ziehen, <strong>S</strong> = stehen bleiben, <strong>V</strong> = verdoppeln (wenn nicht erlaubt: ziehen), <strong>Vs</strong> = verdoppeln (wenn nicht erlaubt: stehen bleiben).</p>
+  <table>
+    <thead><tr><th>Hand</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>A</th></tr></thead>
+    <tbody>
+      <tr><td>A-2 (Soft 13)</td><td>Z</td><td>Z</td><td>Z</td><td>V</td><td>V</td><td>Z</td><td>Z</td><td>Z</td><td>Z</td><td>Z</td></tr>
+      <tr><td>A-3 (Soft 14)</td><td>Z</td><td>Z</td><td>Z</td><td>V</td><td>V</td><td>Z</td><td>Z</td><td>Z</td><td>Z</td><td>Z</td></tr>
+      <tr><td>A-4 (Soft 15)</td><td>Z</td><td>Z</td><td>V</td><td>V</td><td>V</td><td>Z</td><td>Z</td><td>Z</td><td>Z</td><td>Z</td></tr>
+      <tr><td>A-5 (Soft 16)</td><td>Z</td><td>Z</td><td>V</td><td>V</td><td>V</td><td>Z</td><td>Z</td><td>Z</td><td>Z</td><td>Z</td></tr>
+      <tr><td>A-6 (Soft 17)</td><td>Z</td><td>V</td><td>V</td><td>V</td><td>V</td><td>Z</td><td>Z</td><td>Z</td><td>Z</td><td>Z</td></tr>
+      <tr><td>A-7 (Soft 18)</td><td>S</td><td>Vs</td><td>Vs</td><td>Vs</td><td>Vs</td><td>S</td><td>S</td><td>Z</td><td>Z</td><td>Z</td></tr>
+      <tr><td>A-8 (Soft 19)</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td></tr>
+      <tr><td>A-9 (Soft 20)</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td><td>S</td></tr>
+    </tbody>
+  </table>
+  <p>Die komplette Tabelle mit harten Händen und Paaren, angepasst an deine Tischregeln, findest du in der <a href={routes.strategy.de}>Blackjack-Strategietabelle</a>.</p>
+
+  <h2 id="key">Die drei Hände, die du kennen musst</h2>
+  <ul>
+    <li><strong>A-6 (Soft 17):</strong> nie stehen bleiben. 17 gewinnt selten, und ziehen kann dich nicht überkaufen. Gegen 3 bis 6 verdoppelst du.</li>
+    <li><strong>A-7 (Soft 18):</strong> die trickreichste Soft Hand. Gegen 3 bis 6 verdoppeln, gegen 2, 7 und 8 stehen bleiben, gegen 9, 10 und Ass <strong>ziehen</strong>. 18 klingt gut, ist aber gegen die starken Dealerkarten zu wenig.</li>
+    <li><strong>A-8 und A-9:</strong> stehen bleiben. Einzige Ausnahme: Zieht der Dealer auf Soft 17, verdoppelst du A-8 gegen eine 6.</li>
+  </ul>
+
+  <h2 id="rules">Was sich mit anderen Regeln ändert</h2>
+  <table>
+    <thead><tr><th>Regel</th><th>Änderung</th></tr></thead>
+    <tbody>
+      <tr><td>Dealer zieht auf Soft 17 (H17)</td><td>A-7 gegen 2 verdoppeln (sonst stehen); A-8 gegen 6 verdoppeln (sonst stehen)</td></tr>
+      <tr><td>Verdoppeln nur mit 9, 10, 11 (z. B. Spanien)</td><td>Soft Hands nie verdoppeln; A-7 gegen 3–6 bleibt stehen, die übrigen „V“ werden zu „Z“</td></tr>
+    </tbody>
+  </table>
+  <p>Wie die Tische in Spanien funktionieren, erklären wir in <a href={routes.spain.de}>Blackjack-Regeln in Spanien</a>. Alle Verdopplungen mit ihren Erwartungswerten findest du unter <a href={routes.whenDouble.de}>Wann verdoppeln?</a></p>
+
+  <h2 id="mistakes">Die häufigsten Fehler mit Soft Hands</h2>
+  <ul>
+    <li>Bei A-6 stehen bleiben, „weil 17 reicht“.</li>
+    <li>Mit A-7 gegen 9, 10 oder Ass stehen bleiben.</li>
+    <li>A-7 gegen 3 bis 6 nicht verdoppeln – aus Angst, mit einer einzigen Karte schlechter dazustehen.</li>
+  </ul>
+  <div class="callout"><p><strong>Tipp:</strong> Lies Soft Hands nicht als Summe, sondern als „Ass plus X“. Wer „A-7“ statt „18“ denkt, erinnert sich leichter daran, dass diese Hand flexibel ist.</p></div>
+  <p>Soft Hands fühlen sich anfangs unlogisch an, sitzen aber nach ein paar hundert Händen. Trainiere sie am <a href={routes.simulator.de}>kostenlosen Übungstisch</a> oder in der App Veintiuno: Sie korrigiert jede Entscheidung sofort, erklärt dir den Grund und zeigt dir auf einer Fehler-Heatmap, welche Hände du noch verwechselst.</p>
+</Guide>
