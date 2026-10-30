@@ -59,7 +59,12 @@ export const routes = {
   softHands: { es: '/manos-blandas-blackjack/', en: '/en/soft-hands-blackjack/', de: '/de/soft-hands-blackjack/', fr: '/fr/mains-souples-blackjack/' },
   mistakes: { es: '/errores-comunes-blackjack/', en: '/en/common-blackjack-mistakes/', de: '/de/blackjack-fehler/', fr: '/fr/erreurs-blackjack/' },
   macau: { es: '/blackjack-macao-reglas/', en: '/en/macau-blackjack-rules/', de: '/de/blackjack-macau-regeln/', fr: '/fr/blackjack-macao-regles/' },
-} as const satisfies Record<string, { es: string; en?: string; de?: string; fr?: string }>;
+  aiAdvice: { es: '/chatgpt-blackjack-estrategia/', en: '/en/chatgpt-blackjack-strategy/', fr: '/fr/chatgpt-blackjack-strategie/' },
+  aiDealers: { es: '/crupier-ia-blackjack/', en: '/en/ai-dealer-blackjack/', fr: '/fr/croupier-ia-blackjack/' },
+  sideBets: { es: '/apuestas-laterales-blackjack/', en: '/en/blackjack-side-bets/', fr: '/fr/paris-annexes-blackjack/' },
+  california: { en: '/en/california-blackjack-card-rooms/' },
+  franceOnline: { fr: '/fr/blackjack-en-ligne-legal-france/' },
+} as const satisfies Record<string, { es?: string; en?: string; de?: string; fr?: string }>;
 
 export type RouteKey = keyof typeof routes;
 
@@ -76,7 +81,7 @@ export const pathOf = (key: RouteKey, lang: Lang): string | undefined => (routes
 export const homeOf = (lang: Lang): string => pathOf('home', lang) ?? routes.home.en;
 
 /** Where to link a page from `lang`: its own version, else English, else Spanish. */
-export const linkOf = (key: RouteKey, lang: Lang): string => pathOf(key, lang) ?? pathOf(key, 'en') ?? routes[key].es;
+export const linkOf = (key: RouteKey, lang: Lang): string => pathOf(key, lang) ?? pathOf(key, 'en') ?? pathOf(key, 'es') ?? Object.values(routes[key])[0] as string;
 
 export const ui = {
   es: {

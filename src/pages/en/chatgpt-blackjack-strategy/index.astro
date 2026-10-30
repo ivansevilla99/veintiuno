@@ -1,0 +1,76 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Can ChatGPT give correct blackjack strategy?', a: 'Often, for common hands. But it recites the chart from memory, so it mixes rule sets (hole card vs European, S17 vs H17), slips on pairs and multi-card soft hands, and states numbers it hasn’t calculated. Use it to learn concepts, and check every specific play against a chart made for your table’s rules.' },
+  { q: 'Should you split aces against a king?', a: 'Yes. A pair of aces is always split, against any dealer card: as a hand it is a poor soft 12, but each ace on its own can become 21. Standing on A-A is one of the costliest mistakes in the game.' },
+  { q: 'Can I use AI to help me while playing online blackjack?', a: 'No. Using any outside assistance during real-money online play breaks the casino’s terms and, in many places, the law. Learn the strategy beforehand.' },
+  { q: 'Which AI is best for blackjack?', a: 'For specific decisions, none of the general chatbots is a substitute for a strategy chart computed for your exact rules. A chart doesn’t hallucinate: every cell is the result of a calculation.' },
+];
+
+const hands = [
+  ['A-A', 'King', 'Split', 'Always split aces.'],
+  ['8-8', '10', 'Split', 'Two hands starting on 8 lose less than one 16.'],
+  ['A-7 (soft 18)', '9', 'Hit', 'Soft 18 loses to a 9; you can’t bust with one card.'],
+  ['A-7 (soft 18)', '2', 'Stand', 'With S17. With H17, double.'],
+  ['12', '3', 'Hit', 'The classic exception: 12 stands only against 4, 5 and 6.'],
+  ['12', '4', 'Stand', ''],
+  ['16', '10', 'Surrender', 'If surrender isn’t offered: hit.'],
+  ['11', 'Ace', 'Hit', 'With 6 decks and S17. With H17, double.'],
+  ['9-9', '7', 'Stand', '18 already beats the dealer’s likely 17.'],
+  ['A-2', '5', 'Double', ''],
+  ['4-4', '5', 'Split', 'Only if you can double after splitting.'],
+  ['A-3-4 (soft 18, three cards)', '10', 'Hit', 'Same as A-7: a soft total is a soft total, however many cards.'],
+];
+---
+<Guide
+  lang="en"
+  route="aiAdvice"
+  title="Can ChatGPT Teach You Blackjack? Where AI Gets It Wrong"
+  h1="Can ChatGPT teach you blackjack? Where AI gets strategy wrong"
+  description="More players ask ChatGPT and other chatbots how to play their hand. We explain where AI blackjack advice goes wrong, with a 12-hand test and the correct answers."
+  updated="2026-10-30"
+  readMinutes={7}
+  faq={faq}
+  related={['strategy', 'softHands', 'whenSplit', 'mistakes']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> chatbots like ChatGPT explain the rules of blackjack well, but they give specific plays <strong>from memory</strong>, not from a calculation. They mix rule sets, slip on pairs and on soft hands with three or more cards, and quote figures nobody computed. Use AI to understand the ideas, and check every decision against a <a href={routes.strategy.en}>strategy chart for your table’s rules</a>. Below is a 12-hand test you can run on any AI.</p></div>
+  </div>
+
+  <h2 id="why">Why people are asking AI about blackjack</h2>
+  <p>Asking a chatbot “should I hit 16 against a 10?” is now as normal as googling it. The answers sound confident and are often right, which is exactly the problem: when they are wrong, they sound just as confident.</p>
+  <p>One public example: in June 2026 a developer blog published a test of generative AI as a blackjack adviser. Holding <strong>a pair of aces against a king</strong>, the AI said to <strong>stand</strong>. The correct play, under any rules, is to split. The author also noted that part of the problem was the test setup itself: only two cards were ever described to the AI.</p>
+
+  <h2 id="where">Where AI advice goes wrong</h2>
+  <ul>
+    <li><strong>It mixes rule sets.</strong> The correct play depends on the table: whether the dealer checks for blackjack (hole card) or not, whether they hit soft 17, the number of decks, whether you can surrender. A chatbot usually answers with a blend of charts without saying which one it is using. Against a 10 on a European table, 11 and 8-8 are played differently from Las Vegas (see <a href={routes.live.en}>live blackjack</a>).</li>
+    <li><strong>It loses track of the hand.</strong> A-A is not “12”, and A-3-4 is a soft 18, played exactly like A-7. Hands with three or more cards are where language models slip most often.</li>
+    <li><strong>It invents numbers.</strong> Ask for the house edge of a rule or the chance the dealer busts and you may get a plausible figure that no one calculated. Our <a href={routes.dataBust.en}>dealer bust table</a> and <a href={routes.dataRules.en}>house edge by rules</a> are computed, not remembered.</li>
+    <li><strong>It doesn’t know your table.</strong> Payout 3:2 or 6:5, surrender allowed or not, double after split: if you don’t say it, the AI assumes something.</li>
+    <li><strong>It isn’t careful with gambling.</strong> In a 2025 CNET test, chatbots gave betting advice to a user who had just mentioned a gambling problem. A strategy tool shouldn’t push you to play more.</li>
+  </ul>
+
+  <h2 id="test">A 12-hand test for any AI</h2>
+  <p>Ask your chatbot these hands and compare. Rules assumed: <strong>6 decks, dealer stands on soft 17, dealer checks for blackjack, double after split allowed, late surrender</strong> (a common Las Vegas table). The answers come from the same engine as the Veintiuno app.</p>
+  <table>
+    <thead><tr><th>Your hand</th><th>Dealer shows</th><th>Correct play</th><th>Note</th></tr></thead>
+    <tbody>
+      {hands.map(([h, d, p, n]) => <tr><td>{h}</td><td>{d}</td><td><strong>{p}</strong></td><td>{n}</td></tr>)}
+    </tbody>
+  </table>
+  <p>And one more: <strong>insurance</strong>, with any hand, is a bet the house wins in the long run. The answer is no (see <a href={routes.insurance.en}>blackjack insurance</a>).</p>
+  <div class="callout"><p><strong>Tip:</strong> when you ask an AI, state the rules first (“6 decks, S17, dealer peeks, late surrender”) and ask it to say which chart it is using. If it can’t, don’t trust the specific play.</p></div>
+
+  <h2 id="good-use">How to use AI well</h2>
+  <ul>
+    <li><strong>For concepts:</strong> why you double 11, what a soft hand is, why insurance is a bad bet. Here chatbots are genuinely useful.</li>
+    <li><strong>Not for specific plays without checking.</strong> For that you need a chart computed for your rules, like our <a href={routes.strategy.en}>interactive chart</a>, which also explains every cell.</li>
+    <li><strong>Never during real-money play.</strong> Using outside help at an online table breaks the casino’s terms and, in many places, the law.</li>
+    <li><strong>Practise until you don’t need to ask.</strong> The point of basic strategy is that it becomes automatic. That takes repetition with correction, not reading.</li>
+  </ul>
+
+  <h2 id="practice">Practise with something that doesn’t make things up</h2>
+  <p>Veintiuno is a trainer, not a chatbot: it deals you hands, tells you instantly if your decision was right and explains why, using a chart calculated for the table you choose. There’s a <a href={routes.simulator.en}>free practice table</a> on this site, and the full trainer in the app. No real money, no betting.</p>
+</Guide>

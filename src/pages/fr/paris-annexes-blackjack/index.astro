@@ -1,0 +1,89 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+import { houseEdge, defaultRules } from '../../../lib/strategy';
+
+// Main principale sur une table en direct typique, pour comparer avec les paris annexes.
+const main = houseEdge({ ...defaultRules, decks: 8, holeCard: false, surrender: 'none' });
+const pct = (x: number) => x.toFixed(2).replace('.', ',') + ' %';
+const faq = [
+  { q: 'Quel est l’avantage de la maison au 21+3 ?', a: 'Avec la table de gains utilisée aujourd’hui sur la plupart des tables en direct (brelan assorti 100:1, quinte flush 40:1, brelan 30:1, quinte 10:1, couleur 5:1) et 8 jeux, l’avantage de la maison est de 3,70 %. L’ancienne version qui paie 9:1 toute main gagnante a un avantage de 2,74 % avec 8 jeux et de 3,24 % avec 6.' },
+  { q: 'Quel est l’avantage de la maison au Perfect Pairs ?', a: 'Avec la table de gains habituelle (paire parfaite 25:1, paire de couleur 12:1, paire mixte 6:1), l’avantage de la maison est de 4,10 % avec 8 jeux et de 6,11 % avec 6 jeux. Moins il y a de jeux, plus les paires sont rares, et plus le pari est mauvais.' },
+  { q: 'Les paris annexes valent-ils le coup ?', a: 'Non. La main principale jouée avec la stratégie de base vous coûte environ 0,6 % de chaque mise sur une table en direct typique. Le 21+3 coûte environ six fois plus et le Perfect Pairs environ sept fois plus. Après l’assurance, ce sont les mises les plus chères d’une table de blackjack.' },
+  { q: 'Le comptage des cartes permet-il de battre les paris annexes ?', a: 'En théorie, certains paris annexes deviennent favorables dans des compositions de sabot très particulières, mais sur les tables en direct et en ligne le sabot est remélangé tôt et les mises sont plafonnées. Pour un joueur normal, non.' },
+];
+---
+<Guide
+  lang="fr"
+  route="sideBets"
+  title="Paris annexes au blackjack : 21+3 et Perfect Pairs"
+  h1="Paris annexes au blackjack : ce que coûtent vraiment le 21+3 et le Perfect Pairs"
+  description="Avantage de la maison du 21+3 et du Perfect Pairs calculé avec 6 et 8 jeux : 3,70 % et 4,10 % sur une table en direct, contre environ 0,6 % pour la main."
+  updated="2026-10-30"
+  readMinutes={6}
+  faq={faq}
+  related={['live', 'insurance', 'dataRules', 'mistakes']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> sur une table en direct typique à 8 jeux, le <strong>21+3</strong> a un avantage de la maison de <strong>3,70 %</strong> et le <strong>Perfect Pairs de 4,10 %</strong>. La main principale jouée avec la stratégie de base coûte environ <strong>{pct(main)}</strong>. Les paris annexes paient gros quand ils tombent, mais pour chaque euro misé ils vous coûtent <strong>six à sept fois plus</strong> que la main elle-même.</p></div>
+  </div>
+
+  <h2 id="why">Pourquoi toutes les tables les mettent en avant</h2>
+  <p>Ouvrez n’importe quelle table de blackjack en direct : les paris annexes sont bien en vue. 21+3, Perfect Pairs, « Hot 3 », « Bust It », « Any Pair »… Les studios en ajoutent de nouveaux chaque saison. La raison est simple : le jeu principal, bien joué, laisse au casino nettement moins de 1 %. Les paris annexes lui laissent plusieurs fois plus, et les joueurs adorent les gains à 25:1 ou 100:1.</p>
+  <p>La plupart des sites citent l’avantage de la maison de ces mises sans dire d’où viennent les chiffres. Nous les avons calculés nous-mêmes, de façon exacte, en comptant toutes les combinaisons de cartes possibles dans le sabot.</p>
+
+  <h2 id="21-3">Le 21+3 : vos deux cartes et la carte visible du croupier</h2>
+  <p>Le 21+3 paie si vos deux premières cartes et la carte visible du croupier forment une main de poker à trois cartes. Sur la plupart des tables en direct, il paie aujourd’hui ainsi :</p>
+  <table>
+    <thead><tr><th>Main</th><th>Exemple</th><th>Gain</th><th>Probabilité (8 jeux)</th></tr></thead>
+    <tbody>
+      <tr><td>Brelan assorti</td><td>7♥ 7♥ 7♥</td><td>100:1</td><td>0,02 %</td></tr>
+      <tr><td>Quinte flush</td><td>5♠ 6♠ 7♠</td><td>40:1</td><td>0,21 %</td></tr>
+      <tr><td>Brelan</td><td>9♣ 9♦ 9♠</td><td>30:1</td><td>0,52 %</td></tr>
+      <tr><td>Quinte (suite)</td><td>J♦ Q♠ K♥</td><td>10:1</td><td>3,10 %</td></tr>
+      <tr><td>Couleur</td><td>2♥ 8♥ K♥</td><td>5:1</td><td>5,88 %</td></tr>
+      <tr><td>Rien</td><td></td><td>perdu</td><td>90,3 %</td></tr>
+    </tbody>
+  </table>
+  <p>Résultat : un avantage de la maison de <strong>3,70 % avec 8 jeux</strong> et de 4,62 % avec 6. Certains casinos physiques proposent encore l’ancienne version qui paie <strong>9:1 toute main gagnante</strong> : elle coûte 2,74 % avec 8 jeux et 3,24 % avec 6. C’est toujours quatre à cinq fois la main principale.</p>
+  <div class="callout"><p><strong>Pourquoi la table de gains compte plus qu’il n’y paraît :</strong> les gains à 100:1 et 40:1 attirent l’œil, mais à eux deux ils ne tombent qu’environ une fois toutes les 430 mains. Ce qui décide vraiment de l’avantage, ce sont la modeste couleur et la quinte, payées 5:1 et 10:1.</p></div>
+
+  <h2 id="perfect-pairs">Le Perfect Pairs : vos deux premières cartes</h2>
+  <p>Le Perfect Pairs paie si vos deux premières cartes forment une paire :</p>
+  <table>
+    <thead><tr><th>Paire</th><th>Exemple</th><th>Gain</th></tr></thead>
+    <tbody>
+      <tr><td>Paire parfaite (même enseigne)</td><td>Q♥ Q♥</td><td>25:1</td></tr>
+      <tr><td>Paire de couleur (même couleur)</td><td>Q♥ Q♦</td><td>12:1</td></tr>
+      <tr><td>Paire mixte</td><td>Q♥ Q♠</td><td>6:1</td></tr>
+    </tbody>
+  </table>
+  <p>Avantage de la maison : <strong>4,10 % avec 8 jeux</strong> et <strong>6,11 % avec 6 jeux</strong>. Attention au piège : avec moins de jeux, les paires sont plus rares (une fois que vous avez une dame, il reste moins de dames), donc la même table de gains devient bien pire. Un Perfect Pairs à 6 jeux est l’une des pires mises de la salle.</p>
+
+  <h2 id="compare">Comparaison</h2>
+  <table>
+    <thead><tr><th>Mise</th><th>Avantage de la maison</th><th>Perte attendue pour 100 mises de 10</th></tr></thead>
+    <tbody>
+      <tr><td>Main principale, stratégie de base (8 jeux, règles en direct)</td><td>{pct(main)}</td><td>environ {(main * 10).toFixed(0)}</td></tr>
+      <tr><td>21+3 (9:1, 8 jeux)</td><td>2,74 %</td><td>environ 27</td></tr>
+      <tr><td>21+3 (100/40/30/10/5, 8 jeux)</td><td>3,70 %</td><td>environ 37</td></tr>
+      <tr><td>Perfect Pairs (8 jeux)</td><td>4,10 %</td><td>environ 41</td></tr>
+      <tr><td>Perfect Pairs (6 jeux)</td><td>6,11 %</td><td>environ 61</td></tr>
+      <tr><td><a href={routes.insurance.fr}>Assurance</a> (6–8 jeux)</td><td>environ 7 %</td><td>environ 70</td></tr>
+    </tbody>
+  </table>
+  <p>Ce sont des moyennes sur un grand nombre de mains : sur une seule session, tout peut arriver, et c’est justement ce qui rend les paris annexes plus séduisants qu’ils ne le sont.</p>
+
+  <h2 id="what-to-do">Que faire à la place</h2>
+  <ul>
+    <li><strong>Laissez tomber les paris annexes.</strong> Si vous voulez plus d’action, une mise principale un peu plus forte, bien jouée, vous coûte beaucoup moins.</li>
+    <li><strong>Apprenez le bon tableau pour la table.</strong> Les tables en direct jouent généralement avec les règles européennes, sans carte cachée, ce qui change quelques décisions. Voir <a href={routes.live.fr}>blackjack en direct</a> et le <a href={routes.strategy.fr}>tableau de stratégie interactif</a>.</li>
+    <li><strong>Vérifiez le paiement.</strong> Un blackjack payé 6:5 coûte plus cher que n’importe quelle décision sur les paris annexes. Voir <a href={routes.payout65.fr}>6:5 contre 3:2</a>.</li>
+  </ul>
+
+  <h2 id="method">Notre méthode de calcul</h2>
+  <p>Nous avons compté toutes les combinaisons possibles de trois cartes (pour le 21+3) et de deux cartes (pour le Perfect Pairs) dans un sabot complet de 6 et de 8 jeux, pondéré chacune par le nombre de façons de la distribuer, puis appliqué la table de gains. Le chiffre de la main principale vient du même moteur que l’app Veintiuno et notre tableau de <a href={routes.dataRules.fr}>l’avantage de la maison selon les règles</a>. Les tables de gains varient selon les casinos et les studios : vérifiez toujours celle de votre table.</p>
+
+  <h2 id="honest">Un rappel honnête</h2>
+  <p>Le blackjack avec de l’argent réel est un jeu d’argent, et les paris annexes le rendent plus rapide et plus cher. Fixez une limite avant de jouer. Si le jeu a cessé d’être un plaisir, consultez notre page <a href={routes.responsible.fr}>jeu responsable</a>. Pour vous entraîner sans rien risquer, utilisez la <a href={routes.simulator.fr}>table d’entraînement gratuite</a>.</p>
+</Guide>

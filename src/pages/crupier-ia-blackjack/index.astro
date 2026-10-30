@@ -1,0 +1,59 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Qué es un crupier IA en blackjack?', a: 'Un crupier digital generado por ordenador, en lugar de una persona grabada en un estudio. Algunos estudios graban a crupieres reales con captura de movimiento y los convierten en «clones digitales» animados que se retransmiten en tiempo real. El aspecto es humano, pero la persona no está.' },
+  { q: '¿Es justo el blackjack con crupier IA?', a: 'Depende de cómo se generan las cartas, no de quién las reparte. Si un crupier animado «reparte» cartas elegidas por un generador de números aleatorios, el juego funciona como cualquier blackjack online con RNG: es justo si el operador tiene licencia y está auditado, con la baraja mezclada de nuevo en cada mano. Juega solo en webs con licencia y lee las reglas de la mesa.' },
+  { q: '¿Cambia la estrategia básica con un crupier virtual?', a: 'No. La estrategia depende de las reglas (barajas, carta oculta, 17 blando, doblar, rendición, pago), no del crupier. Mira el panel de reglas y usa la tabla que corresponda.' },
+  { q: '¿Se pueden contar cartas contra un crupier IA?', a: 'Si cada mano se reparte con la baraja recién mezclada, como en los juegos con RNG, contar es imposible: no hay nada que recordar de una mano a la siguiente.' },
+];
+---
+<Guide
+  lang="es"
+  route="aiDealers"
+  title="Crupier IA en blackjack: qué es, si es justo y qué cambia"
+  h1="Crupier IA en blackjack: qué es y qué cambia para ti"
+  description="Los casinos en vivo empiezan a usar crupieres virtuales creados con IA. Qué son, quién los lanza en 2026, si el juego es justo y por qué contar ya no sirve."
+  updated="2026-10-30"
+  readMinutes={6}
+  faq={faq}
+  related={['live', 'sideBets', 'counting', 'strategy']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> un crupier IA es un crupier generado por ordenador que sustituye a la persona grabada en un estudio en vivo. En 2026 varios estudios los están lanzando, empezando por el blackjack. Para ti como jugador: <strong>la estrategia básica no cambia</strong> (depende de las reglas, no del crupier), que sea justo depende de <strong>cómo se generan las cartas y de si el operador tiene licencia</strong>, y si cada mano se baraja de nuevo, <strong>contar cartas es imposible</strong>.</p></div>
+  </div>
+
+  <h2 id="que-es">Qué es un crupier IA</h2>
+  <p>El blackjack en vivo clásico graba a un crupier real con cartas reales en un estudio. Los nuevos «crupieres IA» sustituyen a esa persona por una digital. El enfoque del que más se habla graba a crupieres reales con captura de movimiento y los convierte en <strong>clones digitales</strong> animados, que se renderizan en tiempo real con un motor de videojuegos y llegan a tu pantalla en streaming. El crupier parece humano, habla y reacciona, pero no hay nadie de pie junto a una mesa.</p>
+  <p>Para el casino, el atractivo es el coste: sin estudios abiertos las 24 horas, sin turnos y sin necesidad de crupieres en cada idioma.</p>
+
+  <h2 id="quien">Quién los está lanzando</h2>
+  <ul>
+    <li><strong>Avanti Studios</strong>, fundada por un cofundador de LeoVegas, crea juegos con crupieres digitales generados con IA. Eligió <strong>España</strong> como su primer mercado regulado, con el blackjack en vivo entre sus primeros juegos, y firmó un acuerdo de distribución con Entain. En julio de 2026 estrenó en España, con bwin y PartyCasino, lo que presentó como el primer blackjack en vivo regulado del país.</li>
+    <li><strong>Playgon</strong>, un proveedor canadiense, ha anunciado sus propios crupieres IA: primero bacará, después blackjack y luego ruleta.</li>
+    <li><strong>Evolution</strong>, el mayor proveedor de casino en vivo, ha dicho públicamente que espera que los crupieres humanos sigan dominando.</li>
+  </ul>
+  <p>Así que, a finales de 2026, estos juegos existen pero todavía son nuevos: los encontrarás en algunos mercados regulados, junto a las mesas en vivo de siempre.</p>
+
+  <h2 id="justo">¿Es justo?</h2>
+  <p>La pregunta clave no es quién reparte, sino <strong>de dónde salen las cartas</strong>:</p>
+  <ul>
+    <li><strong>Zapato físico, grabado:</strong> el blackjack en vivo clásico. Ves cartas reales.</li>
+    <li><strong>Generador de números aleatorios (RNG):</strong> las cartas las elige un programa, como en cualquier blackjack online. Un crupier animado encima de un RNG es, matemáticamente, un juego online normal con mejor presentación.</li>
+  </ul>
+  <p>Un juego con RNG es justo cuando el operador tiene licencia y el generador lo audita un laboratorio independiente. En España eso significa una licencia de la DGOJ; en México y en el resto de países hay que mirar el regulador de cada uno. Evita las webs sin licencia, con IA o sin ella.</p>
+
+  <h2 id="estrategia">¿Cambia la estrategia?</h2>
+  <p>No. La jugada correcta depende de las <strong>reglas</strong>, no de la cara del crupier. Antes de jugar, abre el panel de reglas de la mesa y comprueba: número de barajas, si el crupier mira si tiene blackjack (carta oculta) o no, si pide con 17 blando, las reglas de doblar y dividir, la rendición y que el blackjack pague 3 a 2. Luego usa la tabla que corresponda en nuestra <a href={routes.strategy.es}>tabla de estrategia interactiva</a>.</p>
+  <p>La mayoría de mesas en vivo y digitales usan reglas europeas, sin carta oculta: contra un 10, no se dobla con 11 ni se dividen los 8-8. Explicamos por qué en <a href={routes.live.es}>blackjack en vivo</a>.</p>
+
+  <h2 id="contar">El fin del conteo de cartas online</h2>
+  <p>Contar solo funciona cuando las cartas que ya han salido afectan a las que quedan. Con un RNG que baraja en cada mano, esa relación desaparece: la probabilidad de la siguiente carta es siempre la misma y contar no te da absolutamente nada. Incluso las mesas en vivo clásicas barajan tan pronto que el conteo casi no sirve. Si quieres entender cómo funciona, lee <a href={routes.counting.es}>cómo contar cartas</a>, pero no esperes que te sirva delante de una pantalla.</p>
+
+  <h2 id="laterales">Las mismas apuestas laterales, el mismo coste</h2>
+  <p>Las mesas digitales empujan las apuestas laterales igual que las de crupier real. La 21+3 y Perfect Pairs tienen una ventaja para la casa varias veces mayor que la de la mano principal: lo hemos calculado en <a href={routes.sideBets.es}>apuestas laterales en blackjack</a>.</p>
+
+  <h2 id="responsable">Un recordatorio sincero</h2>
+  <p>Un crupier que nunca se cansa y una mesa que siempre está abierta hacen más fácil jugar más tiempo del que querías. Ponte un límite antes de empezar y, si deja de ser divertido, tienes ayuda en <a href={routes.responsible.es}>juego responsable</a>; en España, la línea gratuita de FEJAR es el <strong>900 200 225</strong>. Para aprender estrategia sin dinero, usa la <a href={routes.simulator.es}>mesa de práctica gratis</a>.</p>
+</Guide>

@@ -1,0 +1,89 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+import { houseEdge, defaultRules } from '../../../lib/strategy';
+
+// Main hand on a typical live table, for comparison with the side bets.
+const main = houseEdge({ ...defaultRules, decks: 8, holeCard: false, surrender: 'none' });
+const pct = (x: number) => x.toFixed(2) + '%';
+const faq = [
+  { q: 'What is the house edge on 21+3?', a: 'With the paytable used on most live tables today (suited three of a kind 100:1, straight flush 40:1, three of a kind 30:1, straight 10:1, flush 5:1) and 8 decks, the house edge is 3.70%. The older version that pays 9:1 on any winning hand has an edge of 2.74% with 8 decks and 3.24% with 6.' },
+  { q: 'What is the house edge on Perfect Pairs?', a: 'With the common paytable (perfect pair 25:1, coloured pair 12:1, mixed pair 6:1), the house edge is 4.10% with 8 decks and 6.11% with 6 decks. Fewer decks make pairs rarer, so the bet gets worse.' },
+  { q: 'Are side bets worth it?', a: 'No. The main hand played with basic strategy costs you about 0.6% of each bet on a typical live table. 21+3 costs about six times that and Perfect Pairs about seven times. Side bets are the most expensive thing you can do at a blackjack table, after insurance.' },
+  { q: 'Can card counting beat side bets?', a: 'In theory some side bets become positive in very specific shoe compositions, but on live and online tables the shoe is reshuffled early and the bets are capped. For a normal player, no.' },
+];
+---
+<Guide
+  lang="en"
+  route="sideBets"
+  title="Blackjack Side Bets: 21+3 and Perfect Pairs House Edge"
+  h1="Blackjack side bets: what 21+3 and Perfect Pairs really cost"
+  description="We calculated the house edge of 21+3 and Perfect Pairs exactly, for 6 and 8 decks: 3.70% and 4.10% on a typical live table, versus about 0.6% for the main hand."
+  updated="2026-10-30"
+  readMinutes={6}
+  faq={faq}
+  related={['live', 'insurance', 'dataRules', 'mistakes']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> on a typical 8-deck live table, <strong>21+3</strong> has a house edge of <strong>3.70%</strong> and <strong>Perfect Pairs 4.10%</strong>. The main hand played with basic strategy costs about <strong>{pct(main)}</strong>. Side bets pay big when they hit, but per euro or dollar bet they cost you <strong>six to seven times more</strong> than the hand itself.</p></div>
+  </div>
+
+  <h2 id="why">Why every table pushes them now</h2>
+  <p>Open any live blackjack table and the side bets are front and centre: 21+3, Perfect Pairs, “Hot 3”, “Bust It”, “Any Pair”. Studios add new ones every season. The reason is simple: the main game, played well, leaves the casino well under 1%. Side bets leave several times more, and players love the 25:1 or 100:1 payouts.</p>
+  <p>Most sites quote house edges for these bets without saying where they come from. We calculated them ourselves, exactly, by counting every possible combination of cards in the shoe.</p>
+
+  <h2 id="21-3">21+3: your two cards plus the dealer’s upcard</h2>
+  <p>21+3 pays if your first two cards and the dealer’s upcard form a three-card poker hand. On most live tables today it pays like this:</p>
+  <table>
+    <thead><tr><th>Hand</th><th>Example</th><th>Pays</th><th>Probability (8 decks)</th></tr></thead>
+    <tbody>
+      <tr><td>Suited three of a kind</td><td>7♥ 7♥ 7♥</td><td>100:1</td><td>0.02%</td></tr>
+      <tr><td>Straight flush</td><td>5♠ 6♠ 7♠</td><td>40:1</td><td>0.21%</td></tr>
+      <tr><td>Three of a kind</td><td>9♣ 9♦ 9♠</td><td>30:1</td><td>0.52%</td></tr>
+      <tr><td>Straight</td><td>J♦ Q♠ K♥</td><td>10:1</td><td>3.10%</td></tr>
+      <tr><td>Flush</td><td>2♥ 8♥ K♥</td><td>5:1</td><td>5.88%</td></tr>
+      <tr><td>Nothing</td><td></td><td>loses</td><td>90.3%</td></tr>
+    </tbody>
+  </table>
+  <p>Result: a house edge of <strong>3.70% with 8 decks</strong> and 4.62% with 6. Some land-based casinos still offer the old version that pays <strong>9:1 on any winning hand</strong>: that one costs 2.74% with 8 decks and 3.24% with 6. Still four to five times the main hand.</p>
+  <div class="callout"><p><strong>Why the paytable matters more than it looks:</strong> the 100:1 and 40:1 payouts grab your attention, but they happen about once every 430 hands combined. What really decides the edge is the humble flush and straight, which pay 5:1 and 10:1.</p></div>
+
+  <h2 id="perfect-pairs">Perfect Pairs: your first two cards</h2>
+  <p>Perfect Pairs pays if your first two cards are a pair:</p>
+  <table>
+    <thead><tr><th>Pair</th><th>Example</th><th>Pays</th></tr></thead>
+    <tbody>
+      <tr><td>Perfect pair (same suit)</td><td>Q♥ Q♥</td><td>25:1</td></tr>
+      <tr><td>Coloured pair (same colour)</td><td>Q♥ Q♦</td><td>12:1</td></tr>
+      <tr><td>Mixed pair</td><td>Q♥ Q♠</td><td>6:1</td></tr>
+    </tbody>
+  </table>
+  <p>House edge: <strong>4.10% with 8 decks</strong> and <strong>6.11% with 6 decks</strong>. Notice the trap: with fewer decks, pairs are rarer (once you have a queen, there are fewer queens left), so the same paytable gets much worse. If a table offers Perfect Pairs with 6 decks, it is one of the worst bets in the building.</p>
+
+  <h2 id="compare">Side by side</h2>
+  <table>
+    <thead><tr><th>Bet</th><th>House edge</th><th>Expected loss per 100 bets of 10</th></tr></thead>
+    <tbody>
+      <tr><td>Main hand, basic strategy (8 decks, live rules)</td><td>{pct(main)}</td><td>about {(main * 10).toFixed(0)} </td></tr>
+      <tr><td>21+3 (9:1, 8 decks)</td><td>2.74%</td><td>about 27</td></tr>
+      <tr><td>21+3 (100/40/30/10/5, 8 decks)</td><td>3.70%</td><td>about 37</td></tr>
+      <tr><td>Perfect Pairs (8 decks)</td><td>4.10%</td><td>about 41</td></tr>
+      <tr><td>Perfect Pairs (6 decks)</td><td>6.11%</td><td>about 61</td></tr>
+      <tr><td><a href={routes.insurance.en}>Insurance</a> (6–8 decks)</td><td>about 7%</td><td>about 70</td></tr>
+    </tbody>
+  </table>
+  <p>These are averages over many hands: in a single session anything can happen, which is exactly what makes side bets feel better than they are.</p>
+
+  <h2 id="what-to-do">What to do instead</h2>
+  <ul>
+    <li><strong>Skip side bets entirely.</strong> If you want more action, a slightly bigger main bet played correctly costs you far less.</li>
+    <li><strong>Learn the right chart for the table.</strong> Live tables usually play European rules without a hole card, which changes a couple of plays. See <a href={routes.live.en}>live blackjack</a> and the <a href={routes.strategy.en}>interactive strategy chart</a>.</li>
+    <li><strong>Check the payout.</strong> A 6:5 blackjack payout costs more than any side bet decision you’ll make. See <a href={routes.payout65.en}>6:5 vs 3:2</a>.</li>
+  </ul>
+
+  <h2 id="method">How we calculated it</h2>
+  <p>We counted every possible three-card combination (for 21+3) and two-card combination (for Perfect Pairs) from a full 6- and 8-deck shoe, weighted each by how many ways it can be dealt, and applied the paytable. The main hand figure comes from the same engine that powers the Veintiuno app and our <a href={routes.dataRules.en}>house edge by rules</a> table. Paytables vary between casinos and studios: always check the one on your table.</p>
+
+  <h2 id="honest">An honest reminder</h2>
+  <p>Blackjack with real money is gambling, and side bets make it faster and more expensive. Set a limit before you play. If it has stopped being fun, see our <a href={routes.responsible.en}>responsible gambling</a> page. To practise without risking anything, use the <a href={routes.simulator.en}>free practice table</a>.</p>
+</Guide>

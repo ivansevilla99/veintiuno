@@ -1,0 +1,72 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Le blackjack en ligne est-il légal en France ?', a: 'Non, pas en argent réel. En 2026, l’Autorité nationale des jeux (ANJ) n’agrée en ligne que le poker, les paris sportifs et les paris hippiques. Les jeux de casino en ligne, blackjack compris, ne sont autorisés pour aucun opérateur. Le blackjack reste légal dans les casinos physiques et les clubs de jeux parisiens.' },
+  { q: 'Existe-t-il un casino en ligne légal en France en 2026 ?', a: 'Non. Aucun opérateur ne dispose d’un agrément pour proposer des jeux de casino en ligne (blackjack, roulette, machines à sous) en France. Un site qui vous en propose en argent réel n’est pas agréé par l’ANJ. À notre connaissance, aucun texte visant à légaliser les casinos en ligne n’est inscrit à l’ordre du jour du Parlement en 2026.' },
+  { q: 'Que risque-t-on à jouer sur un site non agréé ?', a: 'Vous n’avez aucune des protections prévues pour les sites agréés : pas de garantie sur l’équité des jeux, pas de recours fiable en cas de litige, des difficultés possibles pour retirer vos gains ou avec vos paiements, et un site qui peut être bloqué du jour au lendemain par l’ANJ. L’ANJ publie une liste noire des sites illégaux.' },
+  { q: 'Jouer au blackjack gratuitement sur une application est-il légal ?', a: 'Oui. Sans mise d’argent et sans gain possible, il ne s’agit pas d’un jeu d’argent. Une application d’entraînement comme Veintiuno, qui sert à apprendre la stratégie sans argent réel, n’est pas un casino.' },
+  { q: 'Où jouer au blackjack légalement en France ?', a: 'Dans un casino physique autorisé ou, à Paris, dans un club de jeux. Vérifiez les règles affichées à la table et fixez-vous une limite avant de jouer.' },
+];
+---
+<Guide
+  lang="fr"
+  route="franceOnline"
+  title="Blackjack en ligne : est-ce légal en France ? (2026)"
+  h1="Le blackjack en ligne est-il légal en France ? (2026)"
+  description="Casino en ligne légal en France en 2026 ? Ce que l’ANJ autorise, pourquoi le blackjack en ligne ne l’est pas, les risques et où jouer légalement."
+  updated="2026-10-30"
+  readMinutes={5}
+  faq={faq}
+  related={['countingLegal', 'live', 'strategy', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> <strong>non</strong>, le blackjack en ligne en argent réel n’est pas légal en France en 2026. L’ANJ n’agrée en ligne que le <strong>poker</strong>, les <strong>paris sportifs</strong> et les <strong>paris hippiques</strong> ; aucun casino en ligne n’est autorisé. Le blackjack est en revanche <strong>légal dans les casinos physiques</strong> et les clubs de jeux parisiens. Et s’entraîner gratuitement, sans argent, n’est pas un jeu d’argent.</p></div>
+  </div>
+
+  <div class="callout"><p><strong>Ceci n’est pas un avis juridique.</strong> Cette page résume la situation générale telle que nous la comprenons, pour informer. Pour une question précise, référez-vous aux informations officielles de l’ANJ ou consultez un professionnel du droit.</p></div>
+
+  <h2 id="what-anj">Ce que l’ANJ autorise en ligne</h2>
+  <p>En France, le jeu d’argent en ligne est encadré par l’<strong>Autorité nationale des jeux (ANJ)</strong>. Elle délivre des agréments aux opérateurs pour trois familles de jeux seulement :</p>
+  <table>
+    <thead><tr><th>Jeu en ligne</th><th>Statut en France (2026)</th></tr></thead>
+    <tbody>
+      <tr><td>Poker</td><td>autorisé pour les opérateurs agréés</td></tr>
+      <tr><td>Paris sportifs</td><td>autorisés pour les opérateurs agréés</td></tr>
+      <tr><td>Paris hippiques</td><td>autorisés pour les opérateurs agréés</td></tr>
+      <tr><td>Blackjack, roulette, machines à sous et autres jeux de casino</td><td><strong>non autorisés</strong></td></tr>
+    </tbody>
+  </table>
+  <p>Autrement dit, il n’existe pas de « casino en ligne légal » en France. Un site qui vous propose du blackjack en argent réel depuis la France n’est pas agréé par l’ANJ, même s’il affiche une licence d’un autre pays.</p>
+
+  <h2 id="where-legal">Où le blackjack est légal</h2>
+  <p>Le blackjack est un jeu parfaitement légal <strong>dans les casinos physiques</strong> autorisés, et à Paris dans les <strong>clubs de jeux</strong>. C’est là, et seulement là, que vous pouvez y jouer en argent réel dans un cadre légal en France.</p>
+  <p>Et le comptage des cartes, dans un casino physique ? Ce n’est pas une fraude tant que vous n’utilisez que votre tête, mais le casino peut vous refuser l’accès à la table. Nous détaillons ce point dans <a href={routes.countingLegal.fr}>compter les cartes est-il illégal ?</a></p>
+
+  <h2 id="future">Une légalisation est-elle prévue ?</h2>
+  <p>Le sujet de l’ouverture des casinos en ligne revient régulièrement dans le débat public. Mais, à notre connaissance, aucun texte visant à les légaliser n’est inscrit à l’ordre du jour du Parlement en 2026. Tant que la loi ne change pas, la situation décrite ici reste valable. Nous mettrons cette page à jour si cela évolue.</p>
+
+  <h2 id="risks">Les risques des sites non agréés</h2>
+  <ul>
+    <li><strong>Aucune protection.</strong> Les règles qui protègent les joueurs (contrôle de l’équité des jeux, outils de modération, recours en cas de litige) ne s’appliquent pas à un site non agréé.</li>
+    <li><strong>Blocage possible.</strong> L’ANJ peut faire bloquer l’accès aux sites illégaux. Votre compte et votre solde peuvent devenir inaccessibles du jour au lendemain.</li>
+    <li><strong>Problèmes de paiement.</strong> Dépôts refusés, retraits qui traînent ou qui n’arrivent jamais : sans régulateur français, vous avez peu de moyens d’agir.</li>
+    <li><strong>Une liste noire officielle.</strong> L’ANJ publie la liste des sites illégaux. En cas de doute sur un site, c’est le premier réflexe.</li>
+  </ul>
+  <p>Méfiez-vous aussi des publicités qui promettent un « casino en ligne légal en France » : par définition, cette promesse est fausse en 2026.</p>
+
+  <h2 id="free">Jouer gratuitement, c’est autre chose</h2>
+  <p>Un jeu sans mise d’argent et sans gain n’est pas un jeu d’argent. S’entraîner au blackjack sur une application ou un site gratuit est donc tout à fait légal. C’est d’ailleurs la meilleure façon d’apprendre : vous pouvez répéter des centaines de mains, vous tromper et comprendre pourquoi, sans rien risquer.</p>
+  <ul>
+    <li>La <a href={routes.simulator.fr}>table d’entraînement gratuite</a> de ce site vous corrige à chaque décision.</li>
+    <li>Le <a href={routes.strategy.fr}>tableau de stratégie interactif</a> vous montre la bonne décision pour chaque main, selon les règles de la table.</li>
+    <li>L’<a href={routes.app.fr}>app Veintiuno</a> est un entraîneur de stratégie : pas d’argent réel, pas de mises, pas de casino.</li>
+  </ul>
+
+  <h2 id="tip">Notre conseil</h2>
+  <p>Apprenez et entraînez-vous gratuitement. Si vous voulez jouer en argent réel, faites-le dans un casino physique, avec un budget fixé à l’avance et sans chercher à vous refaire. Si vous jouez sur une table en direct ou dans un casino, notre guide <a href={routes.live.fr}>blackjack en direct</a> explique les règles et les ajustements de stratégie.</p>
+
+  <h2 id="help">Besoin d’aide ?</h2>
+  <p>Si le jeu prend trop de place dans votre vie ou celle d’un proche, <strong>Joueurs Info Service</strong> répond au <strong>09 74 75 13 13</strong> (appel non surtaxé). Vous trouverez d’autres repères sur notre page <a href={routes.responsible.fr}>jeu responsable</a>.</p>
+</Guide>

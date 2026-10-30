@@ -1,0 +1,76 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Puede ChatGPT darte la estrategia correcta de blackjack?', a: 'Muchas veces sí, en las manos habituales. Pero recita la tabla de memoria, así que mezcla reglas (con carta oculta o europea, S17 o H17), se equivoca con las parejas y con las manos blandas de varias cartas, y da cifras que no ha calculado. Úsalo para entender conceptos y comprueba cada jugada concreta con una tabla hecha para las reglas de tu mesa.' },
+  { q: '¿Hay que dividir ases contra un rey?', a: 'Sí. Una pareja de ases se divide siempre, contra cualquier carta del crupier: como mano es un 12 blando flojo, pero cada as por separado puede convertirse en 21. Plantarse con A-A es uno de los errores más caros del juego.' },
+  { q: '¿Puedo usar la IA para que me ayude mientras juego al blackjack online?', a: 'No. Usar cualquier ayuda externa mientras juegas con dinero real online incumple las condiciones del casino y, en muchos sitios, la ley. Aprende la estrategia antes.' },
+  { q: '¿Cuál es la mejor IA para el blackjack?', a: 'Para decisiones concretas, ningún chatbot generalista sustituye a una tabla de estrategia calculada para tus reglas exactas. Una tabla no alucina: cada casilla es el resultado de un cálculo.' },
+];
+
+const hands = [
+  ['A-A', 'Rey', 'Dividir', 'Los ases se dividen siempre.'],
+  ['8-8', '10', 'Dividir', 'Dos manos que empiezan en 8 pierden menos que un 16.'],
+  ['A-7 (18 blando)', '9', 'Pedir', 'El 18 blando pierde contra un 9; con una carta no te puedes pasar.'],
+  ['A-7 (18 blando)', '2', 'Plantarse', 'Con S17. Con H17, doblar.'],
+  ['12', '3', 'Pedir', 'La excepción clásica: el 12 solo se planta contra 4, 5 y 6.'],
+  ['12', '4', 'Plantarse', ''],
+  ['16', '10', 'Rendirse', 'Si no hay rendición: pedir.'],
+  ['11', 'As', 'Pedir', 'Con 6 barajas y S17. Con H17, doblar.'],
+  ['9-9', '7', 'Plantarse', 'El 18 ya gana al 17 que probablemente tiene el crupier.'],
+  ['A-2', '5', 'Doblar', ''],
+  ['4-4', '5', 'Dividir', 'Solo si se puede doblar tras dividir.'],
+  ['A-3-4 (18 blando, tres cartas)', '10', 'Pedir', 'Igual que A-7: una mano blanda es blanda, tenga las cartas que tenga.'],
+];
+---
+<Guide
+  lang="es"
+  route="aiAdvice"
+  title="ChatGPT y blackjack: dónde falla la IA en la estrategia"
+  h1="¿Puede ChatGPT enseñarte a jugar al blackjack? Dónde se equivoca la IA"
+  description="Cada vez más jugadores preguntan a ChatGPT cómo jugar su mano. Te contamos dónde falla la IA en blackjack, con un test de 12 manos y sus respuestas."
+  updated="2026-10-30"
+  readMinutes={7}
+  faq={faq}
+  related={['strategy', 'softHands', 'whenSplit', 'mistakes']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> los chatbots como ChatGPT explican bien las reglas del blackjack, pero las jugadas concretas te las dan <strong>de memoria</strong>, no a partir de un cálculo. Mezclan reglas, se equivocan con las parejas y con las manos blandas de tres o más cartas, y dan cifras que nadie ha calculado. Usa la IA para entender las ideas y comprueba cada decisión con una <a href={routes.strategy.es}>tabla de estrategia para las reglas de tu mesa</a>. Más abajo tienes un test de 12 manos que puedes hacerle a cualquier IA.</p></div>
+  </div>
+
+  <h2 id="por-que">Por qué la gente le pregunta a la IA por el blackjack</h2>
+  <p>Preguntarle a un chatbot «¿pido con 16 contra un 10?» ya es tan normal como buscarlo en Google. Las respuestas suenan seguras y muchas veces aciertan, y ese es justo el problema: cuando fallan, suenan igual de seguras.</p>
+  <p>Un ejemplo público: en junio de 2026, un blog de desarrollo publicó una prueba de la IA generativa como asesora de blackjack. Con <strong>una pareja de ases contra un rey</strong>, la IA recomendó <strong>plantarse</strong>. La jugada correcta, con cualquier reglamento, es dividir. La propia prueba reconocía que parte del problema estaba en cómo se había montado: a la IA solo se le describían dos cartas.</p>
+
+  <h2 id="fallos">Dónde se equivocan los consejos de la IA</h2>
+  <ul>
+    <li><strong>Mezcla reglamentos.</strong> La jugada correcta depende de la mesa: si el crupier mira si tiene blackjack (carta oculta) o no, si pide con 17 blando, cuántas barajas hay, si puedes rendirte. Un chatbot suele responder con una mezcla de tablas sin decir cuál usa. Contra un 10 en una mesa europea, el 11 y el 8-8 se juegan distinto que en Las Vegas (mira <a href={routes.live.es}>blackjack en vivo</a>).</li>
+    <li><strong>Pierde la pista de la mano.</strong> A-A no es «un 12», y A-3-4 es un 18 blando que se juega exactamente igual que A-7. Las manos de tres o más cartas son donde más tropiezan los modelos de lenguaje.</li>
+    <li><strong>Se inventa números.</strong> Pregúntale por la ventaja de la casa de una regla o por la probabilidad de que el crupier se pase y puede darte una cifra creíble que nadie ha calculado. Nuestra tabla de <a href={routes.dataBust.es}>probabilidad de que el crupier se pase</a> y la de <a href={routes.dataRules.es}>ventaja de la casa según las reglas</a> están calculadas, no recordadas.</li>
+    <li><strong>No conoce tu mesa.</strong> Pago 3:2 o 6:5, rendición o no, doblar tras dividir: si no se lo dices, la IA da algo por supuesto.</li>
+    <li><strong>No tiene cuidado con el juego.</strong> En una prueba de CNET de 2025, varios chatbots dieron consejos de apuestas a un usuario que acababa de contar que tenía un problema con el juego. Una herramienta de estrategia no debería empujarte a jugar más.</li>
+  </ul>
+
+  <h2 id="test">Un test de 12 manos para cualquier IA</h2>
+  <p>Pregúntale estas manos a tu chatbot y compara. Reglas: <strong>6 barajas, el crupier se planta con 17 blando, el crupier mira si tiene blackjack, se puede doblar tras dividir, rendición tardía</strong> (una mesa habitual de Las Vegas). Las respuestas salen del mismo motor que la app Veintiuno.</p>
+  <table>
+    <thead><tr><th>Tu mano</th><th>Carta del crupier</th><th>Jugada correcta</th><th>Nota</th></tr></thead>
+    <tbody>
+      {hands.map(([h, d, p, n]) => <tr><td>{h}</td><td>{d}</td><td><strong>{p}</strong></td><td>{n}</td></tr>)}
+    </tbody>
+  </table>
+  <p>Y una más: el <strong>seguro</strong>, con cualquier mano, es una apuesta que a la larga gana la casa. La respuesta es no (mira <a href={routes.insurance.es}>el seguro en blackjack</a>).</p>
+  <div class="callout"><p><strong>Consejo:</strong> cuando le preguntes a una IA, dale primero las reglas («6 barajas, S17, el crupier mira la carta oculta, rendición tardía») y pídele que diga qué tabla está usando. Si no sabe decírtelo, no te fíes de la jugada concreta.</p></div>
+
+  <h2 id="buen-uso">Cómo usar bien la IA</h2>
+  <ul>
+    <li><strong>Para entender conceptos:</strong> por qué se dobla con 11, qué es una mano blanda, por qué el seguro es mala apuesta. Ahí los chatbots son útiles de verdad.</li>
+    <li><strong>No para jugadas concretas sin comprobarlas.</strong> Para eso necesitas una tabla calculada para tus reglas, como nuestra <a href={routes.strategy.es}>tabla interactiva</a>, que además explica cada casilla.</li>
+    <li><strong>Nunca mientras juegas con dinero real.</strong> Usar ayuda externa en una mesa online incumple las condiciones del casino y, en muchos sitios, la ley.</li>
+    <li><strong>Practica hasta que no necesites preguntar.</strong> La gracia de la estrategia básica es que se vuelva automática. Eso se consigue repitiendo con corrección, no leyendo.</li>
+  </ul>
+
+  <h2 id="practicar">Practica con algo que no se inventa las cosas</h2>
+  <p>Veintiuno es un entrenador, no un chatbot: te reparte manos, te dice al momento si tu decisión era correcta y te explica por qué, con una tabla calculada para la mesa que elijas. Tienes una <a href={routes.simulator.es}>mesa de práctica gratis</a> en esta web y el entrenador completo en la app. Sin dinero real y sin apuestas. Y si el juego te está costando más de lo que quieres, tienes ayuda en <a href={routes.responsible.es}>juego responsable</a>.</p>
+</Guide>

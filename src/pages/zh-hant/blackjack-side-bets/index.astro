@@ -1,0 +1,89 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+import { houseEdge, defaultRules } from '../../../lib/strategy';
+
+// Main hand on a typical live table, for comparison with the side bets.
+const main = houseEdge({ ...defaultRules, decks: 8, holeCard: false, surrender: 'none' });
+const pct = (x: number) => x.toFixed(2) + '%';
+const faq = [
+  { q: '21+3 的莊家優勢是多少？', a: '以現在大多數真人牌桌的賠率表（同花三條 100:1、同花順 40:1、三條 30:1、順子 10:1、同花 5:1）和 8 副牌計算，莊家優勢是 3.70%。舊版「任何牌型都賠 9:1」的版本，8 副牌是 2.74%，6 副牌是 3.24%。' },
+  { q: 'Perfect Pairs 的莊家優勢是多少？', a: '以常見的賠率表（完美對子 25:1、同色對子 12:1、混色對子 6:1）計算，8 副牌是 4.10%，6 副牌是 6.11%。副數越少，對子越難出現，這個邊注就越差。' },
+  { q: '21點的邊注值得玩嗎？', a: '不值得。在典型的真人牌桌上，用基本策略打主遊戲，每注大約只輸 0.6%。21+3 的代價大約是它的六倍，Perfect Pairs 大約是七倍。在21點牌桌上，除了保險之外，邊注就是最貴的選擇。' },
+  { q: '算牌能打敗邊注嗎？', a: '理論上，某些邊注在非常特定的牌靴組成下會變成對玩家有利。但真人和線上牌桌很早就重新洗牌，邊注也有下注上限。對一般玩家來說，不能。' },
+];
+---
+<Guide
+  lang="zh"
+  route="sideBets"
+  title="21點邊注：21+3 和 Perfect Pairs 賠率與莊家優勢"
+  h1="21點邊注：21+3 和 Perfect Pairs 真正的代價"
+  description="我們精確計算了 21+3 和 Perfect Pairs 在 6 副和 8 副牌的莊家優勢：典型真人牌桌分別是 3.70% 和 4.10%，主遊戲只有約 0.6%。"
+  updated="2026-10-30"
+  readMinutes={6}
+  faq={faq}
+  related={['live', 'insurance', 'dataRules', 'mistakes']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>簡短回答：</strong>在典型的 8 副牌真人牌桌上，<strong>21+3</strong> 的莊家優勢是 <strong>3.70%</strong>，<strong>Perfect Pairs 是 4.10%</strong>。用基本策略打主遊戲，代價大約只有 <strong>{pct(main)}</strong>。邊注中了賠很多，但以每一塊錢的注碼來算，它們的代價是主遊戲的<strong>六到七倍</strong>。</p></div>
+  </div>
+
+  <h2 id="why">為什麼每張牌桌都在推邊注</h2>
+  <p>打開任何一張真人21點牌桌，邊注都放在最顯眼的位置：21+3、Perfect Pairs、「Hot 3」、「Bust It」、「Any Pair」。攝影棚每一季都會推出新的。原因很簡單：主遊戲打得好，賭場的優勢不到 1%；邊注的優勢則高出好幾倍，而玩家又很喜歡 25:1、100:1 這種賠率。</p>
+  <p>很多網站都會列出這些邊注的莊家優勢，卻不說數字是從哪裡來的。我們自己精確地算了一遍：把牌靴裡每一種可能的牌組合都數過。</p>
+
+  <h2 id="21-3">21+3：你的兩張牌加上莊家的明牌</h2>
+  <p>只要你的前兩張牌和莊家的明牌組成一手三張牌的撲克牌型，21+3 就會賠錢。現在大多數真人牌桌的賠率如下：</p>
+  <table>
+    <thead><tr><th>牌型</th><th>例子</th><th>賠率</th><th>機率（8 副牌）</th></tr></thead>
+    <tbody>
+      <tr><td>同花三條</td><td>7♥ 7♥ 7♥</td><td>100:1</td><td>0.02%</td></tr>
+      <tr><td>同花順</td><td>5♠ 6♠ 7♠</td><td>40:1</td><td>0.21%</td></tr>
+      <tr><td>三條</td><td>9♣ 9♦ 9♠</td><td>30:1</td><td>0.52%</td></tr>
+      <tr><td>順子</td><td>J♦ Q♠ K♥</td><td>10:1</td><td>3.10%</td></tr>
+      <tr><td>同花</td><td>2♥ 8♥ K♥</td><td>5:1</td><td>5.88%</td></tr>
+      <tr><td>什麼都沒有</td><td></td><td>輸</td><td>90.3%</td></tr>
+    </tbody>
+  </table>
+  <p>結果：<strong>8 副牌的莊家優勢是 3.70%</strong>，6 副牌是 4.62%。有些實體賭場還在用舊版，<strong>任何中獎牌型都賠 9:1</strong>：8 副牌是 2.74%，6 副牌是 3.24%。即使如此，仍然是主遊戲的四到五倍。</p>
+  <div class="callout"><p><strong>為什麼賠率表比看起來更重要：</strong>100:1 和 40:1 很吸睛，但兩者加起來大約每 430 手才出現一次。真正決定莊家優勢的，是不起眼的同花和順子，也就是賠 5:1 和 10:1 的那兩種。</p></div>
+
+  <h2 id="perfect-pairs">Perfect Pairs：你的前兩張牌</h2>
+  <p>只要你的前兩張牌是對子，Perfect Pairs 就會賠錢：</p>
+  <table>
+    <thead><tr><th>對子</th><th>例子</th><th>賠率</th></tr></thead>
+    <tbody>
+      <tr><td>完美對子（同花色）</td><td>Q♥ Q♥</td><td>25:1</td></tr>
+      <tr><td>同色對子（同顏色）</td><td>Q♥ Q♦</td><td>12:1</td></tr>
+      <tr><td>混色對子</td><td>Q♥ Q♠</td><td>6:1</td></tr>
+    </tbody>
+  </table>
+  <p>莊家優勢：<strong>8 副牌是 4.10%</strong>，<strong>6 副牌是 6.11%</strong>。注意這個陷阱：副數越少，對子越難出現（你已經拿到一張 Q，剩下的 Q 就更少了），所以同一張賠率表會變差很多。如果一張牌桌用 6 副牌提供 Perfect Pairs，那是整間賭場最差的注之一。</p>
+
+  <h2 id="compare">一次比較</h2>
+  <table>
+    <thead><tr><th>注</th><th>莊家優勢</th><th>每注 10 元、下 100 注的預期損失</th></tr></thead>
+    <tbody>
+      <tr><td>主遊戲，基本策略（8 副牌，真人規則）</td><td>{pct(main)}</td><td>約 {(main * 10).toFixed(0)} 元</td></tr>
+      <tr><td>21+3（9:1，8 副牌）</td><td>2.74%</td><td>約 27 元</td></tr>
+      <tr><td>21+3（100/40/30/10/5，8 副牌）</td><td>3.70%</td><td>約 37 元</td></tr>
+      <tr><td>Perfect Pairs（8 副牌）</td><td>4.10%</td><td>約 41 元</td></tr>
+      <tr><td>Perfect Pairs（6 副牌）</td><td>6.11%</td><td>約 61 元</td></tr>
+      <tr><td><a href={routes.insurance.zh}>保險</a>（6–8 副牌）</td><td>約 7%</td><td>約 70 元</td></tr>
+    </tbody>
+  </table>
+  <p>這些都是很多手牌之後的平均值：單獨一次牌局什麼都可能發生，這正是邊注讓人覺得比實際更好的原因。</p>
+
+  <h2 id="what-to-do">那該怎麼做</h2>
+  <ul>
+    <li><strong>完全不玩邊注。</strong>想要更刺激，把主注稍微加大、照正確策略打，代價遠比邊注小。</li>
+    <li><strong>學會適合這張牌桌的策略表。</strong>真人牌桌通常用沒有暗牌的歐洲規則，有幾手牌的打法會不同。請看<a href={routes.live.zh}>真人線上21點</a>和<a href={routes.strategy.zh}>互動式基本策略表</a>。</li>
+    <li><strong>確認 Blackjack 的賠率。</strong>Blackjack 賠 6:5 的代價，比你在邊注上做的任何決定都大。請看 <a href={routes.payout65.zh}>6:5 和 3:2 差多少</a>。</li>
+  </ul>
+
+  <h2 id="method">我們怎麼計算</h2>
+  <p>我們從完整的 6 副和 8 副牌靴中，列出每一種可能的三張牌組合（21+3）和兩張牌組合（Perfect Pairs），依照每種組合能被發出來的方式數加權，再套用賠率表。主遊戲的數字來自 Veintiuno App 使用的同一個計算引擎，也就是我們<a href={routes.dataRules.zh}>各種規則的莊家優勢</a>表格背後的引擎。各家賭場和攝影棚的賠率表不一定相同：請一定要看你那張牌桌的賠率。</p>
+
+  <h2 id="honest">誠實的提醒</h2>
+  <p>用真錢玩21點就是賭博，而邊注會讓它變得更快、更貴。玩之前先設好上限。如果已經不再好玩，請看<a href={routes.responsible.zh}>負責任博彩</a>。想不冒任何風險練習，可以用<a href={routes.simulator.zh}>免費練習桌</a>。</p>
+</Guide>

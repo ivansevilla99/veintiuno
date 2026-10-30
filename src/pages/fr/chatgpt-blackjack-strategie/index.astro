@@ -1,0 +1,76 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'ChatGPT donne-t-il la bonne stratégie au blackjack ?', a: 'Souvent, pour les mains courantes. Mais il récite le tableau de mémoire : il mélange les jeux de règles (carte cachée ou européen, S17 ou H17), se trompe sur les paires et les mains souples à plusieurs cartes, et avance des chiffres qu’il n’a pas calculés. Servez-vous-en pour comprendre les notions, et vérifiez chaque décision précise sur un tableau fait pour les règles de votre table.' },
+  { q: 'Faut-il séparer deux as contre un roi ?', a: 'Oui. Une paire d’as se sépare toujours, contre n’importe quelle carte du croupier : comme main, c’est un piètre 12 souple, mais chaque as seul peut devenir 21. Rester sur A-A est l’une des erreurs les plus coûteuses du jeu.' },
+  { q: 'Puis-je utiliser une IA pour m’aider pendant une partie de blackjack en ligne ?', a: 'Non. Utiliser une aide extérieure pendant une partie en argent réel est contraire aux conditions des casinos et, dans de nombreux pays, à la loi. Apprenez la stratégie avant.' },
+  { q: 'Quelle IA est la meilleure pour le blackjack ?', a: 'Pour les décisions précises, aucun chatbot généraliste ne remplace un tableau de stratégie calculé pour vos règles exactes. Un tableau n’hallucine pas : chaque case est le résultat d’un calcul.' },
+];
+
+const hands = [
+  ['A-A', 'Roi', 'Séparer', 'Les as se séparent toujours.'],
+  ['8-8', '10', 'Séparer', 'Deux mains partant de 8 perdent moins qu’un seul 16.'],
+  ['A-7 (18 souple)', '9', 'Tirer', 'Un 18 souple perd contre un 9 ; impossible de sauter avec une carte.'],
+  ['A-7 (18 souple)', '2', 'Rester', 'Avec S17. Avec H17, doubler.'],
+  ['12', '3', 'Tirer', 'L’exception classique : 12 ne reste que contre 4, 5 et 6.'],
+  ['12', '4', 'Rester', ''],
+  ['16', '10', 'Abandonner', 'Si l’abandon n’est pas proposé : tirer.'],
+  ['11', 'As', 'Tirer', 'Avec 6 jeux et S17. Avec H17, doubler.'],
+  ['9-9', '7', 'Rester', '18 bat déjà le 17 probable du croupier.'],
+  ['A-2', '5', 'Doubler', ''],
+  ['4-4', '5', 'Séparer', 'Seulement si le doublement après séparation est autorisé.'],
+  ['A-3-4 (18 souple, trois cartes)', '10', 'Tirer', 'Comme A-7 : une main souple reste une main souple, quel que soit le nombre de cartes.'],
+];
+---
+<Guide
+  lang="fr"
+  route="aiAdvice"
+  title="ChatGPT et le blackjack : où l’IA se trompe"
+  h1="ChatGPT peut-il vous apprendre le blackjack ? Les erreurs de stratégie de l’IA"
+  description="Faut-il demander à ChatGPT comment jouer sa main au blackjack ? Où l’IA se trompe, avec un test de 12 mains et les bonnes réponses."
+  updated="2026-10-30"
+  readMinutes={7}
+  faq={faq}
+  related={['strategy', 'softHands', 'whenSplit', 'mistakes']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Réponse rapide :</strong> les chatbots comme ChatGPT expliquent bien les règles du blackjack, mais ils donnent les décisions précises <strong>de mémoire</strong>, pas à partir d’un calcul. Ils mélangent les jeux de règles, se trompent sur les paires et sur les mains souples de trois cartes ou plus, et citent des chiffres que personne n’a calculés. Utilisez l’IA pour comprendre les idées, et vérifiez chaque décision sur un <a href={routes.strategy.fr}>tableau de stratégie adapté aux règles de votre table</a>. Vous trouverez plus bas un test de 12 mains à soumettre à n’importe quelle IA.</p></div>
+  </div>
+
+  <h2 id="why">Pourquoi les joueurs interrogent l’IA sur le blackjack</h2>
+  <p>Demander à un chatbot « je tire sur 16 contre un 10 ? » est devenu aussi banal que de le chercher sur Google. Les réponses ont l’air sûres d’elles et sont souvent justes. C’est précisément le problème : quand elles sont fausses, elles ont l’air tout aussi sûres d’elles.</p>
+  <p>Un exemple public : en juin 2026, le blog d’un développeur a publié un test de l’IA générative comme conseillère au blackjack. Avec <strong>une paire d’as contre un roi</strong>, l’IA a conseillé de <strong>rester</strong>. La bonne décision, quelles que soient les règles, est de séparer. L’auteur ou l’autrice du test reconnaissait aussi qu’une partie du problème venait du protocole : on ne décrivait jamais que deux cartes à l’IA.</p>
+
+  <h2 id="where">Où les conseils de l’IA se trompent</h2>
+  <ul>
+    <li><strong>Elle mélange les jeux de règles.</strong> La bonne décision dépend de la table : le croupier vérifie-t-il son blackjack (carte cachée) ou non, tire-t-il sur 17 souple, combien de jeux, l’abandon est-il possible. Un chatbot répond généralement avec un mélange de tableaux sans dire lequel il utilise. Contre un 10 sur une table européenne, 11 et 8-8 ne se jouent pas comme à Las Vegas (voir <a href={routes.live.fr}>blackjack en direct</a>).</li>
+    <li><strong>Elle perd le fil de la main.</strong> A-A n’est pas « 12 », et A-3-4 est un 18 souple, qui se joue exactement comme A-7. C’est sur les mains de trois cartes ou plus que les modèles de langage se trompent le plus souvent.</li>
+    <li><strong>Elle invente des chiffres.</strong> Demandez l’avantage de la maison d’une règle ou la probabilité que le croupier saute, et vous obtiendrez peut-être un chiffre plausible que personne n’a calculé. Notre <a href={routes.dataBust.fr}>tableau des probabilités que le croupier saute</a> et celui de <a href={routes.dataRules.fr}>l’avantage de la maison selon les règles</a> sont calculés, pas récités.</li>
+    <li><strong>Elle ne connaît pas votre table.</strong> Blackjack payé 3:2 ou 6:5, abandon autorisé ou non, doublement après séparation : si vous ne le précisez pas, l’IA suppose quelque chose.</li>
+    <li><strong>Elle manque de prudence avec le jeu.</strong> Lors d’un test de CNET en 2025, des chatbots ont donné des conseils de paris à un utilisateur qui venait d’évoquer un problème de jeu. Un outil de stratégie ne devrait pas vous pousser à jouer davantage.</li>
+  </ul>
+
+  <h2 id="test">Un test de 12 mains pour n’importe quelle IA</h2>
+  <p>Soumettez ces mains à votre chatbot et comparez. Règles supposées : <strong>6 jeux, le croupier reste sur 17 souple, il vérifie son blackjack, doublement après séparation autorisé, abandon tardif</strong> (une table courante de Las Vegas). Les réponses viennent du même moteur que l’app Veintiuno.</p>
+  <table>
+    <thead><tr><th>Votre main</th><th>Carte du croupier</th><th>Bonne décision</th><th>Remarque</th></tr></thead>
+    <tbody>
+      {hands.map(([h, d, p, n]) => <tr><td>{h}</td><td>{d}</td><td><strong>{p}</strong></td><td>{n}</td></tr>)}
+    </tbody>
+  </table>
+  <p>Et une dernière : l’<strong>assurance</strong>, quelle que soit votre main, est une mise que la maison gagne sur la durée. La réponse est non (voir <a href={routes.insurance.fr}>l’assurance au blackjack</a>).</p>
+  <div class="callout"><p><strong>Astuce :</strong> quand vous interrogez une IA, donnez d’abord les règles (« 6 jeux, S17, le croupier vérifie, abandon tardif ») et demandez-lui quel tableau elle utilise. Si elle en est incapable, ne vous fiez pas à la décision précise.</p></div>
+
+  <h2 id="good-use">Bien utiliser l’IA</h2>
+  <ul>
+    <li><strong>Pour les notions :</strong> pourquoi on double 11, ce qu’est une main souple, pourquoi l’assurance est une mauvaise mise. Là, les chatbots sont vraiment utiles.</li>
+    <li><strong>Pas pour les décisions précises sans vérifier.</strong> Pour cela, il faut un tableau calculé pour vos règles, comme notre <a href={routes.strategy.fr}>tableau interactif</a>, qui explique aussi chaque case.</li>
+    <li><strong>Jamais pendant une partie en argent réel.</strong> Utiliser une aide extérieure à une table en ligne est contraire aux conditions du casino et, dans de nombreux pays, à la loi.</li>
+    <li><strong>Entraînez-vous jusqu’à ne plus avoir besoin de demander.</strong> Tout l’intérêt de la stratégie de base est qu’elle devienne automatique. Cela demande de la répétition avec correction, pas de la lecture.</li>
+  </ul>
+
+  <h2 id="practice">S’entraîner avec un outil qui n’invente rien</h2>
+  <p>Veintiuno est un entraîneur, pas un chatbot : l’app vous distribue des mains, vous dit tout de suite si votre décision était la bonne et vous explique pourquoi, à partir d’un tableau calculé pour la table que vous choisissez. Vous avez une <a href={routes.simulator.fr}>table d’entraînement gratuite</a> sur ce site, et l’entraîneur complet dans l’app. Pas d’argent réel, pas de mises.</p>
+</Guide>

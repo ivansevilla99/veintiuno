@@ -1,0 +1,89 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { routes } from '../../lib/site';
+import { houseEdge, defaultRules } from '../../lib/strategy';
+
+// Mano principal en una mesa en vivo típica, para comparar con las apuestas laterales.
+const main = houseEdge({ ...defaultRules, decks: 8, holeCard: false, surrender: 'none' });
+const pct = (x: number) => x.toFixed(2).replace('.', ',') + ' %';
+const faq = [
+  { q: '¿Qué ventaja de la casa tiene la apuesta 21+3?', a: 'Con la tabla de pagos que usan hoy casi todas las mesas en vivo (trío del mismo palo 100 a 1, escalera de color 40 a 1, trío 30 a 1, escalera 10 a 1, color 5 a 1) y 8 barajas, la ventaja de la casa es del 3,70 %. La versión antigua, que paga 9 a 1 por cualquier jugada ganadora, tiene un 2,74 % con 8 barajas y un 3,24 % con 6.' },
+  { q: '¿Qué ventaja de la casa tiene Perfect Pairs?', a: 'Con la tabla de pagos habitual (pareja perfecta 25 a 1, pareja de color 12 a 1, pareja mixta 6 a 1), la ventaja de la casa es del 4,10 % con 8 barajas y del 6,11 % con 6. Con menos barajas las parejas salen menos, así que la apuesta empeora.' },
+  { q: '¿Merece la pena jugar las apuestas laterales?', a: 'No. La mano principal jugada con estrategia básica te cuesta alrededor del 0,6 % de cada apuesta en una mesa en vivo típica. La 21+3 cuesta unas seis veces más y Perfect Pairs unas siete. Después del seguro, las apuestas laterales son lo más caro que puedes hacer en una mesa de blackjack.' },
+  { q: '¿Se pueden ganar las apuestas laterales contando cartas?', a: 'En teoría, algunas apuestas laterales pasan a ser favorables con composiciones del zapato muy concretas, pero en las mesas en vivo y online se baraja pronto y las apuestas tienen límite. Para un jugador normal, no.' },
+];
+---
+<Guide
+  lang="es"
+  route="sideBets"
+  title="Apuestas laterales blackjack: 21+3 y Perfect Pairs"
+  h1="Apuestas laterales en blackjack: lo que cuestan de verdad 21+3 y Perfect Pairs"
+  description="Calculamos la ventaja de la casa de 21+3 y Perfect Pairs con 6 y 8 barajas: 3,70 % y 4,10 % en una mesa en vivo típica, frente al 0,6 % de la mano."
+  updated="2026-10-30"
+  readMinutes={6}
+  faq={faq}
+  related={['live', 'insurance', 'dataRules', 'mistakes']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> en una mesa en vivo típica de 8 barajas, la <strong>21+3</strong> tiene una ventaja para la casa del <strong>3,70 %</strong> y <strong>Perfect Pairs</strong>, del <strong>4,10 %</strong>. La mano principal jugada con estrategia básica cuesta alrededor del <strong>{pct(main)}</strong>. Las apuestas laterales pagan mucho cuando salen, pero por cada euro, peso o dólar apostado te cuestan <strong>de seis a siete veces más</strong> que la propia mano.</p></div>
+  </div>
+
+  <h2 id="por-que">Por qué todas las mesas las ofrecen ahora</h2>
+  <p>Entra en cualquier mesa de blackjack en vivo y las apuestas laterales están en primer plano: 21+3, Perfect Pairs, «Hot 3», «Bust It», «Any Pair». Los estudios estrenan nuevas cada temporada. El motivo es sencillo: el juego principal, bien jugado, deja al casino bastante menos del 1 %. Las apuestas laterales le dejan varias veces más, y a los jugadores les encantan los pagos de 25 a 1 o de 100 a 1.</p>
+  <p>La mayoría de webs dan la ventaja de la casa de estas apuestas sin decir de dónde sale. Nosotros la hemos calculado de forma exacta, contando todas las combinaciones de cartas posibles en el zapato.</p>
+
+  <h2 id="21-3">21+3: tus dos cartas más la carta visible del crupier</h2>
+  <p>La 21+3 paga si tus dos primeras cartas y la carta visible del crupier forman una jugada de póquer de tres cartas. En la mayoría de mesas en vivo actuales paga así:</p>
+  <table>
+    <thead><tr><th>Jugada</th><th>Ejemplo</th><th>Paga</th><th>Probabilidad (8 barajas)</th></tr></thead>
+    <tbody>
+      <tr><td>Trío del mismo palo</td><td>7♥ 7♥ 7♥</td><td>100 a 1</td><td>0,02 %</td></tr>
+      <tr><td>Escalera de color</td><td>5♠ 6♠ 7♠</td><td>40 a 1</td><td>0,21 %</td></tr>
+      <tr><td>Trío</td><td>9♣ 9♦ 9♠</td><td>30 a 1</td><td>0,52 %</td></tr>
+      <tr><td>Escalera</td><td>J♦ Q♠ K♥</td><td>10 a 1</td><td>3,10 %</td></tr>
+      <tr><td>Color</td><td>2♥ 8♥ K♥</td><td>5 a 1</td><td>5,88 %</td></tr>
+      <tr><td>Nada</td><td></td><td>pierde</td><td>90,3 %</td></tr>
+    </tbody>
+  </table>
+  <p>Resultado: una ventaja para la casa del <strong>3,70 % con 8 barajas</strong> y del 4,62 % con 6. Algunos casinos físicos mantienen la versión antigua, que paga <strong>9 a 1 por cualquier jugada ganadora</strong>: esa cuesta un 2,74 % con 8 barajas y un 3,24 % con 6. Aun así, de cuatro a cinco veces más que la mano principal.</p>
+  <div class="callout"><p><strong>Por qué la tabla de pagos importa más de lo que parece:</strong> los pagos de 100 a 1 y 40 a 1 son los que llaman la atención, pero entre los dos salen más o menos una vez cada 430 manos. Lo que de verdad decide la ventaja son el humilde color y la escalera, que pagan 5 a 1 y 10 a 1.</p></div>
+
+  <h2 id="perfect-pairs">Perfect Pairs: tus dos primeras cartas</h2>
+  <p>Perfect Pairs (parejas perfectas) paga si tus dos primeras cartas forman pareja:</p>
+  <table>
+    <thead><tr><th>Pareja</th><th>Ejemplo</th><th>Paga</th></tr></thead>
+    <tbody>
+      <tr><td>Pareja perfecta (mismo palo)</td><td>Q♥ Q♥</td><td>25 a 1</td></tr>
+      <tr><td>Pareja de color (mismo color)</td><td>Q♥ Q♦</td><td>12 a 1</td></tr>
+      <tr><td>Pareja mixta</td><td>Q♥ Q♠</td><td>6 a 1</td></tr>
+    </tbody>
+  </table>
+  <p>Ventaja de la casa: <strong>4,10 % con 8 barajas</strong> y <strong>6,11 % con 6 barajas</strong>. Ojo a la trampa: con menos barajas las parejas son más raras (cuando ya tienes una reina, quedan menos reinas), así que la misma tabla de pagos sale mucho peor. Si una mesa ofrece Perfect Pairs con 6 barajas, es de las peores apuestas de todo el casino.</p>
+
+  <h2 id="comparativa">Todas juntas</h2>
+  <table>
+    <thead><tr><th>Apuesta</th><th>Ventaja de la casa</th><th>Pérdida esperada en 100 apuestas de 10</th></tr></thead>
+    <tbody>
+      <tr><td>Mano principal, estrategia básica (8 barajas, reglas en vivo)</td><td>{pct(main)}</td><td>unos {(main * 10).toFixed(0)}</td></tr>
+      <tr><td>21+3 (9 a 1, 8 barajas)</td><td>2,74 %</td><td>unos 27</td></tr>
+      <tr><td>21+3 (100/40/30/10/5, 8 barajas)</td><td>3,70 %</td><td>unos 37</td></tr>
+      <tr><td>Perfect Pairs (8 barajas)</td><td>4,10 %</td><td>unos 41</td></tr>
+      <tr><td>Perfect Pairs (6 barajas)</td><td>6,11 %</td><td>unos 61</td></tr>
+      <tr><td><a href={routes.insurance.es}>Seguro</a> (6–8 barajas)</td><td>en torno al 7 %</td><td>unos 70</td></tr>
+    </tbody>
+  </table>
+  <p>Son promedios sobre muchas manos: en una sesión concreta puede pasar cualquier cosa, y eso es justo lo que hace que las apuestas laterales parezcan mejores de lo que son.</p>
+
+  <h2 id="que-hacer">Qué hacer en su lugar</h2>
+  <ul>
+    <li><strong>Olvídate de las apuestas laterales.</strong> Si quieres más emoción, subir un poco la apuesta principal y jugarla bien te cuesta mucho menos.</li>
+    <li><strong>Aprende la tabla correcta para tu mesa.</strong> Las mesas en vivo suelen jugar con reglas europeas, sin carta oculta, y eso cambia un par de jugadas. Mira <a href={routes.live.es}>blackjack en vivo</a> y la <a href={routes.strategy.es}>tabla de estrategia interactiva</a>.</li>
+    <li><strong>Comprueba el pago del blackjack.</strong> Un pago de 6 a 5 cuesta más que cualquier decisión sobre apuestas laterales que vayas a tomar. Lo explicamos en <a href={routes.payout65.es}>6:5 contra 3:2</a>.</li>
+  </ul>
+
+  <h2 id="metodo">Cómo lo hemos calculado</h2>
+  <p>Hemos contado todas las combinaciones posibles de tres cartas (para la 21+3) y de dos cartas (para Perfect Pairs) de un zapato completo de 6 y de 8 barajas, hemos ponderado cada una por las formas en que puede salir y le hemos aplicado la tabla de pagos. La cifra de la mano principal sale del mismo motor que usa la app Veintiuno y nuestra tabla de <a href={routes.dataRules.es}>ventaja de la casa según las reglas</a>. Las tablas de pagos cambian de un casino o estudio a otro: mira siempre la de tu mesa.</p>
+
+  <h2 id="responsable">Un recordatorio sincero</h2>
+  <p>El blackjack con dinero real es juego de azar, y las apuestas laterales lo hacen más rápido y más caro. Ponte un límite antes de jugar. Si ha dejado de ser divertido, tienes ayuda en <a href={routes.responsible.es}>juego responsable</a>; en España, la línea gratuita de FEJAR es el <strong>900 200 225</strong>. Para practicar sin arriesgar nada, usa la <a href={routes.simulator.es}>mesa de práctica gratis</a>.</p>
+</Guide>

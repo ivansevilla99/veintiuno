@@ -1,0 +1,57 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Did California ban blackjack in card rooms?', a: 'The state tried to. Regulations approved in early 2026 would have forced card room “blackjack-style” games to drop the name, the target of 21 and the bust rule, and would have tightened the rotation of the player-dealer. In May 2026 a San Francisco court blocked them, and on 30 June 2026 the judge ruled that the Bureau of Gambling Control had exceeded its authority.' },
+  { q: 'Can you play blackjack in California card rooms now?', a: 'As of the court’s June 2026 ruling, the regulations could not be enforced, so card rooms kept offering their versions of the game. The Attorney General’s office said it was reviewing its options. Check the latest news before you go, because an appeal could change this.' },
+  { q: 'Is card room blackjack the same as casino blackjack?', a: 'No. In card rooms the house doesn’t bank the game: one player, often a third-party proposition player, acts as player-dealer, and every player pays a fee per hand. Rules and payouts differ from casino blackjack, so the usual basic strategy chart isn’t exactly right.' },
+  { q: 'What is a TPPP?', a: 'A third-party proposition player: a company that provides people to sit in the player-dealer seat and bank the game. The 2026 regulations targeted how often that seat must rotate to other players.' },
+];
+---
+<Guide
+  lang="en"
+  route="california"
+  title="California Card Room Blackjack: 2026 Rules and Court Ruling"
+  h1="California card room blackjack: the 2026 rules and the court ruling"
+  description="California tried to rewrite card room blackjack in 2026: no '21', no busting, ties to the player and stricter player-dealer rotation. A judge blocked it. What happened and what it means for players."
+  updated="2026-10-30"
+  readMinutes={6}
+  faq={faq}
+  related={['bj21', 'howToPlay', 'strategy', 'responsible']}
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>Quick answer:</strong> in 2026 California’s Bureau of Gambling Control approved rules that would have changed card room “blackjack” so much it would no longer be blackjack: no name, no target of 21, no busting, ties going to the player, and the player-dealer seat rotating every 40 minutes. Card rooms sued. In May a San Francisco judge blocked the rules, and on <strong>30 June 2026</strong> ruled the Bureau had <strong>exceeded its authority</strong>. The state said it was reviewing its options.</p></div>
+  </div>
+
+  <h2 id="background">Why California card rooms are different</h2>
+  <p>California’s card rooms can’t run house-banked games like a Nevada casino. Their “blackjack” is a <strong>player-dealer</strong> game: one seat at the table banks the action, and every player pays a fee to play. In practice that seat is often taken by a <strong>third-party proposition player (TPPP)</strong>, a company that supplies the money and the people to bank the game.</p>
+  <p>Tribal casinos, which do have exclusive rights to house-banked games in California, have argued for years that this model is a casino game in disguise. The 2026 regulations were the state’s answer.</p>
+
+  <h2 id="rules">What the 2026 regulations said</h2>
+  <p>Approved in early 2026 and set to take effect on 1 April, with compliance plans due by 31 May, the rules required, among other things:</p>
+  <ul>
+    <li><strong>No “21” and no “blackjack”</strong> in any game name, and a target total that <strong>can’t be 21</strong>.</li>
+    <li><strong>No bust:</strong> wins and losses decided only by whose hand is closer to the target.</li>
+    <li><strong>Ties go to the player</strong> instead of being a push.</li>
+    <li><strong>Player-dealer rotation:</strong> the seat must be offered to every player before every hand, and must rotate to at least two players other than the TPPP every 40 minutes, or the game ends.</li>
+    <li><strong>One TPPP per table</strong>, accepting wagers only while acting as player-dealer.</li>
+  </ul>
+  <p>Without busting and without 21, the game that basic strategy is built for simply disappears: most of a strategy chart is about when to risk going over 21.</p>
+
+  <h2 id="court">The court ruling</h2>
+  <p>Card rooms challenged the rules in San Francisco Superior Court. In May 2026 the court issued a preliminary injunction blocking enforcement, and on 30 June 2026 Judge Richard Darwin affirmed it, finding that the Bureau had acted in excess of the authority the legislature gave it under the Gambling Control Act.</p>
+  <p>The Attorney General’s office, which represents the Bureau, said it was disappointed and reviewing its options. As of our last check, we haven’t found confirmation of an appeal or a final judgment, so treat the situation as open.</p>
+
+  <h2 id="players">What it means if you play</h2>
+  <ul>
+    <li><strong>Card room blackjack isn’t casino blackjack.</strong> The fee per hand and the player-dealer structure change the economics, and house rules vary by room. Read the posted rules.</li>
+    <li><strong>Basic strategy is a good starting point</strong> where the game keeps 21 and busting, but it was computed for house-banked blackjack. Use our <a href={routes.strategy.en}>interactive chart</a> as a guide, not as gospel, in a card room.</li>
+    <li><strong>The fee counts.</strong> A fixed fee per hand can cost you more than the strategy mistakes you’re trying to avoid, especially at low stakes.</li>
+    <li>If you want the differences between casino blackjack and other games called “21”, see <a href={routes.bj21.en}>blackjack vs 21</a>.</li>
+  </ul>
+
+  <h2 id="honest">An honest reminder</h2>
+  <p>Whatever the rules, playing for money is gambling. Set a limit, and if it stops being fun, call 1-800-GAMBLER or see our <a href={routes.responsible.en}>responsible gambling</a> page. To learn the game without money, try the <a href={routes.simulator.en}>free practice table</a>.</p>
+  <p class="meta">Sources: iGaming Business reports of 11 February 2026 and 30 June 2026; California Department of Justice, Bureau of Gambling Control. This article is information, not legal advice.</p>
+</Guide>
