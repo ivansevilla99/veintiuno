@@ -7,8 +7,10 @@ import type { Lang } from '../lib/site';
 interface Props {
   lang: Lang;
   preset?: keyof typeof presets;
+  /** One-click buttons for the main table types, above the select. */
+  quickSwitch?: boolean;
 }
-const { lang, preset = ({ es: 'spainCasino', en: 'vegasS17', de: 'europeanOnline', fr: 'europeanOnline' } as const)[lang] } = Astro.props;
+const { lang, quickSwitch = false, preset = ({ es: 'spainCasino', en: 'vegasS17', de: 'europeanOnline', fr: 'europeanOnline' } as const)[lang] } = Astro.props;
 const rules = presets[preset];
 const t = chartText[lang];
 const C = ({
@@ -28,10 +30,16 @@ const C = ({
 const presetNames = C.names as Record<string, string>;
 const presetOrder = C.order as readonly string[];
 const L = C.L;
+const quickPresets = ['vegasS17', 'spainCasino', 'europeanOnline'].filter((p) => presetOrder.includes(p));
 const legendOrder = ['H', 'S', 'D', 'Ds', 'P', 'Rh', 'Rs', 'Rp'] as const;
 ---
 <section class="chart-tool" data-lang={lang} data-preset={preset} data-locale={C.locale} data-pct={C.pct} aria-label={C.aria}>
   <div class="chart-controls">
+    {quickSwitch && (
+      <div class="preset-tabs" role="group" aria-label={L.table}>
+        {quickPresets.map((p) => <button type="button" class="preset-tab" data-p={p} aria-pressed={p === preset ? 'true' : 'false'}>{presetNames[p]}</button>)}
+      </div>
+    )}
     <label class="ctl ctl-wide">
       <span>{L.table}</span>
       <select name="preset">
@@ -81,6 +89,9 @@ const legendOrder = ['H', 'S', 'D', 'Ds', 'P', 'Rh', 'Rs', 'Rp'] as const;
   .chart-controls { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; display: grid; gap: 12px; }
   .ctl { display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
   .ctl select { font: inherit; font-size: 16px; color: var(--text); background: var(--panel-2); border: 1px solid var(--line-strong); border-radius: 12px; padding: 10px 12px; }
+  .preset-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .preset-tab { font: inherit; font-size: 15px; font-weight: 600; color: var(--text-2); background: var(--panel-2); border: 1px solid var(--line-strong); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+  .preset-tab[aria-pressed='true'] { color: #1b1b1b; background: var(--gold); border-color: var(--gold); }
   .rules-more summary { cursor: pointer; color: var(--gold); font-weight: 600; font-size: 15px; }
   .rules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 16px; margin-top: 14px; }
   .chk { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: var(--text-2); grid-column: span 3; }
@@ -153,12 +164,19 @@ const legendOrder = ['H', 'S', 'D', 'Ds', 'P', 'Rh', 'Rs', 'Rp'] as const;
       field<HTMLInputElement>('holeCard').checked = rules.holeCard;
       field<HTMLInputElement>('doubleAfterSplit').checked = rules.doubleAfterSplit;
     };
+    const tabs = root.querySelectorAll<HTMLButtonElement>('.preset-tab');
+    const syncTabs = () => tabs.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.p === presetSel.value)));
     const render = () => {
+      syncTabs();
       tables.innerHTML = renderChart(rules, lang);
       edge.textContent = `${houseEdge(rules).toLocaleString(root.dataset.locale, { minimumFractionDigits: 2 })}${root.dataset.pct}`;
       why.hidden = true;
     };
 
+    tabs.forEach((b) => b.addEventListener('click', () => {
+      presetSel.value = b.dataset.p!;
+      presetSel.dispatchEvent(new Event('change'));
+    }));
     presetSel.addEventListener('change', () => {
       if (presetSel.value === 'custom') return;
       rules = { ...presets[presetSel.value] };
