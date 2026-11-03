@@ -3,6 +3,24 @@ import Base from '../../layouts/Base.astro';
 import AppCTA from '../../components/AppCTA.astro';
 import { routes } from '../../lib/site';
 
+const groupIntro: Record<string, string> = {
+  'Empezar desde cero': 'Reglas, valor de las cartas y un curso corto para jugar tu primera mano con seguridad.',
+  'Jugar bien': 'La estrategia básica y cada decisión por separado (doblar, dividir, manos blandas, rendirse), más las reglas de las mesas de cada país.',
+  'Avanzado': 'El conteo de cartas explicado con honestidad: cómo funciona, cómo practicarlo y qué dice la ley.',
+  'Datos y probabilidades': 'Tablas exactas calculadas con el motor de Veintiuno, por si quieres ver de dónde salen los números.',
+};
+const faq = [
+  { q: '¿Por dónde empiezo si nunca he jugado al blackjack?', a: 'Por cómo jugar al blackjack y por el curso gratis: reglas, valor de las cartas y pagos, sin tecnicismos. Después, la tabla de estrategia básica y la mesa de práctica gratis.' },
+  { q: '¿Estas guías sirven para ganar dinero?', a: 'No. La estrategia básica reduce la ventaja de la casa al mínimo posible, pero no la elimina. Las guías te enseñan a tomar la decisión correcta y a perder lo menos posible, y te dicen con honestidad qué es humo.' },
+  { q: '¿Hace falta aprender a contar cartas?', a: 'No. El conteo es un módulo avanzado y opcional, y solo tiene sentido cuando ya dominas la estrategia básica. Además, casi nunca funciona en mesas online o en vivo.' },
+  { q: '¿Valen para las reglas de mi país?', a: 'Cada guía indica las reglas que asume (casino en España, Las Vegas, online) y la tabla de estrategia se puede ajustar regla a regla.' },
+];
+const crumbs = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+  { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://veintiunoapp.com/' },
+  { '@type': 'ListItem', position: 2, name: 'Guías de blackjack', item: 'https://veintiunoapp.com/guias/' },
+] };
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+
 const groups = [
   {
     title: 'Empezar desde cero',
@@ -54,15 +72,19 @@ const groups = [
   },
 ] as const;
 ---
-<Base lang="es" route="guides" title="Guías de blackjack: reglas, estrategia y conteo · Veintiuno" description="Todas las guías de Veintiuno para aprender blackjack: reglas, estrategia básica, reglas de los casinos de España y conteo de cartas explicado con honestidad.">
+<Base lang="es" route="guides" title="Guías de blackjack: reglas, estrategia y conteo · Veintiuno" description="Todas las guías de Veintiuno para aprender blackjack: reglas, estrategia básica, reglas de los casinos de España y conteo de cartas explicado con honestidad." schema={[crumbs, faqSchema]}>
   <div class="container">
     <header class="article-head read" style="margin-left:0">
       <h1>Guías de blackjack</h1>
       <p class="lead">Todo lo que necesitas para jugar bien, en orden: de las reglas a la estrategia y, si te apetece, al conteo.</p>
+      <p>Las guías de Veintiuno están ordenadas para recorrerlas de arriba abajo. Si nunca has jugado, empieza por <a href={routes.howToPlay.es}>cómo jugar al blackjack</a> y el <a href={routes.course.es}>curso gratis</a>: las reglas, el valor de las cartas y los pagos, sin tecnicismos. Con eso claro, pasa a «Jugar bien»: la <a href={routes.strategy.es}>tabla de estrategia básica</a> es el centro de todo, y las guías de <a href={routes.whenDouble.es}>cuándo doblar</a>, <a href={routes.whenSplit.es}>cuándo dividir</a>, <a href={routes.softHands.es}>manos blandas</a>, <a href={routes.surrender.es}>cuándo rendirse</a> y <a href={routes.hand16v10.es}>16 contra 10</a> profundizan en las decisiones que más se fallan, con el valor esperado de cada opción.</p>
+      <p>Las guías sobre mesas (<a href={routes.spain.es}>reglas de España</a>, <a href={routes.macau.es}>Macao</a>, <a href={routes.live.es}>blackjack en vivo</a>, <a href={routes.payout65.es}>6:5 frente a 3:2</a>) sirven para ajustar la estrategia a donde vayas a jugar. Si te preguntas si todo esto sirve para ganar dinero, <a href={routes.howToWin.es}>cómo ganar al blackjack</a> responde con honestidad: la estrategia reduce la ventaja de la casa, no la elimina.</p>
+      <p>El grupo «Avanzado» es opcional: <a href={routes.counting.es}>contar cartas</a>, <a href={routes.practiceCounting.es}>cómo practicarlo</a> y <a href={routes.countingLegal.es}>si es ilegal</a>. Conviene no tocarlo hasta dominar la estrategia básica. Por último, «Datos y probabilidades» reúne las tablas calculadas con el motor de Veintiuno. Cada guía termina con enlaces a las siguientes y, si prefieres practicar en el móvil, con la <a href={routes.app.es}>app para iPhone y Mac</a>.</p>
     </header>
     {groups.map((g) => (
       <section>
         <h2>{g.title}</h2>
+        <p class="muted">{groupIntro[g.title]}</p>
         <div class="grid-2">
           {g.items.map(([key, title, text]) => (
             <a class="card" href={routes[key].es}><h3>{title}</h3><p>{text}</p></a>
@@ -70,6 +92,10 @@ const groups = [
         </div>
       </section>
     ))}
+    <section class="faq read" style="margin-left:0">
+      <h2 id="faq">Preguntas frecuentes</h2>
+      {faq.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+    </section>
     <AppCTA lang="es" campaign="guides" />
   </div>
 </Base>

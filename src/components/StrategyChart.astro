@@ -181,6 +181,15 @@ const legendOrder = ['H', 'S', 'D', 'Ds', 'P', 'Rh', 'Rs', 'Rp'] as const;
       }),
     );
 
+    // ?mesa=vegasS17 opens the chart with another table type (links between guides use it).
+    const wanted = new URLSearchParams(location.search).get('mesa');
+    if (wanted && wanted !== root.dataset.preset && presets[wanted] && [...presetSel.options].some((o) => o.value === wanted)) {
+      presetSel.value = wanted;
+      rules = { ...presets[wanted] };
+      syncInputs();
+      render();
+    }
+
     tables.addEventListener('click', (e) => {
       const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('button.cell');
       if (!btn) return;

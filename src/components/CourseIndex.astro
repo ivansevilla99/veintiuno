@@ -17,7 +17,7 @@ const T = ({
       start: 'Start lesson 1', min: 'min', direct: 'Want to jump straight to a question? Try the', chart: 'strategy chart', dbl: 'when to double', spl: 'when to split', h16: '16 vs 10', and: 'and',
       ctaT: 'From the course to the table', ctaX: 'The course teaches you what to do. The Veintiuno app makes you practice it: it deals hands, corrects every decision and reviews your mistakes until it’s automatic.', cur: 'USD' },
   es: { name: 'Curso de blackjack gratis', desc: 'Curso gratuito para aprender a jugar al blackjack: reglas, pagos, estrategia básica (pedir, plantarse, doblar, dividir, rendirse), elegir mesa y conteo de cartas.',
-      title: 'Curso de blackjack gratis: de cero a la estrategia básica', meta: `Curso de blackjack gratis y online: 10 lecciones cortas (${total} minutos en total) con ejercicios, de las reglas y los pagos a la estrategia básica y el conteo de cartas.`,
+      title: `Curso de blackjack gratis: 10 lecciones en ${total} minutos`, meta: 'Curso gratuito para aprender a jugar al blackjack: reglas, pagos, estrategia básica, elegir mesa y conteo de cartas.',
       eyebrow: 'Curso gratis', h1: 'Curso de blackjack', lead: `Diez lecciones cortas para pasar de no saber las reglas a jugar con la estrategia básica. Unos ${total} minutos en total, con un ejercicio al final de cada lección. Sin registro y sin dinero real.`,
       start: 'Empezar la lección 1', min: 'min', direct: '¿Prefieres ir directo a una duda? Tienes la', chart: 'tabla de estrategia', dbl: 'cuándo doblar', spl: 'cuándo dividir', h16: '16 contra 10', and: 'y',
       ctaT: 'Del curso a la mesa', ctaX: 'El curso te enseña qué hacer. La app de Veintiuno te lo hace practicar: te reparte manos, te corrige cada decisión y repasa tus errores hasta que te sale solo.', cur: 'EUR' },
@@ -58,6 +58,7 @@ const schema = [
       ))}
     </ol>
     <p class="muted">{T.direct} <a href={routes.strategy[lang]}>{T.chart}</a>, <a href={routes.whenDouble[lang]}>{T.dbl}</a>, <a href={routes.whenSplit[lang]}>{T.spl}</a> {T.and} <a href={routes.hand16v10[lang]}>{T.h16}</a>.</p>
+    {lang === 'es' && <p class="muted">Si ya has jugado alguna vez, también puedes empezar por <a href={routes.howToPlay.es}>cómo jugar al blackjack</a>, repasar las <a href={routes.softHands.es}>manos blandas</a> o, cuando domines la estrategia básica, <a href={routes.practiceCounting.es}>practicar el conteo de cartas</a>.</p>}
     <AppCTA lang={lang} campaign="course" title={T.ctaT} text={T.ctaX} />
   </div>
 </Base>

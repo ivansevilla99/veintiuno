@@ -1,7 +1,19 @@
 ---
 import Guide from '../../layouts/Guide.astro';
 import AppStoreButton from '../../components/AppStoreButton.astro';
-import { routes } from '../../lib/site';
+import { routes, APP_STORE_URL } from '../../lib/site';
+
+const appSchema = [{
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Veintiuno',
+  operatingSystem: 'iOS, macOS',
+  applicationCategory: 'EducationalApplication',
+  description: 'Entrenador de blackjack para iPhone y Mac: te reparte manos, te corrige cada decisión y te explica por qué. Sin dinero real.',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+  url: APP_STORE_URL,
+  downloadUrl: APP_STORE_URL,
+}];
 
 const faq = [
   { q: '¿Hay alguna app para aprender a jugar al blackjack?', a: 'Sí. Veintiuno es una app para iPhone y Mac pensada para aprender la estrategia básica: te reparte manos, te corrige cada decisión al momento y te explica por qué. No se juega con dinero real.' },
@@ -19,6 +31,7 @@ const faq = [
   updated="2026-09-27"
   readMinutes={5}
   faq={faq}
+  extraSchema={appSchema}
   related={['course', 'strategy', 'practiceCounting', 'howToPlay']}
 >
   <div slot="top">

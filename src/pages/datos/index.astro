@@ -3,24 +3,44 @@ import Base from '../../layouts/Base.astro';
 import AppCTA from '../../components/AppCTA.astro';
 import { routes } from '../../lib/site';
 const items = [
-  [routes.dataBust.es, 'Probabilidad de que el crupier se pase', 'Por carta visible y por total final (17–21), con S17 y H17.'],
-  [routes.dataRules.es, 'Cuánto cuesta cada regla del blackjack', 'El efecto de 6 a 5, H17, barajas, rendición y más en la ventaja de la casa.'],
-  [routes.hand16v10.es, '16 contra 10, en números', 'El valor esperado de pedir, plantarse y rendirse.'],
-  [routes.whenDouble.es, 'Cuándo doblar, con valores esperados', '11 contra as, A-7 contra 6 y el resto de dobladas.'],
-  [routes.whenSplit.es, 'Cuándo dividir, con valores esperados', 'Ochos contra 10, dieces contra 6, nueves contra 7.'],
+  [routes.dataBust.es, 'Probabilidad de que el crupier se pase', 'Por carta visible y por total final (17–21), con S17 y H17. Sirve para entender por qué se juega distinto contra un 6 que contra un 10: el crupier se pasa mucho más a menudo con las cartas bajas.'],
+  [routes.dataRules.es, 'Cuánto cuesta cada regla del blackjack', 'El efecto de 6 a 5, H17, número de barajas, rendición y más en la ventaja de la casa. Es la tabla para comparar dos mesas antes de sentarte en una.'],
+  [routes.hand16v10.es, '16 contra 10, en números', 'El valor esperado de pedir, plantarse y rendirse con la mano que más dudas genera, y las excepciones.'],
+  [routes.whenDouble.es, 'Cuándo doblar, con valores esperados', '11 contra as, A-7 contra 6 y el resto de dobladas, con lo que gana o pierde cada opción de media.'],
+  [routes.whenSplit.es, 'Cuándo dividir, con valores esperados', 'Ochos contra 10, dieces contra 6, nueves contra 7: qué parejas se separan y cuánto vale hacerlo.'],
+];
+const faq = [
+  { q: '¿De dónde salen los números?', a: 'Del mismo motor que usa la app de Veintiuno. No son estimaciones de memoria ni simulaciones aproximadas: el motor recorre todas las cartas posibles y calcula el valor esperado exacto de cada decisión (cálculo expectimax), y se ha validado contra una simulación independiente de millones de manos.' },
+  { q: '¿Con cuántas barajas están calculadas las tablas?', a: 'Con 6 barajas salvo que la propia tabla indique otra cosa. Es una de las configuraciones más habituales, y cada página dice qué reglas asume (S17 o H17, carta oculta, doblar, rendición).' },
+  { q: '¿Qué es el valor esperado?', a: 'Lo que ganarías o perderías de media, por cada unidad apostada, si repitieras esa decisión muchas veces. Un valor de −0,5 significa perder de media media apuesta; cuanto más alto, mejor jugada.' },
+  { q: '¿Estos datos sirven para ganar al blackjack?', a: 'No garantizan ganar. Muestran qué jugada pierde menos en cada situación, pero la casa mantiene ventaja incluso con estrategia perfecta.' },
+];
+const schema = [
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://veintiunoapp.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Datos y probabilidades del blackjack', item: 'https://veintiunoapp.com/datos/' },
+  ] },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
 ];
 ---
-<Base lang="es" route="data" title="Datos y probabilidades del blackjack · Veintiuno" description="Tablas exactas del blackjack calculadas con el motor de Veintiuno: probabilidad de que el crupier se pase, ventaja de la casa según las reglas y valor esperado de las jugadas clave.">
+<Base lang="es" route="data" title="Datos y probabilidades del blackjack · Veintiuno" description="Tablas exactas del blackjack calculadas con el motor de Veintiuno: probabilidad de que el crupier se pase, ventaja de la casa según las reglas y valor esperado de las jugadas clave." schema={schema}>
   <div class="container read">
     <header class="article-head">
       <span class="eyebrow">Datos</span>
       <h1>Datos y probabilidades del blackjack</h1>
       <p class="lead">Tablas calculadas con el mismo motor que usa la app de Veintiuno: cálculo exacto, no simulación, con las reglas y supuestos explicados en cada página.</p>
+      <p>Aquí está lo que hay detrás de las guías: los números reales del blackjack. Sirven para comprobar una jugada («¿de verdad conviene rendirse con 16 contra un 10?»), para comparar reglas («¿cuánto me cuesta una mesa 6 a 5?») o, simplemente, para entender por qué la <a href={routes.strategy.es}>estrategia básica</a> es la que es. Si prefieres ir de lo práctico a lo teórico, empieza por el <a href={routes.course.es}>curso gratis</a> o por la <a href={routes.guides.es}>lista de guías</a>.</p>
     </header>
+    <h2>Los conjuntos de datos</h2>
     <div class="grid-2">
       {items.map(([href, title, text]) => <a class="card" href={href}><h3>{title}</h3><p>{text}</p></a>)}
     </div>
-    <p class="muted small" style="margin-top:24px">Metodología: 6 barajas salvo que se indique; se retiran las cartas visibles y se recorren todas las cartas posibles (expectimax). Validado contra una simulación independiente de millones de manos. Detalles en <a href={routes.about.es}>sobre Veintiuno</a>.</p>
+    <h2 id="metodologia">Metodología</h2>
+    <p>Todas las tablas se calculan con las mismas reglas de partida: <strong>6 barajas</strong> salvo que la tabla indique otra cosa. Al calcular cada situación se <strong>retiran del mazo las cartas visibles</strong> (tu mano y la carta del crupier) y se recorren todas las cartas posibles que pueden salir después, con su probabilidad exacta: es un cálculo <strong>expectimax</strong>, no una estimación. Para asegurarnos de que no hay errores, los resultados se han <strong>validado contra una simulación independiente</strong> de millones de manos. Más detalles sobre quién hay detrás y de dónde salen las tablas en <a href={routes.about.es}>sobre Veintiuno</a>.</p>
+    <section class="faq">
+      <h2 id="faq">Preguntas frecuentes</h2>
+      {faq.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+    </section>
     <AppCTA lang="es" campaign="data" />
   </div>
 </Base>

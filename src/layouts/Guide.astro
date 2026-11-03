@@ -121,7 +121,7 @@ const relatedLabels: Record<string, Partial<Record<Lang, [string, string]>> & { 
         </section>
       )}
 
-      <AppCTA lang={lang} title={cta?.title} text={cta?.text} campaign={route} />
+      <AppCTA lang={lang} title={cta?.title ?? (lang === 'es' && route !== 'app' ? '¿Prefieres practicar en la app?' : undefined)} text={cta?.text} campaign={route} moreHref={lang === 'es' && route !== 'app' ? pathOf('app', 'es') : undefined} moreText={lang === 'es' ? 'Ver cómo funciona la app: entrenador, curso y mapa de calor →' : undefined} />
 
       {related.length > 0 && (
         <section>
