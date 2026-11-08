@@ -1,0 +1,207 @@
+---
+// Betting-system simulator: flat, Martingale, Paroli and D'Alembert on real hands.
+// The engine lives in src/lib/betting.ts; this file is the form, the results table and a sample path.
+interface Props { lang: 'es' | 'en' }
+const { lang } = Astro.props;
+const L = ({
+  es: {
+    locale: 'es-ES', cur: '€', title: 'Simulador de sistemas de apuesta',
+    table: 'Mesa', tables: [['spainCasino', 'Casino en España'], ['vegasS17', 'Las Vegas (S17)'], ['vegasH17', 'Las Vegas (H17)'], ['europeanOnline', 'Europea / online']],
+    bank: 'Tu banca', unit: 'Apuesta base', max: 'Límite de la mesa', hands: 'Manos por sesión', stop: 'Retirarte si ganas', stopHint: '0 = jugar todas las manos',
+    sessions: 'Sesiones simuladas', run: 'Simular', again: 'Simular otra vez', running: 'Simulando…',
+    sys: { flat: 'Apuesta fija', martingale: 'Martingala', paroli: 'Paroli', dalembert: 'D’Alembert' },
+    sysHint: { flat: 'Siempre la misma', martingale: 'Doblas tras perder', paroli: 'Doblas tras ganar (hasta 3)', dalembert: 'Subes 1 unidad tras perder, bajas 1 tras ganar' },
+    cWin: 'Acaban ganando', cRuin: 'Se arruinan', cLimit: 'Chocan con el límite', cMean: 'Resultado medio', cMedian: 'Sesión típica', cWorst: 'Peor 5 %',
+    pathTitle: 'Una sesión de ejemplo, mano a mano', pathAgain: 'Otra sesión', hand: 'Mano', money: 'Dinero',
+    note: 'Cada mano es una mano real con estrategia básica perfecta; solo cambia cuánto apuestas. Simplificaciones: al doblar o dividir en la última mano la banca puede quedar algo por debajo de cero y el límite de la mesa se aplica a la apuesta inicial.',
+  },
+  en: {
+    locale: 'en-US', cur: '$', title: 'Betting system simulator',
+    table: 'Table', tables: [['vegasS17', 'Las Vegas (S17)'], ['vegasH17', 'Las Vegas (H17)'], ['spainCasino', 'Spanish casino'], ['europeanOnline', 'European / online']],
+    bank: 'Your bankroll', unit: 'Base bet', max: 'Table limit', hands: 'Hands per session', stop: 'Walk away when up', stopHint: '0 = play every hand',
+    sessions: 'Simulated sessions', run: 'Simulate', again: 'Simulate again', running: 'Simulating…',
+    sys: { flat: 'Flat bet', martingale: 'Martingale', paroli: 'Paroli', dalembert: 'D’Alembert' },
+    sysHint: { flat: 'Always the same', martingale: 'Double after a loss', paroli: 'Double after a win (up to 3)', dalembert: 'Up 1 unit after a loss, down 1 after a win' },
+    cWin: 'End up ahead', cRuin: 'Go broke', cLimit: 'Hit the table limit', cMean: 'Average result', cMedian: 'Typical session', cWorst: 'Worst 5%',
+    pathTitle: 'One sample session, hand by hand', pathAgain: 'Another session', hand: 'Hand', money: 'Money',
+    note: 'Every hand is a real hand played with perfect basic strategy; only the size of the bet changes. Simplifications: a doubled or split final hand can leave the bankroll slightly below zero, and the table limit applies to the initial bet.',
+  },
+})[lang];
+---
+<section class="bsim card" data-bsim data-lang={lang} data-t={JSON.stringify({ locale: L.locale, cur: L.cur, sys: L.sys, hint: L.sysHint, running: L.running, run: L.run, again: L.again, hand: L.hand, money: L.money })}>
+  <h3>{L.title}</h3>
+  <form class="bs-form" data-form>
+    <label>{L.table}
+      <select name="rules">{L.tables.map(([v, n]) => <option value={v}>{n}</option>)}</select>
+    </label>
+    <label>{L.bank}<input type="number" name="bank" value="1000" min="50" step="50" inputmode="numeric" /></label>
+    <label>{L.unit}<input type="number" name="unit" value="10" min="1" step="1" inputmode="numeric" /></label>
+    <label>{L.max}<input type="number" name="max" value="500" min="10" step="10" inputmode="numeric" /></label>
+    <label>{L.hands}<input type="number" name="hands" value="100" min="10" max="1000" step="10" inputmode="numeric" /></label>
+    <label>{L.stop}<input type="number" name="stop" value="0" min="0" step="10" inputmode="numeric" /><small>{L.stopHint}</small></label>
+    <label>{L.sessions}
+      <select name="sessions"><option>1000</option><option selected>3000</option><option>10000</option></select>
+    </label>
+    <button type="submit" class="btn btn-gold bs-run" data-run>{L.run}</button>
+  </form>
+  <div class="bs-progress" data-progress hidden><span data-bar></span></div>
+
+  <div data-out hidden>
+    <div class="bs-scroll">
+      <table class="bs-table">
+        <thead><tr><th></th><th>{L.cWin}</th><th>{L.cRuin}</th><th>{L.cLimit}</th><th>{L.cMean}</th><th>{L.cMedian}</th><th>{L.cWorst}</th></tr></thead>
+        <tbody data-rows></tbody>
+      </table>
+    </div>
+    <p class="bs-read" data-read></p>
+
+    <h4>{L.pathTitle} <button type="button" class="btn btn-ghost btn-small" data-path-again>{L.pathAgain}</button></h4>
+    <svg class="bs-path" data-path viewBox="0 0 640 260" role="img" aria-label={L.pathTitle}></svg>
+    <ul class="bs-legend" data-legend></ul>
+    <p class="muted small">{L.note}</p>
+  </div>
+</section>
+
+<style is:global>
+  .bsim { margin: 24px 0; }
+  .bs-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; align-items: end; }
+  .bs-form label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--muted); }
+  .bs-form small { font-size: 12px; opacity: 0.8; }
+  .bs-form input, .bs-form select { font: inherit; font-size: 16px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--panel-2); color: var(--text); width: 100%; }
+  .bs-run { align-self: end; }
+  .bs-progress { height: 6px; background: var(--panel-2); border-radius: 99px; margin: 16px 0 0; overflow: hidden; }
+  .bs-progress span { display: block; height: 100%; width: 0; background: var(--gold); transition: width 0.15s linear; }
+  .bs-scroll { overflow-x: auto; margin: 20px 0 8px; }
+  .bs-table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+  .bs-table th, .bs-table td { padding: 10px 10px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
+  .bs-table th:first-child, .bs-table td:first-child { text-align: left; white-space: normal; }
+  .bs-table thead th { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .bs-table td:first-child small { display: block; color: var(--muted); font-size: 12px; font-weight: 400; }
+  .bs-table .neg { color: var(--wrong); } .bs-table .pos { color: var(--correct); }
+  .bs-read { margin: 12px 0 20px; color: var(--text-2); }
+  .bsim h4 { margin: 20px 0 8px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .bs-path { width: 100%; height: auto; background: var(--panel); border-radius: 14px; border: 1px solid var(--line); }
+  .bs-path text { fill: var(--muted); font: 11px var(--font); }
+  .bs-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; list-style: none; padding: 0; margin: 8px 0; font-size: 14px; color: var(--text-2); }
+  .bs-legend i { display: inline-block; width: 18px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+</style>
+
+<script>
+  import { SYSTEMS, runSession, summarize, type Params, type System, type Session, type Summary } from '../lib/betting';
+  import { Shoe } from '../lib/game';
+  import { presets } from '../lib/strategy';
+
+  const COLORS: Record<System, string> = { flat: '#cdd8d2', martingale: '#f2615c', paroli: '#5ec8ee', dalembert: '#edc25c' };
+
+  document.querySelectorAll<HTMLElement>('[data-bsim]').forEach((root) => {
+    const T = JSON.parse(root.dataset.t!);
+    const lang = root.dataset.lang!;
+    const form = root.querySelector<HTMLFormElement>('[data-form]')!;
+    const run = root.querySelector<HTMLButtonElement>('[data-run]')!;
+    const progress = root.querySelector<HTMLElement>('[data-progress]')!;
+    const bar = root.querySelector<HTMLElement>('[data-bar]')!;
+    const out = root.querySelector<HTMLElement>('[data-out]')!;
+    const rows = root.querySelector<HTMLElement>('[data-rows]')!;
+    const read = root.querySelector<HTMLElement>('[data-read]')!;
+    const svg = root.querySelector<SVGSVGElement>('[data-path]')!;
+    const legend = root.querySelector<HTMLElement>('[data-legend]')!;
+    const nf = new Intl.NumberFormat(T.locale, { maximumFractionDigits: 0 });
+    const money = (x: number) => (lang === 'es' ? `${nf.format(Math.round(x))} ${T.cur}` : `${x < 0 ? '−' : ''}${T.cur}${nf.format(Math.abs(Math.round(x)))}`).replace('-', '−');
+    const signed = (x: number) => (x > 0 ? '+' : '') + money(x);
+    const pct = (x: number) => `${new Intl.NumberFormat(T.locale, { maximumFractionDigits: x < 10 && x > 0 ? 1 : 0 }).format(x)}${lang === 'es' ? ' %' : '%'}`;
+
+    const params = (): Params => {
+      const f = new FormData(form);
+      const n = (k: string, d: number, lo: number, hi = 1e9) => Math.min(hi, Math.max(lo, Number(f.get(k)) || d));
+      const unit = n('unit', 10, 1);
+      return {
+        rules: presets[String(f.get('rules'))] ?? presets.vegasS17,
+        bankroll: n('bank', 1000, unit),
+        unit,
+        maxBet: n('max', 500, unit),
+        hands: n('hands', 100, 10, 1000),
+        stopWin: n('stop', 0, 0),
+      };
+    };
+
+    const samplePaths = (p: Params) => {
+      const shoe = new Shoe(p.rules.decks);
+      const paths = SYSTEMS.map((s) => runSession(s, p, shoe, true).path!);
+      const W = 640, H = 260, l = 44, r = 12, t = 12, b = 26;
+      const all = paths.flat();
+      // Round the axis to a tidy step (1, 2, 2.5, 5 × 10ⁿ) so the labels read as round numbers.
+      const raw = (Math.max(p.bankroll, ...all) - Math.min(0, ...all)) / 4 || 1;
+      const mag = 10 ** Math.floor(Math.log10(raw));
+      const step = ([1, 2, 2.5, 5, 10].find((m) => m * mag >= raw) ?? 10) * mag;
+      const lo = Math.floor(Math.min(0, ...all) / step) * step, hi = Math.ceil(Math.max(p.bankroll, ...all) / step) * step;
+      const span = hi - lo || 1;
+      const x = (i: number) => l + (i / Math.max(1, p.hands)) * (W - l - r);
+      const y = (v: number) => t + (1 - (v - lo) / span) * (H - t - b);
+      let g = '';
+      for (let v = lo; v <= hi + step / 2; v += step) {
+        g += `<line x1="${l}" x2="${W - r}" y1="${y(v)}" y2="${y(v)}" stroke="rgba(255,255,255,.08)"/><text x="${l - 6}" y="${y(v) + 4}" text-anchor="end">${nf.format(Math.round(v))}</text>`;
+      }
+      g += `<line x1="${l}" x2="${W - r}" y1="${y(p.bankroll)}" y2="${y(p.bankroll)}" stroke="rgba(255,255,255,.35)" stroke-dasharray="4 4"/>`;
+      g += `<text x="${l}" y="${H - 6}">${T.hand} 0</text><text x="${W - r}" y="${H - 6}" text-anchor="end">${T.hand} ${p.hands}</text>`;
+      paths.forEach((pa, i) => {
+        const d = pa.map((v, j) => `${j ? 'L' : 'M'}${x(j).toFixed(1)} ${y(v).toFixed(1)}`).join('');
+        g += `<path d="${d}" fill="none" stroke="${COLORS[SYSTEMS[i]]}" stroke-width="2" stroke-linejoin="round"/>`;
+      });
+      svg.innerHTML = g;
+    };
+
+    legend.innerHTML = SYSTEMS.map((s) => `<li><i style="background:${COLORS[s]}"></i>${T.sys[s]}</li>`).join('');
+
+    const render = (sums: Summary[]) => {
+      rows.innerHTML = sums.map((s) => `<tr>
+        <td><b>${T.sys[s.system]}</b><small>${T.hint[s.system]}</small></td>
+        <td>${pct(s.profitPct)}</td>
+        <td class="${s.ruinPct > 5 ? 'neg' : ''}">${pct(s.ruinPct)}</td>
+        <td>${pct(s.limitPct)}</td>
+        <td class="${s.mean < 0 ? 'neg' : 'pos'}">${signed(s.mean)}</td>
+        <td class="${s.median < 0 ? 'neg' : 'pos'}">${signed(s.median)}</td>
+        <td class="neg">${money(s.p5)}</td></tr>`).join('');
+      const by = (k: System) => sums.find((s) => s.system === k)!;
+      const m = by('martingale'), f = by('flat');
+      const a = { m: T.sys.martingale, mw: pct(m.profitPct), fw: pct(f.profitPct), mr: pct(m.ruinPct), mm: money(m.mean), fm: money(f.mean) };
+      read.textContent = lang === 'es'
+        ? `Con estos datos, la Martingala termina en positivo en el ${a.mw} de las sesiones (la apuesta fija, en el ${a.fw}), pero el ${a.mr} se queda sin banca. El resultado medio es ${a.mm} frente a ${a.fm} de la apuesta fija: la ventaja de la casa no desaparece, solo se reparte de otra forma.`
+        : `With these settings the Martingale ends ahead in ${a.mw} of sessions (flat betting: ${a.fw}), but ${a.mr} run out of money. The average result is ${a.mm} versus ${a.fm} for flat betting: the house edge doesn’t go away, it just gets distributed differently.`;
+    };
+
+    let last: Params | null = null;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const p = params();
+      last = p;
+      const total = Number(new FormData(form).get('sessions')) || 3000;
+      run.disabled = true;
+      run.textContent = T.running;
+      progress.hidden = false;
+      bar.style.width = '0';
+      const shoe = new Shoe(p.rules.decks);
+      const data: Record<string, Session[]> = Object.fromEntries(SYSTEMS.map((s) => [s, []]));
+      const steps = SYSTEMS.length;
+      const chunk = Math.max(50, Math.floor(40000 / p.hands));
+      let si = 0;
+      const tick = () => {
+        const sys = SYSTEMS[si];
+        const list = data[sys];
+        const end = Math.min(total, list.length + chunk);
+        while (list.length < end) list.push(runSession(sys, p, shoe));
+        bar.style.width = `${((si + list.length / total) / steps) * 100}%`;
+        if (list.length >= total) si++;
+        if (si < steps) { setTimeout(tick, 0); return; }
+        render(SYSTEMS.map((s) => summarize(s, data[s])));
+        samplePaths(p);
+        out.hidden = false;
+        progress.hidden = true;
+        run.disabled = false;
+        run.textContent = T.again;
+      };
+      setTimeout(tick, 0);
+    });
+
+    root.querySelector('[data-path-again]')!.addEventListener('click', () => { if (last) samplePaths(last); });
+  });
+</script>

@@ -37,6 +37,14 @@ export function total(cards: Card[]): { total: number; soft: boolean } {
   return { total: t, soft };
 }
 
+// strategyTable() builds a lookup per call; one per Rules object is enough.
+const tableCache = new WeakMap<Rules, ReturnType<typeof strategyTable>>();
+const tableFor = (rules: Rules) => {
+  let t = tableCache.get(rules);
+  if (!t) { t = strategyTable(rules); tableCache.set(rules, t); }
+  return t;
+};
+
 export const isBlackjack = (cards: Card[]) => cards.length === 2 && total(cards).total === 21;
 
 export interface PlayerHand {
@@ -102,7 +110,7 @@ export class Round {
   /** Correct action under the table's rules (Play.resolve in the app). */
   correct(): Action {
     const avail = this.available();
-    const play = strategyTable(this.rules)(this.key(), this.upcard);
+    const play = tableFor(this.rules)(this.key(), this.upcard);
     const p = primary(play), f = fallback(play);
     if (avail.has(p)) return p;
     if (avail.has(f)) return f;

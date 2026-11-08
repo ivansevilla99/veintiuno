@@ -14,7 +14,7 @@ const faq = [
   route="howToWin"
   title="How to Win at Blackjack: What Works and What Doesn’t"
   h1="How to win at blackjack: the honest answer"
-  description="Can you win at blackjack? What the house edge is, how much basic strategy reduces it, what card counting really offers, and why betting systems like the Martingale don’t work."
+  description="Can you win at blackjack? The house edge, how much basic strategy cuts it, what card counting really offers, and why betting systems like the Martingale fail."
   updated="2026-09-27"
   readMinutes={7}
   faq={faq}
@@ -41,6 +41,7 @@ const faq = [
 
   <h2 id="works">What works: 5 things that cut your losses</h2>
   <ol>
+    <li><strong>Don’t expect a betting system to save you.</strong> The Martingale and its cousins don’t change the house edge: see it in the <a href={routes.bettingSim.en}>betting system simulator</a> and work out what a night costs in the <a href={routes.lossCalc.en}>loss calculator</a>.</li>
     <li><strong>Learn basic strategy.</strong> By far the biggest factor. Use the <a href={routes.strategy.en}>interactive chart</a> for your table’s rules and practice until you don’t hesitate.</li>
     <li><strong>Play only 3:2 tables.</strong> A 6:5 payout costs about 1.4 percentage points — more than all your mistakes combined.</li>
     <li><strong>Skip insurance.</strong> It’s a side bet with roughly a 7% house edge.</li>

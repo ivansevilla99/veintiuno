@@ -1,0 +1,108 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import LossCalc from '../../components/LossCalc.astro';
+import { houseEdge, presets } from '../../lib/strategy';
+import { routes } from '../../lib/site';
+
+// Same model as the calculator: expected loss = edge × bet × hands; spread = 1.15 bets per √hand.
+const phi = (z: number) => {
+  const t = 1 / (1 + 0.2316419 * Math.abs(z));
+  const d = 0.3989423 * Math.exp((-z * z) / 2);
+  const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+  return z > 0 ? 1 - p : p;
+};
+const edgeEs = houseEdge(presets.spainCasino);
+const edgeVegas = houseEdge(presets.vegasS17);
+const edge65 = houseEdge({ ...presets.vegasS17, payout: 'sixToFive' });
+const nf = (x: number, d = 0) => x.toLocaleString('es-ES', { maximumFractionDigits: d });
+const euro = (x: number) => `${nf(x)} €`;
+const loss = (edge: number, bet: number, n: number) => (edge / 100) * bet * n;
+const ahead = (edge: number, n: number) => 100 * phi(-((edge / 100) * Math.sqrt(n)) / 1.15);
+
+const scenarios: [string, number, number, number, number][] = [
+  // label, edge, bet, hands/hour, hours
+  ['Casino en España, estrategia básica', edgeEs, 10, 60, 2],
+  ['Casino en España, jugando «para no pasarme»', edgeEs + 3.6, 10, 60, 2],
+  ['Casino en España, imitando al crupier', edgeEs + 5.1, 10, 60, 2],
+  ['Las Vegas S17, estrategia básica', edgeVegas, 25, 60, 4],
+  ['Mesa 6:5, estrategia básica', edge65, 25, 60, 4],
+  ['Online, estrategia básica, 150 manos/hora', houseEdge(presets.europeanOnline), 5, 150, 3],
+];
+const lengths = [50, 100, 500, 1000, 5000, 10000];
+
+const faq = [
+  { q: '¿Cuánto dinero pierdes de media jugando al blackjack?', a: `Depende de lo que apuestes, de las reglas y de cómo juegues. Con estrategia básica perfecta en un casino de España, la casa gana de media un ${nf(edgeEs, 2)} % de lo apostado: unos ${euro(loss(edgeEs, 10, 120))} en dos horas apostando 10 € por mano. Si juegas «para no pasarte», sube a unos ${euro(loss(edgeEs + 3.6, 10, 120))}.` },
+  { q: '¿Cuántas manos de blackjack se juegan por hora?', a: 'En una mesa llena de casino, unas 60 manos por hora; en una mesa con pocos jugadores, hasta 200; online contra la máquina, más de 200. A más manos por hora, más rápido se cumple la ventaja de la casa.' },
+  { q: '¿Se puede ganar dinero a corto plazo con una ventaja de la casa del 0,6 %?', a: `Sí, por pura suerte. Con estrategia básica y 120 manos, la probabilidad de acabar ganando es de casi la mitad. Pero el azar compensa cada vez menos cuanto más juegas: con 10.000 manos baja a alrededor del ${nf(ahead(edgeEs, 10000))} %.` },
+  { q: '¿Qué es la desviación típica en el blackjack?', a: 'Mide lo que se desvía tu resultado del promedio por pura suerte. En blackjack ronda 1,15 apuestas por mano, y crece con la raíz del número de manos: tras 100 manos, la desviación es de unas 11 apuestas, mucho mayor que la pérdida esperada.' },
+  { q: '¿Sirve esta calculadora si cuento cartas?', a: 'No. Un contador cambia su apuesta según la cuenta y, a veces, tiene ventaja sobre la casa; la calculadora supone apuesta constante y estrategia básica o peor.' },
+];
+---
+<Guide
+  lang="es"
+  route="lossCalc"
+  title="Calculadora de pérdidas en blackjack: cuánto cuesta jugar"
+  h1="Calculadora: cuánto pierdes jugando al blackjack"
+  description="Calcula cuánto pierdes de media en el blackjack según tu apuesta, las reglas de la mesa, las manos por hora y cómo juegas. Incluye la probabilidad de acabar ganando."
+  updated="2026-11-08"
+  readMinutes={6}
+  faq={faq}
+  related={['bettingSim', 'mistakes', 'dataRules', 'payout65']}
+  wide
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> en una mesa con buenas reglas y jugando la estrategia correcta, la casa se queda de media <strong>un 0,4–0,6 % de lo que apuestas</strong>: unos 8 € en dos horas apostando 10 € por mano. Jugando por intuición esa pérdida se multiplica por siete o más. Pon tus números y míralo.</p></div>
+  </div>
+
+  <div slot="wide" style="max-width:920px">
+    <LossCalc lang="es" />
+  </div>
+
+  <h2 id="como">Cómo se calcula</h2>
+  <p>La pérdida esperada es sencilla: <strong>ventaja de la casa × apuesta media × número de manos</strong>. La ventaja de la casa sale de las reglas de la mesa y de cómo juegues:</p>
+  <ul>
+    <li><strong>Estrategia básica perfecta:</strong> entre el 0,3 % y el 0,7 % según las reglas (<a href={routes.dataRules.es}>cuánto cuesta cada regla</a>).</li>
+    <li><strong>Jugar «para no pasarte»</strong> (plantarte con cualquier 12 o más): ≈ 4 %.</li>
+    <li><strong>Imitar al crupier</strong> (pedir hasta 17, sin doblar ni dividir): ≈ 5,5 %.</li>
+    <li><strong>Mesa 6:5:</strong> suma 1,39 puntos a la ventaja de la casa (<a href={routes.payout65.es}>por qué es la peor regla</a>).</li>
+  </ul>
+  <p>Además de la pérdida esperada, la calculadora estima el rango en el que caerá tu resultado el 95 % de las veces y la probabilidad de acabar ganando. Para eso usa la desviación típica del blackjack, de unas 1,15 apuestas por mano. Es una aproximación: sirve para dar un orden de magnitud, no para predecir una noche concreta.</p>
+
+  <h2 id="ejemplos">Ejemplos</h2>
+  <div style="overflow-x:auto">
+  <table class="data-table">
+    <thead><tr><th>Situación</th><th>Ventaja de la casa</th><th>Apuesta · manos</th><th>Pérdida esperada</th><th>Probabilidad de ir ganando</th></tr></thead>
+    <tbody>
+      {scenarios.map(([label, edge, bet, hph, hours]) => <tr>
+        <th scope="row">{label}</th>
+        <td>{nf(edge, 2)} %</td>
+        <td>{euro(bet)} · {nf(hph * hours)}</td>
+        <td class="bad">{euro(loss(edge, bet, hph * hours))}</td>
+        <td>{nf(ahead(edge, hph * hours))} %</td>
+      </tr>)}
+    </tbody>
+  </table>
+  </div>
+  <p>La diferencia entre jugar bien y jugar por intuición, o entre una mesa 3:2 y una 6:5, es de varias veces lo que pierdes. Es la parte de la ecuación que sí depende de ti.</p>
+
+  <h2 id="suerte">La suerte manda a corto plazo, la casa a largo plazo</h2>
+  <p>Con estrategia básica perfecta y pocas manos, el resultado depende casi todo del azar: tras 100 manos, la probabilidad de ir ganando es de casi la mitad. Pero la desviación crece con la raíz del número de manos y la pérdida esperada crece con el número de manos, así que <strong>cuanto más juegas, más seguro es que vayas perdiendo</strong>:</p>
+  <div style="overflow-x:auto">
+  <table class="data-table">
+    <thead><tr><th>Manos jugadas</th><th>Casino en España, estrategia básica</th><th>Mismo casino, «para no pasarme»</th></tr></thead>
+    <tbody>
+      {lengths.map((n) => <tr><th scope="row">{nf(n)}</th><td>{nf(ahead(edgeEs, n))} %</td><td>{nf(ahead(edgeEs + 3.6, n))} %</td></tr>)}
+    </tbody>
+  </table>
+  </div>
+  <p>Esto explica por qué todo el mundo conoce a alguien que «ganó una noche» y por qué la casa no tiene prisa: cada mano que juegas le acerca a su promedio.</p>
+
+  <h2 id="ahorrar">Cómo gastar menos por hora</h2>
+  <ul>
+    <li>Aprende la <a href={routes.strategy.es}>estrategia básica</a> de las reglas de tu mesa. Es lo que más reduce la pérdida.</li>
+    <li>Evita las mesas 6:5 y las que no tienen rendición si hay otra opción.</li>
+    <li>Fíjate en el ritmo: la misma apuesta a 150 manos por hora cuesta más del doble que a 60.</li>
+    <li>Prueba tu forma de jugar sin dinero en la <a href={routes.simulator.es}>mesa de práctica con corrección</a>, o mira qué hacen los sistemas de apuesta en el <a href={routes.bettingSim.es}>simulador de Martingala</a>.</li>
+  </ul>
+  <p>Si el juego te cuesta más de lo que quieres, <a href={routes.responsible.es}>aquí tienes ayuda</a>.</p>
+</Guide>

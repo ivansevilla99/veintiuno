@@ -218,7 +218,7 @@ export const lessonsEn: Lesson[] = [
     title: 'Surrender and choosing the right table',
     h1: 'Lesson 9: surrender and choosing a table',
     metaTitle: 'Blackjack Surrender and How to Pick a Table · Course',
-    description: 'When to surrender in blackjack and how to pick a table with good rules: 3:2 payout, dealer stands on soft 17, double after split, fewer decks. Lesson 9 of the free course.',
+    description: 'When to surrender in blackjack and how to pick a table with good rules: 3:2 payout, S17, double after split, fewer decks. Lesson 9 of the free course.',
     minutes: 4,
     summary: 'Surrender 16 against 9, 10 or ace and 15 against 10, if allowed. And pick 3:2 tables where the dealer stands on soft 17.',
     body: `

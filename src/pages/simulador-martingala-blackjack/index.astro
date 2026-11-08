@@ -1,0 +1,89 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import BettingSim from '../../components/BettingSim.astro';
+import { routes } from '../../lib/site';
+
+const faq = [
+  { q: '¿Funciona la Martingala en el blackjack?', a: 'No. Gana pequeñas cantidades con mucha frecuencia y de vez en cuando pierde todo. En nuestra simulación con 1.000 € de banca, apuestas de 10 € y límite de mesa de 500 €, acaba en positivo en 6 de cada 10 sesiones de 100 manos, pero casi 1 de cada 3 se queda sin banca. El resultado medio sigue siendo negativo, y más que con apuesta fija, porque apuestas mucho más dinero en total.' },
+  { q: '¿Por qué ningún sistema de apuestas vence a la casa?', a: 'Porque cada mano es independiente: lo que ocurrió antes no cambia las cartas que vienen. Lo que pierdes de media es la ventaja de la casa multiplicada por el dinero que apuestas en total. Un sistema solo cambia cuánto apuestas y cómo se reparten los resultados, no el porcentaje.' },
+  { q: '¿Y si me retiro en cuanto gano un poco?', a: 'Te hace ganar muchas más veces, pero no cambia la esperanza matemática. Con la Martingala y retirada al ganar 50 €, 9 de cada 10 sesiones acaban en positivo, y a cambio 1 de cada 16 pierde la banca entera. Ganas poco con mucha frecuencia y pierdes mucho con poca frecuencia: la media sigue siendo negativa.' },
+  { q: '¿Qué sistema de apuestas es mejor?', a: 'El que menos dinero te hace apostar para el mismo tiempo de juego: la apuesta fija y baja. Con estrategia básica perfecta, la ventaja de la casa ronda el 0,4–0,6 %. Lo que más te cuesta es jugar sin estrategia o sentarte en una mesa 6:5.' },
+  { q: '¿Funciona la Martingala en la ruleta?', a: 'Tampoco, por la misma razón. En la ruleta europea de un solo cero la casa tiene un 2,7 % de ventaja en cada apuesta, así que doblar tras perder no cambia el signo del resultado esperado. Y los límites de mesa impiden doblar indefinidamente.' },
+  { q: '¿Los contadores de cartas usan un sistema de apuestas?', a: 'Usan una variación de apuesta, pero ligada a la información de las cartas que han salido (la cuenta), no a si ganaron o perdieron la mano anterior. Eso sí es matemáticamente distinto. Lo explicamos en contar cartas sin mitos.' },
+];
+
+const rows: [string, string, string, string, string, string][] = [
+  ['Apuesta fija', '46 %', '0 %', '≈ −7 €', '−10 €', '≈ 1.000 €'],
+  ['Martingala', '60 %', '32 %', '≈ −24 €', '+355 €', '≈ 3.000 €'],
+  ['Paroli', '46 %', '0 %', '≈ −10 €', '−20 €', '≈ 1.700 €'],
+  ['D’Alembert', '58 %', '28 %', '≈ −30 €', '+210 €', '≈ 5.000 €'],
+];
+---
+<Guide
+  lang="es"
+  route="bettingSim"
+  title="Simulador de Martingala y sistemas de apuesta en blackjack"
+  h1="Simulador de Martingala y otros sistemas de apuesta"
+  description="Prueba la Martingala, el Paroli y el D’Alembert en blackjack con manos reales y estrategia básica. Mira cuántas sesiones ganan, cuántas se arruinan y cuánto pierdes de media."
+  updated="2026-11-08"
+  readMinutes={7}
+  faq={faq}
+  related={['howToWin', 'lossCalc', 'mistakes', 'dataRules']}
+  wide
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>En resumen:</strong> ningún sistema de apuestas vence a la casa. La Martingala <strong>gana más veces</strong> (6 de cada 10 sesiones en nuestra simulación) pero <strong>1 de cada 3 acaba sin banca</strong>, y de media pierde más que apostar siempre lo mismo, porque apuestas mucho más dinero en total. Pruébalo tú mismo con tus números.</p></div>
+  </div>
+
+  <div slot="wide" style="max-width:920px">
+    <BettingSim lang="es" />
+  </div>
+
+  <h2 id="que-hace">Qué simula exactamente</h2>
+  <p>Cada «sesión» son varias manos de blackjack seguidas, jugadas con el mismo motor que usa la <a href={routes.simulator.es}>mesa de práctica</a>: baraja de 6 mazos, reglas del casino que elijas y <a href={routes.strategy.es}>estrategia básica perfecta</a> en cada decisión. Lo único que cambia entre los cuatro sistemas es <strong>cuánto apuestas en cada mano</strong>:</p>
+  <ul>
+    <li><strong>Apuesta fija:</strong> siempre la misma cantidad. Es el punto de comparación.</li>
+    <li><strong>Martingala:</strong> doblas la apuesta después de cada pérdida y vuelves a la base al ganar. Cada serie ganadora recupera todo lo perdido y deja una unidad de beneficio.</li>
+    <li><strong>Paroli:</strong> la Martingala al revés: doblas tras ganar, hasta tres victorias seguidas, y vuelves a la base al perder.</li>
+    <li><strong>D’Alembert:</strong> subes una unidad después de perder y la bajas después de ganar. Más suave que la Martingala, pero la apuesta puede crecer mucho en una mala racha.</li>
+  </ul>
+  <p>El simulador repite la sesión miles de veces y te cuenta cuántas acaban en positivo, cuántas se quedan sin dinero para cubrir la apuesta base y cuánto se gana o se pierde de media.</p>
+
+  <h2 id="resultados">Qué sale con los valores por defecto</h2>
+  <p>Estos son los resultados con 1.000 € de banca, apuestas base de 10 €, límite de mesa de 500 €, 100 manos por sesión y las reglas del casino en España. Salen de 40.000 sesiones por sistema; el resultado medio tiene mucho ruido (de una ejecución a otra puede moverse varios euros), así que léelo como orden de magnitud.</p>
+  <div style="overflow-x:auto">
+  <table class="data-table">
+    <thead><tr><th>Sistema</th><th>Acaban ganando</th><th>Se quedan sin banca</th><th>Resultado medio</th><th>Sesión típica</th><th>Dinero apostado</th></tr></thead>
+    <tbody>
+      {rows.map((r) => <tr><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td><td>{r[4]}</td><td>{r[5]}</td></tr>)}
+    </tbody>
+  </table>
+  </div>
+  <p>La Martingala parece el mejor sistema si miras «acaban ganando» (60 %) o la sesión típica (+355 €). Pero esa sesión típica esconde el problema: <strong>un 32 % de las sesiones pierde la banca entera</strong>, y por eso la media es negativa. La Martingala no suprime las pérdidas; las convierte en pocas y enormes.</p>
+
+  <h2 id="por-que">Por qué ningún sistema funciona</h2>
+  <p>El blackjack con estrategia básica perfecta tiene una ventaja de la casa de entre el 0,4 % y el 0,7 % según las reglas (<a href={routes.dataRules.es}>cuánto cuesta cada regla</a>). Eso significa que, <strong>de media, pierdes esa fracción de cada euro que apuestas</strong>. La fórmula es sencilla:</p>
+  <p class="tldr" style="padding:14px 20px"><strong>Pérdida esperada = ventaja de la casa × dinero total apostado</strong></p>
+  <p>Un sistema de apuestas no toca el primer factor, porque las cartas no tienen memoria: que hayas perdido cinco manos seguidas no hace más probable ganar la sexta. Lo único que cambia es el segundo factor y la forma de los resultados:</p>
+  <ul>
+    <li>La Martingala apuesta en total unas <strong>tres veces más dinero</strong> que la apuesta fija durante las mismas 100 manos. Con la misma ventaja de la casa, pierde unas tres veces más de media.</li>
+    <li>Reparte los resultados de una forma que <em>se siente</em> bien: muchas pequeñas victorias y una gran derrota rara. Esa forma es lo que hace que parezca que funciona.</li>
+  </ul>
+
+  <h2 id="limite">El muro: el límite de la mesa y tu banca</h2>
+  <p>La Martingala necesita poder doblar indefinidamente, y no puedes. Con una apuesta base de 10 €, perder seis manos seguidas te deja 630 € por debajo, y la séptima apuesta tendría que ser de 640 €: el límite de 500 € lo impide. Cada vez que empiezas una serie hay un 1,4 % aproximado de que pierdas seis seguidas, y en 100 manos eso ocurre <strong>en 6 de cada 10 sesiones</strong> (la columna «Chocan con el límite» del simulador). A 300 manos, en casi todas.</p>
+  <p>Prueba a subir las manos a 300 en el simulador: la Martingala pasa de ganar en el 60 % de las sesiones a ganar en el 40 %, y más de la mitad acaba en ruina. Cuanto más juegas, más cerca estás de la serie que te borra.</p>
+
+  <h2 id="retirarse">¿Y si me retiro al ir ganando?</h2>
+  <p>Es el consejo clásico y tiene un efecto real, pero no el que parece. Pon «Retirarte si ganas» en 50 € y simula: con la Martingala, <strong>9 de cada 10 sesiones acaban en positivo</strong>. A cambio, alrededor de 1 de cada 16 pierde la banca entera. Ganas 50 € con mucha frecuencia y pierdes 1.000 € con poca, y la media sigue por debajo de cero.</p>
+  <p>Retirarte pronto reduce el dinero que apuestas en total y por eso baja la pérdida media, pero ocurre igual con apuesta fija y es la lección de siempre: <strong>jugar menos manos pierde menos dinero</strong>, no jugar «de otra manera».</p>
+
+  <h2 id="que-si">Entonces, ¿qué sí reduce lo que pierdes?</h2>
+  <ul>
+    <li><strong>Jugar la estrategia correcta en cada mano.</strong> Jugar «para no pasarse» o imitando al crupier multiplica la ventaja de la casa por diez o más (<a href={routes.mistakes.es}>los errores más comunes</a>).</li>
+    <li><strong>Evitar las mesas 6:5.</strong> Suben la ventaja de la casa en 1,39 puntos (<a href={routes.payout65.es}>blackjack 6:5 frente a 3:2</a>).</li>
+    <li><strong>Saber lo que cuesta una hora de juego.</strong> Usa la <a href={routes.lossCalc.es}>calculadora de pérdidas</a> con tu apuesta y tu ritmo.</li>
+    <li><strong>Poner un límite de tiempo y de dinero antes de sentarte</strong>, y respetarlo. Si el juego deja de ser divertido, tienes ayuda en <a href={routes.responsible.es}>juego responsable</a>.</li>
+  </ul>
+  <p>Veintiuno no es un casino ni un sitio para apostar: es un entrenador. Si quieres aprender a jugar cada mano bien, empieza por el <a href={routes.course.es}>curso gratis</a> o la <a href={routes.simulator.es}>mesa de práctica</a>.</p>
+</Guide>

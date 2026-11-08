@@ -1,0 +1,89 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import BettingSim from '../../../components/BettingSim.astro';
+import { routes } from '../../../lib/site';
+
+const faq = [
+  { q: 'Does the Martingale system work in blackjack?', a: 'No. It wins small amounts very often and, now and then, loses everything. In our simulation with a $1,000 bankroll, $10 bets and a $500 table limit, it ends ahead in about 6 of every 10 sessions of 100 hands, but about 1 in 3 goes broke. The average result is still negative, and worse than flat betting, because you wager far more money in total.' },
+  { q: 'Why can’t any betting system beat the house?', a: 'Because every hand is independent: what happened before doesn’t change the cards that come next. What you lose on average is the house edge times the total money you wager. A betting system changes how much you wager and how the results are distributed, not the percentage.' },
+  { q: 'What if I leave as soon as I’m a little ahead?', a: 'It makes you win far more often but doesn’t change the math. With the Martingale and a walk-away at +$50, about 9 in 10 sessions end ahead, and in exchange roughly 1 in 15 loses the entire bankroll. You win a little very often and lose a lot rarely; the average stays negative.' },
+  { q: 'Which betting system is best?', a: 'The one that makes you wager the least money for the same playing time: a small flat bet. With perfect basic strategy the house edge is roughly 0.4–0.6%. What costs you the most is playing without strategy or sitting at a 6:5 table.' },
+  { q: 'Does the Martingale work in roulette?', a: 'It doesn’t, for the same reason. The house edge is 2.7% on a single-zero wheel and 5.26% on a double-zero wheel, so doubling after a loss can’t change the sign of your expected result, and table limits stop you from doubling forever.' },
+  { q: 'Do card counters use a betting system?', a: 'They vary their bet, but according to information about the cards already played (the count), not according to whether they won or lost the last hand. That is mathematically different. We explain it in card counting without the myths.' },
+];
+
+const rows: [string, string, string, string, string, string][] = [
+  ['Flat bet', '47%', '0%', '≈ −$4', '−$5', '≈ $1,000'],
+  ['Martingale', '58%', '34%', '≈ −$22', '+$345', '≈ $3,200'],
+  ['Paroli', '47%', '0%', '≈ −$5', '−$15', '≈ $1,650'],
+  ['D’Alembert', '57%', '31%', '≈ −$19', '+$210', '≈ $5,300'],
+];
+---
+<Guide
+  lang="en"
+  route="bettingSim"
+  title="Martingale Blackjack Simulator: Does Any Betting System Work?"
+  h1="Martingale and Betting System Simulator"
+  description="Test the Martingale, Paroli and D’Alembert in blackjack with real hands and basic strategy. See how many sessions win, how many go broke and what you lose on average."
+  updated="2026-11-08"
+  readMinutes={7}
+  faq={faq}
+  related={['howToWin', 'lossCalc', 'mistakes', 'dataRules']}
+  wide
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>The short version:</strong> no betting system beats the house. The Martingale <strong>wins more often</strong> (6 in 10 sessions in our simulation) but <strong>1 in 3 goes broke</strong>, and on average it loses more than betting the same amount every hand, because you wager much more money in total. Try it with your own numbers.</p></div>
+  </div>
+
+  <div slot="wide" style="max-width:920px">
+    <BettingSim lang="en" />
+  </div>
+
+  <h2 id="what-it-does">What exactly it simulates</h2>
+  <p>Each “session” is a run of blackjack hands played with the same engine as the <a href={routes.simulator.en}>free practice table</a>: a six-deck shoe, the casino rules you pick and <a href={routes.strategy.en}>perfect basic strategy</a> on every decision. The only thing that differs between the four systems is <strong>how much you bet on each hand</strong>:</p>
+  <ul>
+    <li><strong>Flat bet:</strong> always the same amount. This is the baseline.</li>
+    <li><strong>Martingale:</strong> double your bet after every loss and go back to the base bet after a win. Each winning streak recovers everything lost and leaves one unit of profit.</li>
+    <li><strong>Paroli:</strong> the Martingale in reverse: double after a win, up to three wins in a row, and return to the base bet after a loss.</li>
+    <li><strong>D’Alembert:</strong> add one unit after a loss and remove one after a win. Gentler than the Martingale, but the bet can still grow a lot in a bad run.</li>
+  </ul>
+  <p>The simulator repeats the session thousands of times and tells you how many end ahead, how many run out of money to cover the base bet, and what you win or lose on average.</p>
+
+  <h2 id="results">What comes out with the default settings</h2>
+  <p>These results use a $1,000 bankroll, a $10 base bet, a $500 table limit, 100 hands per session and Las Vegas S17 rules. They come from 30,000 sessions per system; the average result is noisy (it can move by several dollars between runs), so read it as an order of magnitude.</p>
+  <div style="overflow-x:auto">
+  <table class="data-table">
+    <thead><tr><th>System</th><th>End ahead</th><th>Go broke</th><th>Average result</th><th>Typical session</th><th>Money wagered</th></tr></thead>
+    <tbody>
+      {rows.map((r) => <tr><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td><td>{r[4]}</td><td>{r[5]}</td></tr>)}
+    </tbody>
+  </table>
+  </div>
+  <p>The Martingale looks like the best system if you only look at “end ahead” (58%) or the typical session (+$345). But that typical session hides the problem: <strong>about a third of sessions lose the whole bankroll</strong>, and that is why the average is negative. The Martingale doesn’t remove losses; it turns them into a few huge ones.</p>
+
+  <h2 id="why">Why no system works</h2>
+  <p>Blackjack with perfect basic strategy has a house edge of between 0.4% and 0.7% depending on the rules (<a href={routes.dataRules.en}>what each rule costs</a>). That means <strong>on average you lose that fraction of every dollar you bet</strong>. The formula is simple:</p>
+  <p class="tldr" style="padding:14px 20px"><strong>Expected loss = house edge × total money wagered</strong></p>
+  <p>A betting system can’t touch the first factor, because cards have no memory: losing five hands in a row doesn’t make the sixth more likely to win. What it changes is the second factor and the shape of the results:</p>
+  <ul>
+    <li>The Martingale wagers roughly <strong>three times more money</strong> in total than flat betting over the same 100 hands. With the same house edge, it loses about three times more on average.</li>
+    <li>It spreads results in a way that <em>feels</em> good: lots of small wins and one rare, huge loss. That shape is what makes it look like it works.</li>
+  </ul>
+
+  <h2 id="limit">The wall: the table limit and your bankroll</h2>
+  <p>The Martingale needs to be able to double forever, and you can’t. With a $10 base bet, losing six hands in a row leaves you $630 down, and the seventh bet would have to be $640: the $500 limit blocks it. Every time you start a streak there is roughly a 1.4% chance of losing six in a row, and over 100 hands that happens in <strong>6 of every 10 sessions</strong> (the “Hit the table limit” column in the simulator). At 300 hands, in almost all of them.</p>
+  <p>Try raising the hands to 300 in the simulator: the Martingale goes from winning 58% of sessions to about 40%, and more than half end broke. The longer you play, the closer you are to the streak that wipes you out.</p>
+
+  <h2 id="walk-away">What if I leave when I’m ahead?</h2>
+  <p>It’s the classic advice and it has a real effect, just not the one it seems. Set “Walk away when up” to $50 and simulate: with the Martingale, <strong>9 in 10 sessions end ahead</strong>. In exchange, roughly 1 in 15 loses the whole bankroll. You win $50 very often and lose $1,000 rarely, and the average is still below zero.</p>
+  <p>Leaving early lowers the total you wager, which is why the average loss shrinks, but the same happens with flat betting. It’s the usual lesson: <strong>playing fewer hands loses less money</strong>, not playing them “differently”.</p>
+
+  <h2 id="what-works">So what does reduce what you lose?</h2>
+  <ul>
+    <li><strong>Playing the right strategy on every hand.</strong> Playing “never bust” or copying the dealer multiplies the house edge by ten or more (<a href={routes.mistakes.en}>the most common mistakes</a>).</li>
+    <li><strong>Avoiding 6:5 tables.</strong> They add 1.39 points to the house edge (<a href={routes.payout65.en}>blackjack 6:5 vs 3:2</a>).</li>
+    <li><strong>Knowing what an hour of play costs.</strong> Use the <a href={routes.lossCalc.en}>loss calculator</a> with your bet and your pace.</li>
+    <li><strong>Setting a time and money limit before you sit down</strong>, and keeping to it. If gambling stops being fun, there is help at <a href={routes.responsible.en}>responsible gambling</a>.</li>
+  </ul>
+  <p>Veintiuno is not a casino or a place to bet: it’s a trainer. If you want to learn to play every hand correctly, start with the <a href={routes.course.en}>free course</a> or the <a href={routes.simulator.en}>practice table</a>.</p>
+</Guide>

@@ -1,0 +1,108 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import LossCalc from '../../../components/LossCalc.astro';
+import { houseEdge, presets } from '../../../lib/strategy';
+import { routes } from '../../../lib/site';
+
+// Same model as the calculator: expected loss = edge × bet × hands; spread = 1.15 bets per √hand.
+const phi = (z: number) => {
+  const t = 1 / (1 + 0.2316419 * Math.abs(z));
+  const d = 0.3989423 * Math.exp((-z * z) / 2);
+  const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+  return z > 0 ? 1 - p : p;
+};
+const edgeVegas = houseEdge(presets.vegasS17);
+const edgeH17 = houseEdge(presets.vegasH17);
+const edge65 = houseEdge({ ...presets.vegasS17, payout: 'sixToFive' });
+const nf = (x: number, d = 0) => x.toLocaleString('en-US', { maximumFractionDigits: d });
+const usd = (x: number) => `$${nf(x)}`;
+const loss = (edge: number, bet: number, n: number) => (edge / 100) * bet * n;
+const ahead = (edge: number, n: number) => 100 * phi(-((edge / 100) * Math.sqrt(n)) / 1.15);
+
+const scenarios: [string, number, number, number, number][] = [
+  // label, edge, bet, hands/hour, hours
+  ['Las Vegas S17, basic strategy', edgeVegas, 10, 60, 2],
+  ['Las Vegas S17, “never bust”', edgeVegas + 3.6, 10, 60, 2],
+  ['Las Vegas S17, copying the dealer', edgeVegas + 5.1, 10, 60, 2],
+  ['Las Vegas H17, basic strategy', edgeH17, 25, 60, 4],
+  ['6:5 table, basic strategy', edge65, 25, 60, 4],
+  ['Online, basic strategy, 150 hands/hour', houseEdge(presets.europeanOnline), 5, 150, 3],
+];
+const lengths = [50, 100, 500, 1000, 5000, 10000];
+
+const faq = [
+  { q: 'How much do you lose on average playing blackjack?', a: `It depends on your bet, the rules and how you play. With perfect basic strategy at a Las Vegas S17 table, the house keeps ${nf(edgeVegas, 2)}% of what you bet on average: about ${usd(loss(edgeVegas, 10, 120))} over two hours at $10 a hand. If you play “never bust”, it rises to about ${usd(loss(edgeVegas + 3.6, 10, 120))}.` },
+  { q: 'How many hands of blackjack are dealt per hour?', a: 'At a full casino table, about 60 an hour; at a table with few players, up to 200; online against the computer, 200 or more. The more hands per hour, the faster the house edge shows up.' },
+  { q: 'Can you win in the short term with a 0.4% house edge?', a: `Yes, by pure luck. With basic strategy and 120 hands your chance of finishing ahead is close to half. But luck matters less and less the more you play: over 10,000 hands it falls to about ${nf(ahead(edgeVegas, 10000))}%.` },
+  { q: 'What is standard deviation in blackjack?', a: 'It measures how far your result drifts from the average by luck alone. In blackjack it is around 1.15 bets per hand, and it grows with the square root of the number of hands: after 100 hands it is about 11.5 bets, much larger than the expected loss.' },
+  { q: 'Does this calculator work if I count cards?', a: 'No. A counter changes the bet with the count and can sometimes have an edge over the house; the calculator assumes a constant bet and basic strategy or worse.' },
+];
+---
+<Guide
+  lang="en"
+  route="lossCalc"
+  title="Blackjack Loss Calculator: What Does Playing Really Cost?"
+  h1="Calculator: How Much Do You Lose Playing Blackjack?"
+  description="Work out how much you lose on average at blackjack based on your bet, the table rules, hands per hour and how you play. Includes the chance of finishing ahead."
+  updated="2026-11-08"
+  readMinutes={6}
+  faq={faq}
+  related={['bettingSim', 'mistakes', 'dataRules', 'payout65']}
+  wide
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>The short version:</strong> at a table with good rules and the right strategy, the house keeps about <strong>0.4–0.6% of what you bet</strong>: roughly $4 over two hours at $10 a hand. Play by gut feel and that loss multiplies by seven or more. Plug in your own numbers and see.</p></div>
+  </div>
+
+  <div slot="wide" style="max-width:920px">
+    <LossCalc lang="en" />
+  </div>
+
+  <h2 id="how">How it’s calculated</h2>
+  <p>The expected loss is simple: <strong>house edge × average bet × number of hands</strong>. The house edge comes from the table rules and how you play:</p>
+  <ul>
+    <li><strong>Perfect basic strategy:</strong> between 0.3% and 0.7% depending on the rules (<a href={routes.dataRules.en}>what each rule costs</a>).</li>
+    <li><strong>Playing “never bust”</strong> (standing on any 12 or more): about 4%.</li>
+    <li><strong>Copying the dealer</strong> (hitting to 17, never doubling or splitting): about 5.5%.</li>
+    <li><strong>A 6:5 table:</strong> adds 1.39 points to the house edge (<a href={routes.payout65.en}>why it’s the worst rule</a>).</li>
+  </ul>
+  <p>Besides the expected loss, the calculator estimates the range your result will fall in 95% of the time and the chance of finishing ahead. For that it uses blackjack’s standard deviation, about 1.15 bets per hand. It’s an approximation: good for an order of magnitude, not for predicting a particular night.</p>
+
+  <h2 id="examples">Examples</h2>
+  <div style="overflow-x:auto">
+  <table class="data-table">
+    <thead><tr><th>Situation</th><th>House edge</th><th>Bet · hands</th><th>Expected loss</th><th>Chance of finishing ahead</th></tr></thead>
+    <tbody>
+      {scenarios.map(([label, edge, bet, hph, hours]) => <tr>
+        <th scope="row">{label}</th>
+        <td>{nf(edge, 2)}%</td>
+        <td>{usd(bet)} · {nf(hph * hours)}</td>
+        <td class="bad">{usd(loss(edge, bet, hph * hours))}</td>
+        <td>{nf(ahead(edge, hph * hours))}%</td>
+      </tr>)}
+    </tbody>
+  </table>
+  </div>
+  <p>The gap between playing well and playing by gut feel, or between a 3:2 table and a 6:5 one, is several times what you lose. That’s the part of the equation that’s up to you.</p>
+
+  <h2 id="luck">Luck rules the short term, the house rules the long term</h2>
+  <p>With perfect basic strategy and few hands, the result is mostly luck: after 100 hands the chance of being ahead is close to half. But the spread grows with the square root of the number of hands while the expected loss grows with the number of hands, so <strong>the more you play, the more certain it is that you’re behind</strong>:</p>
+  <div style="overflow-x:auto">
+  <table class="data-table">
+    <thead><tr><th>Hands played</th><th>Las Vegas S17, basic strategy</th><th>Same table, “never bust”</th></tr></thead>
+    <tbody>
+      {lengths.map((n) => <tr><th scope="row">{nf(n)}</th><td>{nf(ahead(edgeVegas, n))}%</td><td>{nf(ahead(edgeVegas + 3.6, n))}%</td></tr>)}
+    </tbody>
+  </table>
+  </div>
+  <p>That’s why everyone knows someone who “won one night”, and why the casino is in no hurry: every hand you play brings it closer to its average.</p>
+
+  <h2 id="save">How to spend less per hour</h2>
+  <ul>
+    <li>Learn the <a href={routes.strategy.en}>basic strategy</a> for your table’s rules. It’s what cuts the loss the most.</li>
+    <li>Avoid 6:5 tables and ones without surrender when there’s an alternative.</li>
+    <li>Watch the pace: the same bet at 150 hands an hour costs more than twice as much as at 60.</li>
+    <li>Test how you play without money at the <a href={routes.simulator.en}>practice table with corrections</a>, or see what betting systems really do in the <a href={routes.bettingSim.en}>Martingale simulator</a>.</li>
+  </ul>
+  <p>If gambling is costing you more than you want, <a href={routes.responsible.en}>there is help here</a>.</p>
+</Guide>

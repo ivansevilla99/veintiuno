@@ -1,0 +1,121 @@
+---
+// "How much do you lose playing blackjack?" calculator.
+// Expected loss = house edge × amount bet; the spread uses ~1.15 bets of standard deviation per hand.
+import { houseEdge, presets } from '../lib/strategy';
+interface Props { lang: 'es' | 'en' }
+const { lang } = Astro.props;
+
+const vegas65 = { ...presets.vegasS17, payout: 'sixToFive' as const };
+// Edge in percent for each table, with perfect basic strategy.
+const edges = {
+  spainCasino: houseEdge(presets.spainCasino),
+  vegasS17: houseEdge(presets.vegasS17),
+  vegasH17: houseEdge(presets.vegasH17),
+  europeanOnline: houseEdge(presets.europeanOnline),
+  vegas65: houseEdge(vegas65),
+};
+// Extra cost of playing badly, in percentage points (see the common-mistakes guide).
+const extra = { basic: 0, safe: 3.6, mimic: 5.1 };
+
+const L = ({
+  es: {
+    locale: 'es-ES', cur: '€', title: 'Calculadora: cuánto pierdes jugando al blackjack',
+    table: 'Mesa', tables: [['spainCasino', 'Casino en España'], ['vegasS17', 'Las Vegas (S17)'], ['vegasH17', 'Las Vegas (H17)'], ['europeanOnline', 'Europea / online'], ['vegas65', 'Mesa 6:5 (la trampa)']],
+    bet: 'Apuesta media', hands: 'Manos por hora', hours: 'Horas jugadas', level: 'Cómo juegas',
+    levels: [['basic', 'Estrategia básica perfecta'], ['safe', '«Para no pasarme» (me planto con 12+)'], ['mimic', 'Como el crupier (pido hasta 17)']],
+    hint: 'Una mesa llena reparte unas 60 manos por hora; una vacía o online, 150 o más.',
+    lossLabel: 'Pérdida esperada', edgeLabel: 'Ventaja de la casa', perHour: 'por hora', bets: 'manos', aheadLabel: 'Probabilidad de acabar ganando',
+    rangeLabel: 'Resultado probable (95 % de las veces)', to: 'a', note: 'Es un promedio a largo plazo: una sesión concreta puede salir mucho mejor o peor. La dispersión usa una desviación típica de 1,15 apuestas por mano.',
+  },
+  en: {
+    locale: 'en-US', cur: '$', title: 'Calculator: how much do you lose playing blackjack',
+    table: 'Table', tables: [['vegasS17', 'Las Vegas (S17)'], ['vegasH17', 'Las Vegas (H17)'], ['spainCasino', 'Spanish casino'], ['europeanOnline', 'European / online'], ['vegas65', '6:5 table (the trap)']],
+    bet: 'Average bet', hands: 'Hands per hour', hours: 'Hours played', level: 'How you play',
+    levels: [['basic', 'Perfect basic strategy'], ['safe', '“Never bust” (stand on 12+)'], ['mimic', 'Like the dealer (hit to 17)']],
+    hint: 'A full table deals about 60 hands an hour; an empty one or online, 150 or more.',
+    lossLabel: 'Expected loss', edgeLabel: 'House edge', perHour: 'per hour', bets: 'hands', aheadLabel: 'Chance of finishing ahead',
+    rangeLabel: 'Likely result (95% of the time)', to: 'to', note: 'This is a long-run average: any single session can go far better or worse. The spread uses a standard deviation of 1.15 bets per hand.',
+  },
+})[lang];
+const data = { locale: L.locale, cur: L.cur, edges, extra, to: L.to, perHour: L.perHour, bets: L.bets, lang };
+---
+<section class="lcalc card" data-lcalc data-d={JSON.stringify(data)}>
+  <h3>{L.title}</h3>
+  <form class="lc-form" data-form>
+    <label>{L.table}<select name="table">{L.tables.map(([v, n]) => <option value={v}>{n}</option>)}</select></label>
+    <label>{L.level}<select name="level">{L.levels.map(([v, n]) => <option value={v}>{n}</option>)}</select></label>
+    <label>{L.bet}<input type="number" name="bet" value="10" min="1" step="1" inputmode="numeric" /></label>
+    <label>{L.hands}<input type="number" name="hands" value="60" min="10" max="400" step="10" inputmode="numeric" /></label>
+    <label>{L.hours}<input type="number" name="hours" value="2" min="0.5" max="100" step="0.5" inputmode="decimal" /></label>
+  </form>
+  <p class="muted small">{L.hint}</p>
+
+  <div class="lc-out" aria-live="polite">
+    <div class="lc-big"><span>{L.lossLabel}</span><b data-loss>—</b><em data-hour></em></div>
+    <div class="lc-grid">
+      <div><span>{L.edgeLabel}</span><b data-edge>—</b></div>
+      <div><span>{L.aheadLabel}</span><b data-ahead>—</b></div>
+      <div><span>{L.rangeLabel}</span><b data-range>—</b></div>
+    </div>
+    <p class="lc-sentence" data-sentence></p>
+    <p class="muted small">{L.note}</p>
+  </div>
+</section>
+
+<style is:global>
+  .lcalc { margin: 24px 0; }
+  .lc-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .lc-form label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--muted); }
+  .lc-form input, .lc-form select { font: inherit; font-size: 16px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--panel-2); color: var(--text); width: 100%; }
+  .lc-out { margin-top: 20px; }
+  .lc-big { display: flex; flex-direction: column; gap: 2px; padding: 18px 20px; border-radius: 16px; background: linear-gradient(135deg, rgba(242, 97, 92, 0.14), rgba(242, 97, 92, 0.04)); border: 1px solid rgba(242, 97, 92, 0.4); }
+  .lc-big span, .lc-grid span { font-size: 13px; color: var(--muted); }
+  .lc-big b { font: 800 40px/1.1 var(--font-display); color: var(--wrong); font-variant-numeric: tabular-nums; }
+  .lc-big em { font-style: normal; color: var(--text-2); font-size: 15px; }
+  .lc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-top: 12px; }
+  .lc-grid > div { padding: 14px 16px; border-radius: 14px; background: var(--panel-2); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px; }
+  .lc-grid b { font: 700 20px/1.2 var(--font-display); font-variant-numeric: tabular-nums; }
+  .lc-sentence { margin: 16px 0 8px; color: var(--text-2); }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-lcalc]').forEach((root) => {
+    const D = JSON.parse(root.dataset.d!);
+    const form = root.querySelector<HTMLFormElement>('[data-form]')!;
+    const q = (s: string) => root.querySelector<HTMLElement>(s)!;
+    const es = D.lang === 'es';
+    const nf = (d = 0) => new Intl.NumberFormat(D.locale, { maximumFractionDigits: d });
+    const money = (x: number, d = 0) => (es ? `${nf(d).format(x)} ${D.cur}` : `${x < 0 ? '−' : ''}${D.cur}${nf(d).format(Math.abs(x))}`).replace('-', '−');
+    const pct = (x: number, d = 1) => `${nf(d).format(x)}${es ? ' %' : '%'}`;
+    // Standard normal CDF (Abramowitz-Stegun).
+    const phi = (z: number) => {
+      const t = 1 / (1 + 0.2316419 * Math.abs(z));
+      const d = 0.3989423 * Math.exp((-z * z) / 2);
+      const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+      return z > 0 ? 1 - p : p;
+    };
+    const update = () => {
+      const f = new FormData(form);
+      const bet = Math.max(1, Number(f.get('bet')) || 10);
+      const hph = Math.max(10, Number(f.get('hands')) || 60);
+      const hours = Math.max(0.5, Number(f.get('hours')) || 2);
+      const edge = D.edges[String(f.get('table'))] + D.extra[String(f.get('level'))];
+      const n = Math.round(hph * hours);
+      const loss = (edge / 100) * bet * n;
+      const sd = 1.15 * bet * Math.sqrt(n);
+      const ahead = 100 * phi(-loss / sd);
+      q('[data-loss]').textContent = money(loss);
+      q('[data-hour]').textContent = `${money(loss / hours, loss / hours < 10 ? 1 : 0)} ${D.perHour} · ${nf().format(n)} ${D.bets}`;
+      q('[data-edge]').textContent = pct(edge, 2);
+      q('[data-ahead]').textContent = pct(ahead, ahead < 10 ? 1 : 0);
+      const lo = -loss - 1.96 * sd, hi = -loss + 1.96 * sd;
+      q('[data-range]').textContent = `${money(lo)} ${D.to} ${hi >= 0 ? '+' : ''}${money(hi)}`;
+      q('[data-sentence]').textContent = es
+        ? `Apostando ${money(bet)} de media durante ${nf().format(n)} manos, la casa se queda de media con ${money(loss)} (${pct(edge, 2)} de lo apostado). Aun así, hay un ${pct(ahead, ahead < 10 ? 1 : 0)} de probabilidad de salir ganando.`
+        : `Betting ${money(bet)} on average for ${nf().format(n)} hands, the house keeps ${money(loss)} on average (${pct(edge, 2)} of what you bet). Even so, you have a ${pct(ahead, ahead < 10 ? 1 : 0)} chance of finishing ahead.`;
+    };
+    form.addEventListener('input', update);
+    form.addEventListener('submit', (e) => e.preventDefault());
+    update();
+  });
+</script>

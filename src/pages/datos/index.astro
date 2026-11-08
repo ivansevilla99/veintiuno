@@ -23,7 +23,7 @@ const schema = [
   { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
 ];
 ---
-<Base lang="es" route="data" title="Datos y probabilidades del blackjack · Veintiuno" description="Tablas exactas del blackjack calculadas con el motor de Veintiuno: probabilidad de que el crupier se pase, ventaja de la casa según las reglas y valor esperado de las jugadas clave." schema={schema}>
+<Base lang="es" route="data" title="Datos y probabilidades del blackjack · Veintiuno" description="Tablas exactas del blackjack con el motor de Veintiuno: probabilidad de que el crupier se pase, ventaja de la casa según las reglas y valor esperado." schema={schema}>
   <div class="container read">
     <header class="article-head">
       <span class="eyebrow">Datos</span>

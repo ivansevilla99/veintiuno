@@ -62,6 +62,8 @@ export const routes = {
   aiAdvice: { es: '/chatgpt-blackjack-estrategia/', en: '/en/chatgpt-blackjack-strategy/', fr: '/fr/chatgpt-blackjack-strategie/' },
   aiDealers: { es: '/crupier-ia-blackjack/', en: '/en/ai-dealer-blackjack/', fr: '/fr/croupier-ia-blackjack/' },
   sideBets: { es: '/apuestas-laterales-blackjack/', en: '/en/blackjack-side-bets/', fr: '/fr/paris-annexes-blackjack/' },
+  bettingSim: { es: '/simulador-martingala-blackjack/', en: '/en/martingale-blackjack-simulator/' },
+  lossCalc: { es: '/calculadora-perdidas-blackjack/', en: '/en/blackjack-loss-calculator/' },
   california: { en: '/en/california-blackjack-card-rooms/' },
   franceOnline: { fr: '/fr/blackjack-en-ligne-legal-france/' },
 } as const satisfies Record<string, { es?: string; en?: string; de?: string; fr?: string }>;
