@@ -1,0 +1,108 @@
+---
+import Guide from '../../../layouts/Guide.astro';
+import LossCalc from '../../../components/LossCalc.astro';
+import { houseEdge, presets } from '../../../lib/strategy';
+import { routes } from '../../../lib/site';
+
+// 計算機と同じモデル：期待損失 = ハウスエッジ × 賭け金 × ハンド数、ばらつきは√ハンド × 1.15ベット。
+const phi = (z: number) => {
+  const t = 1 / (1 + 0.2316419 * Math.abs(z));
+  const d = 0.3989423 * Math.exp((-z * z) / 2);
+  const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+  return z > 0 ? 1 - p : p;
+};
+const edgeVegas = houseEdge(presets.vegasS17);
+const edgeH17 = houseEdge(presets.vegasH17);
+const edge65 = houseEdge({ ...presets.vegasS17, payout: 'sixToFive' });
+const nf = (x: number, d = 0) => x.toLocaleString('ja-JP', { maximumFractionDigits: d });
+const usd = (x: number) => `$${nf(x)}`;
+const loss = (edge: number, bet: number, n: number) => (edge / 100) * bet * n;
+const ahead = (edge: number, n: number) => 100 * phi(-((edge / 100) * Math.sqrt(n)) / 1.15);
+
+const scenarios: [string, number, number, number, number][] = [
+  // ラベル, エッジ, 賭け金, ハンド/時, 時間
+  ['ラスベガスS17、ベーシックストラテジー', edgeVegas, 10, 60, 2],
+  ['ラスベガスS17、「バーストしたくない」', edgeVegas + 3.6, 10, 60, 2],
+  ['ラスベガスS17、ディーラーの真似', edgeVegas + 5.1, 10, 60, 2],
+  ['ラスベガスH17、ベーシックストラテジー', edgeH17, 25, 60, 4],
+  ['6:5のテーブル、ベーシックストラテジー', edge65, 25, 60, 4],
+  ['オンライン、ベーシックストラテジー、1時間150ハンド', houseEdge(presets.europeanOnline), 5, 150, 3],
+];
+const lengths = [50, 100, 500, 1000, 5000, 10000];
+
+const faq = [
+  { q: 'ブラックジャックでは平均でいくら負けますか？', a: `賭け金、ルール、プレイの仕方によります。ラスベガスS17のテーブルで完璧なベーシックストラテジーを使えば、ハウスは賭けた額の平均${nf(edgeVegas, 2)}%を取ります。1ハンド$10で2時間なら約${usd(loss(edgeVegas, 10, 120))}です。「バーストしたくない」でプレイすると、約${usd(loss(edgeVegas + 3.6, 10, 120))}に上がります。` },
+  { q: 'ブラックジャックは1時間に何ハンド配られますか？', a: '満席のカジノのテーブルで1時間に約60ハンド、プレイヤーの少ないテーブルでは最大200ハンド、コンピューター相手のオンラインでは200ハンド以上です。1時間あたりのハンドが多いほど、ハウスエッジは早く表れます。' },
+  { q: 'ハウスエッジ0.4%でも、短期なら勝てますか？', a: `はい、運しだいで勝てます。ベーシックストラテジーで120ハンドなら、プラスで終わる確率は半分近くあります。ただし、プレイするほど運の影響は小さくなります。10,000ハンドでは約${nf(ahead(edgeVegas, 10000))}%まで下がります。` },
+  { q: 'ブラックジャックの標準偏差とは何ですか？', a: '運だけで結果が平均からどれだけずれるかを表す数字です。ブラックジャックでは1ハンドあたり約1.15ベットで、ハンド数の平方根に比例して大きくなります。100ハンドでは約11.5ベットとなり、期待損失よりずっと大きくなります。' },
+  { q: 'カードカウンティングをする場合もこの計算機は使えますか？', a: '使えません。カウンターはカウントに応じて賭け金を変え、ときにはハウスに対して有利になることもあります。この計算機は一定の賭け金で、ベーシックストラテジーかそれ以下のプレイを前提にしています。' },
+];
+---
+<Guide
+  lang="ja"
+  route="lossCalc"
+  title="ブラックジャック損失計算機：プレイにいくらかかる？"
+  h1="計算機：ブラックジャックでいくら負けるか"
+  description="賭け金、テーブルのルール、1時間のハンド数、プレイの仕方から、ブラックジャックで平均いくら負けるかを計算します。プラスで終わる確率も表示します。"
+  updated="2026-11-08"
+  readMinutes={6}
+  faq={faq}
+  related={['bettingSim', 'mistakes', 'dataRules', 'payout65']}
+  wide
+>
+  <div slot="top">
+    <div class="tldr"><p><strong>まとめ：</strong>ルールが良く、戦略が正しいテーブルなら、ハウスが取るのは賭け金のおよそ<strong>0.4〜0.6%</strong>です。1ハンド$10で2時間なら約$4。勘でプレイすると、その損失は7倍以上になります。自分の数字を入れて確かめてください。</p></div>
+  </div>
+
+  <div slot="wide" style="max-width:920px">
+    <LossCalc lang="ja" />
+  </div>
+
+  <h2 id="how">計算の仕組み</h2>
+  <p>期待損失の計算は単純です。<strong>ハウスエッジ × 平均の賭け金 × ハンド数</strong>。ハウスエッジはテーブルのルールとプレイの仕方で決まります。</p>
+  <ul>
+    <li><strong>完璧なベーシックストラテジー：</strong>ルールによって0.3%から0.7%（<a href={routes.dataRules.ja}>各ルールのコスト</a>）。</li>
+    <li><strong>「バーストしたくない」でプレイ</strong>（12以上はすべてスタンド）：約4%。</li>
+    <li><strong>ディーラーの真似</strong>（17までヒットし、ダブルダウンもスプリットもしない）：約5.5%。</li>
+    <li><strong>6:5のテーブル：</strong>ハウスエッジが1.39ポイント上がります（<a href={routes.payout65.ja}>最悪のルールである理由</a>）。</li>
+  </ul>
+  <p>期待損失に加えて、計算機は結果が95%の確率で収まる範囲と、プラスで終わる確率を推定します。そのためにブラックジャックの標準偏差、1ハンドあたり約1.15ベットを使います。これは近似で、桁を知るには十分ですが、特定の夜の結果を予測するものではありません。</p>
+
+  <h2 id="examples">例</h2>
+  <div style="overflow-x:auto">
+  <table class="data-table">
+    <thead><tr><th>状況</th><th>ハウスエッジ</th><th>賭け金・ハンド数</th><th>期待損失</th><th>プラスで終わる確率</th></tr></thead>
+    <tbody>
+      {scenarios.map(([label, edge, bet, hph, hours]) => <tr>
+        <th scope="row">{label}</th>
+        <td>{nf(edge, 2)}%</td>
+        <td>{usd(bet)}・{nf(hph * hours)}</td>
+        <td class="bad">{usd(loss(edge, bet, hph * hours))}</td>
+        <td>{nf(ahead(edge, hph * hours))}%</td>
+      </tr>)}
+    </tbody>
+  </table>
+  </div>
+  <p>うまくプレイした場合と勘でプレイした場合の差、あるいは3:2のテーブルと6:5のテーブルの差は、失う額の何倍にもなります。そこは自分で決められる部分です。</p>
+
+  <h2 id="luck">短期は運が決め、長期はハウスが決める</h2>
+  <p>完璧なベーシックストラテジーでハンド数が少ないうちは、結果はほとんど運です。100ハンドでは、プラスで終わる確率は半分近くあります。しかしばらつきはハンド数の平方根で増え、期待損失はハンド数に比例して増えるので、<strong>プレイするほど、マイナスになることは確実に近づきます</strong>。</p>
+  <div style="overflow-x:auto">
+  <table class="data-table">
+    <thead><tr><th>プレイしたハンド数</th><th>ラスベガスS17、ベーシックストラテジー</th><th>同じテーブル、「バーストしたくない」</th></tr></thead>
+    <tbody>
+      {lengths.map((n) => <tr><th scope="row">{nf(n)}</th><td>{nf(ahead(edgeVegas, n))}%</td><td>{nf(ahead(edgeVegas + 3.6, n))}%</td></tr>)}
+    </tbody>
+  </table>
+  </div>
+  <p>だから誰もが「一晩勝った」人を知っているのです。そしてカジノが急がないのも同じ理由です。あなたがプレイするハンドは、そのたびに平均へ近づけてくれます。</p>
+
+  <h2 id="save">1時間のコストを減らすには</h2>
+  <ul>
+    <li>テーブルのルールに合った<a href={routes.strategy.ja}>ベーシックストラテジー</a>を覚える。損失を最も減らせます。</li>
+    <li>代わりがあるなら、6:5のテーブルやサレンダーのないテーブルを避ける。</li>
+    <li>ペースに注意する。同じ賭け金でも、1時間150ハンドは60ハンドの2倍以上かかります。</li>
+    <li>お金をかけずに、<a href={routes.simulator.ja}>解説付きの練習テーブル</a>で自分のプレイを確かめる。賭け方のシステムが実際に何をするかは、<a href={routes.bettingSim.ja}>マーチンゲール・シミュレーター</a>で見られます。</li>
+  </ul>
+  <p>ギャンブルに思った以上のお金がかかっているなら、<a href={routes.responsible.ja}>こちらに相談先があります</a>。</p>
+</Guide>

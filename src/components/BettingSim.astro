@@ -1,7 +1,7 @@
 ---
 // Betting-system simulator: flat, Martingale, Paroli and D'Alembert on real hands.
 // The engine lives in src/lib/betting.ts; this file is the form, the results table and a sample path.
-interface Props { lang: 'es' | 'en' }
+interface Props { lang: 'es' | 'en' | 'ja' }
 const { lang } = Astro.props;
 const L = ({
   es: {
@@ -25,6 +25,17 @@ const L = ({
     cWin: 'End up ahead', cRuin: 'Go broke', cLimit: 'Hit the table limit', cMean: 'Average result', cMedian: 'Typical session', cWorst: 'Worst 5%',
     pathTitle: 'One sample session, hand by hand', pathAgain: 'Another session', hand: 'Hand', money: 'Money',
     note: 'Every hand is a real hand played with perfect basic strategy; only the size of the bet changes. Simplifications: a doubled or split final hand can leave the bankroll slightly below zero, and the table limit applies to the initial bet.',
+  },
+  ja: {
+    locale: 'ja-JP', cur: '$', title: '賭け方システム・シミュレーター',
+    table: 'テーブル', tables: [['vegasS17', 'ラスベガス（S17）'], ['vegasH17', 'ラスベガス（H17）'], ['spainCasino', 'スペインのカジノ'], ['europeanOnline', 'ヨーロッパ／オンライン']],
+    bank: '資金', unit: '基本の賭け金', max: 'テーブルリミット', hands: '1セッションのハンド数', stop: '勝ったらやめる額', stopHint: '0 = 全ハンドをプレイ',
+    sessions: 'シミュレーション回数', run: 'シミュレーション', again: 'もう一度', running: '計算中…',
+    sys: { flat: '一定の賭け金', martingale: 'マーチンゲール', paroli: 'パーレー', dalembert: 'ダランベール' },
+    sysHint: { flat: '常に同じ額', martingale: '負けたら倍にする', paroli: '勝ったら倍にする（最大3連続）', dalembert: '負けたら1単位増やし、勝ったら1単位減らす' },
+    cWin: 'プラスで終了', cRuin: '資金が尽きる', cLimit: 'リミットに到達', cMean: '平均の結果', cMedian: '典型的なセッション', cWorst: '下位5%',
+    pathTitle: '1セッションの例（ハンドごと）', pathAgain: '別のセッション', hand: 'ハンド', money: '資金',
+    note: 'どのハンドも完璧なベーシックストラテジーで実際にプレイしたもので、変わるのは賭け金の大きさだけです。単純化している点：最後のダブルダウンやスプリットで資金がわずかにゼロを下回ることがあり、テーブルリミットは最初の賭け金に適用しています。',
   },
 })[lang];
 ---
@@ -164,7 +175,9 @@ const L = ({
       const by = (k: System) => sums.find((s) => s.system === k)!;
       const m = by('martingale'), f = by('flat');
       const a = { m: T.sys.martingale, mw: pct(m.profitPct), fw: pct(f.profitPct), mr: pct(m.ruinPct), mm: money(m.mean), fm: money(f.mean) };
-      read.textContent = lang === 'es'
+      read.textContent = lang === 'ja'
+        ? `この設定では、マーチンゲールは${a.mw}のセッションでプラスで終わります（一定の賭け金：${a.fw}）が、${a.mr}は資金が尽きます。平均の結果は${a.mm}で、一定の賭け金は${a.fm}です。ハウスエッジは消えず、分布が変わるだけです（セッション数が少ないと平均は大きくブレます）。`
+        : lang === 'es'
         ? `Con estos datos, la Martingala termina en positivo en el ${a.mw} de las sesiones (la apuesta fija, en el ${a.fw}), pero el ${a.mr} se queda sin banca. El resultado medio es ${a.mm} frente a ${a.fm} de la apuesta fija: la ventaja de la casa no desaparece, solo se reparte de otra forma.`
         : `With these settings the Martingale ends ahead in ${a.mw} of sessions (flat betting: ${a.fw}), but ${a.mr} run out of money. The average result is ${a.mm} versus ${a.fm} for flat betting: the house edge doesn’t go away, it just gets distributed differently.`;
     };

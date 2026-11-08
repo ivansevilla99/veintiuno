@@ -39,6 +39,8 @@ export const pack: LangPack = {
     mistakes: '/ja/common-mistakes/',
     macau: '/ja/macau-blackjack-rules/',
     live: '/ja/live-blackjack/',
+    bettingSim: '/ja/martingale-blackjack-simulator/',
+    lossCalc: '/ja/blackjack-loss-calculator/',
   },
   ui: {
     htmlLang: 'ja',
@@ -106,6 +108,8 @@ export const pack: LangPack = {
     softHands: ['ソフトハンドのプレイ方法', 'A-2〜A-9：ヒット、スタンド、ダブルダウンの使い分け。'],
     mistakes: ['よくある間違い', 'テーブルでいちばん高くつく間違いと、その避け方。'],
     macau: ['マカオのブラックジャック', 'マカオ・アジアのルールと、戦略がどう変わるか。'],
+    bettingSim: ['マーチンゲール・シミュレーター', '賭け方のシステムを本物のハンドで試し、いくら失うかを確認。'],
+    lossCalc: ['ブラックジャックでいくら負けるか計算', '賭け金・ルール・プレイ速度から、1時間あたりの期待損失を計算。'],
   },
   ev: { names: { vegasS17: 'ラスベガス（S17、サレンダーあり）', vegasH17: 'ラスベガス（H17、サレンダーあり）', spainCasino: 'スペインのカジノ（ホールカードなし）', europeanOnline: 'ヨーロッパ／オンライン', doubleDeck: 'ダブルデック' },
         act: { hit: 'ヒット', stand: 'スタンド', double: 'ダブルダウン', split: 'スプリット', surrender: 'サレンダー' }, table: 'テーブル', vs: '対', cap: '各選択肢の期待値', dec: '.',

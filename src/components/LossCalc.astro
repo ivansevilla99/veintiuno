@@ -2,7 +2,7 @@
 // "How much do you lose playing blackjack?" calculator.
 // Expected loss = house edge × amount bet; the spread uses ~1.15 bets of standard deviation per hand.
 import { houseEdge, presets } from '../lib/strategy';
-interface Props { lang: 'es' | 'en' }
+interface Props { lang: 'es' | 'en' | 'ja' }
 const { lang } = Astro.props;
 
 const vegas65 = { ...presets.vegasS17, payout: 'sixToFive' as const };
@@ -35,6 +35,15 @@ const L = ({
     hint: 'A full table deals about 60 hands an hour; an empty one or online, 150 or more.',
     lossLabel: 'Expected loss', edgeLabel: 'House edge', perHour: 'per hour', bets: 'hands', aheadLabel: 'Chance of finishing ahead',
     rangeLabel: 'Likely result (95% of the time)', to: 'to', note: 'This is a long-run average: any single session can go far better or worse. The spread uses a standard deviation of 1.15 bets per hand.',
+  },
+  ja: {
+    locale: 'ja-JP', cur: '$', title: '計算機：ブラックジャックでいくら負けるか',
+    table: 'テーブル', tables: [['vegasS17', 'ラスベガス（S17）'], ['vegasH17', 'ラスベガス（H17）'], ['spainCasino', 'スペインのカジノ'], ['europeanOnline', 'ヨーロッパ／オンライン'], ['vegas65', '6:5のテーブル（罠）']],
+    bet: '平均の賭け金', hands: '1時間あたりのハンド数', hours: 'プレイ時間（時間）', level: 'プレイの仕方',
+    levels: [['basic', '完璧なベーシックストラテジー'], ['safe', '「バーストしたくない」（12以上でスタンド）'], ['mimic', 'ディーラーと同じ（17までヒット）']],
+    hint: '満席のテーブルは1時間に約60ハンド、空いたテーブルやオンラインでは150ハンド以上です。',
+    lossLabel: '期待損失', edgeLabel: 'ハウスエッジ', perHour: '1時間あたり', bets: 'ハンド', aheadLabel: 'プラスで終わる確率',
+    rangeLabel: '結果の目安（95%の確率で）', to: '〜', note: 'これは長期の平均です。実際の1回のセッションは大きく上下します。ばらつきは1ハンドあたり1.15ベットの標準偏差で計算しています。',
   },
 })[lang];
 const data = { locale: L.locale, cur: L.cur, edges, extra, to: L.to, perHour: L.perHour, bets: L.bets, lang };
@@ -105,12 +114,15 @@ const data = { locale: L.locale, cur: L.cur, edges, extra, to: L.to, perHour: L.
       const sd = 1.15 * bet * Math.sqrt(n);
       const ahead = 100 * phi(-loss / sd);
       q('[data-loss]').textContent = money(loss);
-      q('[data-hour]').textContent = `${money(loss / hours, loss / hours < 10 ? 1 : 0)} ${D.perHour} · ${nf().format(n)} ${D.bets}`;
+      const ph = money(loss / hours, loss / hours < 10 ? 1 : 0);
+      q('[data-hour]').textContent = D.lang === 'ja' ? `${D.perHour} ${ph} · ${nf().format(n)}${D.bets}` : `${ph} ${D.perHour} · ${nf().format(n)} ${D.bets}`;
       q('[data-edge]').textContent = pct(edge, 2);
       q('[data-ahead]').textContent = pct(ahead, ahead < 10 ? 1 : 0);
       const lo = -loss - 1.96 * sd, hi = -loss + 1.96 * sd;
       q('[data-range]').textContent = `${money(lo)} ${D.to} ${hi >= 0 ? '+' : ''}${money(hi)}`;
-      q('[data-sentence]').textContent = es
+      q('[data-sentence]').textContent = D.lang === 'ja'
+        ? `平均${money(bet)}を${nf().format(n)}ハンド賭けると、ハウスは平均で${money(loss)}（賭け金の${pct(edge, 2)}）を受け取ります。それでも、プラスで終わる確率は${pct(ahead, ahead < 10 ? 1 : 0)}あります。`
+        : es
         ? `Apostando ${money(bet)} de media durante ${nf().format(n)} manos, la casa se queda de media con ${money(loss)} (${pct(edge, 2)} de lo apostado). Aun así, hay un ${pct(ahead, ahead < 10 ? 1 : 0)} de probabilidad de salir ganando.`
         : `Betting ${money(bet)} on average for ${nf().format(n)} hands, the house keeps ${money(loss)} on average (${pct(edge, 2)} of what you bet). Even so, you have a ${pct(ahead, ahead < 10 ? 1 : 0)} chance of finishing ahead.`;
     };
