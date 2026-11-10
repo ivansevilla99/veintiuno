@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { routes, ui, APP_ID, campaignURL, pathOf, linkOf, homeOf, htmlLangOf, LANGS, LANG_NAMES, type Lang, type RouteKey } from '../lib/site';
+import { routes, ui, APP_ID, campaignURL, pathOf, linkOf, homeOf, htmlLangOf, LANGS, INDEXED_LANGS, LANG_NAMES, type Lang, type RouteKey } from '../lib/site';
 import { packs } from '../i18n';
 
 interface Props {
@@ -27,8 +27,8 @@ const canonical = new URL(selfPath, site).href;
 // Every language version of this page: from `routes`, or from `alternates` for pages outside it.
 const versions: Partial<Record<Lang, string>> = route ? { ...(routes[route] as Partial<Record<Lang, string>>) } : { ...altMap, [lang]: selfPath };
 // hreflang only makes sense when the page exists in more than one language.
-const alternates = Object.keys(versions).length > 1
-  ? LANGS.filter((l) => versions[l]).map((l) => ({ lang: htmlLangOf(l), href: new URL(versions[l]!, site).href }))
+const alternates = Object.keys(versions).length > 1 && INDEXED_LANGS.includes(lang)
+  ? LANGS.filter((l) => versions[l] && INDEXED_LANGS.includes(l)).map((l) => ({ lang: htmlLangOf(l), href: new URL(versions[l]!, site).href }))
   : [];
 // Language menu: the page's own version where it exists, otherwise that language's home.
 const langLinks = LANGS.filter((l) => l !== lang && pathOf('home', l)).map((l) => ({ lang: l, code: htmlLangOf(l), href: versions[l] ?? homeOf(l) }));
@@ -57,7 +57,7 @@ const orgSchema = {
   <link rel="canonical" href={canonical} />
   {alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
   {alternates.length > 0 && <link rel="alternate" hreflang="x-default" href={alternates.find((a) => a.lang === 'en')?.href} />}
-  {noindex && <meta name="robots" content="noindex" />}
+  {(noindex || !INDEXED_LANGS.includes(lang)) && <meta name="robots" content="noindex, follow" />}
   <meta name="theme-color" content="#062a22" />
   <meta name="color-scheme" content="dark" />
   <link rel="icon" href="/favicon.png" type="image/png" />

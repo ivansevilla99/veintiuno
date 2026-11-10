@@ -2,6 +2,13 @@ import { packs } from '../i18n';
 
 export type Lang = 'es' | 'en' | 'de' | 'fr' | 'ja' | 'pt' | 'it' | 'nl' | 'zh';
 export const LANGS: Lang[] = ['es', 'en', 'de', 'fr', 'pt', 'it', 'nl', 'ja', 'zh'];
+/**
+ * Languages Google is asked to index. The rest stay online for people who switch language, but carry
+ * noindex and are left out of the sitemap and hreflang, so the ~200 pages Google had rejected as thin
+ * stop diluting the ones that rank. To bring a language back: add it here and remove it from the
+ * sitemap filter in astro.config.mjs.
+ */
+export const INDEXED_LANGS: Lang[] = ['es', 'en', 'ja'];
 export const LANG_NAMES: Record<Lang, string> = {
   es: 'Español', en: 'English', de: 'Deutsch', fr: 'Français',
   pt: 'Português', it: 'Italiano', nl: 'Nederlands', ja: '日本語', zh: '繁體中文',

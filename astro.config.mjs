@@ -12,7 +12,8 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/imprimir/') && !/\/(en|de|fr|pt|it|nl|ja|zh-hant)\/print\//.test(page),
+      // Languages outside INDEXED_LANGS (src/lib/site.ts) are noindex, so they stay out of the sitemap.
+      filter: (page) => !page.includes('/imprimir/') && !/\/(de|fr|pt|it|nl|zh-hant)\//.test(page) && !/\/(en|de|fr|pt|it|nl|ja|zh-hant)\/print\//.test(page),
       i18n: { defaultLocale: 'es', locales: { es: 'es', en: 'en', de: 'de', fr: 'fr', pt: 'pt-BR', it: 'it', nl: 'nl', ja: 'ja', 'zh-hant': 'zh-Hant' } },
     }),
   ],
